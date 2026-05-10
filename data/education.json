@@ -1,0 +1,57 @@
+[
+  {
+    "period": "2023.09 — Present",
+    "school": "Seoul National University (SNU)",
+    "location": "Seoul, Republic of Korea",
+    "degree": "Ph.D. in Electrical and Computer Engineering",
+    "advisors": [
+      {
+        "label": "PI (Co-advised)",
+        "name": "Sangwook Nam",
+        "link": "https://scholar.google.com/citations?user=haXHg4oAAAAJ&hl=en"
+      },
+      {
+        "label": "PI (Co-advised)",
+        "name": "Jungsuek Oh",
+        "link": "https://scholar.google.com/citations?user=o-31h1kAAAAJ&hl=en",
+        "note": "Ph.D. @Univ. of Michigan under {{Kamal Sarabandi}}",
+        "note_link": "https://en.wikipedia.org/wiki/Kamal_Sarabandi"
+      }
+    ]
+  },
+  {
+    "period": "2021.09 — 2023.08",
+    "school": "Seoul National University (SNU)",
+    "location": "Seoul, Republic of Korea",
+    "degree": "M.S. in Electrical and Computer Engineering",
+    "advisors": [
+      {
+        "label": "PI",
+        "name": "Sangwook Nam",
+        "link": "https://scholar.google.com/citations?user=haXHg4oAAAAJ&hl=en",
+        "note": "Ph.D. @Univ. of Texas Austin under {{Tatsuo Itoh}}",
+        "note_link": "https://en.wikipedia.org/wiki/Tatsuo_Itoh"
+      }
+    ]
+  },
+  {
+    "period": "2017.03 — 2021.08",
+    "school": "Korea University (KU)",
+    "location": "Seoul, Republic of Korea",
+    "degree": "B.S. in Electrical Engineering",
+    "advisors": [
+      {
+        "label": "Advisor",
+        "name": "Chulwoo Kim",
+        "link": "https://ieeexplore.ieee.org/author/37292328500"
+      }
+    ]
+  },
+  {
+    "period": "2014.03 — 2017.02",
+    "school": "Daejeon Dongsin Science High School (DDSHS)",
+    "location": "Daejeon, Republic of Korea",
+    "degree": "",
+    "advisors": []
+  }
+]

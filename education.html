@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Education — Young-Seok Lee</title>
+  <meta name="description" content="Academic timeline for Young-Seok Lee." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-mount-nav></div>
+
+  <main>
+    <header class="page-header">
+      <h1>Education</h1>
+      <hr class="page-header__rule" />
+    </header>
+
+    <section>
+      <ol class="timeline" id="timeline">
+        <li class="loading">Loading…</li>
+      </ol>
+    </section>
+  </main>
+
+  <div data-mount-footer></div>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const tl = document.getElementById('timeline');
+      const esc = window.Portfolio.escapeHTML;
+
+      const ARROW_SVG = '<svg class="ext-link-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg>';
+
+      // Render text with optional {{name}} → linked anchor using note_link.
+      function renderNote(note, link) {
+        if (!note) return '';
+        const safe = esc(note);
+        if (!link) return safe.replace(/\{\{(.+?)\}\}/g, '$1');
+        return safe.replace(/\{\{(.+?)\}\}/g, (_, name) => {
+          return `<a href="${esc(link)}" target="_blank" rel="noopener">${name}${ARROW_SVG}</a>`;
+        });
+      }
+
+      try {
+        const data = await window.Portfolio.loadJSON('data/education.json');
+        tl.innerHTML = data.map(item => {
+          const advisorRows = (item.advisors || []).map(a => {
+            const nameLink = a.link
+              ? `<a href="${esc(a.link)}" target="_blank" rel="noopener">${esc(a.name)}${ARROW_SVG}</a>`
+              : esc(a.name);
+            const noteHTML = a.note ? ` (${renderNote(a.note, a.note_link)})` : '';
+            return `<div class="timeline-card__advisor"><span class="adv-label">${esc(a.label)}:</span> ${nameLink}${noteHTML}</div>`;
+          }).join('');
+
+          // Italicize majors in degree text
+          const degreeHTML = item.degree
+            ? esc(item.degree).replace(/(Electrical and Computer Engineering|Electrical Engineering)/, '<em>$1</em>')
+            : '';
+
+          const locationHTML = item.location
+            ? `<span class="timeline-card__loc">(${esc(item.location)})</span>`
+            : '';
+
+          return `
+            <li class="timeline-item">
+              <div class="timeline-card">
+                <div class="timeline-card__period">${esc(item.period)}</div>
+                <div class="timeline-card__school">${esc(item.school)} ${locationHTML}</div>
+                ${degreeHTML ? `<div class="timeline-card__degree">${degreeHTML}</div>` : ''}
+                ${advisorRows}
+              </div>
+            </li>
+          `;
+        }).join('');
+      } catch (e) {
+        tl.innerHTML = `<li class="loading">Failed to load education data.</li>`;
+        console.error(e);
+      }
+    });
+  </script>
+</body>
+</html>

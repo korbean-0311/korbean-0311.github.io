@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Young-Seok Lee — ECE Ph.D. Candidate, SNU</title>
+  <meta name="description" content="Young-Seok Lee — Ph.D. candidate in Electrical and Computer Engineering at Seoul National University. RF wireless power transfer, phased arrays, and indoor localization." />
+  <meta property="og:title" content="Young-Seok Lee" />
+  <meta property="og:description" content="ECE Ph.D. Candidate at Seoul National University" />
+  <meta property="og:type" content="website" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-mount-nav></div>
+
+  <main>
+    <section class="hero">
+      <h1>Young-Seok Lee</h1>
+      <p class="hero__subtitle">ECE Ph.D. Candidate at Seoul National University (Seoul, Republic of Korea)</p>
+      <div class="hero__bio">
+        <p>I am a Ph.D. candidate in the Department of Electrical and Computer Engineering (ECE) at Seoul National University, co-advised by <a href="https://scholar.google.com/citations?user=haXHg4oAAAAJ&amp;hl=en" target="_blank" rel="noopener"><em>Prof. Sangwook Nam</em><svg class="ext-link-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></a> and <a href="https://scholar.google.com/citations?user=o-31h1kAAAAJ&amp;hl=en" target="_blank" rel="noopener"><em>Prof. Jungsuek Oh</em><svg class="ext-link-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></a>.</p>
+        <p>I have collaborated with industry partners — including Samsung Electronics on RF Wireless Power Transfer and LIG Nex1 on large-scale phased-array calibration. My broader research interests span RF and electromagnetic systems, with active topics including:</p>
+        <ul>
+          <li>RF beam-forming / Near-field beam-focusing</li>
+          <li>Wireless Power Transfer (WPT)</li>
+          <li>Target detection</li>
+          <li>Indoor localization</li>
+          <li>Space solar power and power transmission</li>
+        </ul>
+      </div>
+      <div class="badge-row" aria-label="Research interests">
+        <span class="badge badge--keyword">Wireless Power Transfer</span>
+        <span class="badge badge--keyword">RF Beam-forming</span>
+        <span class="badge badge--keyword">Near-field Beam-focusing</span>
+        <span class="badge badge--keyword">Target Detection</span>
+        <span class="badge badge--keyword">Indoor Localization</span>
+        <span class="badge badge--keyword">Space Solar Power</span>
+      </div>
+    </section>
+
+    <section aria-labelledby="news-heading">
+      <h2 id="news-heading">Recent News</h2>
+      <ul class="news-list" id="news-list">
+        <li class="loading">Loading…</li>
+      </ul>
+      <button class="show-more-btn" id="news-toggle" type="button" hidden>Show more</button>
+    </section>
+
+    <section aria-labelledby="links-heading">
+      <h2 id="links-heading">External Links</h2>
+      <div class="ext-links">
+        <a href="https://scholar.google.com/citations?user=yCXRScIAAAAJ&amp;hl=ko" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422A12 12 0 0 1 19.5 16.5"/><path d="M12 14L5.84 10.578A12 12 0 0 0 4.5 16.5"/><circle cx="12" cy="17" r="3"/></svg>
+          Google Scholar
+        </a>
+        <a href="https://ieeexplore.ieee.org/author/519065710555122" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+          IEEE Xplore
+        </a>
+        <a href="http://wfl.snu.ac.kr/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5"/><path d="M5 9v11h14V9"/><path d="M10 20v-6h4v6"/></svg>
+          Lab Homepage
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <div data-mount-footer></div>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const list = document.getElementById('news-list');
+      const toggle = document.getElementById('news-toggle');
+      try {
+        const news = await window.Portfolio.loadJSON('data/news.json');
+        list.innerHTML = '';
+        const INITIAL = 5;
+        let expanded = false;
+
+        function render() {
+          const visible = expanded ? news : news.slice(0, INITIAL);
+          list.innerHTML = visible.map(n => {
+            const tagClass = n.tag === '1st Author' ? 'badge--tag' : 'badge--coauthor';
+            const tag = n.tag ? ` <span class="badge ${tagClass}">${window.Portfolio.escapeHTML(n.tag)}</span>` : '';
+            return `
+              <li class="news-item">
+                <span class="news-item__date">${window.Portfolio.escapeHTML(n.date)}</span>
+                <span class="news-item__body">${n.body}${tag}</span>
+              </li>`;
+          }).join('');
+        }
+
+        render();
+        if (news.length > INITIAL) {
+          toggle.hidden = false;
+          toggle.textContent = `Show ${news.length - INITIAL} more`;
+          toggle.addEventListener('click', () => {
+            expanded = !expanded;
+            toggle.textContent = expanded ? 'Show less' : `Show ${news.length - INITIAL} more`;
+            render();
+          });
+        }
+      } catch (e) {
+        list.innerHTML = `<li class="loading">Failed to load news.</li>`;
+        console.error(e);
+      }
+    });
+  </script>
+</body>
+</html>

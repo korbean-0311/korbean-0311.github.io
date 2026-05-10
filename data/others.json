@@ -1,0 +1,55 @@
+{
+  "reviewer": [
+    { "name": "IEEE TPEL", "year": "2025" },
+    { "name": "IEEE AWPL", "year": "2025" }
+  ],
+  "scholarships": [
+    { "name": "Ph.D. Scholarship Recipient", "details": "Samsung Electronics Device Solution (DS), Foundry Division", "date": "Nov. 2025 -" },
+    { "name": "Teaching & Research Support Scholarship", "details": "Seoul National University", "date": "Feb. 2023" },
+    { "name": "Academic Excellence Scholarship", "details": "Seoul National University", "date": "Jan. 2022" }
+  ],
+  "ta": [
+    { "course": "Introduction to Electromagnetism with Practice", "code": "430.202B 003", "institution": "Seoul National University", "term": "Fall 2025" },
+    { "course": "Introduction to Electromagnetism with Practice", "code": "430.202B 002", "institution": "Seoul National University", "term": "Fall 2024" },
+    { "course": "Electromagnetic Wave Engineering", "code": "430.464A 001", "institution": "Seoul National University", "term": "Spring 2023" }
+  ],
+  "coursework": [
+    {
+      "school": "Coursework in Seoul Nat'l University (M.S. - Ph.D)",
+      "courses": [
+        { "name": "Electromagnetic Wave Engineering" },
+        { "name": "RF System Design" },
+        { "name": "Advanced Electromagnetics I" },
+        { "name": "Deep Learning", "note": "NVIDIA DLI Course" },
+        { "name": "Machine Learning & Deep Learning" },
+        { "name": "Digital Signal Processing" },
+        { "name": "Electro-optics" },
+        { "name": "Estimation Theory" }
+      ]
+    },
+    {
+      "school": "Coursework in Korea University (B.S.)",
+      "courses": [
+        { "name": "Probability & Random Process" },
+        { "name": "Electromagnetics" },
+        { "name": "Electromagnetic Field" },
+        { "name": "Analog / Digital Communication Theory" },
+        { "name": "Digital Signal Processing" },
+        { "name": "Wireless Networks" }
+      ]
+    }
+  ],
+  "programming": [
+    {
+      "category": "Programming Languages",
+      "items": ["C / Python / MATLAB"]
+    },
+    {
+      "category": "Hardware Tools",
+      "subgroups": [
+        { "label": "EM Simulators", "items": ["Dassault System CST Studio / Ansys HFSS / Keysight ADS / Altair FEKO Suite"] },
+        { "label": "Circuit Tools", "items": ["Cadence OrCAD Capture / Allegro / Virtuoso"] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Publications &amp; Awards — Young-Seok Lee</title>
+  <meta name="description" content="Journal papers, conference proceedings, patents, and awards." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-mount-nav></div>
+
+  <main>
+    <header class="page-header">
+      <h1>Publications &amp; Awards</h1>
+      <hr class="page-header__rule" />
+    </header>
+
+    <div class="tab-bar" role="tablist" aria-label="Publication categories">
+      <button class="tab-btn is-active" role="tab" data-tab="international_journals">Int'l Journals</button>
+      <button class="tab-btn" role="tab" data-tab="international_conferences">Int'l Conferences</button>
+      <button class="tab-btn" role="tab" data-tab="domestic_conferences">Domestic Conferences</button>
+      <button class="tab-btn" role="tab" data-tab="patents">Patents</button>
+      <button class="tab-btn" role="tab" data-tab="awards">Awards</button>
+    </div>
+
+    <section class="tab-content" id="tab-content" aria-live="polite">
+      <p class="loading">Loading…</p>
+    </section>
+  </main>
+
+  <div data-mount-footer></div>
+
+  <script src="js/main.js"></script>
+  <script src="js/publications.js"></script>
+</body>
+</html>

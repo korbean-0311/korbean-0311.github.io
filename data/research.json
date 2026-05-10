@@ -1,0 +1,136 @@
+{
+  "sections": [
+    {
+      "type": "graduate",
+      "title": "Graduate Student",
+      "affiliation": {
+        "labs": [
+          { "name": "AEL", "pi": "Sangwook Nam" },
+          { "name": "WFL", "pi": "Jungsuek Oh" }
+        ],
+        "institution": "Seoul National University",
+        "note": "jointly advised"
+      },
+      "projects": [
+        {
+          "code": "P5",
+          "org": "LIG Nex1",
+          "title": "Calibration Verification and Accuracy Improvement of Ultra-Large-Scale Digital Array Antennas",
+          "period": "2026.04 — 2028.12",
+          "keywords": [
+            "Space Surveillance Radar",
+            "Ultra-Large-Scale Digital Array Antenna",
+            "Fixed Probe Calibration",
+            "Phase Center Compensation",
+            "Beam Pattern Modeling"
+          ],
+          "summary": [
+            "<u>Developed calibration and verification algorithms for ultra-large-scale digital array antennas (86,400+ elements) used in space surveillance radar,</u> addressing major error sources (probe phase center offset, polarization misalignment, position-dependent element beam patterns, 3D probe position uncertainty, and radome-induced channel distortion).",
+            "Designed an AI-integrated calibration verification simulator enabling independent and combined sensitivity analysis of error sources, providing quantitative performance evaluation and optimal calibration strategies for field-deployed large-aperture phased array systems."
+          ]
+        },
+        {
+          "code": "P4",
+          "org": "Samsung Electronics A-Lab",
+          "title": "Large-Area Wireless Power Transfer System for Power Gateway Application",
+          "period": "2023.09 — 2024.02",
+          "keywords": [
+            "RF-Wireless Power Transfer",
+            "Large Array Calibration",
+            "Beam Collection Efficiency",
+            "Near-Field Focusing",
+            "High-Power Scalable Array"
+          ],
+          "summary": [
+            "Scaled up the LUT-based calibration and LCSPD architecture to a <u>1024-element (32×32) transmitter and 256-element (16×16) receiver array operating at 5.64 GHz for power gateway applications.</u>",
+            "Designed and validated high-power <u>WPT system operation exceeding 100 W transmitted power</u>, demonstrating the scalability of the proposed calibration and series power divider methodology."
+          ]
+        },
+        {
+          "code": "P3",
+          "org": "Samsung Electronics A-Lab",
+          "title": "High-Efficiency BCE 2D Array RF System Based on Time Reversal",
+          "period": "2023.03 — 2023.08",
+          "keywords": [
+            "RF-Wireless Power Transfer",
+            "Array Calibration",
+            "Beam Collection Efficiency",
+            "Near-Field Focusing",
+            "Scalable Array Design"
+          ],
+          "summary": [
+            "Proposed an LUT-based calibration and complexity reduction method for <u>a scalable 256-element transmitter array</u> in RF wireless power transfer systems, enabling accurate beam collection efficiency (BCE) estimation using only a single input connection and a fixed reference antenna.",
+            "Designed a loss compensated series power divider (LCSPD) for scalable RF signal distribution and <u>demonstrated 71.9% BCE at 0.5 m with 6.08 W transmitted and 4.37 W received power at 5.64 GHz</u>, validated through convex-optimized near-field focusing experiments."
+          ]
+        },
+        {
+          "code": "P2",
+          "org": "Samsung DS",
+          "title": "Wireless Power Transfer Using Massive MIMO Microwave with Hybrid Beamforming",
+          "period": "2023.03 — 2023.09",
+          "keywords": [
+            "Feedback based algorithms",
+            "RF-Wireless Power Transfer",
+            "Array antenna",
+            "RF System"
+          ],
+          "summary": [
+            "<u>Received power feedback based RF-WPT optimization algorithm.</u>"
+          ]
+        },
+        {
+          "code": "P1",
+          "org": "Samsung Research (SR)",
+          "title": "Wireless Power Transfer System Design",
+          "period": "2021.08 — 2022.07",
+          "keywords": [
+            "RF-Wireless Power Transfer",
+            "Array antenna",
+            "mmWave antenna",
+            "RF System",
+            "Link-budget"
+          ],
+          "summary": [
+            "Design and fabrication of mmWave large array transmitter antenna (@24 GHz, 32×32)."
+          ]
+        }
+      ]
+    },
+    {
+      "type": "undergraduate",
+      "title": "Undergraduate Student Intern",
+      "groups": [
+        {
+          "lab": "AEL",
+          "advisor": "Sangwook Nam",
+          "institution": "Seoul National University",
+          "period": "2021.01 — 2021.08",
+          "items": [
+            "RADAR system used DC to DC SMPS (36 W) PCB design & artwork",
+            "Trained circuit design tools (OrCAD)"
+          ]
+        },
+        {
+          "lab": "AISL",
+          "advisor": "Chulwoo Kim",
+          "institution": "Korea University",
+          "period": "2020.03 — 2020.06",
+          "items": [
+            "Bachelor's Thesis: \"High-speed 2-Stage Cascode Op-amp Design\"",
+            "Simple VCO, PLL design",
+            "Trained circuit design tools (Cadence Virtuoso)"
+          ]
+        },
+        {
+          "lab": "BASIC Lab.",
+          "advisor": "Hyungmin Lee",
+          "institution": "Korea University",
+          "period": "2019.12 — 2020.02",
+          "items": [
+            "2-Stage amp design & trained circuit design tools (Cadence Virtuoso)"
+          ]
+        }
+      ]
+    }
+  ]
+}

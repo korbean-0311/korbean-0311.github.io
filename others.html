@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Others — Young-Seok Lee</title>
+  <meta name="description" content="Reviewer activities, scholarships, teaching, coursework, and skills." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div data-mount-nav></div>
+
+  <main>
+    <header class="page-header">
+      <h1>Others</h1>
+      <hr class="page-header__rule" />
+    </header>
+
+    <section aria-labelledby="reviewer-heading">
+      <h2 id="reviewer-heading">Reviewer Activities</h2>
+      <ul class="others-list" id="list-reviewer"><li class="loading">Loading…</li></ul>
+    </section>
+
+    <section aria-labelledby="scholarships-heading">
+      <h2 id="scholarships-heading">Scholarships</h2>
+      <ul class="others-list" id="list-scholarships"><li class="loading">Loading…</li></ul>
+    </section>
+
+    <section aria-labelledby="ta-heading">
+      <h2 id="ta-heading">Undergraduate Class TA</h2>
+      <ul class="others-list" id="list-ta"><li class="loading">Loading…</li></ul>
+    </section>
+
+    <section aria-labelledby="course-heading">
+      <h2 id="course-heading">Selected Coursework</h2>
+      <div id="coursework"><p class="loading">Loading…</p></div>
+    </section>
+
+    <section aria-labelledby="prog-heading">
+      <h2 id="prog-heading">Programming Skills</h2>
+      <div id="programming"><p class="loading">Loading…</p></div>
+    </section>
+  </main>
+
+  <div data-mount-footer></div>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const esc = window.Portfolio.escapeHTML;
+      try {
+        const data = await window.Portfolio.loadJSON('data/others.json');
+
+        // Reviewer: <em>name</em>, year.
+        const rev = document.getElementById('list-reviewer');
+        rev.innerHTML = (data.reviewer || []).map(it =>
+          `<li><em>${esc(it.name)}</em>, ${esc(it.year || '')}.</li>`
+        ).join('') || '<li class="loading">No entries yet.</li>';
+
+        // Scholarships: <em>name,</em> details (date)
+        const sch = document.getElementById('list-scholarships');
+        sch.innerHTML = (data.scholarships || []).map(it => {
+          const details = it.details ? ` ${esc(it.details)}` : '';
+          const date = it.date ? ` (${esc(it.date)})` : '';
+          return `<li><em>${esc(it.name)},</em>${details}${date}</li>`;
+        }).join('') || '<li class="loading">No entries yet.</li>';
+
+        // TA: <em>course</em> (code), institution, term
+        const ta = document.getElementById('list-ta');
+        ta.innerHTML = (data.ta || []).map(it => {
+          const code = it.code ? ` (${esc(it.code)})` : '';
+          const inst = it.institution ? `, ${esc(it.institution)}` : '';
+          const term = it.term ? `, ${esc(it.term)}` : '';
+          return `<li><em>${esc(it.course)}</em>${code}${inst}${term}</li>`;
+        }).join('') || '<li class="loading">No entries yet.</li>';
+
+        // Coursework: nested groups
+        const cw = document.getElementById('coursework');
+        cw.innerHTML = (data.coursework || []).map(g => `
+          <div class="coursework-group">
+            <h3 class="coursework-group__title">${esc(g.school)}</h3>
+            <ul class="coursework-list">${(g.courses || []).map(c => {
+              if (typeof c === 'string') return `<li>${esc(c)}</li>`;
+              const note = c.note ? ` <em class="coursework-note">(${esc(c.note)})</em>` : '';
+              return `<li>${esc(c.name)}${note}</li>`;
+            }).join('')}</ul>
+          </div>
+        `).join('');
+
+        // Programming Skills: nested categories with optional subgroups
+        const prog = document.getElementById('programming');
+        prog.innerHTML = (data.programming || []).map(cat => {
+          let inner = '';
+          if (cat.subgroups && cat.subgroups.length) {
+            inner = `<ul class="prog-list">${cat.subgroups.map(sg => `
+              <li><strong>${esc(sg.label)}</strong>
+                <ul class="prog-list prog-list--inner">${(sg.items || []).map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+              </li>`).join('')}</ul>`;
+          } else if (cat.items && cat.items.length) {
+            inner = `<ul class="prog-list">${cat.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
+          }
+          return `<div class="prog-group">
+            <h3 class="prog-group__title">${esc(cat.category)}</h3>
+            ${inner}
+          </div>`;
+        }).join('');
+      } catch (e) {
+        console.error(e);
+      }
+    });
+  </script>
+</body>
+</html>

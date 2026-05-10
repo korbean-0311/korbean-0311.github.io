@@ -1,0 +1,346 @@
+{
+  "international_journals": {
+    "under_review": [
+      {
+        "number": 4,
+        "authors": "Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*",
+        "title": "An End-to-End DC-to-DC Efficiency Optimization and Design Analysis for MIMO Wireless Power Transfer Systems",
+        "venue": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
+        "highlight_author": "Y.-S. Lee",
+        "tags": ["1st Author"],
+        "doi": "",
+        "bibtex": ""
+      },
+      {
+        "number": 3,
+        "authors": "Y.-S. Lee, T. Yoon, M. Kim, S. Lee, J. Oh, and S. Nam*",
+        "title": "Accurate Extraction of Pilot Magnitude and Phase for Excitation Control in CW Time Reversal Wireless Power Transfer",
+        "venue": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
+        "highlight_author": "Y.-S. Lee",
+        "tags": ["1st Author"],
+        "doi": "",
+        "bibtex": ""
+      },
+      {
+        "number": 2,
+        "authors": "T. Yoon, Y.-S. Lee, U. Park, M. Kim, S. Lee, S. Nam, and J. Oh*",
+        "title": "Hardware-Aware MILP for Optimal End-to-End Efficiency in MISO WPT: Joint Optimization of Power Modes and Fault Tolerance",
+        "venue": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
+        "highlight_author": "Y.-S. Lee",
+        "tags": [],
+        "doi": "",
+        "bibtex": ""
+      },
+      {
+        "number": 1,
+        "authors": "T. Yoon, Y.-S. Lee, M. Kim, S. Lee, J. Lee, S. Nam, and J. Oh*",
+        "title": "Amplitude Tapering-Aware Efficient Near-Field Array Wireless Power Transfer Using Multi-State Supply Switching",
+        "venue": "IEEE Open Journal of Antennas and Propagation (OJAP)",
+        "highlight_author": "Y.-S. Lee",
+        "tags": [],
+        "doi": "",
+        "bibtex": ""
+      }
+    ],
+    "published": [
+      {
+        "number": 5,
+        "authors": "S. Kim, Y.-S. Lee, and S. Nam*",
+        "title": "Wideband Dual-Polarized Endfire Slotted Horn Antenna With Tightly Coupled Dipole and Monopole Probe Arrays",
+        "venue": "IEEE Transactions on Antennas and Propagation (TAP)",
+        "details": "vol. 73, no. 11, pp. 8528–8535, Nov. 2025",
+        "doi": "https://doi.org/10.1109/TAP.2025.3592276",
+        "bibtex": "@ARTICLE{11104955,\n  author={Kim, Seongjung and Lee, Young-Seok and Nam, Sangwook},\n  journal={IEEE Transactions on Antennas and Propagation},\n  title={Wideband Dual-Polarized Endfire Slotted Horn Antenna With Tightly Coupled Dipole and Monopole Probe Arrays},\n  year={2025},\n  volume={73},\n  number={11},\n  pages={8528-8535},\n  doi={10.1109/TAP.2025.3592276}}",
+        "highlight_author": "Y.-S. Lee",
+        "tags": []
+      },
+      {
+        "number": 4,
+        "authors": "T. Yoon, U. Park, M. Kim, S. Lee, Y.-S. Lee, S. Nam, and J. Oh*",
+        "title": "A Topology-Based Array Compensation Empowered by Equivalent Current Modeling of TM₁₀ Patch Antennas for Cross-Polarization Reduction",
+        "venue": "IEEE Open Journal of Antennas and Propagation (OJAP)",
+        "details": "vol. 6, no. 6, pp. 1696–1707, Dec. 2025",
+        "doi": "https://doi.org/10.1109/OJAP.2025.3592198",
+        "bibtex": "@ARTICLE{11096003,\n  author={Yoon, Taeyeong and Park, Uichan and Kim, Minje and Lee, Sanghun and Lee, Young-Seok and Nam, Sangwook and Oh, Jungsuek},\n  journal={IEEE Open Journal of Antennas and Propagation},\n  title={A Topology-Based Array Compensation Empowered by Equivalent Current Modeling of TM10 Patch Antennas for Cross-Polarization Reduction},\n  year={2025},\n  volume={6},\n  number={6},\n  pages={1696-1707},\n  doi={10.1109/OJAP.2025.3592198}}",
+        "highlight_author": "Y.-S. Lee",
+        "tags": []
+      },
+      {
+        "number": 3,
+        "authors": "Y.-S. Lee, T. Yoon, Y. J. Song, S. K. Hong, J. Oh, and S. Nam*",
+        "title": "Transmission-Conversion Efficiency Maximization Technique for MIMO Wireless Power Transfer Systems in ISAC Applications",
+        "venue": "IEEE Antennas and Wireless Propagation Letters (AWPL)",
+        "details": "vol. 24, no. 11, pp. 4492–4496, Nov. 2025",
+        "doi": "https://doi.org/10.1109/LAWP.2025.3578089",
+        "bibtex": "@ARTICLE{11029126,\n  author={Lee, Young-Seok and Yoon, Taeyeong and Song, Young Jin and Hong, Sun K. and Oh, Jungsuek and Nam, Sangwook},\n  journal={IEEE Antennas and Wireless Propagation Letters},\n  title={Transmission-Conversion Efficiency Maximization Technique for MIMO Wireless Power Transfer Systems in ISAC Applications},\n  year={2025},\n  volume={24},\n  number={11},\n  pages={4492-4496},\n  doi={10.1109/LAWP.2025.3578089}}",
+        "highlight_author": "Y.-S. Lee",
+        "tags": ["1st Author"]
+      },
+      {
+        "number": 2,
+        "authors": "Y.-S. Lee, T. Yoon, M. Kim, S. Lee, B. Jung, J. Oh, and S. Nam*",
+        "title": "A Design and Characterization Method of a Scalable Large Transmitting Array for Wireless Power Transfer",
+        "venue": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
+        "details": "vol. 73, no. 6, pp. 3346–3358, Jun. 2025",
+        "doi": "https://doi.org/10.1109/TMTT.2024.3487911",
+        "bibtex": "@ARTICLE{10750830,\n  author={Lee, Young-Seok and Yoon, Taeyeong and Kim, Minje and Lee, Sanghun and Jung, Byungwook and Oh, Jungsuek and Nam, Sangwook},\n  journal={IEEE Transactions on Microwave Theory and Techniques},\n  title={A Design and Characterization Method of a Scalable Large Transmitting Array for Wireless Power Transfer},\n  year={2025},\n  volume={73},\n  number={6},\n  pages={3346-3358},\n  doi={10.1109/TMTT.2024.3487911}}",
+        "highlight_author": "Y.-S. Lee",
+        "tags": ["1st Author"]
+      },
+      {
+        "number": 1,
+        "authors": "H. Y. Kim, Y.-S. Lee, and S. Nam*",
+        "title": "Efficiency Bound Estimation for a Practical Microwave and mmWave Wireless Power Transfer System Design",
+        "venue": "Journal of Electromagnetic Engineering and Science (JEES)",
+        "details": "vol. 23, no. 1, pp. 69–74, Jan. 2023",
+        "doi": "https://doi.org/10.26866/jees.2023.1.r.146",
+        "bibtex": "@article{doi:10.26866/jees.2023.1.r.146,\n  author={Kim, Ho Yeol and Lee, Youngseok and Nam, Sangwook},\n  title={Efficiency Bound Estimation for a Practical Microwave and mmWave Wireless Power Transfer System Design},\n  journal={J. Electromagn. Eng. Sci},\n  volume={23},\n  number={1},\n  pages={69-74},\n  year={2023},\n  doi={10.26866/jees.2023.1.r.146},\n  url={https://jees.kr/journal/view.php?number=3571}}",
+        "highlight_author": "Y.-S. Lee",
+        "tags": []
+      }
+    ]
+  },
+  "international_conferences": [
+    {
+      "number": 8,
+      "authors": "Y.-S. Lee, T. Yoon, S. Nam, and J. Oh*",
+      "title": "DC-to-DC Efficiency Maximization in Wireless Power Transfer with PA and Rectifier Nonlinearities via Semidefinite Relaxation",
+      "venue": "2026 IEEE Wireless Power Technology Conference and EXPO (WPTCE 2026)",
+      "details": "Halifax, Canada, Jul. 4–7, 2026",
+      "doi": "",
+      "bibtex": "",
+      "highlight_author": "Y.-S. Lee",
+      "tags": ["1st Author"],
+      "notes": [{"label": "Accepted", "kind": "info"}]
+    },
+    {
+      "number": 7,
+      "authors": "Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*",
+      "title": "Design and Calibration of a CW Time Reversal Wireless Power Transfer Transmitter with Pilot Signal Detection",
+      "venue": "2025 Asia-Pacific Microwave Conference (APMC 2025)",
+      "details": "Jeju, Republic of Korea, Dec. 2–5, 2025",
+      "doi": "https://doi.org/10.1109/APMC65046.2025.11378159",
+      "bibtex": "@INPROCEEDINGS{11378159,\n  author={Lee, Young-Seok and Yoon, Taeyeong and Oh, Jungsuek and Nam, Sangwook},\n  booktitle={2025 Asia-Pacific Microwave Conference (APMC)},\n  title={Design and Calibration of a CW Time Reversal Wireless Power Transfer Transmitter with Pilot Signal Detection},\n  year={2025},\n  pages={1-3},\n  doi={10.1109/APMC65046.2025.11378159}}",
+      "highlight_author": "Y.-S. Lee",
+      "tags": ["1st Author"],
+      "notes": [{"label": "Invited Paper", "kind": "info", "icon": "🎓"}]
+    },
+    {
+      "number": 6,
+      "authors": "Y.-S. Lee, J. Oh, and S. Nam*",
+      "title": "Effects of Magnitude Dynamic Range Constraints on MIMO Wireless Power Transfer Efficiency",
+      "venue": "2025 International Symposium on Antennas and Propagation (ISAP 2025)",
+      "details": "Fukuoka, Japan, Oct. 27–31, 2025",
+      "doi": "https://doi.org/10.23919/ISAP63122.2025.11361879",
+      "bibtex": "@INPROCEEDINGS{11361879,\n  author={Lee, Young-Seok and Oh, Jungsuek and Nam, Sangwook},\n  booktitle={2025 International Symposium on Antennas and Propagation (ISAP)},\n  title={Effects of Magnitude Dynamic Range Constraints on MIMO Wireless Power Transfer Efficiency},\n  year={2025},\n  pages={1-2},\n  doi={10.23919/ISAP63122.2025.11361879}}",
+      "highlight_author": "Y.-S. Lee",
+      "tags": ["1st Author"],
+      "notes": []
+    },
+    {
+      "number": 5,
+      "authors": "T. Yoon, Y.-S. Lee, M. Kim, S. Lee, J. Lee, S. Nam, and J. Oh*",
+      "title": "Overcoming Efficiency Degradation in Wireless Power Transfer Systems: A Supply Voltage Modulation Method Empowered by 5.64-GHz 256-Element Antenna Array Receiving 10.6-Watt",
+      "venue": "2025 IEEE/MTT-S International Microwave Symposium (IMS 2025)",
+      "details": "San Francisco, CA, USA, Jun. 15–20, 2025",
+      "doi": "https://doi.org/10.1109/IMS40360.2025.11104047",
+      "bibtex": "@INPROCEEDINGS{11104047,\n  author={Yoon, Taeyeong and Lee, Young-Seok and Kim, Minje and Lee, Sanghun and Lee, Jaesup and Nam, Sangwook and Oh, Jungsuek},\n  booktitle={2025 IEEE/MTT-S International Microwave Symposium - IMS 2025},\n  title={Overcoming Efficiency Degradation in Wireless Power Transfer Systems: A Supply Voltage Modulation Method Empowered by 5.64-GHz 256-Element Antenna Array Receiving 10.6-Watt},\n  year={2025},\n  pages={85-88},\n  doi={10.1109/IMS40360.2025.11104047}}",
+      "highlight_author": "Y.-S. Lee",
+      "tags": [],
+      "notes": []
+    },
+    {
+      "number": 4,
+      "authors": "Y.-S. Lee, J. Oh, and S. Nam*",
+      "title": "Sequential Feedback-Based Phase Optimization Using Hadamard Basis for Wireless Power Transfer",
+      "venue": "2025 IEEE Wireless Power Technology Conference and EXPO (WPTCE 2025)",
+      "details": "Rome, Italy, Jun. 3–6, 2025",
+      "doi": "https://doi.org/10.1109/WPTCE62521.2025.11062191",
+      "bibtex": "@INPROCEEDINGS{11062191,\n  author={Lee, Young-Seok and Oh, Jungsuek and Nam, Sangwook},\n  booktitle={2025 IEEE Wireless Power Technology Conference and Expo (WPTCE)},\n  title={Sequential Feedback-Based Phase Optimization Using Hadamard Basis for Wireless Power Transfer},\n  year={2025},\n  pages={1-5},\n  doi={10.1109/WPTCE62521.2025.11062191}}",
+      "highlight_author": "Y.-S. Lee",
+      "tags": ["1st Author"],
+      "notes": [{"label": "Selected for Ph.D. Students Initiative Program", "kind": "info", "icon": "🎓"}]
+    },
+    {
+      "number": 3,
+      "authors": "Y.-S. Lee, J. Oh, and S. Nam*",
+      "title": "An Effect of Time Reversal Based Multiple Beacon Selection on Wireless Power Transfer Performance",
+      "venue": "2024 International Symposium on Antennas and Propagation (ISAP 2024)",
+      "details": "Incheon, Republic of Korea, Nov. 5–8, 2024",
+      "doi": "https://doi.org/10.1109/ISAP62502.2024.10846697",
+      "bibtex": "@INPROCEEDINGS{10846697,\n  author={Lee, Young-Seok and Oh, Jungsuek and Nam, Sangwook},\n  booktitle={2024 International Symposium on Antennas and Propagation (ISAP)},\n  title={An Effect of Time Reversal Based Multiple Beacon Selection on Wireless Power Transfer Performance},\n  year={2024},\n  pages={1-2},\n  doi={10.1109/ISAP62502.2024.10846697}}",
+      "highlight_author": "Y.-S. Lee",
+      "tags": ["1st Author"],
+      "notes": [{"label": "Best Paper Award, 2nd Prize", "kind": "award"}]
+    },
+    {
+      "number": 2,
+      "authors": "Y.-S. Lee, T. Yoon, S. Lee, M. Kim, J. Lee, J. Oh, and S. Nam*",
+      "title": "LUT-Based Transmit Mode Calibration Complexity Reduction Method for Wireless Power Transfer",
+      "venue": "2024 IEEE Wireless Power Technology Conference and Expo (WPTCE 2024)",
+      "details": "Kyoto, Japan, May 8–11, 2024",
+      "doi": "https://doi.org/10.1109/WPTCE59894.2024.10557392",
+      "bibtex": "@INPROCEEDINGS{10557392,\n  author={Lee, Young-Seok and Yoon, Taeyeong and Lee, Sanghun and Kim, Minje and Lee, Jaesup and Oh, Jungsuek and Nam, Sangwook},\n  booktitle={2024 IEEE Wireless Power Technology Conference and Expo (WPTCE)},\n  title={LUT-Based Transmit Mode Calibration Complexity Reduction Method for Wireless Power Transfer},\n  year={2024},\n  pages={137-141},\n  doi={10.1109/WPTCE59894.2024.10557392}}",
+      "highlight_author": "Y.-S. Lee",
+      "tags": ["1st Author"],
+      "notes": [{"label": "Selected for Student Travel Grant", "kind": "info", "icon": "🎓"}]
+    },
+    {
+      "number": 1,
+      "authors": "Y.-S. Lee and S. Nam*",
+      "title": "Test Count Reduction Algorithm for Determining the Optimal Phase in Wireless Power Transfer using Bayesian Optimization",
+      "venue": "XXXVth URSI General Assembly and Scientific Symposium (URSI GASS 2023)",
+      "details": "Sapporo, Japan, Aug. 19–26, 2023",
+      "doi": "",
+      "bibtex": "",
+      "highlight_author": "Y.-S. Lee",
+      "tags": ["1st Author"],
+      "notes": []
+    }
+  ],
+  "domestic_conferences": [
+    {
+      "number": 6,
+      "authors": "Y.-S. Lee, T. Yoon, S. Nam, and J. Oh*",
+      "title": "End-to-End DC Power Optimization in Wireless Power Transfer Systems",
+      "venue": "2026 KIEES Winter Conf.",
+      "details": "Feb. 2026",
+      "doi": "",
+      "bibtex": "",
+      "highlight_author": "Y.-S. Lee",
+      "tags": ["1st Author"],
+      "notes": []
+    },
+    {
+      "number": 5,
+      "authors": "T. Yoon, Y.-S. Lee, and J. Oh*",
+      "title": "MILP-based Optimal Beamforming in MISO WPT System: Dealing with Nonlinear Power Consumption and Discrete Voltage Rails",
+      "venue": "2026 KIEES Winter Conf.",
+      "details": "Feb. 2026",
+      "doi": "",
+      "bibtex": "",
+      "highlight_author": "Y.-S. Lee",
+      "tags": [],
+      "notes": [{"label": "Best Paper Award, IEEE MTT-S Seoul Chapter Award", "kind": "award"}]
+    },
+    {
+      "number": 4,
+      "authors": "Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*",
+      "title": "Received DC Power Maximization in a Practical Wireless Power Transfer Systems",
+      "venue": "2025 KIEES Winter Conf.",
+      "details": "Feb. 2025",
+      "doi": "",
+      "bibtex": "",
+      "highlight_author": "Y.-S. Lee",
+      "tags": ["1st Author"],
+      "notes": [{"label": "Best Paper Award, 1st Place", "kind": "award"}]
+    },
+    {
+      "number": 3,
+      "authors": "T. Yoon, Y.-S. Lee, M. Kim, S. Lee, and J. Oh*",
+      "title": "Comprehensive Optimization of Beamforming Wireless Power Transfer: Achieving 500W Power Saving through Hardware-Aware Convex Method and Supply Voltage Modulation",
+      "venue": "2025 KIEES Winter Conf.",
+      "details": "Feb. 2025",
+      "doi": "",
+      "bibtex": "",
+      "highlight_author": "Y.-S. Lee",
+      "tags": [],
+      "notes": []
+    },
+    {
+      "number": 2,
+      "authors": "Y.-S. Lee, S. Nam, and J. Oh*",
+      "title": "RF-to-DC Efficiency Enhancement in Wireless Power Transfer Systems via Convex Optimization",
+      "venue": "2024 KIEES Summer Conf.",
+      "details": "Aug. 2024",
+      "doi": "",
+      "bibtex": "",
+      "highlight_author": "Y.-S. Lee",
+      "tags": ["1st Author"],
+      "notes": []
+    },
+    {
+      "number": 1,
+      "authors": "H. Y. Kim, Y.-S. Lee, and S. Nam*",
+      "title": "Multi-Receiver Charging Algorithm in Microwave Wireless Power Transfer",
+      "venue": "2021 KIEES Autumn Conf.",
+      "details": "Nov. 2021",
+      "doi": "",
+      "bibtex": "",
+      "highlight_author": "Y.-S. Lee",
+      "tags": [],
+      "notes": []
+    }
+  ],
+  "patents": [
+    {
+      "number": 2,
+      "country": "Korea",
+      "title": "METHOD FOR DETERMINING OPTIMAL PHASES OF ANTENNA ARRAY IN RECONFIGURABLE INTELLIGENT SURFACE AND RIS SYSTEM USING THE SAME",
+      "inventors": "S. Nam and Y.-S. Lee",
+      "highlight_author": "Y.-S. Lee",
+      "patent_no": "1027047370000",
+      "granted_date": "2024.09.04"
+    },
+    {
+      "number": 1,
+      "country": "Korea",
+      "title": "METHOD FOR DETERMINING OPTIMAL PHASES OF ANTENNA ARRAY IN TRANSMISSION ANTENNA AND A BEAM FOCUSING ARRAY SYSTEM USING THE SAME",
+      "inventors": "S. Nam and Y.-S. Lee",
+      "highlight_author": "Y.-S. Lee",
+      "patent_no": "1026925510000",
+      "granted_date": "2024.08.01"
+    }
+  ],
+  "awards": {
+    "Conferences": [
+      {
+        "venue": "2026 KIEES Winter Conference",
+        "title": "Best Paper Award",
+        "highlight": "IEEE MTT-S Seoul Chapter Award",
+        "date": "Feb. 2026"
+      },
+      {
+        "venue": "2025 KIEES Winter Conference",
+        "title": "Best Paper Award",
+        "highlight": "1st Place",
+        "tags": ["1st Author"],
+        "date": "Feb. 2025"
+      },
+      {
+        "venue": "2024 International Symposium on Antennas and Propagation (ISAP 2024)",
+        "title": "Best Paper Award",
+        "highlight": "2nd Prize",
+        "tags": ["1st Author"],
+        "date": "Nov. 2024"
+      }
+    ],
+    "Grants & Scholarships": [
+      {
+        "venue": "2025 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2025)",
+        "title": "Ph.D. Students Initiative Program",
+        "date": "Jun. 2025"
+      },
+      {
+        "venue": "2024 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2024)",
+        "title": "Student Travel Grant",
+        "date": "May 2024"
+      }
+    ],
+    "Student Paper Competitions": [
+      {
+        "venue": "KIEES 9th Electromagnetic Measurement Paper Competition",
+        "title": "Excellence Award",
+        "tags": ["1st Author"],
+        "date": "Mar. 2024"
+      }
+    ],
+    "Invited Papers": [
+      {
+        "venue": "2025 Asia-Pacific Microwave Conference (APMC 2025)",
+        "title": "Invited Paper",
+        "date": "Dec. 2025"
+      }
+    ]
+  }
+}
