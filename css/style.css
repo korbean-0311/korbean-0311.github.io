@@ -1563,3 +1563,16 @@ a:hover .ext-link-arrow {
   .page-header h1 { font-size: 1.625rem; }
   main { padding-top: 5.5rem; }
 }
+
+/* ---------- Responsive: body text shrink on mobile ---------- */
+@media (max-width: 640px) {
+  body {
+    font-size: 0.875rem;   /* ~14px */
+    line-height: 1.55;
+  }
+  .contact-info__value { font-size: 0.875rem; }
+  .news-item__date,
+  .news-item__body { font-size: 0.875rem; }
+  .pub-item__authors,
+  .pub-item__venue { font-size: 0.875rem; }
+}
