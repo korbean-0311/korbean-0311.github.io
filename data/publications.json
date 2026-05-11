@@ -40,6 +40,7 @@
         "venue": "IEEE Transactions on Antennas and Propagation (TAP)",
         "details": "vol. 73, no. 11, pp. 8528–8535, Nov. 2025",
         "doi": "https://doi.org/10.1109/TAP.2025.3592276",
+        "pdf": "pdfs/kim2025-tap-wideband-dual-polarized-endfire-horn.pdf",
         "bibtex": "@ARTICLE{11104955,\n  author={Kim, Seongjung and Lee, Young-Seok and Nam, Sangwook},\n  journal={IEEE Transactions on Antennas and Propagation},\n  title={Wideband Dual-Polarized Endfire Slotted Horn Antenna With Tightly Coupled Dipole and Monopole Probe Arrays},\n  year={2025},\n  volume={73},\n  number={11},\n  pages={8528-8535},\n  doi={10.1109/TAP.2025.3592276}}",
         "highlight_author": "Y.-S. Lee",
         "tags": []
@@ -51,6 +52,7 @@
         "venue": "IEEE Open Journal of Antennas and Propagation (OJAP)",
         "details": "vol. 6, no. 6, pp. 1696–1707, Dec. 2025",
         "doi": "https://doi.org/10.1109/OJAP.2025.3592198",
+        "pdf": "pdfs/yoon2025-ojap-topology-based-array-compensation.pdf",
         "bibtex": "@ARTICLE{11096003,\n  author={Yoon, Taeyeong and Park, Uichan and Kim, Minje and Lee, Sanghun and Lee, Young-Seok and Nam, Sangwook and Oh, Jungsuek},\n  journal={IEEE Open Journal of Antennas and Propagation},\n  title={A Topology-Based Array Compensation Empowered by Equivalent Current Modeling of TM10 Patch Antennas for Cross-Polarization Reduction},\n  year={2025},\n  volume={6},\n  number={6},\n  pages={1696-1707},\n  doi={10.1109/OJAP.2025.3592198}}",
         "highlight_author": "Y.-S. Lee",
         "tags": []
@@ -62,6 +64,7 @@
         "venue": "IEEE Antennas and Wireless Propagation Letters (AWPL)",
         "details": "vol. 24, no. 11, pp. 4492–4496, Nov. 2025",
         "doi": "https://doi.org/10.1109/LAWP.2025.3578089",
+        "pdf": "pdfs/lee2025-awpl-mimo-wpt-isac.pdf",
         "bibtex": "@ARTICLE{11029126,\n  author={Lee, Young-Seok and Yoon, Taeyeong and Song, Young Jin and Hong, Sun K. and Oh, Jungsuek and Nam, Sangwook},\n  journal={IEEE Antennas and Wireless Propagation Letters},\n  title={Transmission-Conversion Efficiency Maximization Technique for MIMO Wireless Power Transfer Systems in ISAC Applications},\n  year={2025},\n  volume={24},\n  number={11},\n  pages={4492-4496},\n  doi={10.1109/LAWP.2025.3578089}}",
         "highlight_author": "Y.-S. Lee",
         "tags": ["1st Author"]
@@ -85,6 +88,7 @@
         "venue": "Journal of Electromagnetic Engineering and Science (JEES)",
         "details": "vol. 23, no. 1, pp. 69–74, Jan. 2023",
         "doi": "https://doi.org/10.26866/jees.2023.1.r.146",
+        "pdf": "pdfs/kim2023-jees-efficiency-bound-mmwave-wpt.pdf",
         "bibtex": "@article{doi:10.26866/jees.2023.1.r.146,\n  author={Kim, Ho Yeol and Lee, Youngseok and Nam, Sangwook},\n  title={Efficiency Bound Estimation for a Practical Microwave and mmWave Wireless Power Transfer System Design},\n  journal={J. Electromagn. Eng. Sci},\n  volume={23},\n  number={1},\n  pages={69-74},\n  year={2023},\n  doi={10.26866/jees.2023.1.r.146},\n  url={https://jees.kr/journal/view.php?number=3571}}",
         "highlight_author": "Y.-S. Lee",
         "tags": []
