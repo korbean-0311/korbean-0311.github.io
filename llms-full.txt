@@ -1,0 +1,471 @@
+# Young-Seok Lee
+
+> ECE Ph.D. Candidate at Seoul National University (Seoul, Republic of Korea)
+
+Site: https://korbean-0311.github.io/
+
+## About
+
+I am a Ph.D. candidate in the Department of Electrical and Computer Engineering (ECE) at Seoul National University, co-advised by Prof. Sangwook Nam and Prof. Jungsuek Oh.
+I have collaborated with industry partners — including Samsung Electronics on RF Wireless Power Transfer and LIG Nex1 on large-scale phased-array calibration. My broader research interests span RF and electromagnetic systems, with active topics including:
+- RF Beam-forming
+- RF Near-field Beam-focusing
+- Wireless Power Transfer (WPT)
+- Target detection
+- Indoor localization
+- Space solar power and power transmission
+
+**Research keywords:** Wireless Power Transfer, RF Beam-forming, Near-field Beam-focusing, Target Detection, Indoor Localization, Space Solar Power
+
+**External profiles:**
+- Google Scholar: https://scholar.google.com/citations?user=yCXRScIAAAAJ&hl=ko
+- IEEE Xplore: https://ieeexplore.ieee.org/author/519065710555122
+- Lab Homepage (Wave Fusion Lab): http://wfl.snu.ac.kr/
+
+## Recent News
+
+- **11 Feb 2026** — Joined research project of LIG Nex1 for calibration of ultra-large-scale digital array antennas for space surveillance radar! _(Project Lead)_
+- **31 Oct 2025** — Selected as the Scholarship Recipient for Samsung Electronics Device Solution (DS), Foundry Division!
+- **22 Jul 2025** — Journal accepted in IEEE Open Journal of Antennas and Propagation (OJAP)! _(Co-author)_
+- **20 Jul 2025** — Journal accepted in IEEE Transactions on Antennas and Propagation (T-AP)! _(Co-author)_
+- **06 Jun 2025** — Journal accepted in IEEE Antennas and Wireless Propagation Letters (AWPL)! _(1st Author)_
+
+## Publications & Awards
+
+### International Journals — Under Review
+
+- **[3] An End-to-End DC-to-DC Efficiency Optimization and Design Analysis for MIMO Wireless Power Transfer Systems**
+  - Authors: Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*
+  - Venue: IEEE Transactions on Microwave Theory and Techniques (TMTT)
+  - Tags: 1st Author
+
+- **[2] Hardware-Aware MILP for Optimal End-to-End Efficiency in MISO WPT: Joint Optimization of Power Modes and Fault Tolerance**
+  - Authors: T. Yoon, Y.-S. Lee, U. Park, M. Kim, S. Lee, S. Nam, and J. Oh*
+  - Venue: IEEE Transactions on Microwave Theory and Techniques (TMTT)
+
+- **[1] Amplitude Tapering-Aware Efficient Near-Field Array Wireless Power Transfer Using Multi-State Supply Switching**
+  - Authors: T. Yoon, Y.-S. Lee, M. Kim, S. Lee, J. Lee, S. Nam, and J. Oh*
+  - Venue: IEEE Open Journal of Antennas and Propagation (OJAP)
+
+### International Journals — Published
+
+- **[5] Wideband Dual-Polarized Endfire Slotted Horn Antenna With Tightly Coupled Dipole and Monopole Probe Arrays**
+  - Authors: S. Kim, Y.-S. Lee, and S. Nam*
+  - Venue: IEEE Transactions on Antennas and Propagation (TAP)
+  - Details: vol. 73, no. 11, pp. 8528–8535, Nov. 2025
+  - DOI: https://doi.org/10.1109/TAP.2025.3592276
+  - BibTeX:
+    ```bibtex
+    @ARTICLE{11104955,
+      author={Kim, Seongjung and Lee, Young-Seok and Nam, Sangwook},
+      journal={IEEE Transactions on Antennas and Propagation},
+      title={Wideband Dual-Polarized Endfire Slotted Horn Antenna With Tightly Coupled Dipole and Monopole Probe Arrays},
+      year={2025},
+      volume={73},
+      number={11},
+      pages={8528-8535},
+      doi={10.1109/TAP.2025.3592276}}
+    ```
+
+- **[4] A Topology-Based Array Compensation Empowered by Equivalent Current Modeling of TM₁₀ Patch Antennas for Cross-Polarization Reduction**
+  - Authors: T. Yoon, U. Park, M. Kim, S. Lee, Y.-S. Lee, S. Nam, and J. Oh*
+  - Venue: IEEE Open Journal of Antennas and Propagation (OJAP)
+  - Details: vol. 6, no. 6, pp. 1696–1707, Dec. 2025
+  - DOI: https://doi.org/10.1109/OJAP.2025.3592198
+  - BibTeX:
+    ```bibtex
+    @ARTICLE{11096003,
+      author={Yoon, Taeyeong and Park, Uichan and Kim, Minje and Lee, Sanghun and Lee, Young-Seok and Nam, Sangwook and Oh, Jungsuek},
+      journal={IEEE Open Journal of Antennas and Propagation},
+      title={A Topology-Based Array Compensation Empowered by Equivalent Current Modeling of TM10 Patch Antennas for Cross-Polarization Reduction},
+      year={2025},
+      volume={6},
+      number={6},
+      pages={1696-1707},
+      doi={10.1109/OJAP.2025.3592198}}
+    ```
+
+- **[3] Transmission-Conversion Efficiency Maximization Technique for MIMO Wireless Power Transfer Systems in ISAC Applications**
+  - Authors: Y.-S. Lee, T. Yoon, Y. J. Song, S. K. Hong, J. Oh, and S. Nam*
+  - Venue: IEEE Antennas and Wireless Propagation Letters (AWPL)
+  - Details: vol. 24, no. 11, pp. 4492–4496, Nov. 2025
+  - DOI: https://doi.org/10.1109/LAWP.2025.3578089
+  - Tags: 1st Author
+  - BibTeX:
+    ```bibtex
+    @ARTICLE{11029126,
+      author={Lee, Young-Seok and Yoon, Taeyeong and Song, Young Jin and Hong, Sun K. and Oh, Jungsuek and Nam, Sangwook},
+      journal={IEEE Antennas and Wireless Propagation Letters},
+      title={Transmission-Conversion Efficiency Maximization Technique for MIMO Wireless Power Transfer Systems in ISAC Applications},
+      year={2025},
+      volume={24},
+      number={11},
+      pages={4492-4496},
+      doi={10.1109/LAWP.2025.3578089}}
+    ```
+
+- **[2] A Design and Characterization Method of a Scalable Large Transmitting Array for Wireless Power Transfer**
+  - Authors: Y.-S. Lee, T. Yoon, M. Kim, S. Lee, B. Jung, J. Oh, and S. Nam*
+  - Venue: IEEE Transactions on Microwave Theory and Techniques (TMTT)
+  - Details: vol. 73, no. 6, pp. 3346–3358, Jun. 2025
+  - DOI: https://doi.org/10.1109/TMTT.2024.3487911
+  - Tags: 1st Author
+  - BibTeX:
+    ```bibtex
+    @ARTICLE{10750830,
+      author={Lee, Young-Seok and Yoon, Taeyeong and Kim, Minje and Lee, Sanghun and Jung, Byungwook and Oh, Jungsuek and Nam, Sangwook},
+      journal={IEEE Transactions on Microwave Theory and Techniques},
+      title={A Design and Characterization Method of a Scalable Large Transmitting Array for Wireless Power Transfer},
+      year={2025},
+      volume={73},
+      number={6},
+      pages={3346-3358},
+      doi={10.1109/TMTT.2024.3487911}}
+    ```
+
+- **[1] Efficiency Bound Estimation for a Practical Microwave and mmWave Wireless Power Transfer System Design**
+  - Authors: H. Y. Kim, Y.-S. Lee, and S. Nam*
+  - Venue: Journal of Electromagnetic Engineering and Science (JEES)
+  - Details: vol. 23, no. 1, pp. 69–74, Jan. 2023
+  - DOI: https://doi.org/10.26866/jees.2023.1.r.146
+  - BibTeX:
+    ```bibtex
+    @article{doi:10.26866/jees.2023.1.r.146,
+      author={Kim, Ho Yeol and Lee, Youngseok and Nam, Sangwook},
+      title={Efficiency Bound Estimation for a Practical Microwave and mmWave Wireless Power Transfer System Design},
+      journal={J. Electromagn. Eng. Sci},
+      volume={23},
+      number={1},
+      pages={69-74},
+      year={2023},
+      doi={10.26866/jees.2023.1.r.146},
+      url={https://jees.kr/journal/view.php?number=3571}}
+    ```
+
+### International Conferences
+
+- **[8] DC-to-DC Efficiency Maximization in Wireless Power Transfer with PA and Rectifier Nonlinearities via Semidefinite Relaxation**
+  - Authors: Y.-S. Lee, T. Yoon, S. Nam, and J. Oh*
+  - Venue: 2026 IEEE Wireless Power Technology Conference and EXPO (WPTCE 2026)
+  - Details: Halifax, Canada, Jul. 4–7, 2026
+  - Tags: 1st Author
+  - Notes: Accepted
+
+- **[7] Design and Calibration of a CW Time Reversal Wireless Power Transfer Transmitter with Pilot Signal Detection**
+  - Authors: Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*
+  - Venue: 2025 Asia-Pacific Microwave Conference (APMC 2025)
+  - Details: Jeju, Republic of Korea, Dec. 2–5, 2025
+  - DOI: https://doi.org/10.1109/APMC65046.2025.11378159
+  - Tags: 1st Author
+  - Notes: Invited Paper
+  - BibTeX:
+    ```bibtex
+    @INPROCEEDINGS{11378159,
+      author={Lee, Young-Seok and Yoon, Taeyeong and Oh, Jungsuek and Nam, Sangwook},
+      booktitle={2025 Asia-Pacific Microwave Conference (APMC)},
+      title={Design and Calibration of a CW Time Reversal Wireless Power Transfer Transmitter with Pilot Signal Detection},
+      year={2025},
+      pages={1-3},
+      doi={10.1109/APMC65046.2025.11378159}}
+    ```
+
+- **[6] Effects of Magnitude Dynamic Range Constraints on MIMO Wireless Power Transfer Efficiency**
+  - Authors: Y.-S. Lee, J. Oh, and S. Nam*
+  - Venue: 2025 International Symposium on Antennas and Propagation (ISAP 2025)
+  - Details: Fukuoka, Japan, Oct. 27–31, 2025
+  - DOI: https://doi.org/10.23919/ISAP63122.2025.11361879
+  - Tags: 1st Author
+  - BibTeX:
+    ```bibtex
+    @INPROCEEDINGS{11361879,
+      author={Lee, Young-Seok and Oh, Jungsuek and Nam, Sangwook},
+      booktitle={2025 International Symposium on Antennas and Propagation (ISAP)},
+      title={Effects of Magnitude Dynamic Range Constraints on MIMO Wireless Power Transfer Efficiency},
+      year={2025},
+      pages={1-2},
+      doi={10.23919/ISAP63122.2025.11361879}}
+    ```
+
+- **[5] Overcoming Efficiency Degradation in Wireless Power Transfer Systems: A Supply Voltage Modulation Method Empowered by 5.64-GHz 256-Element Antenna Array Receiving 10.6-Watt**
+  - Authors: T. Yoon, Y.-S. Lee, M. Kim, S. Lee, J. Lee, S. Nam, and J. Oh*
+  - Venue: 2025 IEEE/MTT-S International Microwave Symposium (IMS 2025)
+  - Details: San Francisco, CA, USA, Jun. 15–20, 2025
+  - DOI: https://doi.org/10.1109/IMS40360.2025.11104047
+  - BibTeX:
+    ```bibtex
+    @INPROCEEDINGS{11104047,
+      author={Yoon, Taeyeong and Lee, Young-Seok and Kim, Minje and Lee, Sanghun and Lee, Jaesup and Nam, Sangwook and Oh, Jungsuek},
+      booktitle={2025 IEEE/MTT-S International Microwave Symposium - IMS 2025},
+      title={Overcoming Efficiency Degradation in Wireless Power Transfer Systems: A Supply Voltage Modulation Method Empowered by 5.64-GHz 256-Element Antenna Array Receiving 10.6-Watt},
+      year={2025},
+      pages={85-88},
+      doi={10.1109/IMS40360.2025.11104047}}
+    ```
+
+- **[4] Sequential Feedback-Based Phase Optimization Using Hadamard Basis for Wireless Power Transfer**
+  - Authors: Y.-S. Lee, J. Oh, and S. Nam*
+  - Venue: 2025 IEEE Wireless Power Technology Conference and EXPO (WPTCE 2025)
+  - Details: Rome, Italy, Jun. 3–6, 2025
+  - DOI: https://doi.org/10.1109/WPTCE62521.2025.11062191
+  - Tags: 1st Author
+  - Notes: Selected for Ph.D. Students Initiative Program
+  - BibTeX:
+    ```bibtex
+    @INPROCEEDINGS{11062191,
+      author={Lee, Young-Seok and Oh, Jungsuek and Nam, Sangwook},
+      booktitle={2025 IEEE Wireless Power Technology Conference and Expo (WPTCE)},
+      title={Sequential Feedback-Based Phase Optimization Using Hadamard Basis for Wireless Power Transfer},
+      year={2025},
+      pages={1-5},
+      doi={10.1109/WPTCE62521.2025.11062191}}
+    ```
+
+- **[3] An Effect of Time Reversal Based Multiple Beacon Selection on Wireless Power Transfer Performance**
+  - Authors: Y.-S. Lee, J. Oh, and S. Nam*
+  - Venue: 2024 International Symposium on Antennas and Propagation (ISAP 2024)
+  - Details: Incheon, Republic of Korea, Nov. 5–8, 2024
+  - DOI: https://doi.org/10.1109/ISAP62502.2024.10846697
+  - Tags: 1st Author
+  - Notes: Best Paper Award, 2nd Prize
+  - BibTeX:
+    ```bibtex
+    @INPROCEEDINGS{10846697,
+      author={Lee, Young-Seok and Oh, Jungsuek and Nam, Sangwook},
+      booktitle={2024 International Symposium on Antennas and Propagation (ISAP)},
+      title={An Effect of Time Reversal Based Multiple Beacon Selection on Wireless Power Transfer Performance},
+      year={2024},
+      pages={1-2},
+      doi={10.1109/ISAP62502.2024.10846697}}
+    ```
+
+- **[2] LUT-Based Transmit Mode Calibration Complexity Reduction Method for Wireless Power Transfer**
+  - Authors: Y.-S. Lee, T. Yoon, S. Lee, M. Kim, J. Lee, J. Oh, and S. Nam*
+  - Venue: 2024 IEEE Wireless Power Technology Conference and Expo (WPTCE 2024)
+  - Details: Kyoto, Japan, May 8–11, 2024
+  - DOI: https://doi.org/10.1109/WPTCE59894.2024.10557392
+  - Tags: 1st Author
+  - Notes: Selected for Student Travel Grant
+  - BibTeX:
+    ```bibtex
+    @INPROCEEDINGS{10557392,
+      author={Lee, Young-Seok and Yoon, Taeyeong and Lee, Sanghun and Kim, Minje and Lee, Jaesup and Oh, Jungsuek and Nam, Sangwook},
+      booktitle={2024 IEEE Wireless Power Technology Conference and Expo (WPTCE)},
+      title={LUT-Based Transmit Mode Calibration Complexity Reduction Method for Wireless Power Transfer},
+      year={2024},
+      pages={137-141},
+      doi={10.1109/WPTCE59894.2024.10557392}}
+    ```
+
+- **[1] Test Count Reduction Algorithm for Determining the Optimal Phase in Wireless Power Transfer using Bayesian Optimization**
+  - Authors: Y.-S. Lee and S. Nam*
+  - Venue: XXXVth URSI General Assembly and Scientific Symposium (URSI GASS 2023)
+  - Details: Sapporo, Japan, Aug. 19–26, 2023
+  - Tags: 1st Author
+
+### Domestic Conferences (KIEES)
+
+- **[6] End-to-End DC Power Optimization in Wireless Power Transfer Systems**
+  - Authors: Y.-S. Lee, T. Yoon, S. Nam, and J. Oh*
+  - Venue: 2026 KIEES Winter Conf.
+  - Details: Feb. 2026
+  - Tags: 1st Author
+
+- **[5] MILP-based Optimal Beamforming in MISO WPT System: Dealing with Nonlinear Power Consumption and Discrete Voltage Rails**
+  - Authors: T. Yoon, Y.-S. Lee, and J. Oh*
+  - Venue: 2026 KIEES Winter Conf.
+  - Details: Feb. 2026
+  - Notes: Best Paper Award, IEEE MTT-S Seoul Chapter Award
+
+- **[4] Received DC Power Maximization in a Practical Wireless Power Transfer Systems**
+  - Authors: Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*
+  - Venue: 2025 KIEES Winter Conf.
+  - Details: Feb. 2025
+  - Tags: 1st Author
+  - Notes: Best Paper Award, 1st Place
+
+- **[3] Comprehensive Optimization of Beamforming Wireless Power Transfer: Achieving 500W Power Saving through Hardware-Aware Convex Method and Supply Voltage Modulation**
+  - Authors: T. Yoon, Y.-S. Lee, M. Kim, S. Lee, and J. Oh*
+  - Venue: 2025 KIEES Winter Conf.
+  - Details: Feb. 2025
+
+- **[2] RF-to-DC Efficiency Enhancement in Wireless Power Transfer Systems via Convex Optimization**
+  - Authors: Y.-S. Lee, S. Nam, and J. Oh*
+  - Venue: 2024 KIEES Summer Conf.
+  - Details: Aug. 2024
+  - Tags: 1st Author
+
+- **[1] Multi-Receiver Charging Algorithm in Microwave Wireless Power Transfer**
+  - Authors: H. Y. Kim, Y.-S. Lee, and S. Nam*
+  - Venue: 2021 KIEES Autumn Conf.
+  - Details: Nov. 2021
+
+### Patents
+
+- **[2] METHOD FOR DETERMINING OPTIMAL PHASES OF ANTENNA ARRAY IN RECONFIGURABLE INTELLIGENT SURFACE AND RIS SYSTEM USING THE SAME** (Korea)
+  - Inventors: S. Nam and Y.-S. Lee
+  - Patent No.: 1027047370000
+  - Granted: 2024.09.04
+
+- **[1] METHOD FOR DETERMINING OPTIMAL PHASES OF ANTENNA ARRAY IN TRANSMISSION ANTENNA AND A BEAM FOCUSING ARRAY SYSTEM USING THE SAME** (Korea)
+  - Inventors: S. Nam and Y.-S. Lee
+  - Patent No.: 1026925510000
+  - Granted: 2024.08.01
+
+### Awards
+
+#### Conferences
+
+- Best Paper Award (IEEE MTT-S Seoul Chapter Award) — 2026 KIEES Winter Conference, Feb. 2026
+
+- Best Paper Award (1st Place) — 2025 KIEES Winter Conference, Feb. 2025  [1st Author]
+
+- Best Paper Award (2nd Prize) — 2024 International Symposium on Antennas and Propagation (ISAP 2024), Nov. 2024  [1st Author]
+
+#### Grants & Scholarships
+
+- Ph.D. Students Initiative Program — 2025 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2025), Jun. 2025  [1st Author]
+
+- Student Travel Grant — 2024 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2024), May 2024  [1st Author]
+
+#### Student Paper Competitions
+
+- Excellence Award — KIEES 9th Electromagnetic Measurement Paper Competition, Mar. 2024  [1st Author]
+
+#### Invited Papers
+
+- Invited Paper — 2025 Asia-Pacific Microwave Conference (APMC 2025), Dec. 2025  [1st Author]
+
+## Education
+
+### Seoul National University (SNU) (Seoul, Republic of Korea)
+- Period: 2023.09 — Present
+- Degree: Ph.D. in Electrical and Computer Engineering
+- PI (Co-advised): Sangwook Nam
+- PI (Co-advised): Jungsuek Oh (Ph.D. @Univ. of Michigan under Kamal Sarabandi)
+
+### Seoul National University (SNU) (Seoul, Republic of Korea)
+- Period: 2021.09 — 2023.08
+- Degree: M.S. in Electrical and Computer Engineering
+- PI: Sangwook Nam (Ph.D. @Univ. of Texas Austin under Tatsuo Itoh)
+
+### Korea University (KU) (Seoul, Republic of Korea)
+- Period: 2017.03 — 2021.08
+- Degree: B.S. in Electrical Engineering
+- Advisor: Chulwoo Kim
+
+### Daejeon Dongsin Science High School (DDSHS) (Daejeon, Republic of Korea)
+- Period: 2014.03 — 2017.02
+
+## Research
+
+### Graduate Student
+
+*Affiliation:* AEL (PI: Sangwook Nam) & WFL (PI: Jungsuek Oh) at Seoul National University (jointly advised)
+
+#### [P5] Calibration Verification and Accuracy Improvement of Ultra-Large-Scale Digital Array Antennas
+- Organization: LIG Nex1
+- Period: 2026.04 — 2028.12
+- Keywords: Space Surveillance Radar, Ultra-Large-Scale Digital Array Antenna, Fixed Probe Calibration, Phase Center Compensation, Beam Pattern Modeling
+- Summary:
+  - Developed calibration and verification algorithms for ultra-large-scale digital array antennas (86,400+ elements) used in space surveillance radar, addressing major error sources (probe phase center offset, polarization misalignment, position-dependent element beam patterns, 3D probe position uncertainty, and radome-induced channel distortion).
+  - Designed an AI-integrated calibration verification simulator enabling independent and combined sensitivity analysis of error sources, providing quantitative performance evaluation and optimal calibration strategies for field-deployed large-aperture phased array systems.
+
+#### [P4] Large-Area Wireless Power Transfer System for Power Gateway Application
+- Organization: Samsung Electronics A-Lab
+- Period: 2023.09 — 2024.02
+- Keywords: RF-Wireless Power Transfer, Large Array Calibration, Beam Collection Efficiency, Near-Field Focusing, High-Power Scalable Array
+- Summary:
+  - Scaled up the LUT-based calibration and LCSPD architecture to a 1024-element (32×32) transmitter and 256-element (16×16) receiver array operating at 5.64 GHz for power gateway applications.
+  - Designed and validated high-power WPT system operation exceeding 100 W transmitted power, demonstrating the scalability of the proposed calibration and series power divider methodology.
+
+#### [P3] High-Efficiency BCE 2D Array RF System Based on Time Reversal
+- Organization: Samsung Electronics A-Lab
+- Period: 2023.03 — 2023.08
+- Keywords: RF-Wireless Power Transfer, Array Calibration, Beam Collection Efficiency, Near-Field Focusing, Scalable Array Design
+- Summary:
+  - Proposed an LUT-based calibration and complexity reduction method for a scalable 256-element transmitter array in RF wireless power transfer systems, enabling accurate beam collection efficiency (BCE) estimation using only a single input connection and a fixed reference antenna.
+  - Designed a loss compensated series power divider (LCSPD) for scalable RF signal distribution and demonstrated 71.9% BCE at 0.5 m with 6.08 W transmitted and 4.37 W received power at 5.64 GHz, validated through convex-optimized near-field focusing experiments.
+
+#### [P2] Wireless Power Transfer Using Massive MIMO Microwave with Hybrid Beamforming
+- Organization: Samsung DS
+- Period: 2023.03 — 2023.09
+- Keywords: Feedback based algorithms, RF-Wireless Power Transfer, Array antenna, RF System
+- Summary:
+  - Received power feedback based RF-WPT optimization algorithm.
+
+#### [P1] Wireless Power Transfer System Design
+- Organization: Samsung Research (SR)
+- Period: 2021.08 — 2022.07
+- Keywords: RF-Wireless Power Transfer, Array antenna, mmWave antenna, RF System, Link-budget
+- Summary:
+  - Design and fabrication of mmWave large array transmitter antenna (@24 GHz, 32×32).
+
+### Undergraduate Student Intern
+
+#### AEL (Advisor: Sangwook Nam) , Seoul National University (2021.01 — 2021.08)
+- RADAR system used DC to DC SMPS (36 W) PCB design & artwork
+- Trained circuit design tools (OrCAD)
+
+#### AISL (Advisor: Chulwoo Kim) , Korea University (2020.03 — 2020.06)
+- Bachelor's Thesis: "High-speed 2-Stage Cascode Op-amp Design"
+- Simple VCO, PLL design
+- Trained circuit design tools (Cadence Virtuoso)
+
+#### BASIC Lab. (Advisor: Hyungmin Lee) , Korea University (2019.12 — 2020.02)
+- 2-Stage amp design & trained circuit design tools (Cadence Virtuoso)
+
+## Others
+
+### Reviewer Activities
+- IEEE TPEL, 2025
+- IEEE AWPL, 2025
+
+### Scholarships
+- Ph.D. Scholarship Recipient — Samsung Electronics Device Solution (DS), Foundry Division (Nov. 2025 -)
+- Teaching & Research Support Scholarship — Seoul National University (Feb. 2023)
+- Academic Excellence Scholarship — Seoul National University (Jan. 2022)
+
+### Teaching Assistant
+- Introduction to Electromagnetism with Practice (430.202B 003), Seoul National University, Fall 2025
+- Introduction to Electromagnetism with Practice (430.202B 002), Seoul National University, Fall 2024
+- Electromagnetic Wave Engineering (430.464A 001), Seoul National University, Spring 2023
+
+### Selected Coursework
+**Coursework in Seoul Nat'l University (M.S. - Ph.D):**
+- Electromagnetic Wave Engineering
+- RF System Design
+- Advanced Electromagnetics I
+- Deep Learning _(NVIDIA DLI Course)_
+- Machine Learning & Deep Learning
+- Digital Signal Processing
+- Electro-optics
+- Estimation Theory
+
+**Coursework in Korea University (B.S.):**
+- Probability & Random Process
+- Electromagnetics
+- Electromagnetic Field
+- Analog / Digital Communication Theory
+- Digital Signal Processing
+- Wireless Networks
+
+### Programming Skills
+**Programming Languages:**
+- C (3.5/5)
+- Python (3/5)
+- MATLAB (4.5/5)
+
+**Hardware Tools:**
+- *EM Simulators*: Dassault System CST (4/5), Ansys HFSS (2.5/5), Keysight ADS (3/5), Altair FEKO Suite (3/5)
+- *Circuit Tools*: Cadence OrCAD Capture (4/5), Cadence Allegro (3.5/5), Cadence Virtuoso (3/5)
+
+## Contact
+
+- Lab: Wave Fusion Lab — http://wfl.snu.ac.kr
+- LinkedIn: https://www.linkedin.com/in/korbean
+- Location: INMC, Bldg #132, Seoul National University, 1 Gwanak-ro, Gwanak-gu, Seoul 08826, Republic of Korea
+
+_Email omitted; please reach out via LinkedIn or the lab homepage._
+
+---
+_Generated automatically from data/*.json on 2026-05-11._

@@ -1,0 +1,28 @@
+# Young-Seok Lee — Portfolio
+
+> ECE Ph.D. Candidate at Seoul National University (SNU), co-advised by Prof. Sangwook Nam and Prof. Jungsuek Oh.
+> Research areas: Wireless Power Transfer (WPT), RF Beam-forming, Near-field Beam-focusing, Target Detection, Indoor Localization, Space Solar Power.
+> Affiliation: Wave Fusion Lab, INMC, Seoul National University.
+
+The full machine-readable content (all publications with BibTeX, education, research projects, news, reviewer activities, scholarships, teaching, coursework, programming skills) is available as a single markdown file:
+
+- https://korbean-0311.github.io/llms-full.txt
+
+## Pages
+
+- [Home](https://korbean-0311.github.io/): Brief biography and recent news
+- [Publications & Awards](https://korbean-0311.github.io/publications.html): International journals (under review + published), international conferences, domestic conferences, patents, awards
+- [Education](https://korbean-0311.github.io/education.html): Academic timeline
+- [Research](https://korbean-0311.github.io/research.html): Graduate and undergraduate research projects
+- [Others](https://korbean-0311.github.io/others.html): Reviewer activities, scholarships, teaching assistantships, coursework, programming skills
+- [Contact](https://korbean-0311.github.io/contact.html): Lab, location, LinkedIn
+
+## Data sources (JSON)
+
+The site renders content from these structured JSON files (also useful for AI agents that prefer structured data):
+
+- https://korbean-0311.github.io/data/news.json
+- https://korbean-0311.github.io/data/publications.json
+- https://korbean-0311.github.io/data/education.json
+- https://korbean-0311.github.io/data/research.json
+- https://korbean-0311.github.io/data/others.json
