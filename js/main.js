@@ -18,8 +18,8 @@
 
   function initTheme() {
     const saved = localStorage.getItem(THEME_KEY);
-    const prefers = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    const theme = saved || (prefers ? 'dark' : 'light');
+    // Default to dark mode for first-time visitors; respect user choice once toggled.
+    const theme = saved || 'dark';
     applyTheme(theme);
 
     const btn = document.querySelector('[data-theme-toggle]');
@@ -110,14 +110,24 @@
     });
   }
 
-  /* ---------- JSON loader (cached) ---------- */
+  /* ---------- JSON loader (memo + sessionStorage) ---------- */
   const cache = {};
   async function loadJSON(path) {
     if (cache[path]) return cache[path];
-    const res = await fetch(path, { cache: 'no-cache' });
+    // sessionStorage hit — instant on cross-page navigation
+    try {
+      const stored = sessionStorage.getItem('json:' + path);
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        cache[path] = parsed;
+        return parsed;
+      }
+    } catch (_) { /* sessionStorage unavailable */ }
+    const res = await fetch(path);
     if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
     const data = await res.json();
     cache[path] = data;
+    try { sessionStorage.setItem('json:' + path, JSON.stringify(data)); } catch (_) {}
     return data;
   }
 

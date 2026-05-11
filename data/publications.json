@@ -2,19 +2,9 @@
   "international_journals": {
     "under_review": [
       {
-        "number": 4,
+        "number": 3,
         "authors": "Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*",
         "title": "An End-to-End DC-to-DC Efficiency Optimization and Design Analysis for MIMO Wireless Power Transfer Systems",
-        "venue": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
-        "highlight_author": "Y.-S. Lee",
-        "tags": ["1st Author"],
-        "doi": "",
-        "bibtex": ""
-      },
-      {
-        "number": 3,
-        "authors": "Y.-S. Lee, T. Yoon, M. Kim, S. Lee, J. Oh, and S. Nam*",
-        "title": "Accurate Extraction of Pilot Magnitude and Phase for Excitation Control in CW Time Reversal Wireless Power Transfer",
         "venue": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
         "highlight_author": "Y.-S. Lee",
         "tags": ["1st Author"],
@@ -83,6 +73,7 @@
         "venue": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
         "details": "vol. 73, no. 6, pp. 3346–3358, Jun. 2025",
         "doi": "https://doi.org/10.1109/TMTT.2024.3487911",
+        "pdf": "pdfs/lee2025-tmtt-scalable-large-array.pdf",
         "bibtex": "@ARTICLE{10750830,\n  author={Lee, Young-Seok and Yoon, Taeyeong and Kim, Minje and Lee, Sanghun and Jung, Byungwook and Oh, Jungsuek and Nam, Sangwook},\n  journal={IEEE Transactions on Microwave Theory and Techniques},\n  title={A Design and Characterization Method of a Scalable Large Transmitting Array for Wireless Power Transfer},\n  year={2025},\n  volume={73},\n  number={6},\n  pages={3346-3358},\n  doi={10.1109/TMTT.2024.3487911}}",
         "highlight_author": "Y.-S. Lee",
         "tags": ["1st Author"]
@@ -319,11 +310,13 @@
       {
         "venue": "2025 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2025)",
         "title": "Ph.D. Students Initiative Program",
+        "tags": ["1st Author"],
         "date": "Jun. 2025"
       },
       {
         "venue": "2024 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2024)",
         "title": "Student Travel Grant",
+        "tags": ["1st Author"],
         "date": "May 2024"
       }
     ],
@@ -339,6 +332,7 @@
       {
         "venue": "2025 Asia-Pacific Microwave Conference (APMC 2025)",
         "title": "Invited Paper",
+        "tags": ["1st Author"],
         "date": "Dec. 2025"
       }
     ]

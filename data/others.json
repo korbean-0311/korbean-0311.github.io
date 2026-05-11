@@ -42,13 +42,32 @@
   "programming": [
     {
       "category": "Programming Languages",
-      "items": ["C / Python / MATLAB"]
+      "skills": [
+        { "name": "C", "level": 3.5 },
+        { "name": "Python", "level": 3 },
+        { "name": "MATLAB", "level": 4.5 }
+      ]
     },
     {
       "category": "Hardware Tools",
       "subgroups": [
-        { "label": "EM Simulators", "items": ["Dassault System CST Studio / Ansys HFSS / Keysight ADS / Altair FEKO Suite"] },
-        { "label": "Circuit Tools", "items": ["Cadence OrCAD Capture / Allegro / Virtuoso"] }
+        {
+          "label": "EM Simulators",
+          "skills": [
+            { "name": "Dassault System CST", "level": 4 },
+            { "name": "Ansys HFSS", "level": 2.5 },
+            { "name": "Keysight ADS", "level": 3 },
+            { "name": "Altair FEKO Suite", "level": 3 }
+          ]
+        },
+        {
+          "label": "Circuit Tools",
+          "skills": [
+            { "name": "Cadence OrCAD Capture", "level": 4 },
+            { "name": "Cadence Allegro", "level": 3.5 },
+            { "name": "Cadence Virtuoso", "level": 3 }
+          ]
+        }
       ]
     }
   ]

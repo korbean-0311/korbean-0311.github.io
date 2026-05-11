@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Young-Seok Lee — ECE Ph.D. Candidate, SNU</title>
@@ -12,7 +13,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -26,7 +26,8 @@
         <p>I am a Ph.D. candidate in the Department of Electrical and Computer Engineering (ECE) at Seoul National University, co-advised by <a href="https://scholar.google.com/citations?user=haXHg4oAAAAJ&amp;hl=en" target="_blank" rel="noopener"><em>Prof. Sangwook Nam</em><svg class="ext-link-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></a> and <a href="https://scholar.google.com/citations?user=o-31h1kAAAAJ&amp;hl=en" target="_blank" rel="noopener"><em>Prof. Jungsuek Oh</em><svg class="ext-link-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></a>.</p>
         <p>I have collaborated with industry partners — including Samsung Electronics on RF Wireless Power Transfer and LIG Nex1 on large-scale phased-array calibration. My broader research interests span RF and electromagnetic systems, with active topics including:</p>
         <ul>
-          <li>RF beam-forming / Near-field beam-focusing</li>
+          <li>RF Beam-forming</li>
+          <li>RF Near-field Beam-focusing</li>
           <li>Wireless Power Transfer (WPT)</li>
           <li>Target detection</li>
           <li>Indoor localization</li>
@@ -86,7 +87,7 @@
         function render() {
           const visible = expanded ? news : news.slice(0, INITIAL);
           list.innerHTML = visible.map(n => {
-            const tagClass = n.tag === '1st Author' ? 'badge--tag' : 'badge--coauthor';
+            const tagClass = (n.tag === '1st Author' || n.tag === 'Project Lead') ? 'badge--tag' : 'badge--coauthor';
             const tag = n.tag ? ` <span class="badge ${tagClass}">${window.Portfolio.escapeHTML(n.tag)}</span>` : '';
             return `
               <li class="news-item">

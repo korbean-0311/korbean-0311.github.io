@@ -11,6 +11,23 @@
   };
 
   let DATA = null;
+  let CURRENT_TAB = 'international_journals';
+  let CURRENT_SORT = 'all';
+
+  const SORTABLE_TABS = new Set(['international_journals', 'international_conferences', 'awards']);
+
+  function hasFirstAuthorTag(item) {
+    return Array.isArray(item.tags) && item.tags.indexOf('1st Author') !== -1;
+  }
+
+  function filterFirstAuthor(arr) {
+    if (CURRENT_SORT !== 'first_author') return arr;
+    return (arr || []).filter(hasFirstAuthorTag);
+  }
+
+  function filterEntries(arr) {
+    return filterFirstAuthor(arr);
+  }
 
   function actionButtons(p) {
     const esc = window.Portfolio.escapeHTML;
@@ -29,23 +46,30 @@
     if (p.doi) {
       items.push(`<a class="pub-btn pub-btn--doi" href="${esc(p.doi)}" target="_blank" rel="noopener" aria-label="DOI link">DOI</a>`);
     }
+    if (p.pdf) {
+      items.push(`<a class="pub-btn pub-btn--pdf" href="${esc(p.pdf)}" target="_blank" rel="noopener" aria-label="Open PDF">PDF</a>`);
+    }
     return items.length ? `<div class="pub-item__actions">${items.join('')}</div>` : '';
   }
 
-  function pubItem(p) {
+  function pubItem(p, opts) {
+    opts = opts || {};
     const esc = window.Portfolio.escapeHTML;
     const num = p.number != null ? `<div class="pub-item__num">[${p.number}]</div>` : `<div class="pub-item__num"></div>`;
     const authors = window.Portfolio.highlightAuthor(p.authors, p.highlight_author);
     const tagsHTML = (p.tags || []).map(t => `<span class="badge--tag badge">${esc(t)}</span>`).join('');
     const details = p.details ? `<span class="pub-item__details">${esc(p.details)}</span>` : '';
     const venue = p.venue ? `<span class="pub-item__venue">${esc(p.venue)}</span>` : '';
+    const titleSuffix = opts.bareTitle ? '' : ',';
+    const titleQuote = opts.bareTitle ? '' : '"';
+    const venuePrefix = opts.bareTitle ? '' : 'in ';
     return `
       <li class="pub-item">
         ${num}
         <div class="pub-item__body">
           <div class="pub-item__authors">${authors}${tagsHTML}</div>
-          <div class="pub-item__title">"${esc(p.title)},"</div>
-          <div class="pub-item__meta">in ${venue}${details ? ', ' + details : '.'}</div>
+          <div class="pub-item__title">${titleQuote}${esc(p.title)}${titleSuffix}${titleQuote}</div>
+          <div class="pub-item__meta">${venuePrefix}${venue}${details ? ', ' + details : ''}</div>
           ${actionButtons(p)}
         </div>
       </li>
@@ -54,27 +78,29 @@
 
   function renderJournals(host) {
     const j = DATA.international_journals || {};
-    const ur = j.under_review || [];
-    const pub = j.published || [];
+    const ur = filterEntries(j.under_review || []);
+    const pub = filterEntries(j.published || []);
+    const opts = { bareTitle: true };
     let html = '';
     if (ur.length) {
-      html += `<div class="pub-group"><div class="pub-group__title">Under Review</div><ul class="pub-list">${ur.map(pubItem).join('')}</ul></div>`;
+      html += `<div class="pub-group"><div class="pub-group__title">Under Review</div><ul class="pub-list">${ur.map(p => pubItem(p, opts)).join('')}</ul></div>`;
     }
     if (pub.length) {
-      html += `<div class="pub-group"><div class="pub-group__title">Published Journals</div><ul class="pub-list">${pub.map(pubItem).join('')}</ul></div>`;
+      html += `<div class="pub-group"><div class="pub-group__title">Published Journals</div><ul class="pub-list">${pub.map(p => pubItem(p, opts)).join('')}</ul></div>`;
     }
-    host.innerHTML = html || `<p class="loading">No entries.</p>`;
+    host.innerHTML = html || `<p class="loading">No entries match this filter.</p>`;
   }
 
   function renderList(host, items, title) {
-    if (!items || !items.length) {
-      host.innerHTML = `<p class="loading">No entries yet.</p>`;
+    const filtered = filterEntries(items || []);
+    if (!filtered.length) {
+      host.innerHTML = `<p class="loading">No entries match this filter.</p>`;
       return;
     }
     host.innerHTML = `
       <div class="pub-group">
         <div class="pub-group__title">${title}</div>
-        <ul class="pub-list">${items.map(pubItem).join('')}</ul>
+        <ul class="pub-list">${filtered.map(pubItem).join('')}</ul>
       </div>`;
   }
 
@@ -109,11 +135,12 @@
     } else {
       // grouped shape
       Object.entries(data).forEach(([cat, items]) => {
-        if (!items || !items.length) return;
+        const filtered = filterFirstAuthor(items);
+        if (!filtered || !filtered.length) return;
         html += `
           <div class="award-group">
             <h4 class="award-group__title">${esc(cat)}</h4>
-            <ul class="award-list">${items.map(awardItem).join('')}</ul>
+            <ul class="award-list">${filtered.map(awardItem).join('')}</ul>
           </div>`;
       });
     }
@@ -125,10 +152,10 @@
   function patentItem(p) {
     const esc = window.Portfolio.escapeHTML;
     const inv = window.Portfolio.highlightAuthor(p.inventors || '', p.highlight_author);
-    const country = p.country ? `(${esc(p.country)}) ` : '';
+    const countryBadge = p.country ? `<span class="badge badge--country">${esc(p.country)}</span>` : '';
     return `
       <li class="patent-item">
-        <div class="patent-item__title">[${p.number}] ${country}${esc(p.title || '')}</div>
+        <div class="patent-item__title">[${p.number}] ${esc(p.title || '')} ${countryBadge}</div>
         <ul class="patent-item__meta">
           ${p.inventors ? `<li><span class="patent-label">Inventors:</span> ${inv}</li>` : ''}
           ${p.patent_no ? `<li><span class="patent-label">Patent No.:</span> ${esc(p.patent_no)}</li>` : ''}
@@ -156,6 +183,10 @@
     void host.offsetWidth;
     host.classList.add('tab-content');
     host.setAttribute('data-current-tab', tab);
+
+    // Toggle sort bar visibility
+    const sortBar = document.getElementById('sort-bar');
+    if (sortBar) sortBar.hidden = !SORTABLE_TABS.has(tab);
 
     if (tab === 'international_journals') return renderJournals(host);
     if (tab === 'international_conferences') return renderList(host, DATA.international_conferences, TAB_LABELS[tab]);
@@ -223,14 +254,30 @@
   document.addEventListener('DOMContentLoaded', async () => {
     try {
       DATA = await window.Portfolio.loadJSON('data/publications.json');
-      const initial = 'international_journals';
-      setActive(initial);
-      render(initial);
+      CURRENT_TAB = 'international_journals';
+      CURRENT_SORT = 'all';
+      setActive(CURRENT_TAB);
+      render(CURRENT_TAB);
       document.querySelectorAll('.tab-btn').forEach(btn => {
         btn.addEventListener('click', () => {
           const t = btn.dataset.tab;
+          CURRENT_TAB = t;
+          // reset sort when changing tabs
+          CURRENT_SORT = 'all';
+          document.querySelectorAll('.sort-btn').forEach(b => {
+            b.classList.toggle('is-active', b.dataset.sort === 'all');
+          });
           setActive(t);
           render(t);
+        });
+      });
+      document.querySelectorAll('.sort-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          CURRENT_SORT = btn.dataset.sort;
+          document.querySelectorAll('.sort-btn').forEach(b => {
+            b.classList.toggle('is-active', b === btn);
+          });
+          render(CURRENT_TAB);
         });
       });
     } catch (e) {

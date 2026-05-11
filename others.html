@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Others — Young-Seok Lee</title>
@@ -9,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -67,7 +67,10 @@
         sch.innerHTML = (data.scholarships || []).map(it => {
           const details = it.details ? ` ${esc(it.details)}` : '';
           const date = it.date ? ` (${esc(it.date)})` : '';
-          return `<li><em>${esc(it.name)},</em>${details}${date}</li>`;
+          const nameHTML = /Recipient/i.test(it.name)
+            ? `<strong>${esc(it.name)}</strong>`
+            : esc(it.name);
+          return `<li>${nameHTML},${details}${date}</li>`;
         }).join('') || '<li class="loading">No entries yet.</li>';
 
         // TA: <em>course</em> (code), institution, term
@@ -75,8 +78,9 @@
         ta.innerHTML = (data.ta || []).map(it => {
           const code = it.code ? ` (${esc(it.code)})` : '';
           const inst = it.institution ? `, ${esc(it.institution)}` : '';
+          // Plain (no italic) — render course name as-is
           const term = it.term ? `, ${esc(it.term)}` : '';
-          return `<li><em>${esc(it.course)}</em>${code}${inst}${term}</li>`;
+          return `<li>${esc(it.course)}${code}${inst}${term}</li>`;
         }).join('') || '<li class="loading">No entries yet.</li>';
 
         // Coursework: nested groups
@@ -94,13 +98,40 @@
 
         // Programming Skills: nested categories with optional subgroups
         const prog = document.getElementById('programming');
+        function renderDots(level) {
+          const lvl = Math.max(0, Math.min(5, level || 0));
+          let html = '';
+          for (let i = 1; i <= 5; i++) {
+            let cls = 'skill-dot';
+            if (i <= Math.floor(lvl)) cls += ' is-filled';
+            else if (i - 0.5 <= lvl) cls += ' is-half';
+            html += `<span class="${cls}"></span>`;
+          }
+          return `<span class="skill-rating" aria-label="${lvl} out of 5">${html}</span>`;
+        }
+        function renderSkills(skills) {
+          return `<ul class="skill-list">${skills.map(s => `
+            <li class="skill-row">
+              <span class="skill-name">${esc(s.name)}</span>
+              ${renderDots(s.level)}
+            </li>`).join('')}</ul>`;
+        }
         prog.innerHTML = (data.programming || []).map(cat => {
           let inner = '';
-          if (cat.subgroups && cat.subgroups.length) {
-            inner = `<ul class="prog-list">${cat.subgroups.map(sg => `
-              <li><strong>${esc(sg.label)}</strong>
+          if (cat.skills && cat.skills.length) {
+            inner = renderSkills(cat.skills);
+          } else if (cat.subgroups && cat.subgroups.length) {
+            inner = cat.subgroups.map(sg => {
+              if (sg.skills && sg.skills.length) {
+                return `<div class="skill-subgroup">
+                  <h4 class="skill-subgroup__title">${esc(sg.label)}</h4>
+                  ${renderSkills(sg.skills)}
+                </div>`;
+              }
+              return `<ul class="prog-list"><li><strong>${esc(sg.label)}</strong>
                 <ul class="prog-list prog-list--inner">${(sg.items || []).map(i => `<li>${esc(i)}</li>`).join('')}</ul>
-              </li>`).join('')}</ul>`;
+              </li></ul>`;
+            }).join('');
           } else if (cat.items && cat.items.length) {
             inner = `<ul class="prog-list">${cat.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
           }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Publications &amp; Awards — Young-Seok Lee</title>
@@ -9,7 +10,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.min.css" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -29,6 +29,12 @@
       <button class="tab-btn" role="tab" data-tab="awards">Awards</button>
     </div>
 
+    <div class="sort-bar" id="sort-bar" hidden>
+      <span class="sort-bar__label">Sort by:</span>
+      <button class="sort-btn is-active" type="button" data-sort="all">All</button>
+      <button class="sort-btn" type="button" data-sort="first_author">1st Author</button>
+    </div>
+
     <section class="tab-content" id="tab-content" aria-live="polite">
       <p class="loading">Loading…</p>
     </section>
@@ -37,6 +43,6 @@
   <div data-mount-footer></div>
 
   <script src="js/main.js"></script>
-  <script src="js/publications.js"></script>
+  <script src="js/publications.js" defer></script>
 </body>
 </html>
