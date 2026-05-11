@@ -913,12 +913,22 @@ a:hover .ext-link-arrow {
   line-height: 1.6;
 }
 
+.pub-item__meta--sub {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  margin-top: 0.1rem;
+}
+
 .pub-item__actions {
   display: flex;
   gap: 0.5rem;
   margin-top: 0.5rem;
   flex-wrap: wrap;
   align-items: center;
+}
+
+.pub-item__actions--notes + .pub-item__actions--buttons {
+  margin-top: 0.4rem;
 }
 
 .pub-note {

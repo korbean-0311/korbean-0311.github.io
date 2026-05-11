@@ -31,25 +31,33 @@
 
   function actionButtons(p) {
     const esc = window.Portfolio.escapeHTML;
-    const items = [];
+    const notes = [];
+    const buttons = [];
     (p.notes || []).forEach(n => {
       const kind = n && n.kind ? n.kind : 'info';
       const label = typeof n === 'string' ? n : (n && n.label) || '';
       const icon = (n && n.icon) ? n.icon : '';
       if (!label) return;
       const iconHTML = icon ? `<span class="pub-note__icon">${esc(icon)}</span>` : '';
-      items.push(`<span class="pub-note pub-note--${esc(kind)}">${iconHTML}${esc(label)}</span>`);
+      notes.push(`<span class="pub-note pub-note--${esc(kind)}">${iconHTML}${esc(label)}</span>`);
     });
     if (p.bibtex && p.bibtex.length) {
-      items.push(`<button type="button" class="pub-btn pub-btn--bib" data-bibtex="${esc(p.bibtex)}" aria-label="Copy BibTeX">BibTeX</button>`);
+      buttons.push(`<button type="button" class="pub-btn pub-btn--bib" data-bibtex="${esc(p.bibtex)}" aria-label="Copy BibTeX">BibTeX</button>`);
     }
     if (p.doi) {
-      items.push(`<a class="pub-btn pub-btn--doi" href="${esc(p.doi)}" target="_blank" rel="noopener" aria-label="DOI link">DOI</a>`);
+      buttons.push(`<a class="pub-btn pub-btn--doi" href="${esc(p.doi)}" target="_blank" rel="noopener" aria-label="DOI link">DOI</a>`);
     }
     if (p.pdf) {
-      items.push(`<a class="pub-btn pub-btn--pdf" href="${esc(p.pdf)}" target="_blank" rel="noopener" aria-label="Open PDF">PDF</a>`);
+      buttons.push(`<a class="pub-btn pub-btn--pdf" href="${esc(p.pdf)}" target="_blank" rel="noopener" aria-label="Open PDF">PDF</a>`);
     }
-    return items.length ? `<div class="pub-item__actions">${items.join('')}</div>` : '';
+    if (!notes.length && !buttons.length) return '';
+    // When both notes AND buttons exist, render them on separate rows.
+    if (notes.length && buttons.length) {
+      return `
+        <div class="pub-item__actions pub-item__actions--notes">${notes.join('')}</div>
+        <div class="pub-item__actions pub-item__actions--buttons">${buttons.join('')}</div>`;
+    }
+    return `<div class="pub-item__actions">${notes.concat(buttons).join('')}</div>`;
   }
 
   function pubItem(p, opts) {
@@ -63,13 +71,23 @@
     const titleSuffix = opts.bareTitle ? '' : ',';
     const titleQuote = opts.bareTitle ? '' : '"';
     const venuePrefix = opts.bareTitle ? '' : 'in ';
+
+    let metaHTML;
+    if (opts.splitMeta) {
+      metaHTML = `
+          <div class="pub-item__meta">${venue}</div>
+          ${details ? `<div class="pub-item__meta pub-item__meta--sub">${details}</div>` : ''}`;
+    } else {
+      metaHTML = `<div class="pub-item__meta">${venuePrefix}${venue}${details ? ', ' + details : ''}</div>`;
+    }
+
     return `
       <li class="pub-item">
         ${num}
         <div class="pub-item__body">
           <div class="pub-item__authors">${authors}${tagsHTML}</div>
           <div class="pub-item__title">${titleQuote}${esc(p.title)}${titleSuffix}${titleQuote}</div>
-          <div class="pub-item__meta">${venuePrefix}${venue}${details ? ', ' + details : ''}</div>
+          ${metaHTML}
           ${actionButtons(p)}
         </div>
       </li>
@@ -91,7 +109,8 @@
     host.innerHTML = html || `<p class="loading">No entries match this filter.</p>`;
   }
 
-  function renderList(host, items, title) {
+  function renderList(host, items, title, opts) {
+    opts = opts || {};
     const filtered = filterEntries(items || []);
     if (!filtered.length) {
       host.innerHTML = `<p class="loading">No entries match this filter.</p>`;
@@ -100,7 +119,7 @@
     host.innerHTML = `
       <div class="pub-group">
         <div class="pub-group__title">${title}</div>
-        <ul class="pub-list">${filtered.map(pubItem).join('')}</ul>
+        <ul class="pub-list">${filtered.map(p => pubItem(p, opts)).join('')}</ul>
       </div>`;
   }
 
@@ -189,8 +208,8 @@
     if (sortBar) sortBar.hidden = !SORTABLE_TABS.has(tab);
 
     if (tab === 'international_journals') return renderJournals(host);
-    if (tab === 'international_conferences') return renderList(host, DATA.international_conferences, TAB_LABELS[tab]);
-    if (tab === 'domestic_conferences') return renderList(host, DATA.domestic_conferences, 'Domestic Conferences (KIEES)');
+    if (tab === 'international_conferences') return renderList(host, DATA.international_conferences, TAB_LABELS[tab], { bareTitle: true, splitMeta: true });
+    if (tab === 'domestic_conferences') return renderList(host, DATA.domestic_conferences, 'Domestic Conferences (KIEES)', { bareTitle: true });
     if (tab === 'patents') return renderPatents(host);
     if (tab === 'awards') return renderAwards(host);
   }
