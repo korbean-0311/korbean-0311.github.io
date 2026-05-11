@@ -110,26 +110,21 @@
     });
   }
 
-  /* ---------- JSON loader (memo + sessionStorage) ---------- */
+  /* ---------- JSON loader (memo only; always revalidate over network) ---------- */
   const cache = {};
   async function loadJSON(path) {
     if (cache[path]) return cache[path];
-    // sessionStorage hit — instant on cross-page navigation
-    try {
-      const stored = sessionStorage.getItem('json:' + path);
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        cache[path] = parsed;
-        return parsed;
-      }
-    } catch (_) { /* sessionStorage unavailable */ }
-    const res = await fetch(path);
+    // Force revalidation against server (ETag/Last-Modified) so deploys are picked up immediately.
+    const res = await fetch(path, { cache: 'no-cache' });
     if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
     const data = await res.json();
     cache[path] = data;
-    try { sessionStorage.setItem('json:' + path, JSON.stringify(data)); } catch (_) {}
     return data;
   }
+  // One-time cleanup of stale sessionStorage entries from older versions of this loader.
+  try {
+    Object.keys(sessionStorage).forEach(k => { if (k.indexOf('json:') === 0) sessionStorage.removeItem(k); });
+  } catch (_) {}
 
   /* ---------- Inject shared chrome ---------- */
   function injectChrome() {
