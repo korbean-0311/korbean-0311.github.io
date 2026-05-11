@@ -431,7 +431,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 - Electromagnetic Wave Engineering (430.464A 001), Seoul National University, Spring 2023
 
 ### Selected Coursework
-**Coursework in Seoul Nat'l University (M.S. - Ph.D):**
+**Coursework in SNU (M.S. - Ph.D):**
 - Electromagnetic Wave Engineering
 - RF System Design
 - Advanced Electromagnetics I
@@ -441,7 +441,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 - Electro-optics
 - Estimation Theory
 
-**Coursework in Korea University (B.S.):**
+**Coursework in KU (B.S.):**
 - Probability & Random Process
 - Electromagnetics
 - Electromagnetic Field
