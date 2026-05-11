@@ -15,7 +15,7 @@
   ],
   "coursework": [
     {
-      "school": "Coursework in Seoul Nat'l University (M.S. - Ph.D)",
+      "school": "Coursework in SNU (M.S. - Ph.D)",
       "courses": [
         { "name": "Electromagnetic Wave Engineering" },
         { "name": "RF System Design" },
@@ -28,7 +28,7 @@
       ]
     },
     {
-      "school": "Coursework in Korea University (B.S.)",
+      "school": "Coursework in KU (B.S.)",
       "courses": [
         { "name": "Probability & Random Process" },
         { "name": "Electromagnetics" },
