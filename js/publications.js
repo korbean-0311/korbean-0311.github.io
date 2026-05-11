@@ -2,6 +2,10 @@
 (function () {
   'use strict';
 
+  // Hoist the escape helper once — main.js has already populated window.Portfolio
+  // by the time this script's IIFE runs (both are classic scripts in document order).
+  const esc = window.Portfolio.escapeHTML;
+
   const TAB_LABELS = {
     international_journals: "Int'l Journals",
     international_conferences: "Int'l Conferences",
@@ -30,7 +34,6 @@
   }
 
   function actionButtons(p) {
-    const esc = window.Portfolio.escapeHTML;
     const notes = [];
     const buttons = [];
     (p.notes || []).forEach(n => {
@@ -62,7 +65,6 @@
 
   function pubItem(p, opts) {
     opts = opts || {};
-    const esc = window.Portfolio.escapeHTML;
     const num = p.number != null ? `<div class="pub-item__num">[${p.number}]</div>` : `<div class="pub-item__num"></div>`;
     const authors = window.Portfolio.highlightAuthor(p.authors, p.highlight_author);
     const tagsHTML = (p.tags || []).map(t => `<span class="badge--tag badge">${esc(t)}</span>`).join('');
@@ -124,7 +126,6 @@
   }
 
   function awardItem(a) {
-    const esc = window.Portfolio.escapeHTML;
     const venue = a.venue ? `<em class="award-venue">${esc(a.venue)}</em>, ` : '';
     const title = a.title ? `<strong>${esc(a.title)}</strong>` : '';
     const hl = a.highlight ? ` <em class="award-highlight">(${esc(a.highlight)})</em>` : '';
@@ -135,7 +136,6 @@
   }
 
   function renderAwards(host) {
-    const esc = window.Portfolio.escapeHTML;
     const data = DATA.awards;
     if (!data || (Array.isArray(data) && !data.length) || (typeof data === 'object' && !Array.isArray(data) && Object.keys(data).length === 0)) {
       host.innerHTML = `<p class="loading">No entries yet.</p>`;
@@ -169,7 +169,6 @@
   }
 
   function patentItem(p) {
-    const esc = window.Portfolio.escapeHTML;
     const inv = window.Portfolio.highlightAuthor(p.inventors || '', p.highlight_author);
     const countryBadge = p.country ? `<span class="badge badge--country">${esc(p.country)}</span>` : '';
     return `

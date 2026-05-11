@@ -122,8 +122,12 @@
     return data;
   }
   // One-time cleanup of stale sessionStorage entries from older versions of this loader.
+  // Gated by a flag so subsequent navigations within the same session skip the scan.
   try {
-    Object.keys(sessionStorage).forEach(k => { if (k.indexOf('json:') === 0) sessionStorage.removeItem(k); });
+    if (!sessionStorage.getItem('__json_cleaned_v1')) {
+      Object.keys(sessionStorage).forEach(k => { if (k.indexOf('json:') === 0) sessionStorage.removeItem(k); });
+      sessionStorage.setItem('__json_cleaned_v1', '1');
+    }
   } catch (_) {}
 
   /* ---------- Inject shared chrome ---------- */
@@ -140,6 +144,11 @@
   }
 
   const NAV_HTML = `
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <symbol id="ico-menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M5 12h14"/><path d="M13 6l6 6-6 6"/>
+      </symbol>
+    </svg>
     <nav class="topnav" aria-label="Primary">
       <a class="topnav__brand" href="index.html">Young-Seok Lee</a>
       <div class="topnav__actions">
@@ -174,12 +183,12 @@
         </button>
       </div>
       <ul class="menu-list">
-        <li><a href="index.html"><span class="menu-num">01</span><span>Home</span><svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></li>
-        <li><a href="education.html"><span class="menu-num">02</span><span>Education</span><svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></li>
-        <li><a href="publications.html"><span class="menu-num">03</span><span>Publications &amp; Awards</span><svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></li>
-        <li><a href="research.html"><span class="menu-num">04</span><span>Research</span><svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></li>
-        <li><a href="others.html"><span class="menu-num">05</span><span>Others</span><svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></li>
-        <li><a href="contact.html"><span class="menu-num">06</span><span>Contact</span><svg class="menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg></a></li>
+        <li><a href="index.html"><span class="menu-num">01</span><span>Home</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
+        <li><a href="education.html"><span class="menu-num">02</span><span>Education</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
+        <li><a href="publications.html"><span class="menu-num">03</span><span>Publications &amp; Awards</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
+        <li><a href="research.html"><span class="menu-num">04</span><span>Research</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
+        <li><a href="others.html"><span class="menu-num">05</span><span>Others</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
+        <li><a href="contact.html"><span class="menu-num">06</span><span>Contact</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
       </ul>
       <div class="menu-panel__footer">© 2020–${new Date().getFullYear()} Young-Seok Lee</div>
     </aside>
@@ -192,24 +201,36 @@
   `;
 
   /* ---------- Helpers exposed globally ---------- */
-  window.Portfolio = {
-    loadJSON,
-    escapeHTML(str) {
-      return String(str ?? '')
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#39;');
-    },
-    highlightAuthor(authors, me) {
-      if (!authors) return '';
-      const safe = this.escapeHTML(authors);
-      if (!me) return safe;
-      const safeMe = this.escapeHTML(me).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      return safe.replace(new RegExp(safeMe, 'g'), `<span class="me">${this.escapeHTML(me)}</span>`);
+  function escapeHTML(str) {
+    return String(str ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // Cache compiled regex + replacement HTML per `me` token so identical authors
+  // (which repeat across every publication) skip recompile + escape work.
+  const RE_META = /[.*+?^${}()|[\]\\]/g;
+  const highlightCache = new Map();
+  function highlightAuthor(authors, me) {
+    if (!authors) return '';
+    const safe = escapeHTML(authors);
+    if (!me) return safe;
+    let entry = highlightCache.get(me);
+    if (!entry) {
+      const safeMe = escapeHTML(me);
+      entry = {
+        re: new RegExp(safeMe.replace(RE_META, '\\$&'), 'g'),
+        repl: `<span class="me">${safeMe}</span>`
+      };
+      highlightCache.set(me, entry);
     }
-  };
+    return safe.replace(entry.re, entry.repl);
+  }
+
+  window.Portfolio = { loadJSON, escapeHTML, highlightAuthor };
 
   /* ---------- Boot ---------- */
   document.addEventListener('DOMContentLoaded', () => {
