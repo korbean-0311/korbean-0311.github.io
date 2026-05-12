@@ -919,6 +919,13 @@ a:hover .ext-link-arrow {
   margin-top: 0.1rem;
 }
 
+.pub-item__sep {
+  border: 0;
+  border-top: 1px solid var(--border-color);
+  margin: 0.5rem 0;
+  opacity: 0.7;
+}
+
 .pub-item__actions {
   display: flex;
   gap: 0.5rem;

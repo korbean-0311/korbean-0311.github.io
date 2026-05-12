@@ -14,9 +14,25 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" />
   <link rel="stylesheet" href="css/style.css" />
+  <!-- Discoverable plain-text version for AI / non-JS clients. -->
+  <link rel="alternate" type="text/markdown" href="/llms-full.txt" title="Full content as Markdown" />
 </head>
 <body>
-  <div data-mount-nav></div>
+  <div data-mount-nav>
+    <!-- Fallback navigation for AI crawlers and non-JS clients. JS replaces the whole div on load, so humans never see this. -->
+    <nav hidden aria-label="Site navigation (text-only fallback)">
+      <a href="index.html">Home</a> ·
+      <a href="education.html">Education</a> ·
+      <a href="publications.html">Publications &amp; Awards</a> ·
+      <a href="research.html">Research</a> ·
+      <a href="others.html">Others</a> ·
+      <a href="contact.html">Contact</a>
+    </nav>
+  </div>
+
+  <noscript>
+    <p>This site renders content via JavaScript. The complete plain-text version of all pages (biography, recent news, publications with BibTeX, education timeline, research projects, reviewer activities, scholarships, teaching, coursework, programming skills, contact) is available at <a href="/llms-full.txt">/llms-full.txt</a>. A short index is at <a href="/llms.txt">/llms.txt</a>.</p>
+  </noscript>
 
   <main>
     <section class="hero">

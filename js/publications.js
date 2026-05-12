@@ -83,12 +83,15 @@
       metaHTML = `<div class="pub-item__meta">${venuePrefix}${venue}${details ? ', ' + details : ''}</div>`;
     }
 
+    const sep = opts.withDividers ? '<hr class="pub-item__sep" aria-hidden="true" />' : '';
     return `
       <li class="pub-item">
         ${num}
         <div class="pub-item__body">
           <div class="pub-item__authors">${authors}${tagsHTML}</div>
+          ${sep}
           <div class="pub-item__title">${titleQuote}${esc(p.title)}${titleSuffix}${titleQuote}</div>
+          ${sep}
           ${metaHTML}
           ${actionButtons(p)}
         </div>
@@ -100,7 +103,9 @@
     const j = DATA.international_journals || {};
     const ur = filterEntries(j.under_review || []);
     const pub = filterEntries(j.published || []);
-    const opts = { bareTitle: true };
+    // withDividers: true → adds thin horizontal separators between authors/title/meta
+    // (Int'l Journals only — conferences/patents/awards remain compact)
+    const opts = { bareTitle: true, withDividers: true };
     let html = '';
     if (ur.length) {
       html += `<div class="pub-group"><div class="pub-group__title">Under Review</div><ul class="pub-list">${ur.map(p => pubItem(p, opts)).join('')}</ul></div>`;
@@ -207,8 +212,8 @@
     if (sortBar) sortBar.hidden = !SORTABLE_TABS.has(tab);
 
     if (tab === 'international_journals') return renderJournals(host);
-    if (tab === 'international_conferences') return renderList(host, DATA.international_conferences, TAB_LABELS[tab], { bareTitle: true, splitMeta: true });
-    if (tab === 'domestic_conferences') return renderList(host, DATA.domestic_conferences, 'Domestic Conferences (KIEES)', { bareTitle: true });
+    if (tab === 'international_conferences') return renderList(host, DATA.international_conferences, TAB_LABELS[tab], { bareTitle: true, splitMeta: true, withDividers: true });
+    if (tab === 'domestic_conferences') return renderList(host, DATA.domestic_conferences, 'Domestic Conferences (KIEES)', { bareTitle: true, withDividers: true });
     if (tab === 'patents') return renderPatents(host);
     if (tab === 'awards') return renderAwards(host);
   }
