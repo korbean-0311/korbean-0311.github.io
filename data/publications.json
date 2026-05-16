@@ -8,6 +8,7 @@
         "venue": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
         "highlight_author": "Y.-S. Lee",
         "tags": ["1st Author"],
+        "notes": [{ "label": "Major Revision", "kind": "info" }],
         "doi": "",
         "bibtex": ""
       },
@@ -18,6 +19,7 @@
         "venue": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
         "highlight_author": "Y.-S. Lee",
         "tags": [],
+        "notes": [{ "label": "Submitted", "kind": "info" }],
         "doi": "",
         "bibtex": ""
       },
@@ -28,6 +30,7 @@
         "venue": "IEEE Open Journal of Antennas and Propagation (OJAP)",
         "highlight_author": "Y.-S. Lee",
         "tags": [],
+        "notes": [{ "label": "Submitted", "kind": "info" }],
         "doi": "",
         "bibtex": ""
       }
