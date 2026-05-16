@@ -38,14 +38,17 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - Authors: Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*
   - Venue: IEEE Transactions on Microwave Theory and Techniques (TMTT)
   - Tags: 1st Author
+  - Notes: Major Revision
 
 - **[2] Hardware-Aware MILP for Optimal End-to-End Efficiency in MISO WPT: Joint Optimization of Power Modes and Fault Tolerance**
   - Authors: T. Yoon, Y.-S. Lee, U. Park, M. Kim, S. Lee, S. Nam, and J. Oh*
   - Venue: IEEE Transactions on Microwave Theory and Techniques (TMTT)
+  - Notes: Submitted
 
 - **[1] Amplitude Tapering-Aware Efficient Near-Field Array Wireless Power Transfer Using Multi-State Supply Switching**
   - Authors: T. Yoon, Y.-S. Lee, M. Kim, S. Lee, J. Lee, S. Nam, and J. Oh*
   - Venue: IEEE Open Journal of Antennas and Propagation (OJAP)
+  - Notes: Submitted
 
 ### International Journals — Published
 
