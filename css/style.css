@@ -144,6 +144,50 @@ button {
   gap: 12px;
 }
 
+/* Desktop horizontal nav — hidden by default (mobile/tablet-portrait first).
+   At >=900px (PC, tablet landscape), it appears as a horizontal link row
+   and the hamburger/side-panel are hidden. */
+.topnav__links {
+  display: none;
+}
+
+@media (min-width: 900px) {
+  .topnav__links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    /* Slight separator from the theme toggle button on the far right */
+    margin-right: 0.5rem;
+  }
+  .topnav__links a {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    padding: 6px 2px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    white-space: nowrap;
+  }
+  .topnav__links a:hover {
+    color: var(--text-primary);
+  }
+  .topnav__links a.is-active {
+    color: var(--color-accent);
+    border-bottom-color: var(--color-accent);
+  }
+  /* Hide mobile-only hamburger button on desktop.
+     !important defends against the .icon-btn { display: inline-flex } base rule
+     which has the same specificity. */
+  [data-menu-toggle] {
+    display: none !important;
+  }
+  /* Hide the slide-in side panel (even when 'is-open' from a prior narrow state) */
+  .menu-panel,
+  .menu-overlay {
+    display: none !important;
+  }
+}
+
 .icon-btn {
   width: 40px;
   height: 40px;

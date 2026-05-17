@@ -74,8 +74,19 @@
     });
   }
 
-  /* ---------- Hamburger menu ---------- */
+  /* ---------- Nav: mobile hamburger panel + desktop horizontal links ---------- */
   function initMenu() {
+    // Mark the active link in BOTH navs (side panel for mobile, .topnav__links for desktop).
+    // Only one is visible at any given viewport, but marking both keeps state
+    // consistent across CSS-driven layout changes (e.g., resize during session).
+    const path = location.pathname.split('/').pop() || 'index.html';
+    document.querySelectorAll('.menu-panel a, .topnav__links a').forEach((a) => {
+      const href = a.getAttribute('href');
+      if (href === path) a.classList.add('is-active');
+    });
+
+    // Side-panel wiring (mobile / tablet portrait). On desktop the elements
+    // still exist in the DOM but are CSS-hidden, so listeners are harmless.
     const toggle = document.querySelector('[data-menu-toggle]');
     const panel = document.querySelector('[data-menu-panel]');
     const overlay = document.querySelector('[data-menu-overlay]');
@@ -100,13 +111,6 @@
     closeBtn && closeBtn.addEventListener('click', close);
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && panel.classList.contains('is-open')) close();
-    });
-
-    // mark active link
-    const path = location.pathname.split('/').pop() || 'index.html';
-    panel.querySelectorAll('a').forEach((a) => {
-      const href = a.getAttribute('href');
-      if (href === path) a.classList.add('is-active');
     });
   }
 
@@ -152,6 +156,14 @@
     <nav class="topnav" aria-label="Primary">
       <a class="topnav__brand" href="index.html">Young-Seok Lee</a>
       <div class="topnav__actions">
+        <div class="topnav__links">
+          <a href="index.html">Home</a>
+          <a href="education.html">Education</a>
+          <a href="publications.html">Publications &amp; Awards</a>
+          <a href="research.html">Research</a>
+          <a href="others.html">Others</a>
+          <a href="contact.html">Contact</a>
+        </div>
         <button class="icon-btn" data-theme-toggle type="button" aria-label="Toggle theme">
           <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/>
