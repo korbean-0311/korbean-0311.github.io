@@ -33,7 +33,9 @@ const MIME = {
 http.createServer((req, res) => {
   try {
     let url = decodeURIComponent(req.url.split('?')[0]);
-    if (url === '/' || url === '') url = '/index.html';
+    if (url === '' || url === '/') url = '/index.html';
+    // For any path ending in '/', try its directory index (mimics GitHub Pages).
+    else if (url.endsWith('/')) url += 'index.html';
     const filePath = path.join(ROOT, url);
     // Block path traversal
     if (!filePath.startsWith(ROOT)) { res.writeHead(403); res.end('Forbidden'); return; }

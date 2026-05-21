@@ -149,15 +149,30 @@
 
     let html = `<div class="pub-group"><div class="pub-group__title">Awards</div>`;
 
-    if (Array.isArray(data)) {
-      // legacy flat shape
+    // Three shapes supported (in order of preference):
+    //   1) Array-of-groups: [{ category: '...', items: [...] }, ...]   ← current
+    //   2) Object-of-arrays (legacy): { 'Conferences': [...], ... }
+    //   3) Flat array of {title, meta} (very old legacy)
+    if (Array.isArray(data) && data.length && data[0] && Array.isArray(data[0].items)) {
+      // Shape (1): array of named groups
+      data.forEach(group => {
+        const filtered = filterFirstAuthor(group.items || []);
+        if (!filtered.length) return;
+        html += `
+          <div class="award-group">
+            <h4 class="award-group__title">${esc(group.category || '')}</h4>
+            <ul class="award-list">${filtered.map(awardItem).join('')}</ul>
+          </div>`;
+      });
+    } else if (Array.isArray(data)) {
+      // Shape (3): legacy flat
       html += `<ul class="award-list">${data.map(a => `
         <li class="award-item">
           <div class="award-item__title">${esc(a.title || '')}</div>
           <div class="award-item__meta">${esc(a.meta || '')}</div>
         </li>`).join('')}</ul>`;
     } else {
-      // grouped shape
+      // Shape (2): legacy object-of-arrays
       Object.entries(data).forEach(([cat, items]) => {
         const filtered = filterFirstAuthor(items);
         if (!filtered || !filtered.length) return;

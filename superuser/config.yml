@@ -1,0 +1,308 @@
+# Sveltia CMS configuration for korbean-0311.github.io
+# -------------------------------------------------------
+# This file is loaded by /superuser/index.html (via the sveltia-cms script bundle).
+# It defines the schema of editable JSON files for the admin UI.
+
+backend:
+  name: github
+  repo: korbean-0311/korbean-0311.github.io
+  branch: main
+  # Cloudflare Worker OAuth proxy (self-hosted, free).
+  # Source: scripts/cloudflare-worker-oauth.js (deployed manually via CF dashboard).
+  base_url: https://korbean-cms-oauth.ryanlee-860.workers.dev
+  auth_endpoint: auth
+
+# Where uploaded files (e.g., PDFs for publications) go.
+media_folder: pdfs
+public_folder: /pdfs
+
+# Site URL for the "View live" link inside the editor.
+site_url: https://korbean-0311.github.io
+display_url: https://korbean-0311.github.io
+
+# We disable the publish workflow (no draft/review queue) since this is a
+# single-author setup — every save goes straight to main and triggers Pages.
+publish_mode: simple
+
+# ---------------------------------------------------------------------------
+# Collections
+# ---------------------------------------------------------------------------
+collections:
+
+  # -------------------- Recent News (landing page) -------------------------
+  - name: news
+    label: News
+    icon: campaign
+    description: Items shown under "Recent News" on the landing page.
+    files:
+      - name: news_file
+        label: Recent News
+        file: data/news.json
+        format: json
+        fields:
+          - label: News items
+            name: news
+            widget: list
+            min: 1
+            summary: '{{fields.date}} — {{fields.body}}'
+            fields:
+              - label: Date
+                name: date
+                widget: string
+                hint: 'Display string. Convention: "DD Mon YYYY" (e.g., 11 Feb 2026).'
+              - label: Body
+                name: body
+                widget: text
+                hint: 'HTML allowed. Use <strong>...</strong> to bold key phrases.'
+              - label: Tag
+                name: tag
+                widget: select
+                required: false
+                default: ''
+                options:
+                  - { label: '(none)', value: '' }
+                  - { label: '1st Author', value: '1st Author' }
+                  - { label: 'Co-author', value: 'Co-author' }
+                  - { label: 'Project Lead', value: 'Project Lead' }
+                hint: 'Optional badge shown next to the news item.'
+
+  # -------------------- Publications & Awards ------------------------------
+  - name: publications
+    label: Publications & Awards
+    icon: menu_book
+    description: 'All five sub-categories shown on the publications page: int''l journals, conferences, patents, awards.'
+    files:
+      - name: pubs_file
+        label: Publications data
+        file: data/publications.json
+        format: json
+        fields:
+
+          # ----- International Journals (under review + published) --------
+          - label: International Journals
+            name: international_journals
+            widget: object
+            collapsed: false
+            fields:
+
+              - label: Under Review
+                name: under_review
+                widget: list
+                required: false
+                summary: '[{{fields.number}}] {{fields.title}}'
+                fields:
+                  - { label: Number, name: number, widget: number, value_type: int, min: 1 }
+                  - { label: Authors, name: authors, widget: string, hint: 'Use asterisk for corresponding author, e.g., "Y.-S. Lee, ..., S. Nam*".' }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Venue, name: venue, widget: string, hint: 'Full journal name (TMTT, OJAP, ...)' }
+                  - label: Highlight Author
+                    name: highlight_author
+                    widget: string
+                    default: 'Y.-S. Lee'
+                    hint: 'Author name to bold/highlight in the rendered authors line.'
+                  - label: Tags
+                    name: tags
+                    widget: select
+                    multiple: true
+                    required: false
+                    default: []
+                    options: ['1st Author']
+                  - label: Notes (status badges)
+                    name: notes
+                    widget: list
+                    required: false
+                    default: []
+                    summary: '{{fields.label}}'
+                    fields:
+                      - { label: Label, name: label, widget: string, hint: 'e.g., "Major Revision", "Submitted", "Invited Paper", "Best Paper Award".' }
+                      - label: Kind
+                        name: kind
+                        widget: select
+                        default: 'info'
+                        options:
+                          - { label: 'Info (neutral pill)', value: 'info' }
+                          - { label: 'Award (highlighted)', value: 'award' }
+                      - { label: Icon (optional emoji), name: icon, widget: string, required: false, default: '' }
+                  - { label: DOI, name: doi, widget: string, required: false, default: '' }
+                  - { label: BibTeX, name: bibtex, widget: text, required: false, default: '' }
+
+              - label: Published
+                name: published
+                widget: list
+                required: false
+                summary: '[{{fields.number}}] {{fields.title}}'
+                fields:
+                  - { label: Number, name: number, widget: number, value_type: int, min: 1 }
+                  - { label: Authors, name: authors, widget: string }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Venue, name: venue, widget: string }
+                  - { label: Details (vol/pages/date), name: details, widget: string, required: false, hint: 'e.g., "vol. 73, no. 11, pp. 8528–8535, Nov. 2025".' }
+                  - label: Highlight Author
+                    name: highlight_author
+                    widget: string
+                    default: 'Y.-S. Lee'
+                  - label: Tags
+                    name: tags
+                    widget: select
+                    multiple: true
+                    required: false
+                    default: []
+                    options: ['1st Author']
+                  - label: Notes
+                    name: notes
+                    widget: list
+                    required: false
+                    default: []
+                    summary: '{{fields.label}}'
+                    fields:
+                      - { label: Label, name: label, widget: string }
+                      - label: Kind
+                        name: kind
+                        widget: select
+                        default: 'info'
+                        options:
+                          - { label: 'Info', value: 'info' }
+                          - { label: 'Award', value: 'award' }
+                      - { label: Icon, name: icon, widget: string, required: false, default: '' }
+                  - { label: DOI, name: doi, widget: string, required: false, default: '' }
+                  - label: PDF
+                    name: pdf
+                    widget: file
+                    required: false
+                    media_folder: '/pdfs'
+                    hint: 'Upload PDF. Stored under /pdfs.'
+                  - { label: BibTeX, name: bibtex, widget: text, required: false, default: '' }
+
+          # ----- International Conferences --------------------------------
+          - label: International Conferences
+            name: international_conferences
+            widget: list
+            required: false
+            summary: '[{{fields.number}}] {{fields.title}}'
+            fields:
+              - { label: Number, name: number, widget: number, value_type: int, min: 1 }
+              - { label: Authors, name: authors, widget: string }
+              - { label: Title, name: title, widget: string }
+              - { label: Venue, name: venue, widget: string, hint: 'e.g., "2025 IEEE Wireless Power Technology Conference and EXPO (WPTCE 2025)".' }
+              - { label: Details (location/dates), name: details, widget: string, required: false, hint: 'e.g., "Rome, Italy, Jun. 3–6, 2025".' }
+              - label: Highlight Author
+                name: highlight_author
+                widget: string
+                default: 'Y.-S. Lee'
+              - label: Tags
+                name: tags
+                widget: select
+                multiple: true
+                required: false
+                default: []
+                options: ['1st Author']
+              - label: Notes
+                name: notes
+                widget: list
+                required: false
+                default: []
+                summary: '{{fields.label}}'
+                fields:
+                  - { label: Label, name: label, widget: string, hint: 'e.g., "Accepted", "Invited Paper", "Best Paper Award, 2nd Prize".' }
+                  - label: Kind
+                    name: kind
+                    widget: select
+                    default: 'info'
+                    options:
+                      - { label: 'Info', value: 'info' }
+                      - { label: 'Award', value: 'award' }
+                  - { label: Icon (optional), name: icon, widget: string, required: false, default: '' }
+              - { label: DOI, name: doi, widget: string, required: false, default: '' }
+              - { label: BibTeX, name: bibtex, widget: text, required: false, default: '' }
+
+          # ----- Domestic Conferences -------------------------------------
+          - label: Domestic Conferences (KIEES)
+            name: domestic_conferences
+            widget: list
+            required: false
+            summary: '[{{fields.number}}] {{fields.title}}'
+            fields:
+              - { label: Number, name: number, widget: number, value_type: int, min: 1 }
+              - { label: Authors, name: authors, widget: string }
+              - { label: Title, name: title, widget: string }
+              - { label: Venue, name: venue, widget: string, hint: 'e.g., "2026 KIEES Winter Conf.".' }
+              - { label: Details (date), name: details, widget: string, required: false, hint: 'e.g., "Feb. 2026".' }
+              - label: Highlight Author
+                name: highlight_author
+                widget: string
+                default: 'Y.-S. Lee'
+              - label: Tags
+                name: tags
+                widget: select
+                multiple: true
+                required: false
+                default: []
+                options: ['1st Author']
+              - label: Notes
+                name: notes
+                widget: list
+                required: false
+                default: []
+                summary: '{{fields.label}}'
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - label: Kind
+                    name: kind
+                    widget: select
+                    default: 'info'
+                    options:
+                      - { label: 'Info', value: 'info' }
+                      - { label: 'Award', value: 'award' }
+                  - { label: Icon, name: icon, widget: string, required: false, default: '' }
+              - { label: DOI, name: doi, widget: string, required: false, default: '' }
+              - { label: BibTeX, name: bibtex, widget: text, required: false, default: '' }
+
+          # ----- Patents ---------------------------------------------------
+          - label: Patents
+            name: patents
+            widget: list
+            required: false
+            summary: '[{{fields.number}}] {{fields.title}}'
+            fields:
+              - { label: Number, name: number, widget: number, value_type: int, min: 1 }
+              - label: Country
+                name: country
+                widget: select
+                options: ['Korea', 'USA', 'PCT', 'Other']
+                default: 'Korea'
+              - { label: Title, name: title, widget: string }
+              - { label: Inventors, name: inventors, widget: string }
+              - label: Highlight Author
+                name: highlight_author
+                widget: string
+                default: 'Y.-S. Lee'
+              - { label: Patent Number, name: patent_no, widget: string, required: false }
+              - { label: Granted Date, name: granted_date, widget: string, required: false, hint: 'e.g., "2024.09.04".' }
+
+          # ----- Awards (array of grouped categories) ---------------------
+          - label: Awards
+            name: awards
+            widget: list
+            required: false
+            summary: '{{fields.category}} ({{fields.items | length}} entries)'
+            fields:
+              - label: Category
+                name: category
+                widget: string
+                hint: 'e.g., "Conferences", "Grants & Scholarships", "Student Paper Competitions", "Invited Papers".'
+              - label: Items
+                name: items
+                widget: list
+                summary: '{{fields.title}} — {{fields.venue}}'
+                fields:
+                  - { label: Venue, name: venue, widget: string, required: false }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Highlight (prize / sub-title), name: highlight, widget: string, required: false }
+                  - { label: Date, name: date, widget: string, required: false, hint: 'e.g., "Feb. 2026".' }
+                  - label: Tags
+                    name: tags
+                    widget: select
+                    multiple: true
+                    required: false
+                    default: []
+                    options: ['1st Author']

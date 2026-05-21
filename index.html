@@ -95,7 +95,9 @@
       const list = document.getElementById('news-list');
       const toggle = document.getElementById('news-toggle');
       try {
-        const news = await window.Portfolio.loadJSON('data/news.json');
+        const newsData = await window.Portfolio.loadJSON('data/news.json');
+        // Accept both the legacy root-array shape and the new wrapped { news: [...] } shape.
+        const news = Array.isArray(newsData) ? newsData : (newsData.news || []);
         list.innerHTML = '';
         const INITIAL = 5;
         let expanded = false;

@@ -144,7 +144,9 @@ function buildHeader() {
   return parts.join('\n');
 }
 
-function buildNews(news) {
+function buildNews(newsData) {
+  // Accept both legacy root-array and the wrapped { news: [...] } shape used by the CMS.
+  const news = Array.isArray(newsData) ? newsData : (newsData?.news || []);
   const out = ['## Recent News\n'];
   for (const n of news) {
     const tag = n.tag ? ` _(${n.tag})_` : '';
@@ -190,9 +192,18 @@ function buildPublications(pubs) {
   const awards = pubs.awards;
   if (awards) {
     out.push('### Awards\n');
-    if (Array.isArray(awards)) {
+    // Preferred: array-of-groups [{ category, items }, ...]
+    if (Array.isArray(awards) && awards.length && awards[0] && Array.isArray(awards[0].items)) {
+      for (const group of awards) {
+        out.push(`#### ${group.category || ''}\n`);
+        for (const a of (group.items || [])) out.push(formatAward(a));
+        out.push('');
+      }
+    } else if (Array.isArray(awards)) {
+      // Legacy flat array
       for (const a of awards) out.push(formatAward(a));
     } else {
+      // Legacy object-of-arrays
       for (const [cat, items] of Object.entries(awards)) {
         out.push(`#### ${cat}\n`);
         for (const a of items) out.push(formatAward(a));

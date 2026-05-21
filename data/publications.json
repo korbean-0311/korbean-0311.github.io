@@ -290,58 +290,70 @@
       "granted_date": "2024.08.01"
     }
   ],
-  "awards": {
-    "Conferences": [
-      {
-        "venue": "2026 KIEES Winter Conference",
-        "title": "Best Paper Award",
-        "highlight": "IEEE MTT-S Seoul Chapter Award",
-        "date": "Feb. 2026"
-      },
-      {
-        "venue": "2025 KIEES Winter Conference",
-        "title": "Best Paper Award",
-        "highlight": "1st Place",
-        "tags": ["1st Author"],
-        "date": "Feb. 2025"
-      },
-      {
-        "venue": "2024 International Symposium on Antennas and Propagation (ISAP 2024)",
-        "title": "Best Paper Award",
-        "highlight": "2nd Prize",
-        "tags": ["1st Author"],
-        "date": "Nov. 2024"
-      }
-    ],
-    "Grants & Scholarships": [
-      {
-        "venue": "2025 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2025)",
-        "title": "Ph.D. Students Initiative Program",
-        "tags": ["1st Author"],
-        "date": "Jun. 2025"
-      },
-      {
-        "venue": "2024 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2024)",
-        "title": "Student Travel Grant",
-        "tags": ["1st Author"],
-        "date": "May 2024"
-      }
-    ],
-    "Student Paper Competitions": [
-      {
-        "venue": "KIEES 9th Electromagnetic Measurement Paper Competition",
-        "title": "Excellence Award",
-        "tags": ["1st Author"],
-        "date": "Mar. 2024"
-      }
-    ],
-    "Invited Papers": [
-      {
-        "venue": "2025 Asia-Pacific Microwave Conference (APMC 2025)",
-        "title": "Invited Paper",
-        "tags": ["1st Author"],
-        "date": "Dec. 2025"
-      }
-    ]
-  }
+  "awards": [
+    {
+      "category": "Conferences",
+      "items": [
+        {
+          "venue": "2026 KIEES Winter Conference",
+          "title": "Best Paper Award",
+          "highlight": "IEEE MTT-S Seoul Chapter Award",
+          "date": "Feb. 2026"
+        },
+        {
+          "venue": "2025 KIEES Winter Conference",
+          "title": "Best Paper Award",
+          "highlight": "1st Place",
+          "tags": ["1st Author"],
+          "date": "Feb. 2025"
+        },
+        {
+          "venue": "2024 International Symposium on Antennas and Propagation (ISAP 2024)",
+          "title": "Best Paper Award",
+          "highlight": "2nd Prize",
+          "tags": ["1st Author"],
+          "date": "Nov. 2024"
+        }
+      ]
+    },
+    {
+      "category": "Grants & Scholarships",
+      "items": [
+        {
+          "venue": "2025 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2025)",
+          "title": "Ph.D. Students Initiative Program",
+          "tags": ["1st Author"],
+          "date": "Jun. 2025"
+        },
+        {
+          "venue": "2024 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2024)",
+          "title": "Student Travel Grant",
+          "tags": ["1st Author"],
+          "date": "May 2024"
+        }
+      ]
+    },
+    {
+      "category": "Student Paper Competitions",
+      "items": [
+        {
+          "venue": "KIEES 9th Electromagnetic Measurement Paper Competition",
+          "title": "Excellence Award",
+          "tags": ["1st Author"],
+          "date": "Mar. 2024"
+        }
+      ]
+    },
+    {
+      "category": "Invited Papers",
+      "items": [
+        {
+          "venue": "2025 Asia-Pacific Microwave Conference (APMC 2025)",
+          "title": "Invited Paper",
+          "tags": ["1st Author"],
+          "date": "Dec. 2025"
+        }
+      ]
+    }
+  ]
 }

@@ -1,7 +1,9 @@
-[
-  { "date": "11 Feb 2026", "body": "Joined research project of <strong>LIG Nex1</strong> for calibration of ultra-large-scale digital array antennas for space surveillance radar!", "tag": "Project Lead" },
-  { "date": "31 Oct 2025", "body": "Selected as the <strong>Scholarship Recipient</strong> for Samsung Electronics Device Solution (DS), Foundry Division!" },
-  { "date": "22 Jul 2025", "body": "Journal accepted in <strong>IEEE Open Journal of Antennas and Propagation (OJAP)</strong>!", "tag": "Co-author" },
-  { "date": "20 Jul 2025", "body": "Journal accepted in <strong>IEEE Transactions on Antennas and Propagation (TAP)</strong>!", "tag": "Co-author" },
-  { "date": "06 Jun 2025", "body": "Journal accepted in <strong>IEEE Antennas and Wireless Propagation Letters (AWPL)</strong>!", "tag": "1st Author" }
-]
+{
+  "news": [
+    { "date": "11 Feb 2026", "body": "Joined research project of <strong>LIG Nex1</strong> for calibration of ultra-large-scale digital array antennas for space surveillance radar!", "tag": "Project Lead" },
+    { "date": "31 Oct 2025", "body": "Selected as the <strong>Scholarship Recipient</strong> for Samsung Electronics Device Solution (DS), Foundry Division!" },
+    { "date": "22 Jul 2025", "body": "Journal accepted in <strong>IEEE Open Journal of Antennas and Propagation (OJAP)</strong>!", "tag": "Co-author" },
+    { "date": "20 Jul 2025", "body": "Journal accepted in <strong>IEEE Transactions on Antennas and Propagation (TAP)</strong>!", "tag": "Co-author" },
+    { "date": "06 Jun 2025", "body": "Journal accepted in <strong>IEEE Antennas and Wireless Propagation Letters (AWPL)</strong>!", "tag": "1st Author" }
+  ]
+}
