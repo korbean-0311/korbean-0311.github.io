@@ -211,6 +211,8 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - Venue: 2025 IEEE/MTT-S International Microwave Symposium (IMS 2025)
   - Details: San Francisco, CA, USA, Jun. 15–20, 2025
   - DOI: https://doi.org/10.1109/IMS40360.2025.11104047
+  - Keywords: Wireless power transfer (WPT), Supply voltage modulation, Transmitter efficiency, Convex optimization, Time reversal (TR), Amplitude tapering, Large antenna array
+  - Abstract: This paper proposes a supply voltage switching method for a 16×16 large-scale array system operating at 5.64 GHz to efficiently receive RF power while considering transmitter hardware efficiency — a factor not extensively addressed in previous wireless power transfer (WPT) research. The study improves both transmitter efficiency and free-space efficiency. Free-space efficiency is optimized by determining each element's transmission amplitude and phase through convex optimization; however, this requires amplitude tapering of about 50 dB or more, which degrades transmitter efficiency. To address this, techniques are proposed to enhance the product of the two efficiencies, validated experimentally with an implemented system. Comparing the commonly used time-reversal (TR) pattern with the proposed convex pattern, the method improves free-space efficiency from 62% to 78% ideally, and the measured received power was 10.6 W for a 5×5 array configuration at 0.5 m.
   - BibTeX:
     ```bibtex
     @INPROCEEDINGS{11104047,
