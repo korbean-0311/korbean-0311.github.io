@@ -299,13 +299,20 @@ function buildOthers() {
 }
 
 // -- JSON-LD (schema.org) -------------------------------------------------
+// Canonical identity of the site owner, so every article links to one entity.
+const OWNER_ID = 'https://orcid.org/0000-0003-3342-3707';
+const OWNER_NAMES = new Set(['Y.-S. Lee', 'Young-Seok Lee', 'Youngseok Lee', 'Y. Lee']);
+
 // Split an author string ("Y.-S. Lee, T. Yoon, and S. Nam*") into clean names.
+// The owner's own entries get the ORCID @id so the graph reconciles them.
 function parseAuthors(s) {
   return String(s || '')
     .split(/,|\band\b/)
     .map(a => a.replace(/\*/g, '').trim())
     .filter(Boolean)
-    .map(name => ({ '@type': 'Person', name }));
+    .map(name => OWNER_NAMES.has(name)
+      ? { '@type': 'Person', '@id': OWNER_ID, name }
+      : { '@type': 'Person', name });
 }
 
 function extractYear(...fields) {
@@ -340,15 +347,25 @@ function buildPublicationsJsonLd() {
 
   const author = {
     '@type': 'Person',
+    '@id': OWNER_ID,
     name: 'Young-Seok Lee',
     url: 'https://korbean-0311.github.io/',
+    identifier: {
+      '@type': 'PropertyValue',
+      propertyID: 'ORCID',
+      value: '0000-0003-3342-3707',
+      url: OWNER_ID,
+    },
+    sameAs: [
+      OWNER_ID,
+      'https://scholar.google.com/citations?user=yCXRScIAAAAJ&hl=en',
+    ],
   };
+  // The owner node defines the ORCID entity once; each article's author list
+  // references it by the same @id, so consumers merge them into one identity.
   const graph = {
     '@context': 'https://schema.org',
-    '@graph': [
-      author,
-      ...articles.map(a => ({ ...a, creator: author })),
-    ],
+    '@graph': [author, ...articles],
   };
 
   // Escape '<' so a stray sequence can never close the <script> early.

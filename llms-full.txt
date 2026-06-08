@@ -18,7 +18,8 @@ I have collaborated with industry partners — including Samsung Electronics on 
 **Research keywords:** Wireless Power Transfer, RF Beam-forming, Near-field Beam-focusing, Target Detection, Indoor Localization, Space Solar Power
 
 **External profiles:**
-- Google Scholar: https://scholar.google.com/citations?user=yCXRScIAAAAJ&hl=ko
+- ORCID: https://orcid.org/0000-0003-3342-3707
+- Google Scholar: https://scholar.google.com/citations?user=yCXRScIAAAAJ&hl=en
 - IEEE Xplore: https://ieeexplore.ieee.org/author/519065710555122
 - Lab Homepage (Wave Fusion Lab): http://wfl.snu.ac.kr/
 
@@ -464,6 +465,8 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 ## Contact
 
+- ORCID: https://orcid.org/0000-0003-3342-3707
+- Google Scholar: https://scholar.google.com/citations?user=yCXRScIAAAAJ&hl=en
 - Lab: Wave Fusion Lab — http://wfl.snu.ac.kr
 - LinkedIn: https://www.linkedin.com/in/korbean
 - Location: INMC, Bldg #132, Seoul National University, 1 Gwanak-ro, Gwanak-gu, Seoul 08826, Republic of Korea

@@ -47,11 +47,14 @@ const SITE_META = {
     'Space Solar Power'
   ],
   externalLinks: [
-    { label: 'Google Scholar', url: 'https://scholar.google.com/citations?user=yCXRScIAAAAJ&hl=ko' },
+    { label: 'ORCID', url: 'https://orcid.org/0000-0003-3342-3707' },
+    { label: 'Google Scholar', url: 'https://scholar.google.com/citations?user=yCXRScIAAAAJ&hl=en' },
     { label: 'IEEE Xplore', url: 'https://ieeexplore.ieee.org/author/519065710555122' },
     { label: 'Lab Homepage (Wave Fusion Lab)', url: 'http://wfl.snu.ac.kr/' }
   ],
   contact: {
+    orcid: 'https://orcid.org/0000-0003-3342-3707',
+    scholar: 'https://scholar.google.com/citations?user=yCXRScIAAAAJ&hl=en',
     lab: 'Wave Fusion Lab — http://wfl.snu.ac.kr',
     linkedin: 'https://www.linkedin.com/in/korbean',
     location: 'INMC, Bldg #132, Seoul National University, 1 Gwanak-ro, Gwanak-gu, Seoul 08826, Republic of Korea'
@@ -340,6 +343,8 @@ function buildContact() {
   return [
     '## Contact',
     '',
+    `- ORCID: ${c.orcid}`,
+    `- Google Scholar: ${c.scholar}`,
     `- Lab: ${c.lab}`,
     `- LinkedIn: ${c.linkedin}`,
     `- Location: ${c.location}`,
