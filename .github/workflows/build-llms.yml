@@ -1,14 +1,16 @@
-name: Build llms-full.txt
+name: Build llms-full.txt & AI fallbacks
 
 on:
   push:
     branches: [main]
-    # Only re-run when JSON data, the generator script, or this workflow change.
-    # The bot's auto-commit (which only touches llms-full.txt) will therefore
-    # NOT re-trigger this workflow — preventing an infinite loop.
+    # Only re-run when JSON data, the generator scripts, or this workflow change.
+    # The bot's auto-commit touches only llms-full.txt and the *.html pages —
+    # none of which are in these paths — so it will NOT re-trigger this
+    # workflow, preventing an infinite loop.
     paths:
       - 'data/**'
       - 'scripts/build-llms.mjs'
+      - 'scripts/build-prerender.mjs'
       - '.github/workflows/build-llms.yml'
   workflow_dispatch:
 
@@ -32,14 +34,17 @@ jobs:
       - name: Generate llms-full.txt
         run: node scripts/build-llms.mjs
 
+      - name: Inject AI fallbacks into HTML pages
+        run: node scripts/build-prerender.mjs
+
       - name: Commit if changed
         run: |
-          if [ -n "$(git status --porcelain llms-full.txt)" ]; then
+          if [ -n "$(git status --porcelain llms-full.txt *.html)" ]; then
             git config user.name  "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add llms-full.txt
-            git commit -m "chore: regenerate llms-full.txt"
+            git add llms-full.txt *.html
+            git commit -m "chore: regenerate llms-full.txt & AI fallbacks"
             git push
           else
-            echo "llms-full.txt is up to date — nothing to commit."
+            echo "Generated content is up to date — nothing to commit."
           fi
