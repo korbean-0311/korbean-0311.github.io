@@ -164,6 +164,8 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - Details: Halifax, Canada, Jul. 4–7, 2026
   - Tags: 1st Author
   - Notes: Accepted
+  - Keywords: Wireless power transfer (WPT), DC-to-DC efficiency, Power amplifier (PA) nonlinearity, Rectifier nonlinearity, Semidefinite relaxation (SDR), Transmission-conversion efficiency (TCE), Beamforming
+  - Abstract: We propose an end-to-end DC-to-DC efficiency maximization framework for array-antenna RF-based wireless power transfer (WPT) that jointly accounts for transmit power amplifier (PA) and receive rectifier nonlinearities. While prior studies have mainly addressed PA and rectifier nonlinearities through waveform design, this work optimizes the practical CW excitation vector under measured device operating constraints, providing a practical way to determine the optimal transmit excitation for maximum end-to-end DC power delivery. Using measurement-based piecewise-linear (PWL) models for both PA and rectifier characteristics, we maximize the sum of rectified DC power at the receiver array under a transmit-side DC power budget. By applying semidefinite lifting, the problem admits an efficient semidefinite relaxation (SDR) that provides a tight upper bound and a high-quality feasible solution via rank-one recovery and local refinement. Simulation results show 38.3% higher received DC power than conventional RF-to-RF efficiency optimization, with a relaxation-to-feasible gap of 1.69%, and experiments confirm the framework with less than 8% error.
 
 - **[7] Design and Calibration of a CW Time Reversal Wireless Power Transfer Transmitter with Pilot Signal Detection**
   - Authors: Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*
@@ -172,6 +174,8 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - DOI: https://doi.org/10.1109/APMC65046.2025.11378159
   - Tags: 1st Author
   - Notes: Invited Paper
+  - Keywords: Wireless power transfer (WPT), Array calibration, Time reversal (TR), Pilot signal detection, Retrodirective array, Continuous wave (CW), Look-up table (LUT)
+  - Abstract: This paper presents a continuous-wave (CW) wireless power transfer (WPT) transmitter system capable of detecting pilot signals via a novel hardware calibration method, validated by a time reversal (TR) algorithm. The proposed transmitter architecture integrates a frequency-offset-based pilot signal detection scheme and compensates for all path-dependent distortions through a one-time calibration process. A look-up table (LUT) generated from simulation-derived ideal values enables accurate estimation of the pilot signal's magnitude and phase at the transmitter array (TXA). The system is implemented with a 16×16 TXA and a 5×5 receiver array (RXA), operating at 5.64 GHz with a 7 kHz pilot offset. Calibration and TR focusing performance are validated through experiments comparing measured and simulated results, providing a scalable and practical method for efficient WPT calibration in pilot-signal-based TR systems.
   - BibTeX:
     ```bibtex
     @INPROCEEDINGS{11378159,
@@ -189,6 +193,8 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - Details: Fukuoka, Japan, Oct. 27–31, 2025
   - DOI: https://doi.org/10.23919/ISAP63122.2025.11361879
   - Tags: 1st Author
+  - Keywords: Wireless power transfer (WPT), MIMO, Power transfer efficiency (PTE), Power amplifier (PA), Dynamic range constraint, Doherty power amplifier, Convex optimization
+  - Abstract: This paper studies the effect of magnitude dynamic range constraints on power transfer efficiency (PTE) in MIMO wireless power transfer (WPT) systems. Conventional optimized PTE patterns show highly impractical distributions across transmitter arrays (TXA), with extreme dynamic ranges unsuitable for real power amplifiers (PAs). By assuming an ideal Doherty PA, the proposed convex approach demonstrates that even with a tight range (e.g., 3 dB), PTE degradation remains minimal. These findings enable practical WPT implementations that, by considering power-added efficiency (PAE) with a Doherty PA, can potentially enhance end-to-end (DC-to-DC) system efficiency in real-world applications.
   - BibTeX:
     ```bibtex
     @INPROCEEDINGS{11361879,
@@ -223,6 +229,8 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - DOI: https://doi.org/10.1109/WPTCE62521.2025.11062191
   - Tags: 1st Author
   - Notes: Selected for Ph.D. Students Initiative Program
+  - Keywords: Wireless power transfer (WPT), Phase optimization, Hadamard matrix, Feedback-based algorithm, Phased array, Power transfer efficiency (PTE), Beam-scanning
+  - Abstract: Wireless power transfer (WPT) is a promising technology for efficient energy delivery to devices at long distances. A major challenge lies in searching the optimized phase pattern of transmitter arrays (TXAs) due to the vast number of possible phase combinations. This paper introduces a low-complexity algorithm that employs the orthogonal basis of Hadamard matrices to streamline the search for optimal phase distributions. By leveraging the orthogonality of Hadamard matrices, the proposed method achieves efficient iterative phase optimization with minimal hardware requirements, focusing only on phase adjustments to maximize received RF power at the receiver array. Simulation and experimental results validate the effectiveness, feasibility, and simplicity of the proposed approach.
   - BibTeX:
     ```bibtex
     @INPROCEEDINGS{11062191,
@@ -241,6 +249,8 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - DOI: https://doi.org/10.1109/ISAP62502.2024.10846697
   - Tags: 1st Author
   - Notes: Best Paper Award, 2nd Prize
+  - Keywords: Wireless power transfer (WPT), Time reversal (TR), Multiple beacon selection, RF-to-DC efficiency, Near-field focusing, Array antenna
+  - Abstract: This paper investigates the effectiveness of multiple-beacon (multi-beacon) systems in wireless power transfer (WPT), focusing on improving overall RF-to-DC efficiency. Through simulations in a 5.64 GHz scenario, limiting the dynamic range of TXA element radiation power to a maximum of 20 dBm and using an RXA rectifier within a specific range, multi-beacon configurations significantly enhanced RF-to-DC efficiency compared to single-beacon setups. The results showed 43.07% RF-to-DC efficiency and an RXA DC power of 1.20 W at 0.5 m, compared to 13.49% and 2.40 W for a single-beacon configuration. Trade-offs are evident: while multi-beacon systems bring higher RF-to-DC efficiency, they degrade absolute power and require greater hardware complexity, underscoring the importance of adaptive beacon selection considering the dynamic range specifications of both TXA and RXA.
   - BibTeX:
     ```bibtex
     @INPROCEEDINGS{10846697,
@@ -259,6 +269,8 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - DOI: https://doi.org/10.1109/WPTCE59894.2024.10557392
   - Tags: 1st Author
   - Notes: Selected for Student Travel Grant
+  - Keywords: Wireless power transfer (WPT), Array calibration, Look-up table (LUT), Large array antenna, Convex optimization, Near-field focusing
+  - Abstract: This paper introduces a calibration method for transmitter arrays in the power transmit mode of wireless power transfer (WPT) systems. Focusing on the challenges posed by non-uniform power distribution in large array antenna systems, we propose a technique adaptable to various power distribution designs that also simplifies the calibration process, making it feasible for real-world applications with large array antennas. The paper validates the methodology from the hardware system to experimental results, demonstrating its effectiveness by transmitting convex-optimized (CVX) radiation patterns; the receiver array achieved a received RF power of 3.57 W at 0.5 m.
   - BibTeX:
     ```bibtex
     @INPROCEEDINGS{10557392,
