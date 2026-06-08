@@ -445,8 +445,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 ## Others
 
 ### Reviewer Activities
-- IEEE TPEL, 2025
-- IEEE AWPL, 2025
+- IEEE TPEL, 2025, 2026
 
 ### Scholarships
 - Ph.D. Scholarship Recipient — Samsung Electronics Device Solution (DS), Foundry Division (Sep. 2025 -)

@@ -1,7 +1,6 @@
 {
   "reviewer": [
-    { "name": "IEEE TPEL", "year": "2025" },
-    { "name": "IEEE AWPL", "year": "2025" }
+    { "name": "IEEE TPEL", "year": "2025, 2026" }
   ],
   "scholarships": [
     { "name": "Ph.D. Scholarship Recipient", "details": "Samsung Electronics Device Solution (DS), Foundry Division", "date": "Sep. 2025 -" },
