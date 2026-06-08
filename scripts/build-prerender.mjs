@@ -99,6 +99,8 @@ function pubLi(p) {
     .map(n => (typeof n === 'string' ? n : (n && n.label) || ''))
     .filter(Boolean);
   if (noteLabels.length) rows.push(`Notes: ${esc(noteLabels.join('; '))}`);
+  if (Array.isArray(p.keywords) && p.keywords.length) rows.push(`Keywords: ${esc(p.keywords.join(', '))}`);
+  if (p.abstract && p.abstract.trim()) rows.push(`Abstract: ${esc(p.abstract)}`);
   let html = `<li>${rows.join('<br />\n')}`;
   if (p.bibtex && p.bibtex.trim()) {
     html += `\n<pre>${esc(p.bibtex)}</pre>`;
@@ -330,6 +332,8 @@ function scholarlyArticle(p) {
   if (p.venue) node.isPartOf = { '@type': 'Periodical', name: p.venue };
   const year = extractYear(p.details);
   if (year) node.datePublished = year;
+  if (p.abstract && p.abstract.trim()) node.abstract = p.abstract;
+  if (Array.isArray(p.keywords) && p.keywords.length) node.keywords = p.keywords.join(', ');
   if (p.doi) { node.sameAs = p.doi; node.url = p.doi; }
   return node;
 }

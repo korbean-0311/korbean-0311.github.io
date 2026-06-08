@@ -104,6 +104,12 @@ function formatPublication(p) {
       .filter(Boolean);
     if (labels.length) lines.push(`  - Notes: ${labels.join('; ')}`);
   }
+  if (Array.isArray(p.keywords) && p.keywords.length) {
+    lines.push(`  - Keywords: ${p.keywords.join(', ')}`);
+  }
+  if (p.abstract && p.abstract.trim()) {
+    lines.push(`  - Abstract: ${stripHTML(p.abstract)}`);
+  }
   if (p.bibtex && p.bibtex.trim()) {
     lines.push('  - BibTeX:');
     lines.push('    ```bibtex');

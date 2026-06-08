@@ -94,9 +94,25 @@
           ${sep}
           ${metaHTML}
           ${actionButtons(p)}
+          ${extraInfo(p)}
         </div>
       </li>
     `;
+  }
+
+  // Optional per-paper subject keywords + abstract. Keywords render as small
+  // topic chips; the abstract is a collapsible <details> so the list stays
+  // compact while the full text is present in the DOM for AI/search crawlers.
+  function extraInfo(p) {
+    let html = '';
+    if (Array.isArray(p.keywords) && p.keywords.length) {
+      html += `<div class="pub-item__keywords">${p.keywords
+        .map(k => `<span class="pub-kw">${esc(k)}</span>`).join('')}</div>`;
+    }
+    if (p.abstract && p.abstract.trim()) {
+      html += `<details class="pub-abstract"><summary>Abstract</summary><p>${esc(p.abstract)}</p></details>`;
+    }
+    return html;
   }
 
   function renderJournals(host) {

@@ -644,6 +644,49 @@ a:hover .ext-link-arrow {
   }
 }
 
+/* ---------- Publication keywords + collapsible abstract ---------- */
+.pub-item__keywords {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.pub-kw {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  padding: 0.15rem 0.6rem;
+}
+.pub-abstract {
+  margin-top: 0.6rem;
+}
+.pub-abstract summary {
+  cursor: pointer;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-accent);
+  list-style: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  user-select: none;
+}
+.pub-abstract summary::-webkit-details-marker { display: none; }
+.pub-abstract summary::before {
+  content: "\25B8";
+  font-size: 0.7rem;
+  transition: transform 0.15s ease;
+}
+.pub-abstract[open] summary::before { transform: rotate(90deg); }
+.pub-abstract p {
+  margin: 0.5rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
 /* ---------- Education timeline ---------- */
 .timeline {
   position: relative;
