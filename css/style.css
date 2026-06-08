@@ -249,9 +249,9 @@ button {
   width: 320px;
   max-width: 86vw;
   height: 100vh;
-  /* 60% opaque (≈40% see-through) translucent panel with a frosted blur so
+  /* 40% opaque (≈60% see-through) translucent panel with a frosted blur so
      the page behind shows through while menu text stays readable. */
-  background: color-mix(in srgb, var(--bg-primary) 60%, transparent);
+  background: color-mix(in srgb, var(--bg-primary) 40%, transparent);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border-left: 1px solid var(--border-color);
