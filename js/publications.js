@@ -105,12 +105,11 @@
   // compact while the full text is present in the DOM for AI/search crawlers.
   function extraInfo(p) {
     let html = '';
-    if (Array.isArray(p.keywords) && p.keywords.length) {
-      html += `<div class="pub-item__keywords">${p.keywords
-        .map(k => `<span class="pub-kw">${esc(k)}</span>`).join('')}</div>`;
-    }
     if (p.abstract && p.abstract.trim()) {
-      html += `<details class="pub-abstract"><summary>Abstract</summary><p>${esc(p.abstract)}</p></details>`;
+      html += `<details class="pub-extra"><summary>Abstract</summary><p>${esc(p.abstract)}</p></details>`;
+    }
+    if (Array.isArray(p.keywords) && p.keywords.length) {
+      html += `<details class="pub-extra"><summary>Keywords</summary><p>${esc(p.keywords.join(', '))}</p></details>`;
     }
     return html;
   }
