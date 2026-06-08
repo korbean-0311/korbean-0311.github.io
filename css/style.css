@@ -13,8 +13,9 @@ html[data-js] [data-ai-fallback] { display: none !important; }
 
 /* ---------- CSS Variables ---------- */
 :root {
-  --bg-primary: #FFFFFF;
-  --bg-surface: #EEF2F7;
+  /* Warm off-white (slight beige) instead of pure white — less glare. */
+  --bg-primary: #F7F4EC;
+  --bg-surface: #EFEBE0;
   --color-primary: #1E3A5F;
   --color-secondary: #64748B;
   --color-accent: #0EA5E9;
