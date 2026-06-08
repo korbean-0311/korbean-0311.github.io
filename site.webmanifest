@@ -1,0 +1,14 @@
+{
+  "name": "Y.-S. Lee · Resume",
+  "short_name": "Y.-S. Lee",
+  "description": "Young-Seok Lee — ECE Ph.D. Candidate at Seoul National University. RF wireless power transfer, phased arrays, and indoor localization.",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any" },
+    { "src": "/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ],
+  "theme_color": "#1E3A5F",
+  "background_color": "#0F172A",
+  "display": "standalone",
+  "start_url": "/"
+}
