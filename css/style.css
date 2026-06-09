@@ -125,7 +125,8 @@ button {
   right: 0;
   height: var(--nav-height);
   z-index: 1000;
-  background: color-mix(in srgb, var(--bg-primary) 80%, transparent);
+  /* Translucent frosted bar — unified opacity with the side menu panel. */
+  background: color-mix(in srgb, var(--bg-primary) 35%, transparent);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
@@ -250,9 +251,8 @@ button {
   width: 320px;
   max-width: 86vw;
   height: 100vh;
-  /* 40% opaque (≈60% see-through) translucent panel with a frosted blur so
-     the page behind shows through while menu text stays readable. */
-  background: color-mix(in srgb, var(--bg-primary) 40%, transparent);
+  /* Translucent frosted panel — unified opacity with the top nav bar (35%). */
+  background: color-mix(in srgb, var(--bg-primary) 35%, transparent);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border-left: 1px solid var(--border-color);
