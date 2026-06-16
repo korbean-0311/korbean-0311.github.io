@@ -483,10 +483,10 @@ main {
   .profile__name,
   .profile__role { text-align: left; }
   .profile__loc { justify-content: flex-start; }
-  /* External links ~20% smaller on desktop */
-  .profile__links { gap: 0.5rem; }
-  .profile__links a { font-size: 0.72rem; gap: 0.52rem; }
-  .profile__links svg { width: 14px; height: 14px; }
+  /* External links sized down on desktop (20% smaller, then +10%) */
+  .profile__links { gap: 0.55rem; }
+  .profile__links a { font-size: 0.79rem; gap: 0.57rem; }
+  .profile__links svg { width: 15px; height: 15px; }
 }
 
 @media (min-width: 768px) {
