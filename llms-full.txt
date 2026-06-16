@@ -366,22 +366,26 @@ I have collaborated with industry partners — including Samsung Electronics on 
 ## Education
 
 ### Seoul National University (SNU) (Seoul, Republic of Korea)
+- Website: https://en.snu.ac.kr/
 - Period: 2023.09 — Present
 - Degree: Ph.D. in Electrical and Computer Engineering
 - PI (Co-advised): Sangwook Nam
 - PI (Co-advised): Jungsuek Oh (Ph.D. @Univ. of Michigan under Kamal Sarabandi)
 
 ### Seoul National University (SNU) (Seoul, Republic of Korea)
+- Website: https://en.snu.ac.kr/
 - Period: 2021.09 — 2023.08
 - Degree: M.S. in Electrical and Computer Engineering
 - PI: Sangwook Nam (Ph.D. @Univ. of Texas Austin under Tatsuo Itoh)
 
 ### Korea University (KU) (Seoul, Republic of Korea)
+- Website: https://www.korea.edu/
 - Period: 2017.03 — 2021.08
 - Degree: B.S. in Electrical Engineering
 - Advisor: Chulwoo Kim
 
 ### Daejeon Dongsin Science High School (DDSHS) (Daejeon, Republic of Korea)
+- Website: https://ddsciencehs.djsch.kr/
 - Period: 2014.03 — 2017.02
 
 ## Research

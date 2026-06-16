@@ -229,6 +229,7 @@ function buildEducation(edu) {
   for (const e of edu) {
     const loc = e.location ? ` (${e.location})` : '';
     out.push(`### ${e.school}${loc}`);
+    if (e.school_link) out.push(`- Website: ${e.school_link}`);
     if (e.period) out.push(`- Period: ${e.period}`);
     if (e.degree) out.push(`- Degree: ${e.degree}`);
     for (const a of e.advisors || []) {

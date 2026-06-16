@@ -71,17 +71,17 @@
     <div data-ai-fallback>
       <h2>Education</h2>
       <ul>
-          <li><strong>2023.09 — Present</strong> — Seoul National University (SNU) <em>(Seoul, Republic of Korea)</em><br />
+          <li><strong>2023.09 — Present</strong> — <a href="https://en.snu.ac.kr/" target="_blank" rel="noopener">Seoul National University (SNU)</a> <em>(Seoul, Republic of Korea)</em><br />
       Ph.D. in Electrical and Computer Engineering<br />
       PI (Co-advised): <a href="https://scholar.google.com/citations?user=haXHg4oAAAAJ&amp;hl=en" target="_blank" rel="noopener">Sangwook Nam</a><br />
       PI (Co-advised): <a href="https://scholar.google.com/citations?user=o-31h1kAAAAJ&amp;hl=en" target="_blank" rel="noopener">Jungsuek Oh</a> (Ph.D. @Univ. of Michigan under <a href="https://en.wikipedia.org/wiki/Kamal_Sarabandi" target="_blank" rel="noopener">Kamal Sarabandi</a>)</li>
-          <li><strong>2021.09 — 2023.08</strong> — Seoul National University (SNU) <em>(Seoul, Republic of Korea)</em><br />
+          <li><strong>2021.09 — 2023.08</strong> — <a href="https://en.snu.ac.kr/" target="_blank" rel="noopener">Seoul National University (SNU)</a> <em>(Seoul, Republic of Korea)</em><br />
       M.S. in Electrical and Computer Engineering<br />
       PI: <a href="https://scholar.google.com/citations?user=haXHg4oAAAAJ&amp;hl=en" target="_blank" rel="noopener">Sangwook Nam</a> (Ph.D. @Univ. of Texas Austin under <a href="https://en.wikipedia.org/wiki/Tatsuo_Itoh" target="_blank" rel="noopener">Tatsuo Itoh</a>)</li>
-          <li><strong>2017.03 — 2021.08</strong> — Korea University (KU) <em>(Seoul, Republic of Korea)</em><br />
+          <li><strong>2017.03 — 2021.08</strong> — <a href="https://www.korea.edu/" target="_blank" rel="noopener">Korea University (KU)</a> <em>(Seoul, Republic of Korea)</em><br />
       B.S. in Electrical Engineering<br />
       Advisor: <a href="https://ieeexplore.ieee.org/author/37292328500" target="_blank" rel="noopener">Chulwoo Kim</a></li>
-          <li><strong>2014.03 — 2017.02</strong> — Daejeon Dongsin Science High School (DDSHS) <em>(Daejeon, Republic of Korea)</em></li>
+          <li><strong>2014.03 — 2017.02</strong> — <a href="https://ddsciencehs.djsch.kr/" target="_blank" rel="noopener">Daejeon Dongsin Science High School (DDSHS)</a> <em>(Daejeon, Republic of Korea)</em></li>
       </ul>
     </div>
     <!-- AI-FALLBACK:END -->
@@ -128,11 +128,15 @@
             ? `<span class="timeline-card__loc">(${esc(item.location)})</span>`
             : '';
 
+          const schoolHTML = item.school_link
+            ? `<a href="${esc(item.school_link)}" target="_blank" rel="noopener">${esc(item.school)}${ARROW_SVG}</a>`
+            : esc(item.school);
+
           return `
             <li class="timeline-item">
               <div class="timeline-card">
                 <div class="timeline-card__period">${esc(item.period)}</div>
-                <div class="timeline-card__school">${esc(item.school)} ${locationHTML}</div>
+                <div class="timeline-card__school">${schoolHTML} ${locationHTML}</div>
                 ${degreeHTML ? `<div class="timeline-card__degree">${degreeHTML}</div>` : ''}
                 ${advisorRows}
               </div>

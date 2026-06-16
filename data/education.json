@@ -2,6 +2,7 @@
   {
     "period": "2023.09 — Present",
     "school": "Seoul National University (SNU)",
+    "school_link": "https://en.snu.ac.kr/",
     "location": "Seoul, Republic of Korea",
     "degree": "Ph.D. in Electrical and Computer Engineering",
     "advisors": [
@@ -22,6 +23,7 @@
   {
     "period": "2021.09 — 2023.08",
     "school": "Seoul National University (SNU)",
+    "school_link": "https://en.snu.ac.kr/",
     "location": "Seoul, Republic of Korea",
     "degree": "M.S. in Electrical and Computer Engineering",
     "advisors": [
@@ -37,6 +39,7 @@
   {
     "period": "2017.03 — 2021.08",
     "school": "Korea University (KU)",
+    "school_link": "https://www.korea.edu/",
     "location": "Seoul, Republic of Korea",
     "degree": "B.S. in Electrical Engineering",
     "advisors": [
@@ -50,6 +53,7 @@
   {
     "period": "2014.03 — 2017.02",
     "school": "Daejeon Dongsin Science High School (DDSHS)",
+    "school_link": "https://ddsciencehs.djsch.kr/",
     "location": "Daejeon, Republic of Korea",
     "degree": "",
     "advisors": []

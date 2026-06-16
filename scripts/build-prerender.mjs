@@ -188,7 +188,10 @@ function buildEducation() {
   const items = edu.map(e => {
     const rows = [];
     const loc = e.location ? ` <em>(${esc(e.location)})</em>` : '';
-    rows.push(`<strong>${esc(e.period)}</strong> — ${esc(e.school)}${loc}`);
+    const school = e.school_link
+      ? `<a href="${esc(e.school_link)}" target="_blank" rel="noopener">${esc(e.school)}</a>`
+      : esc(e.school);
+    rows.push(`<strong>${esc(e.period)}</strong> — ${school}${loc}`);
     if (e.degree) rows.push(esc(e.degree));
     for (const a of e.advisors || []) {
       const name = a.link
