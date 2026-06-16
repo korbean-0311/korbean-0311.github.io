@@ -84,11 +84,31 @@
     <p>This site renders content via JavaScript. The complete plain-text version of all pages (biography, recent news, publications with BibTeX, education timeline, research projects, reviewer activities, scholarships, teaching, coursework, programming skills, contact) is available at <a href="/llms-full.txt">/llms-full.txt</a>. A short index is at <a href="/llms.txt">/llms.txt</a>.</p>
   </noscript>
 
-  <main>
-    <section class="hero">
-      <h1>Young-Seok Lee</h1>
-      <p class="hero__subtitle">ECE Ph.D. Candidate at Seoul National University (Seoul, Republic of Korea)</p>
-      <div class="hero__bio">
+  <div class="layout">
+    <aside class="profile" aria-label="Profile">
+      <details class="profile__card" open>
+        <summary class="profile__summary">Young-Seok Lee<svg class="profile__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
+        <div class="profile__body">
+          <!-- Replace the initials placeholder with: <img src="assets/profile.jpg" alt="Young-Seok Lee" /> once a photo is added. -->
+          <div class="profile__photo" aria-hidden="true">YL</div>
+          <p class="profile__name">Young-Seok Lee</p>
+          <p class="profile__role">ECE Ph.D. Candidate<br />Seoul National University</p>
+          <p class="profile__loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Seoul, Republic of Korea</p>
+          <ul class="profile__links">
+            <li><a href="https://orcid.org/0000-0003-3342-3707" target="_blank" rel="noopener me"><svg class="icon-orcid" viewBox="0 0 256 256" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128zM86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7 0-21.5-13.7-39.7-43.7-39.7h-23.7v79.4zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1-5.6 0-10.1-4.6-10.1-10.1 0-5.6 4.5-10.1 10.1-10.1 5.5 0 10.1 4.6 10.1 10.1z"/></svg>ORCID</a></li>
+            <li><a href="https://scholar.google.com/citations?user=yCXRScIAAAAJ&amp;hl=en" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422A12 12 0 0 1 19.5 16.5"/><path d="M12 14L5.84 10.578A12 12 0 0 0 4.5 16.5"/><circle cx="12" cy="17" r="3"/></svg>Google Scholar</a></li>
+            <li><a href="https://ieeexplore.ieee.org/author/519065710555122" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>IEEE Xplore</a></li>
+            <li><a href="https://www.linkedin.com/in/korbean" target="_blank" rel="noopener me"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 9.5H5.67V18h2.67V9.5zM7 6.06a1.55 1.55 0 1 0 0 3.1 1.55 1.55 0 0 0 0-3.1zM18.34 18v-4.67c0-2.5-1.34-3.66-3.13-3.66-1.44 0-2.09.79-2.45 1.35V9.5h-2.67V18h2.67v-4.39c0-.23.02-.46.09-.63.18-.46.61-.94 1.32-.94.93 0 1.31.71 1.31 1.76V18h2.67z"/></svg>LinkedIn</a></li>
+            <li><a href="http://wfl.snu.ac.kr/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5"/><path d="M5 9v11h14V9"/><path d="M10 20v-6h4v6"/></svg>Lab Homepage</a></li>
+          </ul>
+        </div>
+      </details>
+    </aside>
+
+    <main class="page-content">
+      <section class="about" aria-labelledby="about-heading">
+        <h1 id="about-heading">About me</h1>
+        <div class="hero__bio">
         <p>I am a Ph.D. candidate in the Department of Electrical and Computer Engineering (ECE) at Seoul National University, co-advised by <a href="https://scholar.google.com/citations?user=haXHg4oAAAAJ&amp;hl=en" target="_blank" rel="noopener"><em>Prof. Sangwook Nam</em><svg class="ext-link-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></a> and <a href="https://scholar.google.com/citations?user=o-31h1kAAAAJ&amp;hl=en" target="_blank" rel="noopener"><em>Prof. Jungsuek Oh</em><svg class="ext-link-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg></a>.</p>
         <p>I have collaborated with industry partners — including Samsung Electronics on RF Wireless Power Transfer and LIG Nex1 on large-scale phased-array calibration. My broader research interests span RF and electromagnetic systems, with active topics including:</p>
         <ul>
@@ -117,32 +137,6 @@
       </ul>
       <button class="show-more-btn" id="news-toggle" type="button" hidden>Show more</button>
     </section>
-
-    <section aria-labelledby="links-heading">
-      <h2 id="links-heading">External Links</h2>
-      <div class="ext-links">
-        <a href="https://orcid.org/0000-0003-3342-3707" target="_blank" rel="noopener me">
-          <svg class="icon-orcid" viewBox="0 0 256 256" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128zM86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7 0-21.5-13.7-39.7-43.7-39.7h-23.7v79.4zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1-5.6 0-10.1-4.6-10.1-10.1 0-5.6 4.5-10.1 10.1-10.1 5.5 0 10.1 4.6 10.1 10.1z"/></svg>
-          ORCID
-        </a>
-        <a href="https://scholar.google.com/citations?user=yCXRScIAAAAJ&amp;hl=en" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422A12 12 0 0 1 19.5 16.5"/><path d="M12 14L5.84 10.578A12 12 0 0 0 4.5 16.5"/><circle cx="12" cy="17" r="3"/></svg>
-          Google Scholar
-        </a>
-        <a href="https://ieeexplore.ieee.org/author/519065710555122" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
-          IEEE Xplore
-        </a>
-        <a href="https://www.linkedin.com/in/korbean" target="_blank" rel="noopener me">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14zM8.34 9.5H5.67V18h2.67V9.5zM7 6.06a1.55 1.55 0 1 0 0 3.1 1.55 1.55 0 0 0 0-3.1zM18.34 18v-4.67c0-2.5-1.34-3.66-3.13-3.66-1.44 0-2.09.79-2.45 1.35V9.5h-2.67V18h2.67v-4.39c0-.23.02-.46.09-.63.18-.46.61-.94 1.32-.94.93 0 1.31.71 1.31 1.76V18h2.67z"/></svg>
-          LinkedIn
-        </a>
-        <a href="http://wfl.snu.ac.kr/" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5"/><path d="M5 9v11h14V9"/><path d="M10 20v-6h4v6"/></svg>
-          Lab Homepage
-        </a>
-      </div>
-    </section>
   <!-- AI-FALLBACK:START (auto-generated by scripts/build-prerender.mjs — do not edit by hand) -->
     <div data-ai-fallback>
       <section aria-label="Recent news (text fallback for non-JavaScript clients)">
@@ -157,7 +151,8 @@
       </section>
     </div>
     <!-- AI-FALLBACK:END -->
-  </main>
+    </main>
+  </div>
 
   <div data-mount-footer></div>
 
