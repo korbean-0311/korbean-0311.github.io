@@ -487,6 +487,9 @@ main {
   .profile__links { gap: 0.55rem; }
   .profile__links a { font-size: 0.79rem; gap: 0.57rem; }
   .profile__links svg { width: 15px; height: 15px; }
+  /* Thin vertical divider between the sidebar and the content */
+  .layout { grid-template-columns: 210px minmax(0, 1fr); gap: 2.5rem; }
+  .layout > .page-content { border-left: 1px solid var(--border-color); padding-left: 2.5rem; }
 }
 
 @media (min-width: 768px) {

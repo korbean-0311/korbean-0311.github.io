@@ -244,10 +244,25 @@
 
   window.Portfolio = { loadJSON, escapeHTML, highlightAuthor };
 
+  /* ---------- Profile card: remember collapsed/expanded across pages ---------- */
+  function initProfile() {
+    const card = document.querySelector('.profile__card');
+    if (!card) return;
+    // Restore last state. Only the mobile view visibly collapses; on desktop
+    // the body is always shown via CSS, so the stored state is harmless there.
+    try {
+      if (localStorage.getItem('profileOpen') === '0') card.open = false;
+    } catch (_) {}
+    card.addEventListener('toggle', () => {
+      try { localStorage.setItem('profileOpen', card.open ? '1' : '0'); } catch (_) {}
+    });
+  }
+
   /* ---------- Boot ---------- */
   document.addEventListener('DOMContentLoaded', () => {
     injectChrome();
     initTheme();
     initMenu();
+    initProfile();
   });
 })();
