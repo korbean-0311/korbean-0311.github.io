@@ -377,9 +377,10 @@ function buildPublicationsJsonLd() {
     '@graph': [author, ...articles],
   };
 
-  // Escape '<' so a stray sequence can never close the <script> early.
-  const json = JSON.stringify(graph, null, 2).replace(/</g, '\\u003c');
-  return `<script type="application/ld+json">\n${json}\n</script>`;
+  // Minified (no pretty-print) to keep the page light; escape '<' so a stray
+  // sequence can never close the <script> early.
+  const json = JSON.stringify(graph).replace(/</g, '\\u003c');
+  return `<script type="application/ld+json">${json}</script>`;
 }
 
 // -- Shared profile sidebar ----------------------------------------------
@@ -391,7 +392,7 @@ function buildProfile() {
       <details class="profile__card" open>
         <summary class="profile__summary">Profile<svg class="profile__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
         <div class="profile__body">
-          <div class="profile__photo"><img src="assets/profile.jpg" alt="Young-Seok Lee" /></div>
+          <div class="profile__photo"><img src="assets/profile.jpg" alt="Young-Seok Lee" width="340" height="340" decoding="async" /></div>
           <p class="profile__name">Young-Seok Lee</p>
           <p class="profile__role">ECE Ph.D. Candidate<br />Seoul National University</p>
           <p class="profile__loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Seoul, Republic of Korea</p>
