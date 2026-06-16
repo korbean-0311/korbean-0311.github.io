@@ -469,7 +469,20 @@ main {
   .profile__card:not([open]) .profile__body { display: none; }
   .profile__body { padding: 0.5rem 1.1rem 1.4rem; }
   .profile__photo { width: 112px; height: 112px; font-size: 2.4rem; }
-  .profile__links { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 0.75rem 1.4rem; }
+  /* icons only, single horizontal row */
+  .profile__links { flex-direction: row; flex-wrap: nowrap; justify-content: center; gap: 1.4rem; }
+  .profile__links a { gap: 0; font-size: 0; }
+  .profile__links svg { width: 22px; height: 22px; }
+}
+
+/* Desktop profile: 70% photo, left-aligned text (matching the links),
+   photo centered over the content block (not the full column). */
+@media (min-width: 769px) {
+  .profile__body { width: fit-content; }
+  .profile__photo { width: 118px; height: 118px; font-size: 2.4rem; margin: 0 auto 1.1rem; }
+  .profile__name,
+  .profile__role { text-align: left; }
+  .profile__loc { justify-content: flex-start; }
 }
 
 @media (min-width: 768px) {
