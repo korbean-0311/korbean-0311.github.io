@@ -10,6 +10,10 @@
    JS visitors hide the fallback immediately (no flash, identical UI) while
    non-JS clients — AI crawlers, search bots — see it as ordinary HTML. */
 html[data-js] [data-ai-fallback] { display: none !important; }
+/* Text-only fallback nav: visible to non-JS crawlers (so they discover every
+   sub-page), hidden for JS visitors before first paint — main.js then replaces
+   it with the real nav. */
+html[data-js] [data-mount-nav] { display: none !important; }
 
 /* ---------- CSS Variables ---------- */
 :root {
