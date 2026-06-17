@@ -1975,3 +1975,35 @@ html[data-js] .tab-panel.is-active { display: block; }
   .edu-card__loc { font-size: 0.75rem; }
   .edu-details li { font-size: 0.75rem; }
 }
+
+/* ---------- Mobile: trim text −1pt (Education timeline + Publications cards) ----------
+   Each rule subtracts exactly 1pt (CSS pt = 1.333px) from the element's size.
+   Children without their own font-size inherit the reduced parent. */
+@media (max-width: 640px) {
+  /* Education — timeline card text */
+  .timeline-card__period  { font-size: calc(0.875rem - 1pt); }
+  .timeline-card__school  { font-size: calc(1.0625rem - 1pt); }
+  .timeline-card__degree  { font-size: calc(0.875rem - 1pt); }   /* inherits body 0.875rem */
+  .timeline-card__advisor { font-size: calc(0.9375rem - 1pt); }
+  .timeline-card__loc     { font-size: calc(0.9375rem - 1pt); }
+
+  /* Publications — text inside each paper / conference / patent / award card.
+     Scoped to #tab-content so shared badge classes on Home (news tags) and
+     Research (keyword badges) are left untouched. */
+  #tab-content .pub-item__body { font-size: calc(0.9375rem - 1pt); }   /* title & details inherit */
+  #tab-content .pub-item__authors,
+  #tab-content .pub-item__venue { font-size: calc(0.875rem - 1pt); }   /* overrides the 0.875rem rule above */
+  #tab-content .pub-item__num { font-size: calc(0.9375rem - 1pt); }
+  #tab-content .pub-item__meta { font-size: calc(0.9375rem - 1pt); }
+  #tab-content .pub-item__meta--sub { font-size: calc(0.875rem - 1pt); }
+  #tab-content .pub-note { font-size: calc(0.8125rem - 1pt); }
+  #tab-content .pub-btn { font-size: calc(0.75rem - 1pt); }
+  #tab-content .badge { font-size: calc(0.875rem - 1pt); }             /* incl. .badge--country */
+  #tab-content .badge--tag { font-size: calc(0.75rem - 1pt); }
+  #tab-content .pub-extra summary { font-size: calc(0.8125rem - 1pt); }
+  #tab-content .pub-extra p { font-size: calc(0.875rem - 1pt); }
+  #tab-content .patent-item__title { font-size: calc(0.9375rem - 1pt); }
+  #tab-content .patent-item__meta li { font-size: calc(0.875rem - 1pt); }  /* .patent-label inherits */
+  #tab-content .award-item { font-size: calc(0.9375rem - 1pt); }       /* venue/highlight/role inherit */
+  #tab-content .award-group__title { font-size: calc(0.95rem - 1pt); }
+}
