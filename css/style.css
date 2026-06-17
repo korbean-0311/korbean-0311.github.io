@@ -2007,3 +2007,19 @@ html[data-js] .tab-panel.is-active { display: block; }
   #tab-content .award-item { font-size: calc(0.9375rem - 1pt); }       /* venue/highlight/role inherit */
   #tab-content .award-group__title { font-size: calc(0.95rem - 1pt); }
 }
+
+/* ---------- Mobile: trim Others page text −1pt ----------
+   Others-only classes are targeted directly; the generic section <h2> is scoped
+   to body[data-page="others"] so Research section titles aren't affected. */
+@media (max-width: 640px) {
+  body[data-page="others"] section h2 { font-size: calc(1.5rem - 1pt); }  /* Reviewer Activities, etc. */
+  .others-list li { font-size: calc(0.95rem - 1pt); }                     /* em inherits */
+  .coursework-group__title { font-size: calc(1rem - 1pt); }
+  .coursework-list li { font-size: calc(0.9375rem - 1pt); }
+  .coursework-note { font-size: calc(0.875rem - 1pt); }
+  .prog-group__title { font-size: calc(1rem - 1pt); }
+  .skill-subgroup__title { font-size: calc(0.875rem - 1pt); }
+  .skill-name { font-size: calc(0.9375rem - 1pt); }
+  .prog-list li { font-size: calc(0.9375rem - 1pt); }                     /* strong inherits */
+  .prog-list--inner li { font-size: calc(0.9rem - 1pt); }
+}
