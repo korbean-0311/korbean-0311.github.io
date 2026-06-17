@@ -74,6 +74,12 @@ html[data-js] [data-mount-nav] { display: none !important; }
   box-sizing: border-box;
 }
 
+/* The `hidden` attribute must always hide — even on elements with an explicit
+   display (.pub-item is display:grid, .sort-bar is display:flex), which would
+   otherwise override the UA [hidden] rule. The publications 1st-author filter
+   and the sort-bar tab toggle both rely on this. */
+[hidden] { display: none !important; }
+
 html {
   scroll-behavior: smooth;
 }
