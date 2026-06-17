@@ -383,6 +383,58 @@ function buildPublicationsJsonLd() {
   return `<script type="application/ld+json">${json}</script>`;
 }
 
+// -- Static-first page content (same markup the browser JS used to render) --
+// Rendering now happens here at build time and is baked into the visible HTML,
+// so there is no JSON fetch, no "Loading…" flash, and no hidden fallback. The
+// browser JS only enhances (tabs, sort, copy, show-more).
+const ARROW_SVG = '<svg class="ext-link-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg>';
+
+function eduRenderNote(note, link) {
+  if (!note) return '';
+  const safe = esc(note);
+  if (!link) return safe.replace(/\{\{(.+?)\}\}/g, '$1');
+  return safe.replace(/\{\{(.+?)\}\}/g, (_, name) =>
+    `<a href="${esc(link)}" target="_blank" rel="noopener">${name}${ARROW_SVG}</a>`);
+}
+
+function renderEducationTimeline() {
+  const edu = readJSON('education.json');
+  return edu.map(item => {
+    const advisorRows = (item.advisors || []).map(a => {
+      const nameLink = a.link
+        ? `<a href="${esc(a.link)}" target="_blank" rel="noopener">${esc(a.name)}${ARROW_SVG}</a>`
+        : esc(a.name);
+      const noteHTML = a.note ? ` (${eduRenderNote(a.note, a.note_link)})` : '';
+      return `<div class="timeline-card__advisor"><span class="adv-label">${esc(a.label)}:</span> ${nameLink}${noteHTML}</div>`;
+    }).join('');
+    const degreeHTML = item.degree
+      ? esc(item.degree).replace(/(Electrical and Computer Engineering|Electrical Engineering)/, '<em>$1</em>')
+      : '';
+    const locationHTML = item.location
+      ? `<span class="timeline-card__loc">(${esc(item.location)})</span>`
+      : '';
+    const schoolHTML = item.school_link
+      ? `<a href="${esc(item.school_link)}" target="_blank" rel="noopener">${esc(item.school)}${ARROW_SVG}</a>`
+      : esc(item.school);
+    return `        <li class="timeline-item">
+          <div class="timeline-card">
+            <div class="timeline-card__period">${esc(item.period)}</div>
+            <div class="timeline-card__school">${schoolHTML} ${locationHTML}</div>
+            ${degreeHTML ? `<div class="timeline-card__degree">${degreeHTML}</div>` : ''}
+            ${advisorRows}
+          </div>
+        </li>`;
+  }).join('\n');
+}
+
+// Replace the inner content between <!-- R:key:START --> / <!-- R:key:END -->.
+function injectRegion(html, key, content) {
+  const s = `<!-- R:${key}:START -->`, e = `<!-- R:${key}:END -->`;
+  const re = new RegExp(escRe(s) + '[\\s\\S]*?' + escRe(e));
+  if (!re.test(html)) throw new Error(`region "${key}" markers not found`);
+  return html.replace(re, `${s}\n${content}\n      ${e}`);
+}
+
 // -- Shared profile sidebar ----------------------------------------------
 // Defined once and injected into every page's left column (between the
 // PROFILE markers) so all pages stay in sync. It is static HTML, so AI /
@@ -413,9 +465,14 @@ function buildProfile() {
 const PAGES = {
   'index.html': buildNews,
   'publications.html': buildPublications,
-  'education.html': buildEducation,
   'research.html': buildResearch,
   'others.html': buildOthers,
+};
+
+// Static-first pages: render the real (visible) content straight into the page.
+// Each entry maps a file to the regions it fills.
+const STATIC_PAGES = {
+  'education.html': [['education', renderEducationTimeline]],
 };
 
 // Replace the content between `start`/`end` markers, or — if absent — insert
@@ -442,6 +499,17 @@ function main() {
     html = replaceMarked(html, START, END, block, '</main>');
     fs.writeFileSync(filePath, html, 'utf8');
     console.log(`Injected AI fallback into ${file} (${block.length} bytes)`);
+  }
+
+  // 1b) Static-first pages: render real content straight into visible regions.
+  for (const [file, regions] of Object.entries(STATIC_PAGES)) {
+    const filePath = path.join(ROOT, file);
+    let html = fs.readFileSync(filePath, 'utf8');
+    for (const [key, render] of regions) {
+      html = injectRegion(html, key, render());
+    }
+    fs.writeFileSync(filePath, html, 'utf8');
+    console.log(`Rendered static content into ${file} (${regions.map(r => r[0]).join(', ')})`);
   }
 
   // 2) ScholarlyArticle JSON-LD in <head> of the publications page.
