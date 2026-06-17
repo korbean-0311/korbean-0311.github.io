@@ -244,22 +244,6 @@
 
   window.Portfolio = { loadJSON, escapeHTML, highlightAuthor };
 
-  /* ---------- Profile card: remember collapsed/expanded across pages ---------- */
-  function initProfile() {
-    const card = document.querySelector('.profile__card');
-    if (!card) return;
-    // Default is collapsed on mobile (the markup ships without `open`), so the
-    // page reads cleanly. Restore the expanded state only if the visitor opened
-    // it before. On desktop the body is always shown via CSS, so this is a no-op
-    // there.
-    try {
-      if (localStorage.getItem('profileOpen') === '1') card.open = true;
-    } catch (_) {}
-    card.addEventListener('toggle', () => {
-      try { localStorage.setItem('profileOpen', card.open ? '1' : '0'); } catch (_) {}
-    });
-  }
-
   /* ---------- Recent News: "show more" toggle on the pre-rendered list ---------- */
   function initNews() {
     const list = document.querySelector('.news-list');
@@ -280,7 +264,6 @@
     injectChrome();
     initTheme();
     initMenu();
-    initProfile();
     initNews();
   });
 })();
