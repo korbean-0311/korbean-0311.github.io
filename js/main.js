@@ -248,10 +248,12 @@
   function initProfile() {
     const card = document.querySelector('.profile__card');
     if (!card) return;
-    // Restore last state. Only the mobile view visibly collapses; on desktop
-    // the body is always shown via CSS, so the stored state is harmless there.
+    // Default is collapsed on mobile (the markup ships without `open`), so the
+    // page reads cleanly. Restore the expanded state only if the visitor opened
+    // it before. On desktop the body is always shown via CSS, so this is a no-op
+    // there.
     try {
-      if (localStorage.getItem('profileOpen') === '0') card.open = false;
+      if (localStorage.getItem('profileOpen') === '1') card.open = true;
     } catch (_) {}
     card.addEventListener('toggle', () => {
       try { localStorage.setItem('profileOpen', card.open ? '1' : '0'); } catch (_) {}
