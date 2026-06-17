@@ -818,6 +818,10 @@ function injectRegion(html, key, content) {
 // PROFILE markers) so all pages stay in sync. It is static HTML, so AI /
 // non-JS crawlers read the name, affiliation, and links on every page.
 function buildProfile() {
+  // The <details> MUST stay `open`. The profile is never collapsed anymore (its
+  // <summary> toggle is CSS-hidden at every breakpoint), and a *closed* <details>
+  // collapses to ~0 height even when .profile__body is forced display:block —
+  // which silently hides the entire profile on desktop and mobile home. Keep `open`.
   return `<aside class="profile" aria-label="Profile">
       <details class="profile__card" open>
         <summary class="profile__summary">Profile<svg class="profile__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary>
