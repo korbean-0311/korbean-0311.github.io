@@ -589,6 +589,222 @@ function othersRenderProgramming() {
   }).join('');
 }
 
+// -- Publications (static-first) -----------------------------------------
+// Ported verbatim from js/publications.js so the rendered markup is identical
+// to what the browser used to produce. Differences are intentional and minimal:
+//   • author highlight uses <span class="me"> (the browser's highlightAuthor),
+//     NOT the <strong> used by the AI fallback above;
+//   • each .pub-item / .award-item carries data-first ("1" when it has the
+//     "1st Author" tag) so the enhance script can drive the sort filter;
+//   • every tab is rendered as a .tab-panel (all visible to no-JS crawlers;
+//     CSS shows only the active one once JS is present).
+function pubHasFirstAuthorTag(item) {
+  return Array.isArray(item.tags) && item.tags.indexOf('1st Author') !== -1;
+}
+
+// Mirror of main.js highlightAuthor: wrap the owner's name in <span class="me">.
+function highlightAuthorMe(authors, me) {
+  if (!authors) return '';
+  const safe = esc(authors);
+  if (!me) return safe;
+  const safeMe = esc(me);
+  const re = new RegExp(safeMe.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+  return safe.replace(re, () => `<span class="me">${safeMe}</span>`);
+}
+
+function pubActionButtons(p) {
+  const notes = [];
+  const buttons = [];
+  (p.notes || []).forEach(n => {
+    const kind = n && n.kind ? n.kind : 'info';
+    const label = typeof n === 'string' ? n : (n && n.label) || '';
+    const icon = (n && n.icon) ? n.icon : '';
+    if (!label) return;
+    const iconHTML = icon ? `<span class="pub-note__icon">${esc(icon)}</span>` : '';
+    notes.push(`<span class="pub-note pub-note--${esc(kind)}">${iconHTML}${esc(label)}</span>`);
+  });
+  if (p.bibtex && p.bibtex.length) {
+    buttons.push(`<button type="button" class="pub-btn pub-btn--bib" data-bibtex="${esc(p.bibtex)}" aria-label="Copy BibTeX">BibTeX</button>`);
+  }
+  if (p.doi) {
+    buttons.push(`<a class="pub-btn pub-btn--doi" href="${esc(p.doi)}" target="_blank" rel="noopener" aria-label="DOI link">DOI</a>`);
+  }
+  if (p.pdf) {
+    buttons.push(`<a class="pub-btn pub-btn--pdf" href="${esc(p.pdf)}" target="_blank" rel="noopener" aria-label="Open PDF">PDF</a>`);
+  }
+  if (!notes.length && !buttons.length) return '';
+  if (notes.length && buttons.length) {
+    return `
+        <div class="pub-item__actions pub-item__actions--notes">${notes.join('')}</div>
+        <div class="pub-item__actions pub-item__actions--buttons">${buttons.join('')}</div>`;
+  }
+  return `<div class="pub-item__actions">${notes.concat(buttons).join('')}</div>`;
+}
+
+function pubExtraInfo(p) {
+  let html = '';
+  if (p.abstract && p.abstract.trim()) {
+    html += `<details class="pub-extra"><summary>Abstract</summary><p>${esc(p.abstract)}</p></details>`;
+  }
+  if (Array.isArray(p.keywords) && p.keywords.length) {
+    html += `<details class="pub-extra"><summary>Keywords</summary><p>${esc(p.keywords.join(', '))}</p></details>`;
+  }
+  return html;
+}
+
+function pubItemHTML(p, opts) {
+  opts = opts || {};
+  const num = p.number != null ? `<div class="pub-item__num">[${p.number}]</div>` : `<div class="pub-item__num"></div>`;
+  const authors = highlightAuthorMe(p.authors, p.highlight_author);
+  const tagsHTML = (p.tags || []).map(t => `<span class="badge--tag badge">${esc(t)}</span>`).join('');
+  const details = p.details ? `<span class="pub-item__details">${esc(p.details)}</span>` : '';
+  const venue = p.venue ? `<span class="pub-item__venue">${esc(p.venue)}</span>` : '';
+  const titleSuffix = opts.bareTitle ? '' : ',';
+  const titleQuote = opts.bareTitle ? '' : '"';
+  const venuePrefix = opts.bareTitle ? '' : 'in ';
+
+  let metaHTML;
+  if (opts.splitMeta) {
+    metaHTML = `
+          <div class="pub-item__meta">${venue}</div>
+          ${details ? `<div class="pub-item__meta pub-item__meta--sub">${details}</div>` : ''}`;
+  } else {
+    metaHTML = `<div class="pub-item__meta">${venuePrefix}${venue}${details ? ', ' + details : ''}</div>`;
+  }
+
+  const sep = opts.withDividers ? '<hr class="pub-item__sep" aria-hidden="true" />' : '';
+  const first = pubHasFirstAuthorTag(p) ? '1' : '0';
+  return `
+      <li class="pub-item" data-first="${first}">
+        ${num}
+        <div class="pub-item__body">
+          <div class="pub-item__authors">${authors}${tagsHTML}</div>
+          ${sep}
+          <div class="pub-item__title">${titleQuote}${esc(p.title)}${titleSuffix}${titleQuote}</div>
+          ${sep}
+          ${metaHTML}
+          ${pubActionButtons(p)}
+          ${pubExtraInfo(p)}
+        </div>
+      </li>
+    `;
+}
+
+function pubJournalsHTML(DATA) {
+  const j = DATA.international_journals || {};
+  const ur = j.under_review || [];
+  const pub = j.published || [];
+  const opts = { bareTitle: true, withDividers: true };
+  let html = '';
+  if (ur.length) {
+    html += `<div class="pub-group"><div class="pub-group__title">Under Review</div><ul class="pub-list">${ur.map(p => pubItemHTML(p, opts)).join('')}</ul></div>`;
+  }
+  if (pub.length) {
+    html += `<div class="pub-group"><div class="pub-group__title">Published Journals</div><ul class="pub-list">${pub.map(p => pubItemHTML(p, opts)).join('')}</ul></div>`;
+  }
+  if (!html) return `<p class="loading">No entries match this filter.</p>`;
+  // Hidden until the 1st-author filter yields nothing (toggled by the enhance JS).
+  return html + `<p class="loading pub-empty" hidden>No entries match this filter.</p>`;
+}
+
+function pubListHTML(items, title, opts, sortable) {
+  const arr = items || [];
+  if (!arr.length) return `<p class="loading">No entries match this filter.</p>`;
+  // NB: title is a trusted literal — left un-escaped to match the browser
+  // (e.g. the apostrophe in "Int'l Conferences" must stay literal).
+  const group = `<div class="pub-group"><div class="pub-group__title">${title}</div><ul class="pub-list">${arr.map(p => pubItemHTML(p, opts)).join('')}</ul></div>`;
+  const empty = sortable ? `<p class="loading pub-empty" hidden>No entries match this filter.</p>` : '';
+  return group + empty;
+}
+
+function pubPatentItemHTML(p) {
+  const inv = highlightAuthorMe(p.inventors || '', p.highlight_author);
+  const countryBadge = p.country ? `<span class="badge badge--country">${esc(p.country)}</span>` : '';
+  return `
+      <li class="patent-item">
+        <div class="patent-item__title">[${p.number}] ${esc(p.title || '')} ${countryBadge}</div>
+        <ul class="patent-item__meta">
+          ${p.inventors ? `<li><span class="patent-label">Inventors:</span> ${inv}</li>` : ''}
+          ${p.patent_no ? `<li><span class="patent-label">Patent No.:</span> ${esc(p.patent_no)}</li>` : ''}
+          ${p.granted_date ? `<li><span class="patent-label">Granted date:</span> ${esc(p.granted_date)}</li>` : ''}
+        </ul>
+      </li>`;
+}
+
+function pubPatentsHTML(items) {
+  const arr = items || [];
+  if (!arr.length) return `<p class="loading">No entries yet.</p>`;
+  return `
+      <div class="pub-group">
+        <div class="pub-group__title">Patents</div>
+        <ul class="patent-list">${arr.map(pubPatentItemHTML).join('')}</ul>
+      </div>`;
+}
+
+function pubAwardItemHTML(a) {
+  const venue = a.venue ? `<em class="award-venue">${esc(a.venue)}</em>, ` : '';
+  const title = a.title ? `<strong>${esc(a.title)}</strong>` : '';
+  const hl = a.highlight ? ` <em class="award-highlight">(${esc(a.highlight)})</em>` : '';
+  const tags = (a.tags || []).map(t => `<span class="badge--tag badge">${esc(t)}</span>`).join('');
+  const tagsHTML = tags ? ` ${tags}` : '';
+  const date = a.date ? `, ${esc(a.date)}` : '';
+  const first = pubHasFirstAuthorTag(a) ? '1' : '0';
+  return `<li class="award-item" data-first="${first}">${venue}${title}${hl}${date}.${tagsHTML}</li>`;
+}
+
+function pubAwardsHTML(data) {
+  if (!data || (Array.isArray(data) && !data.length) || (typeof data === 'object' && !Array.isArray(data) && Object.keys(data).length === 0)) {
+    return `<p class="loading">No entries yet.</p>`;
+  }
+  let html = `<div class="pub-group"><div class="pub-group__title">Awards</div>`;
+  if (Array.isArray(data) && data.length && data[0] && Array.isArray(data[0].items)) {
+    data.forEach(group => {
+      const items = group.items || [];
+      if (!items.length) return;
+      html += `
+          <div class="award-group">
+            <h4 class="award-group__title">${esc(group.category || '')}</h4>
+            <ul class="award-list">${items.map(pubAwardItemHTML).join('')}</ul>
+          </div>`;
+    });
+  } else if (Array.isArray(data)) {
+    html += `<ul class="award-list">${data.map(a => `
+        <li class="award-item">
+          <div class="award-item__title">${esc(a.title || '')}</div>
+          <div class="award-item__meta">${esc(a.meta || '')}</div>
+        </li>`).join('')}</ul>`;
+  } else {
+    Object.entries(data).forEach(([cat, items]) => {
+      if (!items || !items.length) return;
+      html += `
+          <div class="award-group">
+            <h4 class="award-group__title">${esc(cat)}</h4>
+            <ul class="award-list">${items.map(pubAwardItemHTML).join('')}</ul>
+          </div>`;
+    });
+  }
+  html += `</div>`;
+  return html;
+}
+
+// Render all five tabs as panels. Journals is active; the rest are visible to
+// no-JS clients and hidden by CSS (html[data-js] .tab-panel:not(.is-active))
+// once JavaScript loads.
+function renderPublicationsTabs() {
+  const DATA = readJSON('publications.json');
+  const panel = (tab, active, inner) =>
+    `<div class="tab-panel${active ? ' is-active' : ''}" data-tab="${tab}">${inner}</div>`;
+  return [
+    panel('international_journals', true, pubJournalsHTML(DATA)),
+    panel('international_conferences', false,
+      pubListHTML(DATA.international_conferences, "Int'l Conferences", { bareTitle: true, splitMeta: true, withDividers: true }, true)),
+    panel('domestic_conferences', false,
+      pubListHTML(DATA.domestic_conferences, 'Domestic Conferences (KIEES)', { bareTitle: true, withDividers: true }, false)),
+    panel('patents', false, pubPatentsHTML(DATA.patents)),
+    panel('awards', false, pubAwardsHTML(DATA.awards)),
+  ].join('\n      ');
+}
+
 // Replace the inner content between <!-- R:key:START --> / <!-- R:key:END -->.
 function injectRegion(html, key, content) {
   const s = `<!-- R:${key}:START -->`, e = `<!-- R:${key}:END -->`;
@@ -623,16 +839,18 @@ function buildProfile() {
 }
 
 // -- Injection ------------------------------------------------------------
-// Each page maps to the builder that produces its fallback content.
-const PAGES = {
-  'publications.html': buildPublications,
-};
+// Hidden `<div data-ai-fallback>` builders (the original crawler fallback
+// scheme). Every page has since moved to the static-first STATIC_PAGES path
+// below, so this map is now empty and the fallback loop in main() is a no-op.
+// (buildPublications/buildNews/… remain defined for reference/reuse.)
+const PAGES = {};
 
 // Static-first pages: render the real (visible) content straight into the page.
 // Each entry maps a file to the regions it fills.
 const STATIC_PAGES = {
   'index.html': [['news', renderNews]],
   'education.html': [['education', renderEducationTimeline]],
+  'publications.html': [['publications', renderPublicationsTabs]],
   'research.html': [['research', renderResearch]],
   'others.html': [
     ['reviewer', othersRenderReviewer],

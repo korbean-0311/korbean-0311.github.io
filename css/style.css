@@ -1033,6 +1033,12 @@ a:hover .ext-link-arrow {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* Tab panels are all pre-rendered into the page (static-first), so a no-JS
+   client sees every category. Once the inline <head> script sets data-js
+   (before first paint), only the active panel is shown — no flash. */
+html[data-js] .tab-panel { display: none; }
+html[data-js] .tab-panel.is-active { display: block; }
+
 .pub-group {
   margin-bottom: 2.5rem;
 }

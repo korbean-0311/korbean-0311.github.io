@@ -1,261 +1,92 @@
-/* publications.js — tab-driven renderer */
+/* publications.js — enhance-only.
+   All five tab panels are pre-rendered into the HTML at build time
+   (scripts/build-prerender.mjs, static-first). This script only wires the
+   interactions: tab switching, the 1st-author sort filter, and BibTeX copy.
+   No JSON fetch, no "Loading…" flash, no client-side rendering. */
 (function () {
   'use strict';
 
-  // Hoist the escape helper once — main.js has already populated window.Portfolio
-  // by the time this script's IIFE runs (both are classic scripts in document order).
-  const esc = window.Portfolio.escapeHTML;
-
-  const TAB_LABELS = {
-    international_journals: "Int'l Journals",
-    international_conferences: "Int'l Conferences",
-    domestic_conferences: 'Domestic Conferences',
-    patents: 'Patents',
-    awards: 'Awards'
-  };
-
-  let DATA = null;
-  let CURRENT_TAB = 'international_journals';
-  let CURRENT_SORT = 'all';
-
+  // Tabs that expose the "All / 1st Author" sort bar.
   const SORTABLE_TABS = new Set(['international_journals', 'international_conferences', 'awards']);
 
-  function hasFirstAuthorTag(item) {
-    return Array.isArray(item.tags) && item.tags.indexOf('1st Author') !== -1;
+  const tabContent = document.getElementById('tab-content');
+  const sortBar = document.getElementById('sort-bar');
+
+  function activePanel() {
+    return document.querySelector('.tab-panel.is-active');
   }
 
-  function filterFirstAuthor(arr) {
-    if (CURRENT_SORT !== 'first_author') return arr;
-    return (arr || []).filter(hasFirstAuthorTag);
-  }
-
-  function filterEntries(arr) {
-    return filterFirstAuthor(arr);
-  }
-
-  function actionButtons(p) {
-    const notes = [];
-    const buttons = [];
-    (p.notes || []).forEach(n => {
-      const kind = n && n.kind ? n.kind : 'info';
-      const label = typeof n === 'string' ? n : (n && n.label) || '';
-      const icon = (n && n.icon) ? n.icon : '';
-      if (!label) return;
-      const iconHTML = icon ? `<span class="pub-note__icon">${esc(icon)}</span>` : '';
-      notes.push(`<span class="pub-note pub-note--${esc(kind)}">${iconHTML}${esc(label)}</span>`);
-    });
-    if (p.bibtex && p.bibtex.length) {
-      buttons.push(`<button type="button" class="pub-btn pub-btn--bib" data-bibtex="${esc(p.bibtex)}" aria-label="Copy BibTeX">BibTeX</button>`);
-    }
-    if (p.doi) {
-      buttons.push(`<a class="pub-btn pub-btn--doi" href="${esc(p.doi)}" target="_blank" rel="noopener" aria-label="DOI link">DOI</a>`);
-    }
-    if (p.pdf) {
-      buttons.push(`<a class="pub-btn pub-btn--pdf" href="${esc(p.pdf)}" target="_blank" rel="noopener" aria-label="Open PDF">PDF</a>`);
-    }
-    if (!notes.length && !buttons.length) return '';
-    // When both notes AND buttons exist, render them on separate rows.
-    if (notes.length && buttons.length) {
-      return `
-        <div class="pub-item__actions pub-item__actions--notes">${notes.join('')}</div>
-        <div class="pub-item__actions pub-item__actions--buttons">${buttons.join('')}</div>`;
-    }
-    return `<div class="pub-item__actions">${notes.concat(buttons).join('')}</div>`;
-  }
-
-  function pubItem(p, opts) {
-    opts = opts || {};
-    const num = p.number != null ? `<div class="pub-item__num">[${p.number}]</div>` : `<div class="pub-item__num"></div>`;
-    const authors = window.Portfolio.highlightAuthor(p.authors, p.highlight_author);
-    const tagsHTML = (p.tags || []).map(t => `<span class="badge--tag badge">${esc(t)}</span>`).join('');
-    const details = p.details ? `<span class="pub-item__details">${esc(p.details)}</span>` : '';
-    const venue = p.venue ? `<span class="pub-item__venue">${esc(p.venue)}</span>` : '';
-    const titleSuffix = opts.bareTitle ? '' : ',';
-    const titleQuote = opts.bareTitle ? '' : '"';
-    const venuePrefix = opts.bareTitle ? '' : 'in ';
-
-    let metaHTML;
-    if (opts.splitMeta) {
-      metaHTML = `
-          <div class="pub-item__meta">${venue}</div>
-          ${details ? `<div class="pub-item__meta pub-item__meta--sub">${details}</div>` : ''}`;
-    } else {
-      metaHTML = `<div class="pub-item__meta">${venuePrefix}${venue}${details ? ', ' + details : ''}</div>`;
-    }
-
-    const sep = opts.withDividers ? '<hr class="pub-item__sep" aria-hidden="true" />' : '';
-    return `
-      <li class="pub-item">
-        ${num}
-        <div class="pub-item__body">
-          <div class="pub-item__authors">${authors}${tagsHTML}</div>
-          ${sep}
-          <div class="pub-item__title">${titleQuote}${esc(p.title)}${titleSuffix}${titleQuote}</div>
-          ${sep}
-          ${metaHTML}
-          ${actionButtons(p)}
-          ${extraInfo(p)}
-        </div>
-      </li>
-    `;
-  }
-
-  // Optional per-paper subject keywords + abstract. Keywords render as small
-  // topic chips; the abstract is a collapsible <details> so the list stays
-  // compact while the full text is present in the DOM for AI/search crawlers.
-  function extraInfo(p) {
-    let html = '';
-    if (p.abstract && p.abstract.trim()) {
-      html += `<details class="pub-extra"><summary>Abstract</summary><p>${esc(p.abstract)}</p></details>`;
-    }
-    if (Array.isArray(p.keywords) && p.keywords.length) {
-      html += `<details class="pub-extra"><summary>Keywords</summary><p>${esc(p.keywords.join(', '))}</p></details>`;
-    }
-    return html;
-  }
-
-  function renderJournals(host) {
-    const j = DATA.international_journals || {};
-    const ur = filterEntries(j.under_review || []);
-    const pub = filterEntries(j.published || []);
-    // withDividers: true → adds thin horizontal separators between authors/title/meta
-    // (Int'l Journals only — conferences/patents/awards remain compact)
-    const opts = { bareTitle: true, withDividers: true };
-    let html = '';
-    if (ur.length) {
-      html += `<div class="pub-group"><div class="pub-group__title">Under Review</div><ul class="pub-list">${ur.map(p => pubItem(p, opts)).join('')}</ul></div>`;
-    }
-    if (pub.length) {
-      html += `<div class="pub-group"><div class="pub-group__title">Published Journals</div><ul class="pub-list">${pub.map(p => pubItem(p, opts)).join('')}</ul></div>`;
-    }
-    host.innerHTML = html || `<p class="loading">No entries match this filter.</p>`;
-  }
-
-  function renderList(host, items, title, opts) {
-    opts = opts || {};
-    const filtered = filterEntries(items || []);
-    if (!filtered.length) {
-      host.innerHTML = `<p class="loading">No entries match this filter.</p>`;
-      return;
-    }
-    host.innerHTML = `
-      <div class="pub-group">
-        <div class="pub-group__title">${title}</div>
-        <ul class="pub-list">${filtered.map(p => pubItem(p, opts)).join('')}</ul>
-      </div>`;
-  }
-
-  function awardItem(a) {
-    const venue = a.venue ? `<em class="award-venue">${esc(a.venue)}</em>, ` : '';
-    const title = a.title ? `<strong>${esc(a.title)}</strong>` : '';
-    const hl = a.highlight ? ` <em class="award-highlight">(${esc(a.highlight)})</em>` : '';
-    const tags = (a.tags || []).map(t => `<span class="badge--tag badge">${esc(t)}</span>`).join('');
-    const tagsHTML = tags ? ` ${tags}` : '';
-    const date = a.date ? `, ${esc(a.date)}` : '';
-    return `<li class="award-item">${venue}${title}${hl}${date}.${tagsHTML}</li>`;
-  }
-
-  function renderAwards(host) {
-    const data = DATA.awards;
-    if (!data || (Array.isArray(data) && !data.length) || (typeof data === 'object' && !Array.isArray(data) && Object.keys(data).length === 0)) {
-      host.innerHTML = `<p class="loading">No entries yet.</p>`;
-      return;
-    }
-
-    let html = `<div class="pub-group"><div class="pub-group__title">Awards</div>`;
-
-    // Three shapes supported (in order of preference):
-    //   1) Array-of-groups: [{ category: '...', items: [...] }, ...]   ← current
-    //   2) Object-of-arrays (legacy): { 'Conferences': [...], ... }
-    //   3) Flat array of {title, meta} (very old legacy)
-    if (Array.isArray(data) && data.length && data[0] && Array.isArray(data[0].items)) {
-      // Shape (1): array of named groups
-      data.forEach(group => {
-        const filtered = filterFirstAuthor(group.items || []);
-        if (!filtered.length) return;
-        html += `
-          <div class="award-group">
-            <h4 class="award-group__title">${esc(group.category || '')}</h4>
-            <ul class="award-list">${filtered.map(awardItem).join('')}</ul>
-          </div>`;
-      });
-    } else if (Array.isArray(data)) {
-      // Shape (3): legacy flat
-      html += `<ul class="award-list">${data.map(a => `
-        <li class="award-item">
-          <div class="award-item__title">${esc(a.title || '')}</div>
-          <div class="award-item__meta">${esc(a.meta || '')}</div>
-        </li>`).join('')}</ul>`;
-    } else {
-      // Shape (2): legacy object-of-arrays
-      Object.entries(data).forEach(([cat, items]) => {
-        const filtered = filterFirstAuthor(items);
-        if (!filtered || !filtered.length) return;
-        html += `
-          <div class="award-group">
-            <h4 class="award-group__title">${esc(cat)}</h4>
-            <ul class="award-list">${filtered.map(awardItem).join('')}</ul>
-          </div>`;
-      });
-    }
-
-    html += `</div>`;
-    host.innerHTML = html;
-  }
-
-  function patentItem(p) {
-    const inv = window.Portfolio.highlightAuthor(p.inventors || '', p.highlight_author);
-    const countryBadge = p.country ? `<span class="badge badge--country">${esc(p.country)}</span>` : '';
-    return `
-      <li class="patent-item">
-        <div class="patent-item__title">[${p.number}] ${esc(p.title || '')} ${countryBadge}</div>
-        <ul class="patent-item__meta">
-          ${p.inventors ? `<li><span class="patent-label">Inventors:</span> ${inv}</li>` : ''}
-          ${p.patent_no ? `<li><span class="patent-label">Patent No.:</span> ${esc(p.patent_no)}</li>` : ''}
-          ${p.granted_date ? `<li><span class="patent-label">Granted date:</span> ${esc(p.granted_date)}</li>` : ''}
-        </ul>
-      </li>`;
-  }
-
-  function renderPatents(host) {
-    const items = DATA.patents || [];
-    if (!items.length) {
-      host.innerHTML = `<p class="loading">No entries yet.</p>`;
-      return;
-    }
-    host.innerHTML = `
-      <div class="pub-group">
-        <div class="pub-group__title">Patents</div>
-        <ul class="patent-list">${items.map(patentItem).join('')}</ul>
-      </div>`;
-  }
-
-  function render(tab) {
-    const host = document.getElementById('tab-content');
-    host.classList.remove('tab-content');
-    void host.offsetWidth;
-    host.classList.add('tab-content');
-    host.setAttribute('data-current-tab', tab);
-
-    // Toggle sort bar visibility
-    const sortBar = document.getElementById('sort-bar');
-    if (sortBar) sortBar.hidden = !SORTABLE_TABS.has(tab);
-
-    if (tab === 'international_journals') return renderJournals(host);
-    if (tab === 'international_conferences') return renderList(host, DATA.international_conferences, TAB_LABELS[tab], { bareTitle: true, splitMeta: true, withDividers: true });
-    if (tab === 'domestic_conferences') return renderList(host, DATA.domestic_conferences, 'Domestic Conferences (KIEES)', { bareTitle: true, withDividers: true });
-    if (tab === 'patents') return renderPatents(host);
-    if (tab === 'awards') return renderAwards(host);
-  }
-
-  function setActive(tab) {
+  function setActiveTabButton(tab) {
     document.querySelectorAll('.tab-btn').forEach(b => {
-      b.classList.toggle('is-active', b.dataset.tab === tab);
-      b.setAttribute('aria-selected', b.dataset.tab === tab ? 'true' : 'false');
+      const on = b.dataset.tab === tab;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
     });
   }
 
-  // Toast for BibTeX copy feedback
+  // Re-trigger the .tab-content fade-in, mirroring what the old renderer did on
+  // every tab switch (remove class → force reflow → re-add).
+  function refade() {
+    if (!tabContent) return;
+    tabContent.classList.remove('tab-content');
+    void tabContent.offsetWidth;
+    tabContent.classList.add('tab-content');
+  }
+
+  // Apply (or clear) the 1st-author filter on one panel by toggling visibility
+  // of items, their enclosing groups, and the panel's "no entries" message.
+  function applySort(panel, sort) {
+    if (!panel) return;
+    const firstOnly = sort === 'first_author';
+
+    // Items live in two shapes: .pub-item (journals/conferences) and .award-item.
+    panel.querySelectorAll('.pub-item, .award-item').forEach(item => {
+      item.hidden = firstOnly && item.getAttribute('data-first') !== '1';
+    });
+
+    // Journal/conference groups: hide a group whose direct items are all hidden.
+    // (The Awards panel's outer .pub-group has no direct .pub-item, so it is
+    //  skipped here and its "Awards" heading always stays — matching the old JS.)
+    panel.querySelectorAll('.pub-group').forEach(group => {
+      const items = group.querySelectorAll('.pub-item');
+      if (!items.length) return;
+      group.hidden = !Array.from(items).some(i => !i.hidden);
+    });
+
+    // Award category groups: hide a category whose awards are all hidden.
+    panel.querySelectorAll('.award-group').forEach(group => {
+      const items = group.querySelectorAll('.award-item');
+      group.hidden = !Array.from(items).some(i => !i.hidden);
+    });
+
+    // Panel-level "No entries match this filter." (present in sortable list panels).
+    const empty = panel.querySelector('.pub-empty');
+    if (empty) {
+      const anyVisible = Array.from(panel.querySelectorAll('.pub-item')).some(i => !i.hidden);
+      empty.hidden = !(firstOnly && !anyVisible);
+    }
+  }
+
+  function resetSort(panel) {
+    document.querySelectorAll('.sort-btn').forEach(b => {
+      b.classList.toggle('is-active', b.dataset.sort === 'all');
+    });
+    applySort(panel, 'all');
+  }
+
+  function selectTab(tab) {
+    document.querySelectorAll('.tab-panel').forEach(p => {
+      p.classList.toggle('is-active', p.dataset.tab === tab);
+    });
+    setActiveTabButton(tab);
+    if (tabContent) tabContent.setAttribute('data-current-tab', tab);
+    if (sortBar) sortBar.hidden = !SORTABLE_TABS.has(tab);
+    // Switching tabs resets the sort back to "All".
+    resetSort(document.querySelector('.tab-panel[data-tab="' + tab + '"]'));
+    refade();
+  }
+
+  /* ---------- BibTeX copy (delegated; works on the pre-rendered DOM) ---------- */
   function toast(msg) {
     let t = document.getElementById('pub-toast');
     if (!t) {
@@ -304,39 +135,18 @@
     toast(copied ? 'BibTeX copied' : 'Copy failed — please try again');
   });
 
-  document.addEventListener('DOMContentLoaded', async () => {
-    try {
-      DATA = await window.Portfolio.loadJSON('data/publications.json');
-      CURRENT_TAB = 'international_journals';
-      CURRENT_SORT = 'all';
-      setActive(CURRENT_TAB);
-      render(CURRENT_TAB);
-      document.querySelectorAll('.tab-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const t = btn.dataset.tab;
-          CURRENT_TAB = t;
-          // reset sort when changing tabs
-          CURRENT_SORT = 'all';
-          document.querySelectorAll('.sort-btn').forEach(b => {
-            b.classList.toggle('is-active', b.dataset.sort === 'all');
-          });
-          setActive(t);
-          render(t);
+  /* ---------- Boot: wire tab + sort buttons ---------- */
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => selectTab(btn.dataset.tab));
+    });
+    document.querySelectorAll('.sort-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.sort-btn').forEach(b => {
+          b.classList.toggle('is-active', b === btn);
         });
+        applySort(activePanel(), btn.dataset.sort);
       });
-      document.querySelectorAll('.sort-btn').forEach(btn => {
-        btn.addEventListener('click', () => {
-          CURRENT_SORT = btn.dataset.sort;
-          document.querySelectorAll('.sort-btn').forEach(b => {
-            b.classList.toggle('is-active', b === btn);
-          });
-          render(CURRENT_TAB);
-        });
-      });
-    } catch (e) {
-      document.getElementById('tab-content').innerHTML =
-        `<p class="loading">Failed to load publications.</p>`;
-      console.error(e);
-    }
+    });
   });
 })();
