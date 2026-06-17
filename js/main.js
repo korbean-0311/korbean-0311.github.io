@@ -258,11 +258,27 @@
     });
   }
 
+  /* ---------- Recent News: "show more" toggle on the pre-rendered list ---------- */
+  function initNews() {
+    const list = document.querySelector('.news-list');
+    const toggle = document.getElementById('news-toggle');
+    if (!list || !toggle) return;
+    const extra = list.querySelectorAll('.news-item--extra').length;
+    if (!extra) return;                 // 5 or fewer items — no toggle needed
+    toggle.hidden = false;
+    toggle.textContent = `Show ${extra} more`;
+    toggle.addEventListener('click', () => {
+      const expanded = list.classList.toggle('is-expanded');
+      toggle.textContent = expanded ? 'Show less' : `Show ${extra} more`;
+    });
+  }
+
   /* ---------- Boot ---------- */
   document.addEventListener('DOMContentLoaded', () => {
     injectChrome();
     initTheme();
     initMenu();
     initProfile();
+    initNews();
   });
 })();

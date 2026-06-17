@@ -427,6 +427,168 @@ function renderEducationTimeline() {
   }).join('\n');
 }
 
+// Research — ported verbatim from js/research.js (affiliation is intentionally
+// unused there, so it is omitted here too to keep the output identical).
+function researchRichText(s) {
+  return esc(s).replace(/&lt;u&gt;/g, '<u>').replace(/&lt;\/u&gt;/g, '</u>');
+}
+function researchProjectCard(p) {
+  return `
+        <article class="research-card">
+          <div class="research-card__header">
+            <span class="research-card__code">[${esc(p.code)}]</span>
+            <span class="research-card__org">${esc(p.org)}</span>
+            <span class="research-card__period">${esc(p.period || '')}</span>
+          </div>
+          <div class="research-card__title">${esc(p.title)}</div>
+          ${(p.keywords || []).length ? `
+            <div class="research-card__keywords">
+              ${p.keywords.map(k => `<span class="badge badge--keyword">${esc(k)}</span>`).join('')}
+            </div>` : ''}
+          ${(p.summary || []).length ? `
+            <ul class="research-card__summary">
+              ${p.summary.map(s => `<li>${researchRichText(s)}</li>`).join('')}
+            </ul>` : ''}
+        </article>`;
+}
+function researchUndergradGroup(g) {
+  return `
+        <article class="research-intern">
+          <div class="research-intern__header">
+            <strong>${esc(g.lab)}</strong>${g.advisor ? ` <em>(Advisor: ${esc(g.advisor)})</em>` : ''}${g.institution ? `, at ${esc(g.institution)}` : ''}${g.period ? ` <span class="research-intern__period">(${esc(g.period)})</span>` : ''}
+          </div>
+          ${(g.items || []).length ? `
+            <ul class="research-intern__items">
+              ${g.items.map(it => `<li>${researchRichText(it)}</li>`).join('')}
+            </ul>` : ''}
+        </article>`;
+}
+function researchSectionHTML(section) {
+  const title = `<h2 class="research-section__title">${esc(section.title)}</h2>`;
+  if (section.type === 'graduate') {
+    const projects = (section.projects || []).map(researchProjectCard).join('');
+    return `
+          <section class="research-section">
+            ${title}
+            <div class="research-section__projects">${projects}</div>
+          </section>`;
+  }
+  if (section.type === 'undergraduate') {
+    const groups = (section.groups || []).map(researchUndergradGroup).join('');
+    return `
+          <section class="research-section">
+            ${title}
+            <div class="research-section__interns">${groups}</div>
+          </section>`;
+  }
+  return '';
+}
+function renderResearch() {
+  const data = readJSON('research.json');
+  return ((data && data.sections) || []).map(researchSectionHTML).join('');
+}
+
+// News (home) — same markup the index inline renderer produced. Items past the
+// first 5 get a --extra class so CSS hides them until the "Show more" toggle.
+function renderNews() {
+  const data = readJSON('news.json');
+  const news = Array.isArray(data) ? data : (data?.news || []);
+  const INITIAL = 5;
+  return news.map((n, i) => {
+    const tagClass = (n.tag === '1st Author' || n.tag === 'Project Lead') ? 'badge--tag' : 'badge--coauthor';
+    const tag = n.tag ? ` <span class="badge ${tagClass}">${esc(n.tag)}</span>` : '';
+    const extra = i >= INITIAL ? ' news-item--extra' : '';
+    return `        <li class="news-item${extra}">
+          <span class="news-item__date">${esc(n.date)}</span>
+          <span class="news-item__body">${n.body}${tag}</span>
+        </li>`;
+  }).join('\n');
+}
+
+// Others — ported verbatim from the others.html inline renderer.
+function othersRenderReviewer() {
+  const data = readJSON('others.json');
+  return (data.reviewer || []).map(it =>
+    `<li><em>${esc(it.name)}</em>, ${esc(it.year || '')}.</li>`
+  ).join('') || '<li class="loading">No entries yet.</li>';
+}
+function othersRenderScholarships() {
+  const data = readJSON('others.json');
+  return (data.scholarships || []).map(it => {
+    const details = it.details ? ` ${esc(it.details)}` : '';
+    const date = it.date ? ` (${esc(it.date)})` : '';
+    const nameHTML = /Recipient/i.test(it.name) ? `<strong>${esc(it.name)}</strong>` : esc(it.name);
+    return `<li>${nameHTML},${details}${date}</li>`;
+  }).join('') || '<li class="loading">No entries yet.</li>';
+}
+function othersRenderTA() {
+  const data = readJSON('others.json');
+  return (data.ta || []).map(it => {
+    const code = it.code ? ` (${esc(it.code)})` : '';
+    const inst = it.institution ? `, ${esc(it.institution)}` : '';
+    const term = it.term ? `, ${esc(it.term)}` : '';
+    return `<li>${esc(it.course)}${code}${inst}${term}</li>`;
+  }).join('') || '<li class="loading">No entries yet.</li>';
+}
+function othersRenderCoursework() {
+  const data = readJSON('others.json');
+  return (data.coursework || []).map(g => `
+          <div class="coursework-group">
+            <h3 class="coursework-group__title">${esc(g.school)}</h3>
+            <ul class="coursework-list">${(g.courses || []).map(c => {
+              if (typeof c === 'string') return `<li>${esc(c)}</li>`;
+              const note = c.note ? ` <em class="coursework-note">(${esc(c.note)})</em>` : '';
+              return `<li>${esc(c.name)}${note}</li>`;
+            }).join('')}</ul>
+          </div>
+        `).join('');
+}
+function othersSkillDots(level) {
+  const lvl = Math.max(0, Math.min(5, level || 0));
+  let html = '';
+  for (let i = 1; i <= 5; i++) {
+    let cls = 'skill-dot';
+    if (i <= Math.floor(lvl)) cls += ' is-filled';
+    else if (i - 0.5 <= lvl) cls += ' is-half';
+    html += `<span class="${cls}"></span>`;
+  }
+  return `<span class="skill-rating" aria-label="${lvl} out of 5">${html}</span>`;
+}
+function othersRenderSkills(skills) {
+  return `<ul class="skill-list">${skills.map(s => `
+            <li class="skill-row">
+              <span class="skill-name">${esc(s.name)}</span>
+              ${othersSkillDots(s.level)}
+            </li>`).join('')}</ul>`;
+}
+function othersRenderProgramming() {
+  const data = readJSON('others.json');
+  return (data.programming || []).map(cat => {
+    let inner = '';
+    if (cat.skills && cat.skills.length) {
+      inner = othersRenderSkills(cat.skills);
+    } else if (cat.subgroups && cat.subgroups.length) {
+      inner = cat.subgroups.map(sg => {
+        if (sg.skills && sg.skills.length) {
+          return `<div class="skill-subgroup">
+                  <h4 class="skill-subgroup__title">${esc(sg.label)}</h4>
+                  ${othersRenderSkills(sg.skills)}
+                </div>`;
+        }
+        return `<ul class="prog-list"><li><strong>${esc(sg.label)}</strong>
+                <ul class="prog-list prog-list--inner">${(sg.items || []).map(i => `<li>${esc(i)}</li>`).join('')}</ul>
+              </li></ul>`;
+      }).join('');
+    } else if (cat.items && cat.items.length) {
+      inner = `<ul class="prog-list">${cat.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
+    }
+    return `<div class="prog-group">
+            <h3 class="prog-group__title">${esc(cat.category)}</h3>
+            ${inner}
+          </div>`;
+  }).join('');
+}
+
 // Replace the inner content between <!-- R:key:START --> / <!-- R:key:END -->.
 function injectRegion(html, key, content) {
   const s = `<!-- R:${key}:START -->`, e = `<!-- R:${key}:END -->`;
@@ -463,16 +625,22 @@ function buildProfile() {
 // -- Injection ------------------------------------------------------------
 // Each page maps to the builder that produces its fallback content.
 const PAGES = {
-  'index.html': buildNews,
   'publications.html': buildPublications,
-  'research.html': buildResearch,
-  'others.html': buildOthers,
 };
 
 // Static-first pages: render the real (visible) content straight into the page.
 // Each entry maps a file to the regions it fills.
 const STATIC_PAGES = {
+  'index.html': [['news', renderNews]],
   'education.html': [['education', renderEducationTimeline]],
+  'research.html': [['research', renderResearch]],
+  'others.html': [
+    ['reviewer', othersRenderReviewer],
+    ['scholarships', othersRenderScholarships],
+    ['ta', othersRenderTA],
+    ['coursework', othersRenderCoursework],
+    ['programming', othersRenderProgramming],
+  ],
 };
 
 // Replace the content between `start`/`end` markers, or — if absent — insert
@@ -501,13 +669,15 @@ function main() {
     console.log(`Injected AI fallback into ${file} (${block.length} bytes)`);
   }
 
-  // 1b) Static-first pages: render real content straight into visible regions.
+  // 1b) Static-first pages: render real content straight into visible regions,
+  // and strip any leftover hidden AI-FALLBACK block (no longer needed).
   for (const [file, regions] of Object.entries(STATIC_PAGES)) {
     const filePath = path.join(ROOT, file);
     let html = fs.readFileSync(filePath, 'utf8');
     for (const [key, render] of regions) {
       html = injectRegion(html, key, render());
     }
+    html = html.replace(new RegExp('\\s*' + escRe(START) + '[\\s\\S]*?' + escRe(END)), '');
     fs.writeFileSync(filePath, html, 'utf8');
     console.log(`Rendered static content into ${file} (${regions.map(r => r[0]).join(', ')})`);
   }

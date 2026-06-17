@@ -14,6 +14,8 @@ html[data-js] [data-ai-fallback] { display: none !important; }
    sub-page), hidden for JS visitors before first paint — main.js then replaces
    it with the real nav. */
 html[data-js] [data-mount-nav] { display: none !important; }
+/* Recent News: items past the first 5 stay hidden until "Show more" expands. */
+.news-list:not(.is-expanded) .news-item--extra { display: none; }
 
 /* ---------- CSS Variables ---------- */
 :root {
