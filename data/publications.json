@@ -2,17 +2,6 @@
   "international_journals": {
     "under_review": [
       {
-        "number": 3,
-        "authors": "Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*",
-        "title": "An End-to-End DC-to-DC Efficiency Optimization and Design Analysis for MIMO Wireless Power Transfer Systems",
-        "venue": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
-        "highlight_author": "Y.-S. Lee",
-        "tags": ["1st Author"],
-        "notes": [{ "label": "Major Revision", "kind": "info" }],
-        "doi": "",
-        "bibtex": ""
-      },
-      {
         "number": 2,
         "authors": "T. Yoon, Y.-S. Lee, U. Park, M. Kim, S. Lee, S. Nam, and J. Oh*",
         "title": "Hardware-Aware MILP for Optimal End-to-End Efficiency in MISO WPT: Joint Optimization of Power Modes and Fault Tolerance",
@@ -36,6 +25,17 @@
       }
     ],
     "published": [
+      {
+        "number": 6,
+        "authors": "Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*",
+        "title": "An End-to-End DC-to-DC Efficiency Optimization and Design Analysis for MIMO Wireless Power Transfer Systems",
+        "venue": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
+        "highlight_author": "Y.-S. Lee",
+        "tags": ["1st Author"],
+        "notes": [{ "label": "Accepted", "kind": "info" }],
+        "doi": "",
+        "bibtex": ""
+      },
       {
         "number": 5,
         "authors": "S. Kim, Y.-S. Lee, and S. Nam*",

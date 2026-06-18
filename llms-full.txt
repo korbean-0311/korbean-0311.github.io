@@ -35,12 +35,6 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 ### International Journals — Under Review
 
-- **[3] An End-to-End DC-to-DC Efficiency Optimization and Design Analysis for MIMO Wireless Power Transfer Systems**
-  - Authors: Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*
-  - Venue: IEEE Transactions on Microwave Theory and Techniques (TMTT)
-  - Tags: 1st Author
-  - Notes: Major Revision
-
 - **[2] Hardware-Aware MILP for Optimal End-to-End Efficiency in MISO WPT: Joint Optimization of Power Modes and Fault Tolerance**
   - Authors: T. Yoon, Y.-S. Lee, U. Park, M. Kim, S. Lee, S. Nam, and J. Oh*
   - Venue: IEEE Transactions on Microwave Theory and Techniques (TMTT)
@@ -52,6 +46,12 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - Notes: Submitted
 
 ### International Journals — Published
+
+- **[6] An End-to-End DC-to-DC Efficiency Optimization and Design Analysis for MIMO Wireless Power Transfer Systems**
+  - Authors: Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*
+  - Venue: IEEE Transactions on Microwave Theory and Techniques (TMTT)
+  - Tags: 1st Author
+  - Notes: Accepted
 
 - **[5] Wideband Dual-Polarized Endfire Slotted Horn Antenna With Tightly Coupled Dipole and Monopole Probe Arrays**
   - Authors: S. Kim, Y.-S. Lee, and S. Nam*
@@ -501,4 +501,4 @@ I have collaborated with industry partners — including Samsung Electronics on 
 _Email omitted; please reach out via LinkedIn or the lab homepage._
 
 ---
-_Generated automatically from data/*.json on 2026-06-17._
+_Generated automatically from data/*.json on 2026-06-18._
