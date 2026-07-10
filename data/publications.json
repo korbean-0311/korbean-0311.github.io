@@ -507,7 +507,7 @@
         {
           "venue": "2026 IEEE WPTCE",
           "title": "Best Student Paper Award",
-          "highlight": "Sole Recipient, 1st Place",
+          "highlight": "Sole Recipient",
           "date": "Jul. 2026",
           "tags": [
             "1st Author"
@@ -543,6 +543,15 @@
       "category": "Grants & Scholarships",
       "items": [
         {
+          "venue": "2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026)",
+          "title": "IEEE MTT-S Student Travel Grant",
+          "highlight": "",
+          "date": "Jul. 2026",
+          "tags": [
+            "1st Author"
+          ]
+        },
+        {
           "venue": "2025 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2025)",
           "title": "Ph.D. Students Initiative Program",
           "highlight": "",
@@ -554,6 +563,7 @@
         {
           "venue": "2024 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2024)",
           "title": "Student Travel Grant",
+          "highlight": "",
           "date": "May 2024",
           "tags": [
             "1st Author"
