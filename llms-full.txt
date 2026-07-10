@@ -166,7 +166,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - Venue: 2026 IEEE Wireless Power Technology Conference and EXPO (WPTCE 2026)
   - Details: Halifax, Canada, Jul. 4–7, 2026
   - Tags: 1st Author
-  - Notes: Accepted
+  - Notes: Best Student Paper Award, Sole Recipient; Selected for IEEE MTT-S Student Travel Grant
   - Keywords: Wireless power transfer (WPT), DC-to-DC efficiency, Power amplifier (PA) nonlinearity, Rectifier nonlinearity, Semidefinite relaxation (SDR), Transmission-conversion efficiency (TCE), Beamforming
   - Abstract: We propose an end-to-end DC-to-DC efficiency maximization framework for array-antenna RF-based wireless power transfer (WPT) that jointly accounts for transmit power amplifier (PA) and receive rectifier nonlinearities. While prior studies have mainly addressed PA and rectifier nonlinearities through waveform design, this work optimizes the practical CW excitation vector under measured device operating constraints, providing a practical way to determine the optimal transmit excitation for maximum end-to-end DC power delivery. Using measurement-based piecewise-linear (PWL) models for both PA and rectifier characteristics, we maximize the sum of rectified DC power at the receiver array under a transmit-side DC power budget. By applying semidefinite lifting, the problem admits an efficient semidefinite relaxation (SDR) that provides a tight upper bound and a high-quality feasible solution via rank-one recovery and local refinement. Simulation results show 38.3% higher received DC power than conventional RF-to-RF efficiency optimization, with a relaxation-to-feasible gap of 1.69%, and experiments confirm the framework with less than 8% error.
 
