@@ -30,7 +30,10 @@
           "venue": "2026 KIEES Winter Conference",
           "title": "Best Paper Award",
           "highlight": "IEEE MTT-S Seoul Chapter Award",
-          "date": "Feb. 2026"
+          "date": "Feb. 2026",
+          "tags": [
+            "Co-author"
+          ]
         },
         {
           "venue": "2025 KIEES Winter Conference",

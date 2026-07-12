@@ -315,4 +315,5 @@ collections:
                     multiple: true
                     required: false
                     default: []
-                    options: ['1st Author']
+                    options: ['1st Author', 'Co-author']
+                    hint: '"1st Author" shows a badge. "Co-author" hides this item under the "1st Author" sort filter (use it for co-authored papers); it is not shown as a badge.'
