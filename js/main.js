@@ -159,7 +159,8 @@
         <div class="topnav__links">
           <a href="index.html">Home</a>
           <a href="education.html">Education</a>
-          <a href="publications.html">Publications &amp; Awards</a>
+          <a href="publications.html">Publications</a>
+          <a href="awards.html">Awards &amp; Honors</a>
           <a href="research.html">Research</a>
           <a href="others.html">Others</a>
           <a href="contact.html">Contact</a>
@@ -197,10 +198,11 @@
       <ul class="menu-list">
         <li><a href="index.html"><span class="menu-num">01</span><span>Home</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
         <li><a href="education.html"><span class="menu-num">02</span><span>Education</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
-        <li><a href="publications.html"><span class="menu-num">03</span><span>Publications &amp; Awards</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
-        <li><a href="research.html"><span class="menu-num">04</span><span>Research</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
-        <li><a href="others.html"><span class="menu-num">05</span><span>Others</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
-        <li><a href="contact.html"><span class="menu-num">06</span><span>Contact</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
+        <li><a href="publications.html"><span class="menu-num">03</span><span>Publications</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
+        <li><a href="awards.html"><span class="menu-num">04</span><span>Awards &amp; Honors</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
+        <li><a href="research.html"><span class="menu-num">05</span><span>Research</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
+        <li><a href="others.html"><span class="menu-num">06</span><span>Others</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
+        <li><a href="contact.html"><span class="menu-num">07</span><span>Contact</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
       </ul>
       <div class="menu-panel__footer">© 2020–${new Date().getFullYear()} Young-Seok Lee</div>
     </aside>

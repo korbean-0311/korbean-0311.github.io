@@ -787,9 +787,9 @@ function pubAwardsHTML(data) {
   return html;
 }
 
-// Render all five tabs as panels. Journals is active; the rest are visible to
-// no-JS clients and hidden by CSS (html[data-js] .tab-panel:not(.is-active))
-// once JavaScript loads.
+// Render the four publication tabs as panels. Journals is active; the rest are
+// visible to no-JS clients and hidden by CSS (html[data-js] .tab-panel:not(.is-active))
+// once JavaScript loads. (Awards moved to their own page — see renderAwardsPage.)
 function renderPublicationsTabs() {
   const DATA = readJSON('publications.json');
   const panel = (tab, active, inner) =>
@@ -801,8 +801,23 @@ function renderPublicationsTabs() {
     panel('domestic_conferences', false,
       pubListHTML(DATA.domestic_conferences, 'Domestic Conferences (KIEES)', { bareTitle: true, withDividers: true }, false)),
     panel('patents', false, pubPatentsHTML(DATA.patents)),
-    panel('awards', false, pubAwardsHTML(DATA.awards)),
   ].join('\n      ');
+}
+
+// Awards & Honors — its own top-level page (data/awards.json). One card per
+// category; no tabs or sort filter, just a flat set of grouped award cards.
+// Reuses pubAwardItemHTML so the item markup matches the old awards tab.
+function renderAwardsPage() {
+  const groups = readJSON('awards.json').awards || [];
+  if (!groups.length) return `<p class="loading">No entries yet.</p>`;
+  return groups.map(group => {
+    const items = group.items || [];
+    if (!items.length) return '';
+    return `<div class="award-group">
+        <h2 class="award-group__title">${esc(group.category || '')}</h2>
+        <ul class="award-list">${items.map(pubAwardItemHTML).join('')}</ul>
+      </div>`;
+  }).filter(Boolean).join('\n      ');
 }
 
 // Replace the inner content between <!-- R:key:START --> / <!-- R:key:END -->.
@@ -855,6 +870,7 @@ const STATIC_PAGES = {
   'index.html': [['news', renderNews]],
   'education.html': [['education', renderEducationTimeline]],
   'publications.html': [['publications', renderPublicationsTabs]],
+  'awards.html': [['awards', renderAwardsPage]],
   'research.html': [['research', renderResearch]],
   'others.html': [
     ['reviewer', othersRenderReviewer],
@@ -921,7 +937,7 @@ function main() {
   {
     const profile = buildProfile();
     const block = `${PROFILE_START}\n    ${profile}\n    ${PROFILE_END}`;
-    const pages = ['index.html', 'education.html', 'publications.html', 'research.html', 'others.html', 'contact.html'];
+    const pages = ['index.html', 'education.html', 'publications.html', 'awards.html', 'research.html', 'others.html', 'contact.html'];
     for (const file of pages) {
       const filePath = path.join(ROOT, file);
       let html = fs.readFileSync(filePath, 'utf8');

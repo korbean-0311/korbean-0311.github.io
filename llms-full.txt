@@ -34,7 +34,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 - **20 Jul 2025** — Journal accepted in IEEE Transactions on Antennas and Propagation (TAP)! _(Co-author)_
 - **06 Jun 2025** — Journal accepted in IEEE Antennas and Wireless Propagation Letters (AWPL)! _(1st Author)_
 
-## Publications & Awards
+## Publications
 
 ### International Journals — Under Review
 
@@ -342,9 +342,9 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - Patent No.: 1026925510000
   - Granted: 2024.08.01
 
-### Awards
+## Awards & Honors
 
-#### Conferences
+### Conferences
 
 - Best Student Paper Award (Sole Recipient, 1st Place) — 2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026), Jul. 2026  [1st Author]
 
@@ -354,7 +354,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 - Best Paper Award (2nd Prize) — 2024 International Symposium on Antennas and Propagation (ISAP 2024), Nov. 2024  [1st Author]
 
-#### Grants & Scholarships
+### Grants & Scholarships
 
 - IEEE MTT-S Student Travel Grant — 2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026), Jul. 2026  [1st Author]
 
@@ -362,11 +362,11 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 - Student Travel Grant — 2024 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2024), May 2024  [1st Author]
 
-#### Student Paper Competitions
+### Student Paper Competitions
 
 - Excellence Award — KIEES 9th Electromagnetic Measurement Paper Competition, Mar. 2024  [1st Author]
 
-#### Invited Papers
+### Invited Papers
 
 - Invited Paper — 2025 Asia-Pacific Microwave Conference (APMC 2025), Dec. 2025  [1st Author]
 

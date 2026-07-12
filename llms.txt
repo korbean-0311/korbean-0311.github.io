@@ -11,7 +11,8 @@ The full machine-readable content (all publications with BibTeX, education, rese
 ## Pages
 
 - [Home](https://korbean-0311.github.io/): Brief biography and recent news
-- [Publications & Awards](https://korbean-0311.github.io/publications.html): International journals (under review + published), international conferences, domestic conferences, patents, awards
+- [Publications](https://korbean-0311.github.io/publications.html): International journals (under review + published), international conferences, domestic conferences, patents
+- [Awards & Honors](https://korbean-0311.github.io/awards.html): Awards, honors, grants, scholarships, and paper competition prizes
 - [Education](https://korbean-0311.github.io/education.html): Academic timeline
 - [Research](https://korbean-0311.github.io/research.html): Graduate and undergraduate research projects
 - [Others](https://korbean-0311.github.io/others.html): Reviewer activities, scholarships, teaching assistantships, coursework, programming skills
@@ -23,6 +24,7 @@ The site renders content from these structured JSON files (also useful for AI ag
 
 - https://korbean-0311.github.io/data/news.json
 - https://korbean-0311.github.io/data/publications.json
+- https://korbean-0311.github.io/data/awards.json
 - https://korbean-0311.github.io/data/education.json
 - https://korbean-0311.github.io/data/research.json
 - https://korbean-0311.github.io/data/others.json

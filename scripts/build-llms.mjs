@@ -166,7 +166,7 @@ function buildNews(newsData) {
 }
 
 function buildPublications(pubs) {
-  const out = ['## Publications & Awards\n'];
+  const out = ['## Publications\n'];
 
   const ur = pubs.international_journals?.under_review || [];
   if (ur.length) {
@@ -198,29 +198,33 @@ function buildPublications(pubs) {
     for (const p of patents) out.push(formatPatent(p));
   }
 
-  const awards = pubs.awards;
-  if (awards) {
-    out.push('### Awards\n');
-    // Preferred: array-of-groups [{ category, items }, ...]
-    if (Array.isArray(awards) && awards.length && awards[0] && Array.isArray(awards[0].items)) {
-      for (const group of awards) {
-        out.push(`#### ${group.category || ''}\n`);
-        for (const a of (group.items || [])) out.push(formatAward(a));
-        out.push('');
-      }
-    } else if (Array.isArray(awards)) {
-      // Legacy flat array
-      for (const a of awards) out.push(formatAward(a));
-    } else {
-      // Legacy object-of-arrays
-      for (const [cat, items] of Object.entries(awards)) {
-        out.push(`#### ${cat}\n`);
-        for (const a of items) out.push(formatAward(a));
-        out.push('');
-      }
+  return out.join('\n');
+}
+
+// Awards & Honors — its own section, sourced from data/awards.json.
+// Accepts the wrapped { awards: [...] } shape (with legacy fallbacks).
+function buildAwards(awardsData) {
+  const awards = Array.isArray(awardsData) ? awardsData : (awardsData?.awards);
+  if (!awards) return '';
+  const out = ['## Awards & Honors\n'];
+  // Preferred: array-of-groups [{ category, items }, ...]
+  if (Array.isArray(awards) && awards.length && awards[0] && Array.isArray(awards[0].items)) {
+    for (const group of awards) {
+      out.push(`### ${group.category || ''}\n`);
+      for (const a of (group.items || [])) out.push(formatAward(a));
+      out.push('');
+    }
+  } else if (Array.isArray(awards)) {
+    // Legacy flat array
+    for (const a of awards) out.push(formatAward(a));
+  } else {
+    // Legacy object-of-arrays
+    for (const [cat, items] of Object.entries(awards)) {
+      out.push(`### ${cat}\n`);
+      for (const a of items) out.push(formatAward(a));
+      out.push('');
     }
   }
-
   return out.join('\n');
 }
 
@@ -365,6 +369,7 @@ function buildContact() {
 function main() {
   const news       = readJSON('news.json');
   const pubs       = readJSON('publications.json');
+  const awards     = readJSON('awards.json');
   const edu        = readJSON('education.json');
   const res        = readJSON('research.json');
   const others     = readJSON('others.json');
@@ -373,6 +378,7 @@ function main() {
     buildHeader(),
     buildNews(news),
     buildPublications(pubs),
+    buildAwards(awards),
     buildEducation(edu),
     buildResearch(res),
     buildOthers(others),

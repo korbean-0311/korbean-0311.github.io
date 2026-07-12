@@ -66,11 +66,11 @@ collections:
                   - { label: 'Project Lead', value: 'Project Lead' }
                 hint: 'Optional badge shown next to the news item.'
 
-  # -------------------- Publications & Awards ------------------------------
+  # -------------------- Publications ---------------------------------------
   - name: publications
-    label: Publications & Awards
+    label: Publications
     icon: menu_book
-    description: 'All five sub-categories shown on the publications page: int''l journals, conferences, patents, awards.'
+    description: 'Sub-categories shown on the publications page: int''l journals, conferences, patents. (Awards live in their own collection.)'
     files:
       - name: pubs_file
         label: Publications data
@@ -279,11 +279,21 @@ collections:
               - { label: Patent Number, name: patent_no, widget: string, required: false }
               - { label: Granted Date, name: granted_date, widget: string, required: false, hint: 'e.g., "2024.09.04".' }
 
-          # ----- Awards (array of grouped categories) ---------------------
+  # -------------------- Awards & Honors ------------------------------------
+  - name: awards
+    label: Awards & Honors
+    icon: emoji_events
+    description: Awards, honors, grants, scholarships, and paper competition prizes (its own page).
+    files:
+      - name: awards_file
+        label: Awards data
+        file: data/awards.json
+        format: json
+        fields:
           - label: Awards
             name: awards
             widget: list
-            required: false
+            min: 1
             summary: '{{fields.category}} ({{fields.items | length}} entries)'
             fields:
               - label: Category

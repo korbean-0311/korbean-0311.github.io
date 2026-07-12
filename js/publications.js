@@ -7,7 +7,7 @@
   'use strict';
 
   // Tabs that expose the "All / 1st Author" sort bar.
-  const SORTABLE_TABS = new Set(['international_journals', 'international_conferences', 'awards']);
+  const SORTABLE_TABS = new Set(['international_journals', 'international_conferences']);
 
   const tabContent = document.getElementById('tab-content');
   const sortBar = document.getElementById('sort-bar');
