@@ -16,7 +16,12 @@
   <div id="loading">Loading editor…</div>
   <!-- Sveltia CMS: a modern fork of Decap CMS, runs entirely in the browser.
        Auth: GitHub OAuth via Sveltia's free hosted proxy (gitauth.sveltia.dev).
-       No backend, no DB — saves commit directly to the repo via the GitHub API. -->
-  <script src="https://unpkg.com/@sveltia/cms/dist/sveltia-cms.js"></script>
+       No backend, no DB — saves commit directly to the repo via the GitHub API.
+
+       IMPORTANT: pin an explicit version instead of loading the unpinned
+       "latest". Loading latest means an upstream release can silently break
+       the editor (e.g., 0.170.6, released 2026-07-12, rendered list-item
+       fields blank). Bump this deliberately after verifying a new version. -->
+  <script src="https://unpkg.com/@sveltia/cms@0.170.5/dist/sveltia-cms.js"></script>
 </body>
 </html>
