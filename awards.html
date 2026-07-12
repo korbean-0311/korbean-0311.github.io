@@ -63,15 +63,21 @@
       <hr class="page-header__rule" />
     </header>
 
+    <div class="sort-bar" id="sort-bar">
+      <span class="sort-bar__label">Sort by:</span>
+      <button class="sort-btn is-active" type="button" data-sort="all">All</button>
+      <button class="sort-btn" type="button" data-sort="first_author">1st Author</button>
+    </div>
+
     <section class="tab-content" id="tab-content">
       <!-- R:awards:START -->
 <div class="award-group">
-        <h2 class="award-group__title">Conferences</h2>
-        <ul class="award-list"><li class="award-item" data-first="1"><em class="award-venue">2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026)</em>, <strong>Best Student Paper Award</strong> <em class="award-highlight">(Sole Recipient, 1st Place)</em>, Jul. 2026. <span class="badge--tag badge">1st Author</span></li><li class="award-item" data-first="0"><em class="award-venue">2026 KIEES Winter Conference</em>, <strong>Best Paper Award</strong> <em class="award-highlight">(IEEE MTT-S Seoul Chapter Award)</em>, Feb. 2026.</li><li class="award-item" data-first="1"><em class="award-venue">2025 KIEES Winter Conference</em>, <strong>Best Paper Award</strong> <em class="award-highlight">(1st Place)</em>, Feb. 2025. <span class="badge--tag badge">1st Author</span></li><li class="award-item" data-first="1"><em class="award-venue">2024 International Symposium on Antennas and Propagation (ISAP 2024)</em>, <strong>Best Paper Award</strong> <em class="award-highlight">(2nd Prize)</em>, Nov. 2024. <span class="badge--tag badge">1st Author</span></li></ul>
+        <h2 class="award-group__title">International Conference Awards</h2>
+        <ul class="award-list"><li class="award-item" data-first="1"><em class="award-venue">2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026)</em>, <strong>Best Student Paper Award</strong> <em class="award-highlight">(Sole Recipient, 1st Place)</em>, Jul. 2026. <span class="badge--tag badge">1st Author</span></li><li class="award-item" data-first="1"><em class="award-venue">2024 International Symposium on Antennas and Propagation (ISAP 2024)</em>, <strong>Best Paper Award</strong> <em class="award-highlight">(2nd Prize)</em>, Nov. 2024. <span class="badge--tag badge">1st Author</span></li></ul>
       </div>
       <div class="award-group">
-        <h2 class="award-group__title">Grants &amp; Scholarships</h2>
-        <ul class="award-list"><li class="award-item" data-first="1"><em class="award-venue">2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026)</em>, <strong>IEEE MTT-S Student Travel Grant</strong>, Jul. 2026. <span class="badge--tag badge">1st Author</span></li><li class="award-item" data-first="1"><em class="award-venue">2025 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2025)</em>, <strong>Ph.D. Students Initiative Program</strong>, Jun. 2025. <span class="badge--tag badge">1st Author</span></li><li class="award-item" data-first="1"><em class="award-venue">2024 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2024)</em>, <strong>Student Travel Grant</strong>, May 2024. <span class="badge--tag badge">1st Author</span></li></ul>
+        <h2 class="award-group__title">Domestic Conference Awards</h2>
+        <ul class="award-list"><li class="award-item" data-first="0"><em class="award-venue">2026 KIEES Winter Conference</em>, <strong>Best Paper Award</strong> <em class="award-highlight">(IEEE MTT-S Seoul Chapter Award)</em>, Feb. 2026.</li><li class="award-item" data-first="1"><em class="award-venue">2025 KIEES Winter Conference</em>, <strong>Best Paper Award</strong> <em class="award-highlight">(1st Place)</em>, Feb. 2025. <span class="badge--tag badge">1st Author</span></li></ul>
       </div>
       <div class="award-group">
         <h2 class="award-group__title">Student Paper Competitions</h2>
@@ -81,7 +87,16 @@
         <h2 class="award-group__title">Invited Papers</h2>
         <ul class="award-list"><li class="award-item" data-first="1"><em class="award-venue">2025 Asia-Pacific Microwave Conference (APMC 2025)</em>, <strong>Invited Paper</strong>, Dec. 2025. <span class="badge--tag badge">1st Author</span></li></ul>
       </div>
+      <div class="award-group">
+        <h2 class="award-group__title">Grants &amp; Travel</h2>
+        <ul class="award-list"><li class="award-item" data-first="1"><em class="award-venue">2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026)</em>, <strong>IEEE MTT-S Student Travel Grant</strong>, Jul. 2026. <span class="badge--tag badge">1st Author</span></li><li class="award-item" data-first="1"><em class="award-venue">2025 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2025)</em>, <strong>Ph.D. Students Initiative Program</strong>, Jun. 2025. <span class="badge--tag badge">1st Author</span></li><li class="award-item" data-first="1"><em class="award-venue">2024 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2024)</em>, <strong>Student Travel Grant</strong>, May 2024. <span class="badge--tag badge">1st Author</span></li></ul>
+      </div>
+      <div class="award-group">
+        <h2 class="award-group__title">Scholarships &amp; Fellowships</h2>
+        <ul class="award-list"><li class="award-item" data-first="0"><em class="award-venue">Samsung Electronics Device Solution (DS), Foundry Division</em>, <strong>Ph.D. Scholarship Recipient</strong>, Sep. 2025 – Present.</li><li class="award-item" data-first="0"><em class="award-venue">Seoul National University</em>, <strong>Teaching &amp; Research Support Scholarship</strong>, Feb. 2023.</li><li class="award-item" data-first="0"><em class="award-venue">Seoul National University</em>, <strong>Academic Excellence Scholarship</strong>, Jan. 2022.</li></ul>
+      </div>
       <!-- R:awards:END -->
+      <p class="loading pub-empty" hidden>No entries match this filter.</p>
     </section>
     </main>
   </div>
@@ -89,5 +104,6 @@
   <div data-mount-footer></div>
 
   <script src="js/main.js"></script>
+  <script src="js/awards.js"></script>
 </body>
 </html>

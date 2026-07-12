@@ -1,28 +1,13 @@
 {
   "awards": [
     {
-      "category": "Conferences",
+      "category": "International Conference Awards",
       "items": [
         {
           "venue": "2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026)",
           "title": "Best Student Paper Award",
           "highlight": "Sole Recipient, 1st Place",
           "date": "Jul. 2026",
-          "tags": [
-            "1st Author"
-          ]
-        },
-        {
-          "venue": "2026 KIEES Winter Conference",
-          "title": "Best Paper Award",
-          "highlight": "IEEE MTT-S Seoul Chapter Award",
-          "date": "Feb. 2026"
-        },
-        {
-          "venue": "2025 KIEES Winter Conference",
-          "title": "Best Paper Award",
-          "highlight": "1st Place",
-          "date": "Feb. 2025",
           "tags": [
             "1st Author"
           ]
@@ -39,31 +24,19 @@
       ]
     },
     {
-      "category": "Grants & Scholarships",
+      "category": "Domestic Conference Awards",
       "items": [
         {
-          "venue": "2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026)",
-          "title": "IEEE MTT-S Student Travel Grant",
-          "highlight": "",
-          "date": "Jul. 2026",
-          "tags": [
-            "1st Author"
-          ]
+          "venue": "2026 KIEES Winter Conference",
+          "title": "Best Paper Award",
+          "highlight": "IEEE MTT-S Seoul Chapter Award",
+          "date": "Feb. 2026"
         },
         {
-          "venue": "2025 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2025)",
-          "title": "Ph.D. Students Initiative Program",
-          "highlight": "",
-          "date": "Jun. 2025",
-          "tags": [
-            "1st Author"
-          ]
-        },
-        {
-          "venue": "2024 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2024)",
-          "title": "Student Travel Grant",
-          "highlight": "",
-          "date": "May 2024",
+          "venue": "2025 KIEES Winter Conference",
+          "title": "Best Paper Award",
+          "highlight": "1st Place",
+          "date": "Feb. 2025",
           "tags": [
             "1st Author"
           ]
@@ -95,6 +68,58 @@
           "tags": [
             "1st Author"
           ]
+        }
+      ]
+    },
+    {
+      "category": "Grants & Travel",
+      "items": [
+        {
+          "venue": "2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026)",
+          "title": "IEEE MTT-S Student Travel Grant",
+          "highlight": "",
+          "date": "Jul. 2026",
+          "tags": [
+            "1st Author"
+          ]
+        },
+        {
+          "venue": "2025 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2025)",
+          "title": "Ph.D. Students Initiative Program",
+          "highlight": "",
+          "date": "Jun. 2025",
+          "tags": [
+            "1st Author"
+          ]
+        },
+        {
+          "venue": "2024 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2024)",
+          "title": "Student Travel Grant",
+          "highlight": "",
+          "date": "May 2024",
+          "tags": [
+            "1st Author"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Scholarships & Fellowships",
+      "items": [
+        {
+          "venue": "Samsung Electronics Device Solution (DS), Foundry Division",
+          "title": "Ph.D. Scholarship Recipient",
+          "date": "Sep. 2025 – Present"
+        },
+        {
+          "venue": "Seoul National University",
+          "title": "Teaching & Research Support Scholarship",
+          "date": "Feb. 2023"
+        },
+        {
+          "venue": "Seoul National University",
+          "title": "Academic Excellence Scholarship",
+          "date": "Jan. 2022"
         }
       ]
     }

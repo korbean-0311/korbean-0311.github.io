@@ -344,23 +344,17 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 ## Awards & Honors
 
-### Conferences
+### International Conference Awards
 
 - Best Student Paper Award (Sole Recipient, 1st Place) — 2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026), Jul. 2026  [1st Author]
+
+- Best Paper Award (2nd Prize) — 2024 International Symposium on Antennas and Propagation (ISAP 2024), Nov. 2024  [1st Author]
+
+### Domestic Conference Awards
 
 - Best Paper Award (IEEE MTT-S Seoul Chapter Award) — 2026 KIEES Winter Conference, Feb. 2026
 
 - Best Paper Award (1st Place) — 2025 KIEES Winter Conference, Feb. 2025  [1st Author]
-
-- Best Paper Award (2nd Prize) — 2024 International Symposium on Antennas and Propagation (ISAP 2024), Nov. 2024  [1st Author]
-
-### Grants & Scholarships
-
-- IEEE MTT-S Student Travel Grant — 2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026), Jul. 2026  [1st Author]
-
-- Ph.D. Students Initiative Program — 2025 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2025), Jun. 2025  [1st Author]
-
-- Student Travel Grant — 2024 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2024), May 2024  [1st Author]
 
 ### Student Paper Competitions
 
@@ -369,6 +363,22 @@ I have collaborated with industry partners — including Samsung Electronics on 
 ### Invited Papers
 
 - Invited Paper — 2025 Asia-Pacific Microwave Conference (APMC 2025), Dec. 2025  [1st Author]
+
+### Grants & Travel
+
+- IEEE MTT-S Student Travel Grant — 2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026), Jul. 2026  [1st Author]
+
+- Ph.D. Students Initiative Program — 2025 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2025), Jun. 2025  [1st Author]
+
+- Student Travel Grant — 2024 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2024), May 2024  [1st Author]
+
+### Scholarships & Fellowships
+
+- Ph.D. Scholarship Recipient — Samsung Electronics Device Solution (DS), Foundry Division, Sep. 2025 – Present
+
+- Teaching & Research Support Scholarship — Seoul National University, Feb. 2023
+
+- Academic Excellence Scholarship — Seoul National University, Jan. 2022
 
 ## Education
 
@@ -457,11 +467,6 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 ### Reviewer Activities
 - IEEE TPEL, 2025, 2026
-
-### Scholarships
-- Ph.D. Scholarship Recipient — Samsung Electronics Device Solution (DS), Foundry Division (Sep. 2025 -)
-- Teaching & Research Support Scholarship — Seoul National University (Feb. 2023)
-- Academic Excellence Scholarship — Seoul National University (Jan. 2022)
 
 ### Teaching Assistant
 - Introduction to Electromagnetism with Practice (430.202B 003), Seoul National University, Fall 2025

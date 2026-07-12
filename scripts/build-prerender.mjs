@@ -512,15 +512,6 @@ function othersRenderReviewer() {
     `<li><em>${esc(it.name)}</em>, ${esc(it.year || '')}.</li>`
   ).join('') || '<li class="loading">No entries yet.</li>';
 }
-function othersRenderScholarships() {
-  const data = readJSON('others.json');
-  return (data.scholarships || []).map(it => {
-    const details = it.details ? ` ${esc(it.details)}` : '';
-    const date = it.date ? ` (${esc(it.date)})` : '';
-    const nameHTML = /Recipient/i.test(it.name) ? `<strong>${esc(it.name)}</strong>` : esc(it.name);
-    return `<li>${nameHTML},${details}${date}</li>`;
-  }).join('') || '<li class="loading">No entries yet.</li>';
-}
 function othersRenderTA() {
   const data = readJSON('others.json');
   return (data.ta || []).map(it => {
@@ -874,7 +865,6 @@ const STATIC_PAGES = {
   'research.html': [['research', renderResearch]],
   'others.html': [
     ['reviewer', othersRenderReviewer],
-    ['scholarships', othersRenderScholarships],
     ['ta', othersRenderTA],
     ['coursework', othersRenderCoursework],
     ['programming', othersRenderProgramming],

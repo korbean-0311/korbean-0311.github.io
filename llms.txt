@@ -15,7 +15,7 @@ The full machine-readable content (all publications with BibTeX, education, rese
 - [Awards & Honors](https://korbean-0311.github.io/awards.html): Awards, honors, grants, scholarships, and paper competition prizes
 - [Education](https://korbean-0311.github.io/education.html): Academic timeline
 - [Research](https://korbean-0311.github.io/research.html): Graduate and undergraduate research projects
-- [Others](https://korbean-0311.github.io/others.html): Reviewer activities, scholarships, teaching assistantships, coursework, programming skills
+- [Others](https://korbean-0311.github.io/others.html): Reviewer activities, teaching assistantships, coursework, programming skills
 - [Contact](https://korbean-0311.github.io/contact.html): Lab, location, LinkedIn
 
 ## Data sources (JSON)

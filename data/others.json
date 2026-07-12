@@ -1,40 +1,82 @@
 {
   "reviewer": [
-    { "name": "IEEE TPEL", "year": "2025, 2026" }
-  ],
-  "scholarships": [
-    { "name": "Ph.D. Scholarship Recipient", "details": "Samsung Electronics Device Solution (DS), Foundry Division", "date": "Sep. 2025 -" },
-    { "name": "Teaching & Research Support Scholarship", "details": "Seoul National University", "date": "Feb. 2023" },
-    { "name": "Academic Excellence Scholarship", "details": "Seoul National University", "date": "Jan. 2022" }
+    {
+      "name": "IEEE TPEL",
+      "year": "2025, 2026"
+    }
   ],
   "ta": [
-    { "course": "Introduction to Electromagnetism with Practice", "code": "430.202B 003", "institution": "Seoul National University", "term": "Fall 2025" },
-    { "course": "Introduction to Electromagnetism with Practice", "code": "430.202B 002", "institution": "Seoul National University", "term": "Fall 2024" },
-    { "course": "Electromagnetic Wave Engineering", "code": "430.464A 001", "institution": "Seoul National University", "term": "Spring 2023" }
+    {
+      "course": "Introduction to Electromagnetism with Practice",
+      "code": "430.202B 003",
+      "institution": "Seoul National University",
+      "term": "Fall 2025"
+    },
+    {
+      "course": "Introduction to Electromagnetism with Practice",
+      "code": "430.202B 002",
+      "institution": "Seoul National University",
+      "term": "Fall 2024"
+    },
+    {
+      "course": "Electromagnetic Wave Engineering",
+      "code": "430.464A 001",
+      "institution": "Seoul National University",
+      "term": "Spring 2023"
+    }
   ],
   "coursework": [
     {
       "school": "Coursework in SNU (M.S. - Ph.D)",
       "courses": [
-        { "name": "Electromagnetic Wave Engineering" },
-        { "name": "RF System Design" },
-        { "name": "Advanced Electromagnetics I" },
-        { "name": "Deep Learning", "note": "NVIDIA DLI Course" },
-        { "name": "Machine Learning & Deep Learning" },
-        { "name": "Digital Signal Processing" },
-        { "name": "Electro-optics" },
-        { "name": "Estimation Theory" }
+        {
+          "name": "Electromagnetic Wave Engineering"
+        },
+        {
+          "name": "RF System Design"
+        },
+        {
+          "name": "Advanced Electromagnetics I"
+        },
+        {
+          "name": "Deep Learning",
+          "note": "NVIDIA DLI Course"
+        },
+        {
+          "name": "Machine Learning & Deep Learning"
+        },
+        {
+          "name": "Digital Signal Processing"
+        },
+        {
+          "name": "Electro-optics"
+        },
+        {
+          "name": "Estimation Theory"
+        }
       ]
     },
     {
       "school": "Coursework in KU (B.S.)",
       "courses": [
-        { "name": "Probability & Random Process" },
-        { "name": "Electromagnetics" },
-        { "name": "Electromagnetic Field" },
-        { "name": "Analog / Digital Communication Theory" },
-        { "name": "Digital Signal Processing" },
-        { "name": "Wireless Networks" }
+        {
+          "name": "Probability & Random Process"
+        },
+        {
+          "name": "Electromagnetics"
+        },
+        {
+          "name": "Electromagnetic Field"
+        },
+        {
+          "name": "Analog / Digital Communication Theory"
+        },
+        {
+          "name": "Digital Signal Processing"
+        },
+        {
+          "name": "Wireless Networks"
+        }
       ]
     }
   ],
@@ -42,9 +84,18 @@
     {
       "category": "Programming Languages",
       "skills": [
-        { "name": "C", "level": 3.5 },
-        { "name": "Python", "level": 3 },
-        { "name": "MATLAB", "level": 4.5 }
+        {
+          "name": "C",
+          "level": 3.5
+        },
+        {
+          "name": "Python",
+          "level": 3
+        },
+        {
+          "name": "MATLAB",
+          "level": 4.5
+        }
       ]
     },
     {
@@ -53,18 +104,39 @@
         {
           "label": "EM Simulators",
           "skills": [
-            { "name": "Dassault System CST", "level": 4 },
-            { "name": "Ansys HFSS", "level": 2.5 },
-            { "name": "Keysight ADS", "level": 3 },
-            { "name": "Altair FEKO Suite", "level": 3 }
+            {
+              "name": "Dassault System CST",
+              "level": 4
+            },
+            {
+              "name": "Ansys HFSS",
+              "level": 2.5
+            },
+            {
+              "name": "Keysight ADS",
+              "level": 3
+            },
+            {
+              "name": "Altair FEKO Suite",
+              "level": 3
+            }
           ]
         },
         {
           "label": "Circuit Tools",
           "skills": [
-            { "name": "Cadence OrCAD Capture", "level": 4 },
-            { "name": "Cadence Allegro", "level": 3.5 },
-            { "name": "Cadence Virtuoso", "level": 3 }
+            {
+              "name": "Cadence OrCAD Capture",
+              "level": 4
+            },
+            {
+              "name": "Cadence Allegro",
+              "level": 3.5
+            },
+            {
+              "name": "Cadence Virtuoso",
+              "level": 3
+            }
           ]
         }
       ]

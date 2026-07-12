@@ -295,14 +295,6 @@ function buildOthers(others) {
   }
   out.push('');
 
-  out.push('### Scholarships');
-  for (const it of others.scholarships || []) {
-    const det = it.details ? ` — ${it.details}` : '';
-    const dt  = it.date ? ` (${it.date})` : '';
-    out.push(`- ${it.name}${det}${dt}`);
-  }
-  out.push('');
-
   out.push('### Teaching Assistant');
   for (const it of others.ta || []) {
     const code = it.code ? ` (${it.code})` : '';
