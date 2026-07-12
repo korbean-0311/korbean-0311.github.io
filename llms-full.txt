@@ -344,27 +344,19 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 ## Awards & Honors
 
-### International Conference Awards
+### Conference Awards (International)
 
 - Best Student Paper Award (Sole Recipient, 1st Place) — 2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026), Jul. 2026  [1st Author]
 
 - Best Paper Award (2nd Prize) — 2024 International Symposium on Antennas and Propagation (ISAP 2024), Nov. 2024  [1st Author]
 
-### Domestic Conference Awards
+### Conference Awards (Domestic)
 
 - Best Paper Award (IEEE MTT-S Seoul Chapter Award) — 2026 KIEES Winter Conference, Feb. 2026
 
 - Best Paper Award (1st Place) — 2025 KIEES Winter Conference, Feb. 2025  [1st Author]
 
-### Student Paper Competitions
-
-- Excellence Award — KIEES 9th Electromagnetic Measurement Paper Competition, Mar. 2024  [1st Author]
-
-### Invited Papers
-
-- Invited Paper — 2025 Asia-Pacific Microwave Conference (APMC 2025), Dec. 2025  [1st Author]
-
-### Grants & Travel
+### Conference Grants & Travel
 
 - IEEE MTT-S Student Travel Grant — 2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026), Jul. 2026  [1st Author]
 
@@ -379,6 +371,14 @@ I have collaborated with industry partners — including Samsung Electronics on 
 - Teaching & Research Support Scholarship — Seoul National University, Feb. 2023
 
 - Academic Excellence Scholarship — Seoul National University, Jan. 2022
+
+### Invited Papers
+
+- Invited Paper — 2025 Asia-Pacific Microwave Conference (APMC 2025), Dec. 2025  [1st Author]
+
+### Student Paper Competitions
+
+- Excellence Award — KIEES 9th Electromagnetic Measurement Paper Competition, Mar. 2024  [1st Author]
 
 ## Education
 

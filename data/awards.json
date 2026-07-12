@@ -1,7 +1,7 @@
 {
   "awards": [
     {
-      "category": "International Conference Awards",
+      "category": "Conference Awards (International)",
       "items": [
         {
           "venue": "2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026)",
@@ -24,7 +24,7 @@
       ]
     },
     {
-      "category": "Domestic Conference Awards",
+      "category": "Conference Awards (Domestic)",
       "items": [
         {
           "venue": "2026 KIEES Winter Conference",
@@ -44,35 +44,7 @@
       ]
     },
     {
-      "category": "Student Paper Competitions",
-      "items": [
-        {
-          "venue": "KIEES 9th Electromagnetic Measurement Paper Competition",
-          "title": "Excellence Award",
-          "highlight": "",
-          "date": "Mar. 2024",
-          "tags": [
-            "1st Author"
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Invited Papers",
-      "items": [
-        {
-          "venue": "2025 Asia-Pacific Microwave Conference (APMC 2025)",
-          "title": "Invited Paper",
-          "highlight": "",
-          "date": "Dec. 2025",
-          "tags": [
-            "1st Author"
-          ]
-        }
-      ]
-    },
-    {
-      "category": "Grants & Travel",
+      "category": "Conference Grants & Travel",
       "items": [
         {
           "venue": "2026 IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026)",
@@ -120,6 +92,34 @@
           "venue": "Seoul National University",
           "title": "Academic Excellence Scholarship",
           "date": "Jan. 2022"
+        }
+      ]
+    },
+    {
+      "category": "Invited Papers",
+      "items": [
+        {
+          "venue": "2025 Asia-Pacific Microwave Conference (APMC 2025)",
+          "title": "Invited Paper",
+          "highlight": "",
+          "date": "Dec. 2025",
+          "tags": [
+            "1st Author"
+          ]
+        }
+      ]
+    },
+    {
+      "category": "Student Paper Competitions",
+      "items": [
+        {
+          "venue": "KIEES 9th Electromagnetic Measurement Paper Competition",
+          "title": "Excellence Award",
+          "highlight": "",
+          "date": "Mar. 2024",
+          "tags": [
+            "1st Author"
+          ]
         }
       ]
     }
