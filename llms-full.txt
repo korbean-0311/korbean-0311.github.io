@@ -164,7 +164,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 - **[8] DC-to-DC Efficiency Maximization in Wireless Power Transfer with PA and Rectifier Nonlinearities via Semidefinite Relaxation**
   - Authors: Y.-S. Lee, T. Yoon, S. Nam, and J. Oh*
   - Venue: 2026 IEEE Wireless Power Technology Conference and EXPO (WPTCE 2026)
-  - Details: Halifax, Canada, Jul. 4–7, 2026
+  - Details: Halifax, NS, Canada, Jul. 4–7, 2026
   - Tags: 1st Author
   - Notes: Best Student Paper Award, Sole Recipient (1st Place); Selected for IEEE MTT-S Student Travel Grant
   - Keywords: Wireless power transfer (WPT), DC-to-DC efficiency, Power amplifier (PA) nonlinearity, Rectifier nonlinearity, Semidefinite relaxation (SDR), Transmission-conversion efficiency (TCE), Beamforming
