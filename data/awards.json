@@ -84,11 +84,13 @@
         {
           "venue": "Samsung Electronics Device Solution (DS), Foundry Division",
           "title": "Ph.D. Scholarship Recipient",
+          "highlight": "",
           "date": "Sep. 2025 – Present"
         },
         {
           "venue": "Seoul National University",
           "title": "Teaching & Research Support Scholarship",
+          "highlight": "",
           "date": "Feb. 2023"
         },
         {
@@ -115,6 +117,24 @@
     {
       "category": "Student Paper Competitions",
       "items": [
+        {
+          "venue": "​2024 IEEE Seoul Section Student Paper Contest",
+          "title": "Bronze Prize",
+          "highlight": "",
+          "date": "Dec. 2024",
+          "tags": [
+            "Co-author"
+          ]
+        },
+        {
+          "venue": "KCA 23rd Student Paper Competition in Propagation",
+          "title": "Excellence Award",
+          "highlight": "",
+          "date": "Nov. 2024",
+          "tags": [
+            "Co-author"
+          ]
+        },
         {
           "venue": "KIEES 9th Electromagnetic Measurement Paper Competition",
           "title": "Excellence Award",
