@@ -294,24 +294,6 @@ button {
 }
 
 /* Identity block at top of menu */
-.menu-panel__identity {
-  padding: 1.5rem 1.5rem 1.25rem;
-  border-bottom: 1px solid var(--border-color);
-}
-
-.menu-panel__name {
-  font-size: 1.25rem;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
-}
-
-.menu-panel__role {
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
-  letter-spacing: 0.01em;
-}
 
 .menu-list {
   list-style: none;
@@ -578,15 +560,6 @@ section h3 {
   margin-left: 4px;
 }
 
-.badge--review {
-  font-size: 0.75rem;
-  background: transparent;
-  border-color: var(--color-secondary);
-  color: var(--color-secondary);
-  padding: 2px 8px;
-  margin-left: 4px;
-}
-
 .badge-row {
   display: flex;
   flex-wrap: wrap;
@@ -595,20 +568,6 @@ section h3 {
 }
 
 /* ---------- Home page ---------- */
-.hero h1 {
-  font-size: 2.25rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  margin-bottom: 0.25rem;
-  text-align: left;
-  color: var(--text-primary);
-}
-
-.hero__subtitle {
-  color: var(--text-secondary);
-  font-size: 1.0625rem;
-  margin-bottom: 1.5rem;
-}
 
 .hero__bio p {
   color: var(--text-primary);
@@ -689,69 +648,6 @@ a:hover .ext-link-arrow {
 }
 
 /* External links */
-.ext-links {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-}
-
-@media (max-width: 560px) {
-  .ext-links {
-    grid-template-columns: 1fr;
-  }
-}
-
-.ext-links a {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.875rem 1rem;
-  border: 1px solid var(--border-color);
-  border-radius: 12px;
-  background: var(--bg-surface);
-  color: var(--text-primary);
-  font-weight: 500;
-  font-size: 0.9375rem;
-  transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
-  position: relative;
-}
-
-.ext-links a:hover {
-  border-color: color-mix(in srgb, var(--color-accent) 60%, var(--border-color));
-  color: var(--color-accent);
-  transform: translateY(-1px);
-}
-
-.ext-links a::after {
-  content: "";
-  position: absolute;
-  top: 0.75rem;
-  right: 0.75rem;
-  width: 12px;
-  height: 12px;
-  background: currentColor;
-  opacity: 0.35;
-  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17L17 7'/><path d='M9 7h8v8'/></svg>") center/contain no-repeat;
-  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M7 17L17 7'/><path d='M9 7h8v8'/></svg>") center/contain no-repeat;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.ext-links a:hover::after {
-  opacity: 1;
-  transform: translate(1px, -1px);
-}
-
-.ext-links svg {
-  width: 22px;
-  height: 22px;
-  flex-shrink: 0;
-  color: var(--color-primary);
-  transition: color 0.2s ease;
-}
-
-.ext-links a:hover svg {
-  color: var(--color-accent);
-}
 
 @media (max-width: 480px) {
   .news-item {
@@ -891,97 +787,6 @@ a:hover .ext-link-arrow {
 }
 
 /* New education layout (matches reference screenshot) */
-.edu-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-card);
-  padding: 1.25rem 1.5rem;
-  transition: border-color 0.2s ease;
-}
-
-.edu-card:hover {
-  border-color: color-mix(in srgb, var(--color-primary) 35%, var(--border-color));
-}
-
-.edu-card__head {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0.4rem 0.5rem;
-  margin-bottom: 0.6rem;
-  line-height: 1.5;
-}
-
-.edu-card__period {
-  color: var(--text-primary);
-  font-variant-numeric: tabular-nums;
-  font-size: 0.9375rem;
-}
-
-.edu-card__sep {
-  color: var(--text-secondary);
-}
-
-.edu-card__school {
-  font-weight: 600;
-  color: var(--text-primary);
-  font-size: 1rem;
-}
-
-.edu-card__loc {
-  color: var(--text-secondary);
-  font-size: 0.9375rem;
-}
-
-.edu-details {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
-.edu-details li {
-  position: relative;
-  padding-left: 1.1rem;
-  margin: 0;
-  color: var(--text-primary);
-  font-size: 0.9375rem;
-  line-height: 1.55;
-}
-
-.edu-details li::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0.55em;
-  width: 6px;
-  height: 6px;
-  background: var(--color-primary);
-  border-radius: 1px;
-  opacity: 0.7;
-}
-
-.edu-details em {
-  font-style: italic;
-  color: var(--text-primary);
-}
-
-.edu-details .adv-label {
-  color: var(--text-secondary);
-}
-
-.edu-details a {
-  color: var(--color-primary);
-  border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-
-.edu-details a:hover {
-  color: var(--color-accent);
-  border-bottom-color: var(--color-accent);
-}
 
 /* ---------- Publications ---------- */
 .tab-bar {
@@ -1173,10 +978,6 @@ html[data-js] .tab-panel.is-active { display: block; }
   font-style: normal;
 }
 
-.pub-note--honor {
-  /* reserved */
-}
-
 .pub-btn {
   display: inline-flex;
   align-items: center;
@@ -1275,38 +1076,6 @@ html[data-js] .tab-panel.is-active { display: block; }
 }
 
 /* Sort-by filter row */
-.pub-filter {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0 0 1.25rem;
-  font-size: 0.875rem;
-}
-.pub-filter__label {
-  color: var(--text-secondary);
-}
-.pub-filter__btn {
-  appearance: none;
-  background: transparent;
-  border: 1px solid var(--border-color);
-  border-radius: 999px;
-  padding: 3px 12px;
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all 0.15s ease;
-  font-family: inherit;
-}
-.pub-filter__btn:hover {
-  border-color: var(--color-accent);
-  color: var(--color-accent);
-}
-.pub-filter__btn.is-active {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: #fff;
-}
-[data-theme="dark"] .pub-filter__btn.is-active { color: var(--bg-primary); }
 
 /* Toast for BibTeX copy feedback */
 .pub-toast {
@@ -1371,12 +1140,6 @@ html[data-js] .tab-panel.is-active { display: block; }
   color: var(--color-warm);
   font-weight: 600;
   font-style: normal;
-}
-
-.award-role {
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  color: var(--text-primary);
 }
 
 .award-group {
@@ -1475,17 +1238,6 @@ html[data-js] .tab-panel.is-active { display: block; }
   border-bottom: none;
 }
 
-.award-item__title {
-  font-weight: 500;
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
-}
-
-.award-item__meta {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-}
-
 /* ---------- Research cards ---------- */
 .research-list {
   display: flex;
@@ -1508,16 +1260,6 @@ html[data-js] .tab-panel.is-active { display: block; }
   border-bottom: 1px solid var(--border-color);
   letter-spacing: -0.005em;
 }
-
-.research-affil {
-  font-size: 0.95rem;
-  color: var(--text-primary);
-  padding: 0.25rem 0 0.5rem;
-}
-
-.research-affil strong { color: var(--color-primary); }
-.research-affil em { font-style: italic; color: var(--text-secondary); font-weight: 500; }
-.research-affil__note { color: var(--text-secondary); font-size: 0.875rem; }
 
 .research-section__projects {
   display: flex;
@@ -1881,8 +1623,6 @@ html[data-js] .tab-panel.is-active { display: block; }
   color: var(--text-secondary);
 }
 
-.simple-list { display: none; }
-
 /* ---------- Contact ---------- */
 .contact-grid {
   display: grid;
@@ -1945,7 +1685,7 @@ html[data-js] .tab-panel.is-active { display: block; }
 
 /* ---------- Responsive: hero ---------- */
 @media (max-width: 480px) {
-  .hero h1 { font-size: 1.875rem; }
+  
   .page-header h1 { font-size: 1.625rem; }
   main { padding-top: 5.5rem; }
 }
@@ -1963,11 +1703,9 @@ html[data-js] .tab-panel.is-active { display: block; }
   .pub-item__venue { font-size: 0.875rem; }
 
   /* Education page — shrink card body to 12px on mobile */
-  .edu-card { font-size: 0.75rem; }
-  .edu-card__period,
-  .edu-card__school,
-  .edu-card__loc { font-size: 0.75rem; }
-  .edu-details li { font-size: 0.75rem; }
+  
+  
+  
 }
 
 /* ---------- Mobile: trim text −1pt (Education timeline + Publications cards) ----------
