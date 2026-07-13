@@ -39,23 +39,14 @@
     if (!panel) return;
     const firstOnly = sort === 'first_author';
 
-    // Items live in two shapes: .pub-item (journals/conferences) and .award-item.
-    panel.querySelectorAll('.pub-item, .award-item').forEach(item => {
+    panel.querySelectorAll('.pub-item').forEach(item => {
       item.hidden = firstOnly && item.getAttribute('data-first') !== '1';
     });
 
-    // Journal/conference groups: hide a group whose direct items are all hidden.
-    // (The Awards panel's outer .pub-group has no direct .pub-item, so it is
-    //  skipped here and its "Awards" heading always stays — matching the old JS.)
+    // Hide a group whose items are all hidden.
     panel.querySelectorAll('.pub-group').forEach(group => {
       const items = group.querySelectorAll('.pub-item');
       if (!items.length) return;
-      group.hidden = !Array.from(items).some(i => !i.hidden);
-    });
-
-    // Award category groups: hide a category whose awards are all hidden.
-    panel.querySelectorAll('.award-group').forEach(group => {
-      const items = group.querySelectorAll('.award-item');
       group.hidden = !Array.from(items).some(i => !i.hidden);
     });
 

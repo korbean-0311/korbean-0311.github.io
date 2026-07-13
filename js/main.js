@@ -114,26 +114,6 @@
     });
   }
 
-  /* ---------- JSON loader (memo only; always revalidate over network) ---------- */
-  const cache = {};
-  async function loadJSON(path) {
-    if (cache[path]) return cache[path];
-    // Force revalidation against server (ETag/Last-Modified) so deploys are picked up immediately.
-    const res = await fetch(path, { cache: 'no-cache' });
-    if (!res.ok) throw new Error(`Failed to load ${path}: ${res.status}`);
-    const data = await res.json();
-    cache[path] = data;
-    return data;
-  }
-  // One-time cleanup of stale sessionStorage entries from older versions of this loader.
-  // Gated by a flag so subsequent navigations within the same session skip the scan.
-  try {
-    if (!sessionStorage.getItem('__json_cleaned_v1')) {
-      Object.keys(sessionStorage).forEach(k => { if (k.indexOf('json:') === 0) sessionStorage.removeItem(k); });
-      sessionStorage.setItem('__json_cleaned_v1', '1');
-    }
-  } catch (_) {}
-
   /* ---------- Inject shared chrome ---------- */
   function injectChrome() {
     // Inject nav if a placeholder is present
@@ -213,38 +193,6 @@
       © 2020–<span data-current-year>${new Date().getFullYear()}</span> Young-Seok Lee
     </footer>
   `;
-
-  /* ---------- Helpers exposed globally ---------- */
-  function escapeHTML(str) {
-    return String(str ?? '')
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;')
-      .replace(/"/g, '&quot;')
-      .replace(/'/g, '&#39;');
-  }
-
-  // Cache compiled regex + replacement HTML per `me` token so identical authors
-  // (which repeat across every publication) skip recompile + escape work.
-  const RE_META = /[.*+?^${}()|[\]\\]/g;
-  const highlightCache = new Map();
-  function highlightAuthor(authors, me) {
-    if (!authors) return '';
-    const safe = escapeHTML(authors);
-    if (!me) return safe;
-    let entry = highlightCache.get(me);
-    if (!entry) {
-      const safeMe = escapeHTML(me);
-      entry = {
-        re: new RegExp(safeMe.replace(RE_META, '\\$&'), 'g'),
-        repl: `<span class="me">${safeMe}</span>`
-      };
-      highlightCache.set(me, entry);
-    }
-    return safe.replace(entry.re, entry.repl);
-  }
-
-  window.Portfolio = { loadJSON, escapeHTML, highlightAuthor };
 
   /* ---------- Recent News: "show more" toggle on the pre-rendered list ---------- */
   function initNews() {

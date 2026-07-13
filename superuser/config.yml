@@ -299,7 +299,7 @@ collections:
               - label: Category
                 name: category
                 widget: string
-                hint: 'e.g., "Conferences", "Grants & Scholarships", "Student Paper Competitions", "Invited Papers".'
+                hint: 'e.g., "Conference Awards (International)", "Conference Grants & Travel", "Scholarships & Fellowships", "Invited Papers".'
               - label: Items
                 name: items
                 widget: list
