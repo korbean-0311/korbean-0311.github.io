@@ -40,7 +40,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 - **[2] Virtual-Beacon Depth Refocusing for Improved Received-Power Uniformity in Near-Field Time-Reversal Wireless Power Transfer**
   - Authors: Y.-S. Lee(=), S. Kim(=), T. Yoon, S. Nam*, and J. Oh*
-  - Venue: AWPL
+  - Venue: IEEE Antennas and Wireless Propagation Letters (AWPL)
   - Tags: 1st Author
   - Notes: Submitted
 
