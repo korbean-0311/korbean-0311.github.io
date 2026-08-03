@@ -28,7 +28,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 - **09 Jul 2026** — Received the Best Student Paper Award (Sole Recipient (1st place) & $800 USD) at the 2026 IEEE Wireless Power Technology Conference & Expo (WPTCE 2026)! _(1st Author)_
 - **03 Jul 2026** — Awarded the IEEE MTT-S Student Travel Grant for the 2026 IEEE Wireless Power Technology Conference & Expo (WPTCE 2026), valued at $1,000 USD! _(1st Author)_
 - **18 Jun 2026** — Journal accepted in IEEE Transactions on Microwave Theory and Techniques (TMTT)! _(1st Author)_
-- **11 Feb 2026** — Joined research project of LIG Nex1 for calibration of ultra-large-scale digital array antennas for space surveillance radar! _(Project Lead)_
+- **11 Feb 2026** — Joined research project of LIG D&A for calibration of ultra-large-scale digital array antennas for space surveillance radar! _(Project Lead)_
 - **31 Oct 2025** — Selected as the Scholarship Recipient for Samsung Electronics Device Solution (DS), Foundry Division!
 - **22 Jul 2025** — Journal accepted in IEEE Open Journal of Antennas and Propagation (OJAP)! _(Co-author)_
 - **20 Jul 2025** — Journal accepted in IEEE Transactions on Antennas and Propagation (TAP)! _(Co-author)_
@@ -517,4 +517,4 @@ I have collaborated with industry partners — including Samsung Electronics on 
 _Email omitted; please reach out via LinkedIn or the lab homepage._
 
 ---
-_Generated automatically from data/*.json on 2026-07-29._
+_Generated automatically from data/*.json on 2026-08-03._
