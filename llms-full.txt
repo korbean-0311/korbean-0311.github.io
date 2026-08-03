@@ -38,6 +38,12 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 ### International Journals — Under Review
 
+- **[2] Virtual-Beacon Depth Refocusing for Improved Received-Power Uniformity in Near-Field Time-Reversal Wireless Power Transfer**
+  - Authors: Y.-S. Lee(=), S. Kim(=), T. Yoon, S. Nam*, and J. Oh*
+  - Venue: AWPL
+  - Tags: 1st Author
+  - Notes: Submitted
+
 - **[1] Amplitude Tapering-Aware Efficient Near-Field Array Wireless Power Transfer Using Multi-State Supply Switching**
   - Authors: T. Yoon, Y.-S. Lee, M. Kim, S. Lee, J. Lee, S. Nam, and J. Oh*
   - Venue: IEEE Open Journal of Antennas and Propagation (OJAP)
