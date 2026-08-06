@@ -1,0 +1,55 @@
+name: Deploy to GitHub Pages
+
+# Replaces GitHub's auto-generated "pages build and deployment" workflow
+# (Settings -> Pages -> Source: GitHub Actions).
+#
+# WHY THIS EXISTS
+#   The legacy branch-based pipeline uses actions/deploy-pages with its default
+#   10-minute timeout. When the Pages control plane is backed up, deployments sit
+#   in `deployment_queued` past that limit and the job aborts with
+#   "Timeout reached, aborting!" even though the site built fine. Owning the
+#   workflow lets us raise the timeout so a slow queue no longer fails the deploy.
+#
+#   The site is plain static HTML (no Jekyll config, no front matter), so the
+#   repository is uploaded as-is. upload-pages-artifact already excludes
+#   .git and .github.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never cancel a deploy midway; queue them so the newest commit still wins.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+        with:
+          # Default is 600000 (10 min). Give the Pages queue room to recover.
+          timeout: 1800000
