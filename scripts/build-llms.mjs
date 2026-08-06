@@ -30,7 +30,7 @@ const SITE_META = {
   subtitle: 'ECE Ph.D. Candidate at Seoul National University (Seoul, Republic of Korea)',
   bio: [
     'I am a Ph.D. candidate in the Department of Electrical and Computer Engineering (ECE) at Seoul National University, co-advised by Prof. Sangwook Nam and Prof. Jungsuek Oh.',
-    'I have collaborated with industry partners — including Samsung Electronics on RF Wireless Power Transfer and LIG Nex1 on large-scale phased-array calibration. My broader research interests span RF and electromagnetic systems, with active topics including:',
+    'I have collaborated with industry partners — including Samsung Electronics on RF Wireless Power Transfer and LIG D&A on large-scale phased-array calibration. My broader research interests span RF and electromagnetic systems, with active topics including:',
     '- RF Beam-forming',
     '- RF Near-field Beam-focusing',
     '- Wireless Power Transfer (WPT)',
