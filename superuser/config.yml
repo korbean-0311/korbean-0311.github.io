@@ -66,6 +66,50 @@ collections:
                   - { label: 'Project Lead', value: 'Project Lead' }
                 hint: 'Optional badge shown next to the news item.'
 
+  # -------------------- Press / media coverage (landing page) --------------
+  - name: press
+    label: In the News
+    icon: newspaper
+    description: Press and media coverage links shown under "In the News" on the landing page.
+    files:
+      - name: press_file
+        label: In the News
+        file: data/press.json
+        format: json
+        fields:
+          - label: Press items
+            name: press
+            widget: list
+            required: false
+            summary: '{{fields.outlet}} — {{fields.title}}'
+            fields:
+              - label: Outlet
+                name: outlet
+                widget: string
+                hint: 'Publication name, e.g. 전자신문 / Chosun Biz / IEEE Spectrum.'
+              - label: Headline
+                name: title
+                widget: string
+                hint: 'Article headline as published.'
+              - label: URL
+                name: url
+                widget: string
+                hint: 'Full link to the article (https://...).'
+              - label: Date
+                name: date
+                widget: string
+                hint: 'Display string. Convention: "DD Mon YYYY" (e.g., 15 Jul 2026).'
+              - label: Language
+                name: lang
+                widget: select
+                required: false
+                default: ''
+                options:
+                  - { label: '(none)', value: '' }
+                  - { label: 'Korean', value: 'ko' }
+                  - { label: 'English', value: 'en' }
+                hint: 'Optional. Marks the article language for screen readers.'
+
   # -------------------- Publications ---------------------------------------
   - name: publications
     label: Publications

@@ -248,6 +248,37 @@ function renderNews() {
   }).join('\n');
 }
 
+// Press / media coverage (home). Renders the WHOLE section — heading included —
+// so an empty press.json produces nothing at all rather than a bare heading.
+function renderPress() {
+  // Optional file — a missing press.json simply means "no coverage yet".
+  const file = path.join(DATA_DIR, 'press.json');
+  if (!fs.existsSync(file)) return '';
+  const data = readJSON('press.json');
+  const items = Array.isArray(data) ? data : (data?.press || []);
+  if (!items.length) return '';
+  const rows = items.map(p => {
+    const outlet = p.outlet ? `<span class="press-item__outlet">${esc(p.outlet)}</span>` : '';
+    const date = p.date ? `<span class="press-item__date">${esc(p.date)}</span>` : '';
+    // The headline is the link; lang marks Korean vs English articles for screen readers.
+    const langAttr = p.lang ? ` lang="${esc(p.lang)}"` : '';
+    const title = p.url
+      ? `<a class="press-item__title" href="${esc(p.url)}" target="_blank" rel="noopener"${langAttr}>${esc(p.title)}${ARROW_SVG}</a>`
+      : `<span class="press-item__title"${langAttr}>${esc(p.title)}</span>`;
+    return `        <li class="press-item">
+          ${outlet}
+          ${title}
+          ${date}
+        </li>`;
+  }).join('\n');
+  return `      <section aria-labelledby="press-heading">
+      <h2 id="press-heading">In the News</h2>
+      <ul class="press-list">
+${rows}
+      </ul>
+    </section>`;
+}
+
 // Others — ported verbatim from the others.html inline renderer.
 function othersRenderReviewer() {
   const data = readJSON('others.json');
@@ -567,7 +598,7 @@ function buildProfile() {
 // Static-first pages: render the real (visible) content straight into the page.
 // Each entry maps a file to the regions it fills.
 const STATIC_PAGES = {
-  'index.html': [['news', renderNews]],
+  'index.html': [['news', renderNews], ['press', renderPress]],
   'education.html': [['education', renderEducationTimeline]],
   'publications.html': [['publications', renderPublicationsTabs]],
   'awards.html': [['awards', renderAwardsPage]],

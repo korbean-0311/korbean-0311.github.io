@@ -165,6 +165,22 @@ function buildNews(newsData) {
   return out.join('\n');
 }
 
+// Press coverage. Emits nothing when the list is empty so the file has no
+// dangling heading.
+function buildPress(pressData) {
+  const items = Array.isArray(pressData) ? pressData : (pressData?.press || []);
+  if (!items.length) return '';
+  const out = ['## In the News\n'];
+  for (const p of items) {
+    const outlet = p.outlet ? `**${p.outlet}** — ` : '';
+    const date = p.date ? ` (${p.date})` : '';
+    const title = p.url ? `[${p.title}](${p.url})` : p.title;
+    out.push(`- ${outlet}${title}${date}`);
+  }
+  out.push('');
+  return out.join('\n');
+}
+
 function buildPublications(pubs) {
   const out = ['## Publications\n'];
 
@@ -365,10 +381,13 @@ function main() {
   const edu        = readJSON('education.json');
   const res        = readJSON('research.json');
   const others     = readJSON('others.json');
+  // press.json is optional — treat a missing file as "no coverage yet".
+  const press      = fs.existsSync(path.join(DATA_DIR, 'press.json')) ? readJSON('press.json') : null;
 
   const sections = [
     buildHeader(),
     buildNews(news),
+    buildPress(press),
     buildPublications(pubs),
     buildAwards(awards),
     buildEducation(edu),

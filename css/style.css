@@ -631,6 +631,68 @@ a:hover .ext-link-arrow {
   color: var(--text-primary);
 }
 
+/* ---------- Press / media coverage (home) ----------
+   Outlet name, headline (the link), then date — one row per article on
+   desktop, stacked on narrow screens. */
+.press-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.press-item {
+  display: grid;
+  grid-template-columns: minmax(80px, auto) 1fr auto;
+  gap: 0.35rem 1rem;
+  align-items: baseline;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px dashed var(--border-color);
+}
+
+.press-item:last-child {
+  border-bottom: none;
+}
+
+.press-item__outlet {
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 0.875rem;
+  white-space: nowrap;
+}
+
+.press-item__title {
+  color: var(--text-primary);
+  text-wrap: pretty;
+}
+
+a.press-item__title:hover {
+  color: var(--color-accent);
+}
+
+.press-item__date {
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+@media (max-width: 640px) {
+  /* Stack: outlet + date share the first line, headline goes below. */
+  .press-item {
+    grid-template-columns: auto 1fr;
+    row-gap: 0.15rem;
+  }
+  .press-item__outlet { grid-column: 1; grid-row: 1; }
+  .press-item__date   { grid-column: 2; grid-row: 1; justify-self: end; }
+  .press-item__title  { grid-column: 1 / -1; grid-row: 2; }
+  .press-item__outlet,
+  .press-item__date { font-size: calc(0.875rem - 1pt); }
+  .press-item__title { font-size: calc(1rem - 1pt); }
+}
+
 .show-more-btn {
   margin-top: 1rem;
   background: transparent;
