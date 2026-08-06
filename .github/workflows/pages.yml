@@ -4,11 +4,10 @@ name: Deploy to GitHub Pages
 # (Settings -> Pages -> Source: GitHub Actions).
 #
 # WHY THIS EXISTS
-#   The legacy branch-based pipeline uses actions/deploy-pages with its default
-#   10-minute timeout. When the Pages control plane is backed up, deployments sit
-#   in `deployment_queued` past that limit and the job aborts with
-#   "Timeout reached, aborting!" even though the site built fine. Owning the
-#   workflow lets us raise the timeout so a slow queue no longer fails the deploy.
+#   Owning the deploy workflow (instead of GitHub's auto-generated legacy one)
+#   keeps a single pipeline on each push and makes the deploy step inspectable.
+#   Note that the 10-minute deploy timeout is NOT adjustable — see the note on
+#   the deploy step below.
 #
 #   The site is plain static HTML (no Jekyll config, no front matter), so the
 #   repository is uploaded as-is. upload-pages-artifact already excludes
@@ -50,6 +49,8 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-        with:
-          # Default is 600000 (10 min). Give the Pages queue room to recover.
-          timeout: 1800000
+        # NOTE: the action caps `timeout` at 600000 ms (10 min) — passing more is
+        # silently clamped ("timeout value is greater than the allowed maximum"),
+        # so a slow Pages queue cannot be waited out from here. If a deploy fails
+        # with "Timeout reached, aborting!", the deployment never left
+        # `deployment_queued` on GitHub's side; re-run once the queue recovers.
