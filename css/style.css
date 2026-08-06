@@ -632,8 +632,8 @@ a:hover .ext-link-arrow {
 }
 
 /* ---------- Press / media coverage (home) ----------
-   Outlet name, headline (the link), then date — one row per article on
-   desktop, stacked on narrow screens. */
+   Each article is a card: outlet and date share the top line (pushed to
+   opposite edges), the headline sits on the line below with the full width. */
 .press-list {
   list-style: none;
   margin: 0;
@@ -643,11 +643,11 @@ a:hover .ext-link-arrow {
   gap: 0.6rem;
 }
 
-/* Each article is a card, matching .pub-item / .timeline-card. */
+/* Card treatment matching .pub-item / .timeline-card. */
 .press-item {
   display: grid;
-  grid-template-columns: minmax(80px, auto) 1fr auto;
-  gap: 0.35rem 1rem;
+  grid-template-columns: auto 1fr;
+  gap: 0.3rem 1rem;
   align-items: baseline;
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
@@ -655,6 +655,11 @@ a:hover .ext-link-arrow {
   padding: 0.9rem 1.1rem;
   transition: border-color 0.2s ease;
 }
+
+/* Row 1: outlet left, date right. Row 2: headline across both columns. */
+.press-item__outlet { grid-column: 1; grid-row: 1; }
+.press-item__date   { grid-column: 2; grid-row: 1; justify-self: end; }
+.press-item__title  { grid-column: 1 / -1; grid-row: 2; }
 
 .press-item:hover {
   border-color: color-mix(in srgb, var(--color-primary) 30%, var(--border-color));
@@ -684,14 +689,8 @@ a.press-item__title:hover {
 }
 
 @media (max-width: 640px) {
-  /* Stack: outlet + date share the first line, headline goes below. */
-  .press-item {
-    grid-template-columns: auto 1fr;
-    row-gap: 0.15rem;
-  }
-  .press-item__outlet { grid-column: 1; grid-row: 1; }
-  .press-item__date   { grid-column: 2; grid-row: 1; justify-self: end; }
-  .press-item__title  { grid-column: 1 / -1; grid-row: 2; }
+  /* Layout is the same at every width — only trim the text, matching the
+     -1pt reduction applied elsewhere on mobile. */
   .press-item__outlet,
   .press-item__date { font-size: calc(0.875rem - 1pt); }
   .press-item__title { font-size: calc(1rem - 1pt); }
