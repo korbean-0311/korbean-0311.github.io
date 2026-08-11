@@ -8,14 +8,19 @@ The full machine-readable content (all publications with BibTeX, education, rese
 
 - https://korbean-0311.github.io/llms-full.txt
 
+A CV / resume PDF is also available:
+
+- https://korbean-0311.github.io/pdfs/cv.pdf
+
 ## Pages
 
-- [Home](https://korbean-0311.github.io/): Brief biography and recent news
+- [Home](https://korbean-0311.github.io/): Brief biography, recent news, and press coverage ("In the News")
 - [Publications](https://korbean-0311.github.io/publications.html): International journals (under review + published), international conferences, domestic conferences, patents
 - [Awards & Honors](https://korbean-0311.github.io/awards.html): Awards, honors, grants, scholarships, and paper competition prizes
 - [Education](https://korbean-0311.github.io/education.html): Academic timeline
 - [Research](https://korbean-0311.github.io/research.html): Graduate and undergraduate research projects
 - [Others](https://korbean-0311.github.io/others.html): Reviewer activities, teaching assistantships, coursework, programming skills
+- [CV](https://korbean-0311.github.io/cv.html): Curriculum vitae (viewer + PDF download)
 - [Contact](https://korbean-0311.github.io/contact.html): Lab, location, LinkedIn
 
 ## Data sources (JSON)
@@ -23,6 +28,7 @@ The full machine-readable content (all publications with BibTeX, education, rese
 The site renders content from these structured JSON files (also useful for AI agents that prefer structured data):
 
 - https://korbean-0311.github.io/data/news.json
+- https://korbean-0311.github.io/data/press.json
 - https://korbean-0311.github.io/data/publications.json
 - https://korbean-0311.github.io/data/awards.json
 - https://korbean-0311.github.io/data/education.json

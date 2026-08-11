@@ -4,6 +4,8 @@
 
 Site: https://korbean-0311.github.io/
 
+CV (PDF): https://korbean-0311.github.io/pdfs/cv.pdf
+
 ## About
 
 I am a Ph.D. candidate in the Department of Electrical and Computer Engineering (ECE) at Seoul National University, co-advised by Prof. Sangwook Nam and Prof. Jungsuek Oh.
