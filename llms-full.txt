@@ -357,23 +357,23 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 ### Conference Awards (International)
 
-- Best Student Paper Award (Sole Recipient, 1st Place) — IEEE Wireless Power Transfer Conference and Expo (WPTCE 2026), Jul. 2026  [1st Author]
+- Best Student Paper Award (Sole Recipient, 1st Place) — IEEE Wireless Power Technology Conference and Expo (WPTCE 2026), Jul. 2026  [1st Author]
 
 - Best Paper Award (2nd Prize) — 2024 International Symposium on Antennas and Propagation (ISAP 2024), Nov. 2024  [1st Author]
 
 ### Conference Awards (Domestic)
 
-- Best Paper Award (IEEE MTT-S Seoul Chapter Award) — 2026 KIEES Winter Conf., Feb. 2026  [Co-author]
+- Best Paper Award (IEEE MTT-S Seoul Chapter Award) — 2026 KIEES Winter Conference, Feb. 2026  [Co-author]
 
-- Best Paper Award (1st Place) — 2025 KIEES Winter Conf., Feb. 2025  [1st Author]
+- Best Paper Award (1st Place) — 2025 KIEES Winter Conference, Feb. 2025  [1st Author]
 
 ### Conference Grants & Travel
 
-- IEEE MTT-S Student Travel Grant — IEEE WPTCE 2026, Jul. 2026  [1st Author]
+- IEEE MTT-S Student Travel Grant — IEEE Wireless Power Technology Conference and Expo (WPTCE 2026), Jul. 2026  [1st Author]
 
-- Ph.D. Students Initiative Program — IEEE WPTCE 2025, Jun. 2025  [1st Author]
+- Ph.D. Students Initiative Program — IEEE Wireless Power Technology Conference and Expo (WPTCE 2025), Jun. 2025  [1st Author]
 
-- Student Travel Grant — IEEE WPTCE 2024, May 2024  [1st Author]
+- Student Travel Grant — IEEE Wireless Power Technology Conference and Expo (WPTCE 2024), May 2024  [1st Author]
 
 ### Scholarships & Fellowships
 
@@ -453,16 +453,18 @@ I have collaborated with industry partners — including Samsung Electronics on 
 #### [P2] Wireless Power Transfer Using Massive MIMO Microwave with Hybrid Beamforming
 - Organization: Samsung DS
 - Period: 2023.03 — 2023.09
-- Keywords: Feedback based algorithms, RF-Wireless Power Transfer, Array antenna, RF System
+- Keywords: RF-Wireless Power Transfer, Power Transfer Efficiency (PTE) Bound, Convex Optimization, Active Element Pattern, mmWave
 - Summary:
-  - Received power feedback based RF-WPT optimization algorithm.
+  - Derived power transfer efficiency (PTE) bounds for practical microwave and mmWave WPT systems via convex optimization, estimating the Tx–Rx channel from the Friis equation and active element patterns instead of full-wave EM simulation.
+  - Validated the method on 10 GHz and 24 GHz array systems across varying distance and tilt angle, providing a faster and more accurate efficiency guideline for practical WPT system design.
 
 #### [P1] Wireless Power Transfer System Design
 - Organization: Samsung Research (SR)
 - Period: 2021.08 — 2022.07
-- Keywords: RF-Wireless Power Transfer, Array antenna, mmWave antenna, RF System, Link-budget
+- Keywords: RF-Wireless Power Transfer, Feedback-Based Phase Optimization, Array antenna, mmWave antenna, RF System, Link-budget
 - Summary:
   - Design and fabrication of mmWave large array transmitter antenna (@24 GHz, 32×32).
+  - Developed an adaptive beamforming algorithm that finds the optimized transmit phase pattern from received-power feedback alone, using the orthogonal Hadamard basis for low-complexity sequential phase optimization with minimal hardware requirements, validated through simulation and experiment.
 
 ### Undergraduate Student Intern
 

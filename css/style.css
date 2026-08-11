@@ -1962,3 +1962,65 @@ html {
 .timeline-card__period {
   font-variant-numeric: tabular-nums;
 }
+
+/* ---------- CV page ---------- */
+.cv-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.cv-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.2rem;
+  border-radius: var(--radius-pill);
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 500;
+  font-size: 0.9375rem;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--color-primary) 30%, transparent);
+}
+
+.cv-download:hover {
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-primary) 40%, transparent);
+}
+
+.cv-download:active { transform: translateY(1px); }
+
+.cv-download svg { width: 18px; height: 18px; }
+
+[data-theme="dark"] .cv-download,
+[data-theme="dark"] .cv-download:hover { color: var(--bg-primary); }
+
+.cv-open {
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+}
+
+.cv-open:hover { color: var(--color-accent); }
+
+.cv-frame {
+  display: block;
+  width: 100%;
+  height: min(78vh, 1050px);
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+}
+
+.cv-fallback {
+  padding: 2rem 1.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9375rem;
+}
+
+@media (max-width: 640px) {
+  .cv-frame { height: 70vh; }
+}

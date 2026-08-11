@@ -657,7 +657,7 @@ function main() {
   {
     const profile = buildProfile();
     const block = `${PROFILE_START}\n    ${profile}\n    ${PROFILE_END}`;
-    const pages = ['index.html', 'education.html', 'publications.html', 'awards.html', 'research.html', 'others.html', 'contact.html'];
+    const pages = ['index.html', 'education.html', 'publications.html', 'awards.html', 'research.html', 'others.html', 'cv.html', 'contact.html'];
     for (const file of pages) {
       const filePath = path.join(ROOT, file);
       let html = fs.readFileSync(filePath, 'utf8');

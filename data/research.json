@@ -69,13 +69,15 @@
           "title": "Wireless Power Transfer Using Massive MIMO Microwave with Hybrid Beamforming",
           "period": "2023.03 — 2023.09",
           "keywords": [
-            "Feedback based algorithms",
             "RF-Wireless Power Transfer",
-            "Array antenna",
-            "RF System"
+            "Power Transfer Efficiency (PTE) Bound",
+            "Convex Optimization",
+            "Active Element Pattern",
+            "mmWave"
           ],
           "summary": [
-            "<u>Received power feedback based RF-WPT optimization algorithm.</u>"
+            "<u>Derived power transfer efficiency (PTE) bounds for practical microwave and mmWave WPT systems via convex optimization,</u> estimating the Tx–Rx channel from the Friis equation and active element patterns instead of full-wave EM simulation.",
+            "Validated the method on 10 GHz and 24 GHz array systems across varying distance and tilt angle, providing a faster and more accurate efficiency guideline for practical WPT system design."
           ]
         },
         {
@@ -85,13 +87,15 @@
           "period": "2021.08 — 2022.07",
           "keywords": [
             "RF-Wireless Power Transfer",
+            "Feedback-Based Phase Optimization",
             "Array antenna",
             "mmWave antenna",
             "RF System",
             "Link-budget"
           ],
           "summary": [
-            "Design and fabrication of mmWave large array transmitter antenna (@24 GHz, 32×32)."
+            "Design and fabrication of mmWave large array transmitter antenna (@24 GHz, 32×32).",
+            "<u>Developed an adaptive beamforming algorithm that finds the optimized transmit phase pattern from received-power feedback alone,</u> using the orthogonal Hadamard basis for low-complexity sequential phase optimization with minimal hardware requirements, validated through simulation and experiment."
           ]
         }
       ]
