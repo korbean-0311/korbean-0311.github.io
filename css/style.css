@@ -32,6 +32,8 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --radius-pill: 9999px;
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  /* Display serif for the name and page/section titles only — body stays Inter. */
+  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
 }
 
 [data-theme="dark"] {
@@ -146,7 +148,8 @@ button {
 }
 
 .topnav__brand {
-  font-size: 1.125rem;
+  font-family: var(--font-serif);
+  font-size: 1.1875rem;
   font-weight: 600;
   color: var(--text-primary);
   letter-spacing: -0.01em;
@@ -412,7 +415,7 @@ main {
   font-size: 3.4rem; font-weight: 600;
 }
 .profile__photo img { width: 100%; height: 100%; object-fit: cover; }
-.profile__name { font-size: 1.3rem; font-weight: 600; margin: 0 0 0.35rem; color: var(--text-primary); text-align: center; }
+.profile__name { font-family: var(--font-serif); font-size: 1.35rem; font-weight: 600; margin: 0 0 0.35rem; color: var(--text-primary); text-align: center; }
 .profile__role { color: var(--text-secondary); font-size: 0.9rem; line-height: 1.45; margin: 0 0 0.75rem; text-align: center; }
 .profile__loc { color: var(--text-secondary); font-size: 0.85rem; margin: 0 0 1.1rem; display: flex; align-items: center; justify-content: center; gap: 0.4rem; }
 .profile__loc svg { width: 14px; height: 14px; }
@@ -429,7 +432,8 @@ main {
 
 /* Right column page heading (e.g. "About me") */
 .page-content > .about h1 {
-  font-size: 1.875rem; font-weight: 600; color: var(--text-primary);
+  font-family: var(--font-serif);
+  font-size: 2rem; font-weight: 700; color: var(--text-primary);
   letter-spacing: -0.01em; margin: 0 0 1.25rem;
 }
 
@@ -491,19 +495,21 @@ main {
 }
 
 .page-header h1 {
-  font-size: 2rem;
-  font-weight: 600;
+  font-family: var(--font-serif);
+  font-size: 2.125rem;
+  font-weight: 700;
   color: var(--color-primary);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.015em;
   margin-bottom: 0.75rem;
 }
 
 .page-header__rule {
-  width: 60px;
-  height: 2px;
-  background: var(--color-accent);
+  width: 72px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
   margin: 0 auto;
   border: none;
+  border-radius: 2px;
 }
 
 section {
@@ -511,11 +517,24 @@ section {
 }
 
 section h2 {
+  font-family: var(--font-serif);
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 1.25rem;
   letter-spacing: -0.01em;
+  /* Signature motif: short vertical accent bar before every section title. */
+  display: flex;
+  align-items: baseline;
+  gap: 0.6rem;
+}
+
+section h2::before {
+  content: "";
+  align-self: stretch;
+  width: 4px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--color-accent), var(--color-primary));
 }
 
 section h3 {
@@ -886,6 +905,7 @@ a.press-item__title:hover {
   background: var(--color-primary);
   border-color: var(--color-primary);
   color: #fff;
+  box-shadow: 0 2px 10px color-mix(in srgb, var(--color-primary) 30%, transparent);
 }
 
 [data-theme="dark"] .tab-btn.is-active {
@@ -1096,6 +1116,7 @@ html[data-js] .tab-panel.is-active { display: block; }
   background: var(--text-primary);
   color: var(--bg-primary);
   border-color: var(--text-primary);
+  box-shadow: 0 2px 8px color-mix(in srgb, var(--text-primary) 25%, transparent);
 }
 
 /* DOI = warm amber */
@@ -1819,4 +1840,93 @@ html[data-js] .tab-panel.is-active { display: block; }
   .skill-name { font-size: calc(0.9375rem - 1pt); }
   .prog-list li { font-size: calc(0.9375rem - 1pt); }                     /* strong inherits */
   .prog-list--inner li { font-size: calc(0.9rem - 1pt); }
+}
+
+/* ============================================================
+   Design details — depth, motion, and micro-interactions.
+   Kept at the end of the file so these override the per-card
+   transition/hover rules declared above.
+   ============================================================ */
+
+/* Page background: a faint glow at the top instead of a flat fill.
+   Light mode brightens toward cream; dark mode gets a soft navy-blue cast. */
+body {
+  background-color: var(--bg-primary);
+  background-image: radial-gradient(1100px 520px at 50% -180px,
+    color-mix(in srgb, #fff 55%, transparent), transparent 70%);
+  background-repeat: no-repeat;
+}
+
+[data-theme="dark"] body {
+  background-image: radial-gradient(1100px 520px at 50% -180px,
+    color-mix(in srgb, var(--color-primary) 9%, transparent), transparent 70%);
+}
+
+/* Cards lift slightly on hover (all card types share the treatment). */
+.pub-item,
+.press-item,
+.timeline-card,
+.patent-item,
+.award-group,
+.research-card,
+.research-intern {
+  transition: border-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .pub-item:hover,
+  .press-item:hover,
+  .timeline-card:hover,
+  .patent-item:hover,
+  .award-group:hover,
+  .research-card:hover,
+  .research-intern:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--color-primary) 10%, transparent);
+  }
+}
+
+/* Profile photo: thin accent ring, slightly offset from the circle. */
+.profile__photo {
+  outline: 2px solid color-mix(in srgb, var(--color-accent) 55%, transparent);
+  outline-offset: 3px;
+}
+
+/* Content links: underline fades in on hover (wrap-safe). */
+a.press-item__title,
+.hero__bio a {
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease, text-decoration-color 0.25s ease;
+}
+
+a.press-item__title:hover,
+.hero__bio a:hover {
+  text-decoration-color: currentColor;
+}
+
+/* Pill buttons press down when clicked. */
+.tab-btn:active,
+.sort-btn:active,
+.pub-btn:active,
+.show-more-btn:active {
+  transform: translateY(1px);
+}
+
+/* Text selection in brand colors. */
+::selection {
+  background: var(--color-primary);
+  color: var(--bg-primary);
+}
+
+/* Themed (subtle) scrollbar. */
+html {
+  scrollbar-color: color-mix(in srgb, var(--text-secondary) 55%, transparent) transparent;
+}
+
+/* Dates and numbering align in columns. */
+.timeline-card__period {
+  font-variant-numeric: tabular-nums;
 }
