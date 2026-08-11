@@ -507,21 +507,28 @@ function pubPatentsHTML(items) {
 }
 
 function pubAwardItemHTML(a) {
-  const venue = a.venue ? `<em class="award-venue">${esc(a.venue)}</em>, ` : '';
-  const title = a.title ? `<strong>${esc(a.title)}</strong>` : '';
+  // Two-line item: the award NAME leads (that is what a reader scans for),
+  // with the venue and date on a quieter second line — same top/sub rhythm
+  // as the home-page press cards.
+  const title = a.title ? `<strong class="award-name">${esc(a.title)}</strong>` : '';
   const hl = a.highlight ? ` <em class="award-highlight">(${esc(a.highlight)})</em>` : '';
   // "Co-author" is a filter-only marker (not shown as a badge). Every other
   // tag (e.g. "1st Author") still renders as a visible badge.
   const tags = (a.tags || []).filter(t => t !== 'Co-author')
     .map(t => `<span class="badge--tag badge">${esc(t)}</span>`).join('');
   const tagsHTML = tags ? ` ${tags}` : '';
-  const date = a.date ? `, ${esc(a.date)}` : '';
+  const venue = a.venue ? `<span class="award-venue">${esc(a.venue)}</span>` : '';
+  const date = a.date ? `<span class="award-date">${esc(a.date)}</span>` : '';
+  const sub = (venue || date) ? `
+          <div class="award-item__sub">${venue}${date}</div>` : '';
   // Awards are personal honors, so an item is "mine" (survives the 1st-Author
   // filter) UNLESS it is explicitly tagged "Co-author" — that only excludes
   // co-authored papers (e.g. a best-paper award led by a collaborator), while
   // scholarships/fellowships/grants without any tag always stay visible.
   const first = (a.tags || []).includes('Co-author') ? '0' : '1';
-  return `<li class="award-item" data-first="${first}">${venue}${title}${hl}${date}.${tagsHTML}</li>`;
+  return `<li class="award-item" data-first="${first}">
+          <div class="award-item__main">${title}${hl}${tagsHTML}</div>${sub}
+        </li>`;
 }
 
 // Render the four publication tabs as panels. Journals is active; the rest are

@@ -948,7 +948,7 @@ html[data-js] .tab-panel.is-active { display: block; }
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.75rem;
 }
 
 .pub-item {
@@ -966,6 +966,11 @@ html[data-js] .tab-panel.is-active { display: block; }
   border-color: color-mix(in srgb, var(--color-primary) 30%, var(--border-color));
 }
 
+/* First-author papers get a sky accent edge — instantly scannable. */
+.pub-item[data-first="1"] {
+  border-left: 3px solid color-mix(in srgb, var(--color-accent) 75%, transparent);
+}
+
 .pub-item__num {
   color: var(--text-secondary);
   font-variant-numeric: tabular-nums;
@@ -979,7 +984,8 @@ html[data-js] .tab-panel.is-active { display: block; }
 }
 
 .pub-item__authors {
-  color: var(--text-primary);
+  color: var(--text-secondary);
+  font-size: 0.875rem;
 }
 
 .pub-item__authors .me {
@@ -987,13 +993,17 @@ html[data-js] .tab-panel.is-active { display: block; }
   color: var(--color-primary);
 }
 
+/* The paper title is the anchor a reader scans for — give it the weight. */
 .pub-item__title {
   color: var(--text-primary);
+  font-weight: 600;
+  font-size: 1rem;
 }
 
 .pub-item__venue {
   font-style: italic;
-  color: var(--text-primary);
+  font-weight: 500;
+  color: var(--color-primary);
 }
 
 .pub-item__details {
@@ -1016,7 +1026,7 @@ html[data-js] .tab-panel.is-active { display: block; }
   border: 0;
   border-top: 1px solid var(--border-color);
   margin: 0.5rem 0;
-  opacity: 0.7;
+  opacity: 0.45;
 }
 
 .pub-item__actions {
@@ -1190,36 +1200,48 @@ html[data-js] .tab-panel.is-active { display: block; }
   list-style: none;
   margin: 0;
   padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
 }
 
+/* Two-line rows: award name (+prize +badge) on top, venue/date below.
+   Rows breathe and are divided by a soft dashed line instead of bullets. */
 .award-item {
-  padding: 0 0 0 1.25rem;
-  border-bottom: none;
-  position: relative;
+  padding: 0.65rem 0;
   list-style: none;
   font-size: 0.9375rem;
-  line-height: 1.3;
+  line-height: 1.5;
   color: var(--text-primary);
-  margin-bottom: 0.1rem;
 }
 
-.award-item:last-child { margin-bottom: 0; }
+.award-item:first-child { padding-top: 0.15rem; }
+.award-item:last-child { padding-bottom: 0.1rem; }
 
-.award-item::before {
-  content: '\25AA';
-  position: absolute;
-  left: 0;
-  top: 0.2rem;
+.award-item + .award-item {
+  border-top: 1px dashed color-mix(in srgb, var(--border-color) 60%, transparent);
+}
+
+.award-name {
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.award-item__sub {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+  margin-top: 0.15rem;
+  font-size: 0.8125rem;
   color: var(--text-secondary);
-  font-size: 0.75rem;
 }
 
 .award-venue {
-  color: var(--text-primary);
+  color: var(--text-secondary);
   font-style: normal;
+}
+
+.award-date {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
 }
 
 .award-highlight {
@@ -1232,8 +1254,8 @@ html[data-js] .tab-panel.is-active { display: block; }
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-card);
-  padding: 1rem 1.25rem 1.1rem;
-  margin-bottom: 1rem;
+  padding: 1.1rem 1.35rem 1.15rem;
+  margin-bottom: 1.25rem;
   transition: border-color 0.2s ease;
 }
 
@@ -1245,15 +1267,23 @@ html[data-js] .tab-panel.is-active { display: block; }
   margin-bottom: 0;
 }
 
+/* Category header inside the card — same visual language as the Publications
+   group titles (uppercase Inter + rule), so the two main pages read as a set.
+   Opts back out of the serif + accent-bar treatment that `section h2` applies. */
 .award-group__title {
-  font-size: 0.95rem;
+  font-family: var(--font-sans);
+  display: block;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: var(--color-primary);
-  margin: 0 0 0.5rem;
-  padding-bottom: 0.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.35rem;
+  padding-bottom: 0.5rem;
   border-bottom: 1px solid var(--border-color);
-  letter-spacing: 0.01em;
 }
+
+.award-group__title::before { content: none; }
 
 .award-list {
   list-style: none;
@@ -1822,8 +1852,10 @@ html[data-js] .tab-panel.is-active { display: block; }
   #tab-content .pub-extra p { font-size: calc(0.875rem - 1pt); }
   #tab-content .patent-item__title { font-size: calc(0.9375rem - 1pt); }
   #tab-content .patent-item__meta li { font-size: calc(0.875rem - 1pt); }  /* .patent-label inherits */
-  #tab-content .award-item { font-size: calc(0.9375rem - 1pt); }       /* venue/highlight/role inherit */
-  #tab-content .award-group__title { font-size: calc(0.95rem - 1pt); }
+  #tab-content .pub-item__title { font-size: calc(1rem - 1pt); }
+  #tab-content .award-item { font-size: calc(0.9375rem - 1pt); }       /* name/highlight inherit */
+  #tab-content .award-item__sub { font-size: calc(0.8125rem - 1pt); }
+  #tab-content .award-group__title { font-size: calc(0.9375rem - 1pt); }
 }
 
 /* ---------- Mobile: trim Others page text −1pt ----------
