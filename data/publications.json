@@ -71,7 +71,7 @@
         "notes": [],
         "doi": "https://doi.org/10.1109/TMTT.2026.3714844",
         "pdf": "pdfs/lee2026-tmtt-end-to-end-dc-dc-efficiency.pdf",
-        "bibtex": "@ARTICLE{lee2026endtoend,\n  author={Lee, Young-Seok and Yoon, Taeyeong and Oh, Jungsuek and Nam, Sangwook},\n  journal={IEEE Transactions on Microwave Theory and Techniques},\n  title={An End-to-End DC-to-DC Efficiency Optimization and Design Analysis for MIMO Wireless Power Transfer Systems},\n  year={2026},\n  volume={},\n  number={},\n  pages={1-1},\n  note={Early Access},\n  doi={10.1109/TMTT.2026.3714844}}",
+        "bibtex": "@ARTICLE{11653518,\n  author={Lee, Young-Seok and Yoon, Taeyeong and Oh, Jungsuek and Nam, Sangwook},\n  journal={IEEE Transactions on Microwave Theory and Techniques},\n  title={An End-to-End DC-to-DC Efficiency Optimization and Design Analysis for MIMO Wireless Power Transfer Systems},\n  year={2026},\n  volume={},\n  number={},\n  pages={1-18},\n  doi={10.1109/TMTT.2026.3714844}}",
         "keywords": [
           "DC-to-DC efficiency",
           "Wireless power transfer (WPT)",
