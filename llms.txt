@@ -1,7 +1,7 @@
 # Young-Seok Lee — Portfolio
 
 > ECE Ph.D. Candidate at Seoul National University (SNU), co-advised by Prof. Sangwook Nam and Prof. Jungsuek Oh.
-> Research areas: Wireless Power Transfer (WPT), RF Beam-forming, Near-field Beam-focusing, Target Detection, Indoor Localization, Space Solar Power.
+> Research areas: Wireless Power Transfer (WPT), RF Beamforming, Near-Field Beam Focusing, Target Detection, Indoor Localization, Space Solar Power.
 > Affiliation: Wave Fusion Lab, INMC, Seoul National University.
 
 The full machine-readable content (all publications with BibTeX, education, research projects, news, reviewer activities, scholarships, teaching, coursework, programming skills) is available as a single markdown file:
