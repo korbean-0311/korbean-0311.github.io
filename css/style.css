@@ -13,18 +13,18 @@ html[data-js] [data-mount-nav] { display: none !important; }
 
 /* ---------- CSS Variables ---------- */
 :root {
-  /* Warm off-white (slight beige) instead of pure white — less glare. */
-  --bg-primary: #F7F4EC;
-  --bg-surface: #EFEBE0;
-  --color-primary: #1E3A5F;
-  --color-secondary: #64748B;
-  --color-accent: #0EA5E9;
-  --color-warm: #D97706;
-  --text-primary: #1E293B;
-  --text-secondary: #64748B;
-  /* Warm neutral gray — defined borders against the beige bg (was the pale
-     sky-blue #E2E8F0, which read too faint). */
-  --border-color: #A8A29E;
+  /* Light theme: white paper + near-black ink, with a single deep-maroon
+     accent for hover/active states (palette borrowed from the reference
+     site) — replaces the old beige + navy/sky scheme. */
+  --bg-primary: #FFFFFF;
+  --bg-surface: #F7F7F7;
+  --color-primary: #111111;
+  --color-secondary: #7A7A7A;
+  --color-accent: #5A2D26;
+  --color-warm: #B45309;
+  --text-primary: #111111;
+  --text-secondary: #555555;
+  --border-color: #D8D8D8;
 
   --nav-height: 60px;
   --content-max: 720px;
@@ -1938,12 +1938,11 @@ html[data-js] .tab-panel.is-active { display: block; }
    transition/hover rules declared above.
    ============================================================ */
 
-/* Page background: a faint glow at the top instead of a flat fill.
-   Light mode brightens toward cream; dark mode gets a soft navy-blue cast. */
+/* Page background: light mode is flat white paper; dark mode keeps a soft
+   navy-blue glow at the top. */
 body {
   background-color: var(--bg-primary);
-  background-image: radial-gradient(1100px 520px at 50% -180px,
-    color-mix(in srgb, #fff 55%, transparent), transparent 70%);
+  background-image: none;
   background-repeat: no-repeat;
 }
 
