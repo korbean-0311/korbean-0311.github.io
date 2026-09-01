@@ -662,7 +662,7 @@ a:hover .ext-link-arrow {
   gap: 0.6rem;
 }
 
-/* Card treatment matching .pub-item / .timeline-card. */
+/* Card treatment matching .pub-item. */
 .press-item {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -769,142 +769,147 @@ a.press-item__title:hover {
   color: var(--text-secondary);
 }
 
-/* ---------- Education timeline ---------- */
-.timeline {
-  position: relative;
-  padding-left: 2rem;
-  list-style: none;
-  margin: 0;
+/* ---------- Education (reference layout: period | logo | copy rows) ---------- */
+.edu-list {
+  margin-top: 0.25rem;
 }
 
-.timeline::before {
-  content: "";
-  position: absolute;
-  top: 0.5rem;
-  bottom: 0.5rem;
-  left: 7px;
-  width: 2px;
-  background: var(--border-color);
+.edu-item {
+  display: grid;
+  grid-template-columns: 148px minmax(0, 1fr);
+  gap: 28px;
+  padding: 1.5rem 0;
+  border-top: 1px solid color-mix(in srgb, var(--border-color) 70%, transparent);
 }
 
-.timeline-item {
-  position: relative;
-  padding-bottom: 2rem;
+.edu-item:first-child {
+  border-top: none;
+  padding-top: 0.25rem;
 }
 
-.timeline-item:last-child {
-  padding-bottom: 0;
+.edu-period {
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.3rem;
+  white-space: nowrap;
 }
 
-.timeline-item::before {
-  content: "";
-  position: absolute;
-  top: 0.4rem;
-  left: -2rem;
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--bg-primary);
-  border: 3px solid var(--color-primary);
-  box-sizing: border-box;
+.edu-main {
+  display: grid;
+  grid-template-columns: 72px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
 }
 
-.timeline-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-card);
-  padding: 1.25rem 1.5rem;
-  transition: border-color 0.2s ease;
-  display: flex;
-  align-items: flex-start;
-  gap: 1.1rem;
+.edu-main--nologo {
+  grid-template-columns: minmax(0, 1fr);
 }
 
-.timeline-card__body {
-  flex: 1;
-  min-width: 0;
-}
-
-/* School logo chip — white background keeps dark crests legible in dark mode. */
-.timeline-card__logo {
-  flex: 0 0 auto;
-  width: 56px;
-  height: 56px;
-  border-radius: 12px;
+/* White chip keeps dark crests legible in dark mode. */
+.edu-logo {
+  width: 72px;
+  height: 72px;
   background: #fff;
   border: 1px solid var(--border-color);
+  border-radius: 10px;
   display: grid;
   place-items: center;
-  padding: 6px;
-  margin-top: 0.15rem;
+  padding: 5px;
 }
 
-.timeline-card__logo img {
+.edu-logo img {
   display: block;
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-@media (max-width: 640px) {
-  .timeline-card { gap: 0.85rem; }
-  .timeline-card__logo { width: 46px; height: 46px; border-radius: 10px; padding: 5px; }
+/* The degree is the headline of each row. */
+.edu-degree {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.005em;
+  margin: -2px 0 0.3rem;
 }
 
-.timeline-card:hover {
-  border-color: color-mix(in srgb, var(--color-primary) 35%, var(--border-color));
+.edu-degree a {
+  color: var(--text-primary);
 }
 
-.timeline-card__period {
+.edu-degree a:hover {
+  color: var(--color-accent);
+}
+
+.edu-place {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 0.9rem;
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--text-primary);
+}
+
+.edu-place strong {
+  font-weight: 500;
+}
+
+.edu-place a {
+  color: var(--text-primary);
+}
+
+.edu-place a:hover {
+  color: var(--color-accent);
+}
+
+.edu-loc {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  color: var(--text-secondary);
+  font-size: 0.875rem;
+  font-weight: 400;
+}
+
+.edu-loc svg {
+  width: 13px;
+  height: 13px;
+  flex-shrink: 0;
+}
+
+.edu-detail {
+  margin-top: 0.5rem;
   font-size: 0.875rem;
   color: var(--text-secondary);
-  margin-bottom: 0.25rem;
 }
 
-.timeline-card__school {
-  font-weight: 600;
-  font-size: 1.0625rem;
-  margin-bottom: 0.25rem;
+.edu-detail > div {
+  margin: 0.15rem 0;
 }
 
-.timeline-card__degree {
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
-}
-
-.timeline-card__advisor {
-  color: var(--text-secondary);
-  font-size: 0.9375rem;
-  margin-top: 0.2rem;
-}
-
-.timeline-card__advisor .adv-label {
-  color: var(--text-secondary);
-}
-
-.timeline-card__advisor a {
+.edu-detail a {
   color: var(--color-primary);
   border-bottom: 1px solid color-mix(in srgb, var(--color-primary) 35%, transparent);
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-.timeline-card__advisor a:hover {
+.edu-detail a:hover {
   color: var(--color-accent);
   border-bottom-color: var(--color-accent);
 }
 
-.timeline-card__loc {
-  color: var(--text-secondary);
-  font-weight: 400;
-  font-size: 0.9375rem;
-  margin-left: 0.25rem;
+@media (max-width: 640px) {
+  .edu-item {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 1.15rem 0;
+  }
+  .edu-period { padding-top: 0; }
+  .edu-main { grid-template-columns: 56px minmax(0, 1fr); gap: 14px; }
+  .edu-logo { width: 56px; height: 56px; border-radius: 8px; padding: 4px; }
 }
-
-.timeline-card__degree em {
-  font-style: italic;
-}
-
-/* New education layout (matches reference screenshot) */
 
 /* ---------- Publications ---------- */
 .tab-bar {
@@ -1862,12 +1867,12 @@ html[data-js] .tab-panel.is-active { display: block; }
    Each rule subtracts exactly 1pt (CSS pt = 1.333px) from the element's size.
    Children without their own font-size inherit the reduced parent. */
 @media (max-width: 640px) {
-  /* Education — timeline card text */
-  .timeline-card__period  { font-size: calc(0.875rem - 1pt); }
-  .timeline-card__school  { font-size: calc(1.0625rem - 1pt); }
-  .timeline-card__degree  { font-size: calc(0.875rem - 1pt); }   /* inherits body 0.875rem */
-  .timeline-card__advisor { font-size: calc(0.9375rem - 1pt); }
-  .timeline-card__loc     { font-size: calc(0.9375rem - 1pt); }
+  /* Education — row text */
+  .edu-degree { font-size: calc(1.125rem - 1pt); }
+  .edu-period { font-size: calc(0.8125rem - 1pt); }
+  .edu-place  { font-size: calc(0.9375rem - 1pt); }
+  .edu-loc    { font-size: calc(0.875rem - 1pt); }
+  .edu-detail { font-size: calc(0.875rem - 1pt); }
 
   /* Publications — text inside each paper / conference / patent / award card.
      Scoped to #tab-content so shared badge classes on Home (news tags) and
@@ -1945,7 +1950,6 @@ body {
 /* Cards lift slightly on hover (all card types share the treatment). */
 .pub-item,
 .press-item,
-.timeline-card,
 .patent-item,
 .award-group,
 .research-card,
@@ -1956,7 +1960,6 @@ body {
 @media (prefers-reduced-motion: no-preference) {
   .pub-item:hover,
   .press-item:hover,
-  .timeline-card:hover,
   .patent-item:hover,
   .award-group:hover,
   .research-card:hover,
@@ -2006,10 +2009,7 @@ html {
   scrollbar-color: color-mix(in srgb, var(--text-secondary) 55%, transparent) transparent;
 }
 
-/* Dates and numbering align in columns. */
-.timeline-card__period {
-  font-variant-numeric: tabular-nums;
-}
+/* Dates and numbering align in columns (edu-period carries its own). */
 
 /* ---------- CV page ---------- */
 .cv-actions {

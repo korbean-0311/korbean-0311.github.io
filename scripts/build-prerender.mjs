@@ -140,6 +140,12 @@ function eduRenderNote(note, link) {
     `<a href="${esc(link)}" target="_blank" rel="noopener">${name}${ARROW_SVG}</a>`);
 }
 
+// Education rows in the reference layout (sehyunryu.github.io): period in a
+// left column, then a white logo chip beside the copy; the DEGREE leads as the
+// headline, school + pin-location share the next line, advisors sit below in
+// muted text. Rows are separated by hairlines — no cards, no timeline spine.
+const PIN_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+
 function renderEducationTimeline() {
   const edu = readJSON('education.json');
   return edu.map(item => {
@@ -148,33 +154,32 @@ function renderEducationTimeline() {
         ? `<a href="${esc(a.link)}" target="_blank" rel="noopener">${esc(a.name)}${ARROW_SVG}</a>`
         : esc(a.name);
       const noteHTML = a.note ? ` (${eduRenderNote(a.note, a.note_link)})` : '';
-      return `<div class="timeline-card__advisor"><span class="adv-label">${esc(a.label)}:</span> ${nameLink}${noteHTML}</div>`;
-    }).join('');
-    const degreeHTML = item.degree
-      ? esc(item.degree).replace(/(Electrical and Computer Engineering|Electrical Engineering)/, '<em>$1</em>')
-      : '';
-    const locationHTML = item.location
-      ? `<span class="timeline-card__loc">(${esc(item.location)})</span>`
-      : '';
-    const schoolHTML = item.school_link
-      ? `<a href="${esc(item.school_link)}" target="_blank" rel="noopener">${esc(item.school)}${ARROW_SVG}</a>`
-      : esc(item.school);
-    // Optional school logo, shown in a white chip so dark-colored crests stay
-    // legible in dark mode. Cards without a logo keep the plain layout.
+      return `<div><span class="adv-label">${esc(a.label)}:</span> ${nameLink}${noteHTML}</div>`;
+    }).join('\n              ');
+    const schoolLink = item.school_link
+      ? `<a href="${esc(item.school_link)}" target="_blank" rel="noopener"><strong>${esc(item.school)}</strong>${ARROW_SVG}</a>`
+      : `<strong>${esc(item.school)}</strong>`;
+    const locHTML = item.location ? `<span class="edu-loc">${PIN_SVG}${esc(item.location)}</span>` : '';
+    // Entries without a degree (high school) promote the school into the
+    // headline instead of repeating it on the place line.
+    const heading = item.degree ? esc(item.degree) : schoolLink;
+    const placeInner = item.degree ? `${schoolLink}${locHTML}` : locHTML;
     const logoHTML = item.logo
-      ? `<div class="timeline-card__logo"><img src="${esc(item.logo)}" alt="${esc(item.school)} logo" width="56" height="56" loading="lazy" decoding="async" /></div>
-            `
+      ? `<div class="edu-logo"><img src="${esc(item.logo)}" alt="${esc(item.school)} logo" width="72" height="72" loading="lazy" decoding="async" /></div>`
       : '';
-    return `        <li class="timeline-item">
-          <div class="timeline-card">
-            ${logoHTML}<div class="timeline-card__body">
-            <div class="timeline-card__period">${esc(item.period)}</div>
-            <div class="timeline-card__school">${schoolHTML} ${locationHTML}</div>
-            ${degreeHTML ? `<div class="timeline-card__degree">${degreeHTML}</div>` : ''}
-            ${advisorRows}
+    return `        <article class="edu-item">
+          <div class="edu-period">${esc(item.period)}</div>
+          <div class="edu-main${item.logo ? '' : ' edu-main--nologo'}">
+            ${logoHTML}
+            <div class="edu-copy">
+              <h3 class="edu-degree">${heading}</h3>
+              ${placeInner ? `<p class="edu-place">${placeInner}</p>` : ''}${advisorRows ? `
+              <div class="edu-detail">
+              ${advisorRows}
+              </div>` : ''}
             </div>
           </div>
-        </li>`;
+        </article>`;
   }).join('\n');
 }
 
