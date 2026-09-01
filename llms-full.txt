@@ -547,4 +547,4 @@ I have collaborated with industry partners — including Samsung Electronics on 
 _Email omitted; please reach out via LinkedIn or the lab homepage._
 
 ---
-_Generated automatically from data/*.json on 2026-08-13._
+_Generated automatically from data/*.json on 2026-09-01._
