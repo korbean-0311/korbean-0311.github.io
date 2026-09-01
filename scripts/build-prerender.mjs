@@ -159,12 +159,20 @@ function renderEducationTimeline() {
     const schoolHTML = item.school_link
       ? `<a href="${esc(item.school_link)}" target="_blank" rel="noopener">${esc(item.school)}${ARROW_SVG}</a>`
       : esc(item.school);
+    // Optional school logo, shown in a white chip so dark-colored crests stay
+    // legible in dark mode. Cards without a logo keep the plain layout.
+    const logoHTML = item.logo
+      ? `<div class="timeline-card__logo"><img src="${esc(item.logo)}" alt="${esc(item.school)} logo" width="56" height="56" loading="lazy" decoding="async" /></div>
+            `
+      : '';
     return `        <li class="timeline-item">
           <div class="timeline-card">
+            ${logoHTML}<div class="timeline-card__body">
             <div class="timeline-card__period">${esc(item.period)}</div>
             <div class="timeline-card__school">${schoolHTML} ${locationHTML}</div>
             ${degreeHTML ? `<div class="timeline-card__degree">${degreeHTML}</div>` : ''}
             ${advisorRows}
+            </div>
           </div>
         </li>`;
   }).join('\n');

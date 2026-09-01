@@ -18,7 +18,8 @@
         "note": "Ph.D. @Univ. of Michigan under {{Kamal Sarabandi}}",
         "note_link": "https://en.wikipedia.org/wiki/Kamal_Sarabandi"
       }
-    ]
+    ],
+    "logo": "assets/logos/snu.png"
   },
   {
     "period": "2021.09 — 2023.08",
@@ -34,7 +35,8 @@
         "note": "Ph.D. @Univ. of Texas Austin under {{Tatsuo Itoh}}",
         "note_link": "https://en.wikipedia.org/wiki/Tatsuo_Itoh"
       }
-    ]
+    ],
+    "logo": "assets/logos/snu.png"
   },
   {
     "period": "2017.03 — 2021.08",
@@ -48,7 +50,8 @@
         "name": "Chulwoo Kim",
         "link": "https://ieeexplore.ieee.org/author/37292328500"
       }
-    ]
+    ],
+    "logo": "assets/logos/korea-university.png"
   },
   {
     "period": "2014.03 — 2017.02",
@@ -56,6 +59,7 @@
     "school_link": "https://ddsciencehs.djsch.kr/",
     "location": "Daejeon, Republic of Korea",
     "degree": "",
-    "advisors": []
+    "advisors": [],
+    "logo": "assets/logos/ddshs.svg"
   }
 ]
