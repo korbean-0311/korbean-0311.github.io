@@ -833,7 +833,11 @@ const STAMPED_ASSETS = ['css/style.css', 'js/main.js', 'js/publications.js'];
 function assetHash(rel) {
   const file = path.join(ROOT, rel);
   if (!fs.existsSync(file)) return null;
-  return crypto.createHash('sha1').update(fs.readFileSync(file)).digest('hex').slice(0, 8);
+  // Hash with CR stripped: a Windows checkout has CRLF working copies while
+  // CI (and the repo) have LF, and the stamp must not differ between them —
+  // otherwise every CI run re-stamps and commits.
+  const text = fs.readFileSync(file, 'utf8').replace(/\r/g, '');
+  return crypto.createHash('sha1').update(text, 'utf8').digest('hex').slice(0, 8);
 }
 function stampAssets(html) {
   for (const rel of STAMPED_ASSETS) {
