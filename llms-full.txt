@@ -27,14 +27,14 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 ## Recent News
 
-- **09 Jul 2026** — Received the Best Student Paper Award (Sole Recipient (1st place), $800 USD) at the 2026 IEEE Wireless Power Technology Conference & Expo (WPTCE 2026)! _(1st Author)_
-- **03 Jul 2026** — Awarded the IEEE MTT-S Student Travel Grant for the 2026 IEEE Wireless Power Technology Conference & Expo (WPTCE 2026), valued at $1,000 USD! _(1st Author)_
-- **18 Jun 2026** — Journal accepted in IEEE Transactions on Microwave Theory and Techniques (TMTT)! _(1st Author)_
-- **11 Feb 2026** — Joined research project of LIG D&A for calibration of ultra-large-scale digital array antennas for space surveillance radar! _(Project Lead)_
-- **31 Oct 2025** — Selected as the Scholarship Recipient for Samsung Electronics Device Solution (DS), Foundry Division!
-- **22 Jul 2025** — Journal accepted in IEEE Open Journal of Antennas and Propagation (OJAP)! _(Co-author)_
-- **20 Jul 2025** — Journal accepted in IEEE Transactions on Antennas and Propagation (TAP)! _(Co-author)_
-- **06 Jun 2025** — Journal accepted in IEEE Antennas and Wireless Propagation Letters (AWPL)! _(1st Author)_
+- **09 Jul 2026** — [Award] Best Student Paper Award (1st place, sole recipient, $800) at WPTCE 2026 _(1st Author)_
+- **03 Jul 2026** — [Grant] IEEE MTT-S Student Travel Grant ($1,000) for WPTCE 2026 _(1st Author)_
+- **18 Jun 2026** — [Paper] Paper accepted in TMTT _(1st Author)_
+- **11 Feb 2026** — [Project] Joined an LIG D&A project on calibrating ultra-large-scale digital array antennas for space surveillance radar _(Project Lead)_
+- **31 Oct 2025** — [Scholarship] Samsung Electronics DS (Foundry) scholarship recipient
+- **22 Jul 2025** — [Paper] Paper accepted in OJAP _(Co-author)_
+- **20 Jul 2025** — [Paper] Paper accepted in TAP _(Co-author)_
+- **06 Jun 2025** — [Paper] Paper accepted in AWPL _(1st Author)_
 
 ## In the News
 

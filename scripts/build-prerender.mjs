@@ -271,8 +271,29 @@ function renderResearch() {
   return ((data && data.sections) || []).map(researchSectionHTML).join('');
 }
 
-// News (home) — same markup the index inline renderer produced. Items past the
-// first 5 get a --extra class so CSS hides them until the "Show more" toggle.
+// News (home): `date · KIND label · body · tag`. Items past the first 5 get a
+// --extra class so CSS hides them until the "Show more" toggle.
+//   • `kind` (award / grant / paper / project / scholarship) becomes the small
+//     uppercase label; when the CMS leaves it empty it is guessed from the text.
+//   • `{{TMTT}}` / `{{WPTCE 2026}}` in the body become the same highlighter
+//     marks (same color per venue) as on the Publications list.
+function newsKind(n) {
+  if (n.kind) return String(n.kind);
+  const t = String(n.body || '').toLowerCase();
+  if (/scholarship|fellowship/.test(t)) return 'scholarship';
+  if (/grant/.test(t)) return 'grant';
+  if (/award|prize|winner/.test(t)) return 'award';
+  if (/accepted|published|journal|paper/.test(t)) return 'paper';
+  if (/project|joined/.test(t)) return 'project';
+  return 'news';
+}
+function newsBodyHTML(body) {
+  return String(body || '').replace(/\{\{(.+?)\}\}/g, (_, token) => {
+    const name = venueFullName(token);
+    const title = name ? ` title="${esc(name)}"` : '';
+    return `<span class="venue-mark" style="--marker-color:${venueColorFor(token)}"${title}>${esc(token.trim())}</span>`;
+  });
+}
 function renderNews() {
   const data = readJSON('news.json');
   const news = Array.isArray(data) ? data : (data?.news || []);
@@ -280,10 +301,12 @@ function renderNews() {
   return news.map((n, i) => {
     const tagClass = (n.tag === '1st Author' || n.tag === 'Project Lead') ? 'badge--tag' : 'badge--coauthor';
     const tag = n.tag ? ` <span class="badge ${tagClass}">${esc(n.tag)}</span>` : '';
+    const kind = newsKind(n);
     const extra = i >= INITIAL ? ' news-item--extra' : '';
-    return `        <li class="news-item${extra}">
+    return `        <li class="news-item${extra}" data-kind="${esc(kind)}">
           <span class="news-item__date">${esc(n.date)}</span>
-          <span class="news-item__body">${n.body}${tag}</span>
+          <span class="news-item__kind">${esc(kind)}</span>
+          <span class="news-item__body">${newsBodyHTML(n.body)}${tag}</span>
         </li>`;
   }).join('\n');
 }
@@ -406,29 +429,37 @@ function venueKey(venue) {
 }
 
 let venueColorMap = null;
-function venueColorFor(venue) {
-  if (!venueColorMap) {
-    venueColorMap = new Map();
-    const pubs = readJSON('publications.json');
-    const all = [
-      ...(pubs.international_journals?.under_review || []),
-      ...(pubs.international_journals?.published || []),
-      ...(pubs.international_conferences || []),
-      ...(pubs.domestic_conferences || []),
-    ];
-    const used = new Set(Object.values(VENUE_COLORS));
-    for (const p of all) {
-      const key = venueKey(p.venue);
-      if (!key || venueColorMap.has(key)) continue;
-      let color = VENUE_COLORS[key];
-      if (!color) {
-        color = VENUE_PALETTE.find(c => !used.has(c)) || VENUE_PALETTE[venueColorMap.size % VENUE_PALETTE.length];
-        used.add(color);
-      }
-      venueColorMap.set(key, color);
+let venueNameMap = null;   // key → first full venue string seen (tooltips on news marks)
+function buildVenueMaps() {
+  venueColorMap = new Map();
+  venueNameMap = new Map();
+  const pubs = readJSON('publications.json');
+  const all = [
+    ...(pubs.international_journals?.under_review || []),
+    ...(pubs.international_journals?.published || []),
+    ...(pubs.international_conferences || []),
+    ...(pubs.domestic_conferences || []),
+  ];
+  const used = new Set(Object.values(VENUE_COLORS));
+  for (const p of all) {
+    const key = venueKey(p.venue);
+    if (!key || venueColorMap.has(key)) continue;
+    let color = VENUE_COLORS[key];
+    if (!color) {
+      color = VENUE_PALETTE.find(c => !used.has(c)) || VENUE_PALETTE[venueColorMap.size % VENUE_PALETTE.length];
+      used.add(color);
     }
+    venueColorMap.set(key, color);
+    venueNameMap.set(key, String(p.venue));
   }
-  return venueColorMap.get(venueKey(venue)) || VENUE_PALETTE[0];
+}
+function venueColorFor(venue) {
+  if (!venueColorMap) buildVenueMaps();
+  return venueColorMap.get(venueKey(venue)) || VENUE_COLORS[venueKey(venue)] || VENUE_PALETTE[0];
+}
+function venueFullName(venue) {
+  if (!venueNameMap) buildVenueMaps();
+  return venueNameMap.get(venueKey(venue)) || '';
 }
 
 // Only the short name gets the marker stroke: the trailing parenthetical

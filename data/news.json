@@ -2,41 +2,49 @@
   "news": [
     {
       "date": "09 Jul 2026",
-      "body": "Received the <strong>Best Student Paper Award (Sole Recipient (1st place), $800 USD)</strong> at the 2026 IEEE Wireless Power Technology Conference & Expo (WPTCE 2026)!",
+      "kind": "award",
+      "body": "<strong>Best Student Paper Award</strong> (1st place, sole recipient, $800) at {{WPTCE 2026}}",
       "tag": "1st Author"
     },
     {
       "date": "03 Jul 2026",
-      "body": "Awarded the <strong>IEEE MTT-S Student Travel Grant</strong> for the 2026 IEEE Wireless Power Technology Conference & Expo (WPTCE 2026), valued at $1,000 USD!",
+      "kind": "grant",
+      "body": "<strong>IEEE MTT-S Student Travel Grant</strong> ($1,000) for {{WPTCE 2026}}",
       "tag": "1st Author"
     },
     {
       "date": "18 Jun 2026",
-      "body": "Journal accepted in <strong>IEEE Transactions on Microwave Theory and Techniques (TMTT)</strong>!",
+      "kind": "paper",
+      "body": "Paper accepted in {{TMTT}}",
       "tag": "1st Author"
     },
     {
       "date": "11 Feb 2026",
-      "body": "Joined research project of <strong>LIG D&A</strong> for calibration of ultra-large-scale digital array antennas for space surveillance radar!",
+      "kind": "project",
+      "body": "Joined an <strong>LIG D&amp;A</strong> project on calibrating ultra-large-scale digital array antennas for space surveillance radar",
       "tag": "Project Lead"
     },
     {
       "date": "31 Oct 2025",
-      "body": "Selected as the <strong>Scholarship Recipient</strong> for Samsung Electronics Device Solution (DS), Foundry Division!"
+      "kind": "scholarship",
+      "body": "<strong>Samsung Electronics DS (Foundry)</strong> scholarship recipient"
     },
     {
       "date": "22 Jul 2025",
-      "body": "Journal accepted in <strong>IEEE Open Journal of Antennas and Propagation (OJAP)</strong>!",
+      "kind": "paper",
+      "body": "Paper accepted in {{OJAP}}",
       "tag": "Co-author"
     },
     {
       "date": "20 Jul 2025",
-      "body": "Journal accepted in <strong>IEEE Transactions on Antennas and Propagation (TAP)</strong>!",
+      "kind": "paper",
+      "body": "Paper accepted in {{TAP}}",
       "tag": "Co-author"
     },
     {
       "date": "06 Jun 2025",
-      "body": "Journal accepted in <strong>IEEE Antennas and Wireless Propagation Letters (AWPL)</strong>!",
+      "kind": "paper",
+      "body": "Paper accepted in {{AWPL}}",
       "tag": "1st Author"
     }
   ]

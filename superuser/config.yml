@@ -50,10 +50,23 @@ collections:
                 name: date
                 widget: string
                 hint: 'Display string. Convention: "DD Mon YYYY" (e.g., 11 Feb 2026).'
+              - label: Kind
+                name: kind
+                widget: select
+                required: false
+                default: ''
+                options:
+                  - { label: '(auto-detect from the text)', value: '' }
+                  - { label: 'Award', value: 'award' }
+                  - { label: 'Grant', value: 'grant' }
+                  - { label: 'Paper', value: 'paper' }
+                  - { label: 'Project', value: 'project' }
+                  - { label: 'Scholarship', value: 'scholarship' }
+                hint: 'Small category label shown before the item (AWARD / PAPER / …).'
               - label: Body
                 name: body
                 widget: text
-                hint: 'HTML allowed. Use <strong>...</strong> to bold key phrases.'
+                hint: 'Keep it to one short phrase. HTML allowed: <strong>…</strong> for the key noun phrase; {{TMTT}} or {{WPTCE 2026}} marks a venue acronym in the same highlighter color as on the Publications list.'
               - label: Tag
                 name: tag
                 widget: select
@@ -64,7 +77,7 @@ collections:
                   - { label: '1st Author', value: '1st Author' }
                   - { label: 'Co-author', value: 'Co-author' }
                   - { label: 'Project Lead', value: 'Project Lead' }
-                hint: 'Optional badge shown next to the news item.'
+                hint: 'Optional badge shown after the news item.'
 
   # -------------------- Press / media coverage (landing page) --------------
   - name: press

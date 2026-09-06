@@ -731,10 +731,12 @@ a:hover .ext-link-arrow {
   gap: 0.75rem;
 }
 
+/* One row = date · KIND label · body (+ author badge). The fixed label column
+   keeps the bodies aligned so the list scans like a table. */
 .news-item {
   display: grid;
-  grid-template-columns: 110px 1fr;
-  gap: 1rem;
+  grid-template-columns: 100px 7rem minmax(0, 1fr);
+  gap: 0.35rem 1rem;
   align-items: baseline;
   padding-bottom: 0.75rem;
   border-bottom: 1px dashed var(--border-color);
@@ -751,6 +753,22 @@ a:hover .ext-link-arrow {
   white-space: nowrap;
 }
 
+/* Monochrome category label — same pill language as the badges, quieter. */
+.news-item__kind {
+  display: inline-block;
+  justify-self: start;
+  padding: 2px 9px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  font-size: 0.6563rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  white-space: nowrap;
+}
+
 .news-item__body {
   color: var(--text-primary);
 }
@@ -758,6 +776,11 @@ a:hover .ext-link-arrow {
 .news-item__body strong {
   font-weight: 500;
   color: var(--text-primary);
+}
+
+/* Venue acronyms in news carry the same marker color as on the Publications list. */
+.news-item__body .venue-mark {
+  font-weight: 500;
 }
 
 /* ---------- Press / media coverage (home) ----------
@@ -843,11 +866,16 @@ a.press-item__title:hover {
 
 /* External links */
 
-@media (max-width: 480px) {
+/* Phones: date and label share the first line, the body takes the second. */
+@media (max-width: 640px) {
   .news-item {
-    grid-template-columns: 1fr;
-    gap: 0.25rem;
+    grid-template-columns: auto 1fr;
+    grid-template-areas: "date kind" "body body";
+    gap: 0.3rem 0.75rem;
   }
+  .news-item__date { grid-area: date; }
+  .news-item__kind { grid-area: kind; }
+  .news-item__body { grid-area: body; }
 }
 
 /* ---------- Publication Abstract / Keywords panels ----------

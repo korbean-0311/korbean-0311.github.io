@@ -157,13 +157,28 @@ function buildHeader() {
   return parts.join('\n');
 }
 
+// Same category guess as build-prerender.mjs (used when the CMS leaves `kind` empty).
+function newsKind(n) {
+  if (n.kind) return String(n.kind);
+  const t = String(n.body || '').toLowerCase();
+  if (/scholarship|fellowship/.test(t)) return 'scholarship';
+  if (/grant/.test(t)) return 'grant';
+  if (/award|prize|winner/.test(t)) return 'award';
+  if (/accepted|published|journal|paper/.test(t)) return 'paper';
+  if (/project|joined/.test(t)) return 'project';
+  return 'news';
+}
+
 function buildNews(newsData) {
   // Accept both legacy root-array and the wrapped { news: [...] } shape used by the CMS.
   const news = Array.isArray(newsData) ? newsData : (newsData?.news || []);
   const out = ['## Recent News\n'];
   for (const n of news) {
     const tag = n.tag ? ` _(${n.tag})_` : '';
-    out.push(`- **${n.date}** — ${stripHTML(n.body)}${tag}`);
+    const kind = newsKind(n);
+    const label = kind.charAt(0).toUpperCase() + kind.slice(1);
+    // {{TMTT}} venue tokens render as highlighter marks on the site; plain text here.
+    out.push(`- **${n.date}** — [${label}] ${stripHTML(unwrapTokens(n.body))}${tag}`);
   }
   out.push('');
   return out.join('\n');
