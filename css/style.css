@@ -560,11 +560,15 @@ main {
    clean. Desktop is unaffected (see the 769px block). */
 @media (max-width: 768px) {
   .layout {
-    grid-template-columns: 1fr;
+    /* minmax(0, 1fr), not a bare 1fr: a bare 1fr has an `auto` minimum, so
+       the sticky pill row on academics.html (a scroll container whose
+       min-content width is the full row of pills, ~630px) would widen the
+       track past the phone screen and make the whole page render zoomed out. */
+    grid-template-columns: minmax(0, 1fr);
     gap: 1.5rem;
     padding-top: calc(var(--nav-height) + 1rem);
   }
-  .profile { display: none; }
+  .profile { display: none; min-width: 0; }
   body[data-page="home"] .profile {
     display: block;
     position: static;
