@@ -1,20 +1,12 @@
 /* publications.js — enhance-only.
-   All five tab panels are pre-rendered into the HTML at build time
+   All four tab panels are pre-rendered into the HTML at build time
    (scripts/build-prerender.mjs, static-first). This script only wires the
-   interactions: tab switching, the 1st-author sort filter, and BibTeX copy.
-   No JSON fetch, no "Loading…" flash, no client-side rendering. */
+   interactions: tab switching and BibTeX copy. No JSON fetch, no "Loading…"
+   flash, no client-side rendering. */
 (function () {
   'use strict';
 
-  // Tabs that expose the "All / 1st Author" sort bar.
-  const SORTABLE_TABS = new Set(['international_journals', 'international_conferences']);
-
   const tabContent = document.getElementById('tab-content');
-  const sortBar = document.getElementById('sort-bar');
-
-  function activePanel() {
-    return document.querySelector('.tab-panel.is-active');
-  }
 
   function setActiveTabButton(tab) {
     document.querySelectorAll('.tab-btn').forEach(b => {
@@ -24,45 +16,13 @@
     });
   }
 
-  // Re-trigger the .tab-content fade-in, mirroring what the old renderer did on
-  // every tab switch (remove class → force reflow → re-add).
+  // Re-trigger the .tab-content fade-in on every tab switch
+  // (remove class → force reflow → re-add).
   function refade() {
     if (!tabContent) return;
     tabContent.classList.remove('tab-content');
     void tabContent.offsetWidth;
     tabContent.classList.add('tab-content');
-  }
-
-  // Apply (or clear) the 1st-author filter on one panel by toggling visibility
-  // of items, their enclosing groups, and the panel's "no entries" message.
-  function applySort(panel, sort) {
-    if (!panel) return;
-    const firstOnly = sort === 'first_author';
-
-    panel.querySelectorAll('.pub-item').forEach(item => {
-      item.hidden = firstOnly && item.getAttribute('data-first') !== '1';
-    });
-
-    // Hide a group whose items are all hidden.
-    panel.querySelectorAll('.pub-group').forEach(group => {
-      const items = group.querySelectorAll('.pub-item');
-      if (!items.length) return;
-      group.hidden = !Array.from(items).some(i => !i.hidden);
-    });
-
-    // Panel-level "No entries match this filter." (present in sortable list panels).
-    const empty = panel.querySelector('.pub-empty');
-    if (empty) {
-      const anyVisible = Array.from(panel.querySelectorAll('.pub-item')).some(i => !i.hidden);
-      empty.hidden = !(firstOnly && !anyVisible);
-    }
-  }
-
-  function resetSort(panel) {
-    document.querySelectorAll('.sort-btn').forEach(b => {
-      b.classList.toggle('is-active', b.dataset.sort === 'all');
-    });
-    applySort(panel, 'all');
   }
 
   function selectTab(tab) {
@@ -71,9 +31,6 @@
     });
     setActiveTabButton(tab);
     if (tabContent) tabContent.setAttribute('data-current-tab', tab);
-    if (sortBar) sortBar.hidden = !SORTABLE_TABS.has(tab);
-    // Switching tabs resets the sort back to "All".
-    resetSort(document.querySelector('.tab-panel[data-tab="' + tab + '"]'));
     refade();
   }
 
@@ -126,18 +83,10 @@
     toast(copied ? 'BibTeX copied' : 'Copy failed — please try again');
   });
 
-  /* ---------- Boot: wire tab + sort buttons ---------- */
+  /* ---------- Boot: wire tab buttons ---------- */
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => selectTab(btn.dataset.tab));
-    });
-    document.querySelectorAll('.sort-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.sort-btn').forEach(b => {
-          b.classList.toggle('is-active', b === btn);
-        });
-        applySort(activePanel(), btn.dataset.sort);
-      });
     });
   });
 })();

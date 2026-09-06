@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <script>(function(){try{var t=localStorage.getItem('theme')||'dark';if(t==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+  <script>document.documentElement.setAttribute('data-js','1');(function(){try{if(localStorage.getItem('theme')==='dark')document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Contact — Young-Seok Lee</title>
@@ -23,16 +23,19 @@
   <div data-mount-nav>
     <!-- Annotated site guide for AI crawlers and non-JS clients. JS replaces this whole div on load, so humans never see it. -->
     <nav aria-label="Site navigation (text-only fallback)">
-      <p><strong>Site guide</strong> — this site has 8 sections:</p>
+      <p><strong>Site guide</strong> — this site has 3 pages. "Academics" is one long page holding five sections, each reachable by its own anchor (#…), so the whole academic record is a single fetch:</p>
       <ul>
         <li><a href="index.html">Home</a> — biography, research interests, recent news, and press coverage ("In the News")</li>
-        <li><a href="education.html">Education</a> — academic timeline (Ph.D. &amp; M.S. at Seoul National University, B.S. at Korea University) with advisors</li>
-        <li><a href="publications.html">Publications</a> — international journals (abstracts, keywords, BibTeX), international &amp; domestic conferences, patents</li>
-        <li><a href="awards.html">Awards &amp; Honors</a> — paper awards, conference grants &amp; travel, scholarships &amp; fellowships, invited papers, competitions</li>
-        <li><a href="research.html">Research</a> — graduate &amp; undergraduate research projects with organizations, periods, and summaries</li>
-        <li><a href="others.html">Others</a> — reviewer activities, teaching assistantships, coursework, programming skills</li>
-        <li><a href="cv.html">CV</a> — curriculum vitae (inline viewer + PDF download)</li>
-        <li><a href="contact.html">Contact</a> — lab, location, LinkedIn</li>
+        <li><a href="academics.html">Academics</a> — one long page with five sections:
+          <ul>
+            <li><a href="academics.html#education">Education</a> — academic timeline (Ph.D. &amp; M.S. at Seoul National University, B.S. at Korea University) with advisors</li>
+            <li><a href="academics.html#publications">Publications</a> — international journals (abstracts, keywords, BibTeX), international &amp; domestic conferences, patents</li>
+            <li><a href="academics.html#awards">Awards &amp; Honors</a> — paper awards, conference grants &amp; travel, scholarships &amp; fellowships, invited papers, competitions</li>
+            <li><a href="academics.html#research">Research</a> — graduate &amp; undergraduate research projects with organizations, periods, and summaries</li>
+            <li><a href="academics.html#others">Others</a> — reviewer activities, teaching assistantships, coursework, programming skills</li>
+          </ul>
+        </li>
+        <li><a href="contact.html">Contact</a> — lab, location, LinkedIn (you are here)</li>
       </ul>
       <p>Complete content of every section in a single file: <a href="/llms-full.txt">/llms-full.txt</a> (short index: <a href="/llms.txt">/llms.txt</a>)</p>
     </nav>

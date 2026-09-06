@@ -4,7 +4,7 @@
 
 Site: https://korbean-0311.github.io/
 
-CV (PDF): https://korbean-0311.github.io/pdfs/cv.pdf
+Pages: Home (https://korbean-0311.github.io/) · Academics — one long page with Education, Publications, Awards & Honors, Research, Others (https://korbean-0311.github.io/academics.html) · Contact (https://korbean-0311.github.io/contact.html)
 
 ## About
 
@@ -547,4 +547,4 @@ I have collaborated with industry partners — including Samsung Electronics on 
 _Email omitted; please reach out via LinkedIn or the lab homepage._
 
 ---
-_Generated automatically from data/*.json on 2026-09-01._
+_Generated automatically from data/*.json on 2026-09-06._

@@ -7,9 +7,12 @@
  * WHAT IT DOES
  *   1. STATIC_PAGES: replaces the content between `<!-- R:key:START -->` /
  *      `<!-- R:key:END -->` markers in each page with freshly rendered HTML.
+ *      index.html gets news + press; academics.html gets every other section
+ *      (education, publications, awards, research, others) on one long page.
  *   2. Injects the publications JSON-LD (<head>) between the AI-JSONLD markers.
- *   3. Injects the shared profile sidebar between the PROFILE markers.
- *   The browser JS only enhances (tabs, sort, BibTeX copy, "show more").
+ *   3. Injects the shared profile sidebar between the PROFILE markers (with the
+ *      "On this page" section index on academics.html).
+ *   The browser JS only enhances (tabs, BibTeX copy, "show more", scroll-spy).
  *
  * IDEMPOTENT
  *   Each region is rewritten between its markers, so re-running is safe.
@@ -220,7 +223,7 @@ function researchUndergradGroup(g) {
         </article>`;
 }
 function researchSectionHTML(section) {
-  const title = `<h2 class="research-section__title">${esc(section.title)}</h2>`;
+  const title = `<h3 class="research-section__title">${esc(section.title)}</h3>`;
   if (section.type === 'graduate') {
     const projects = (section.projects || []).map(researchProjectCard).join('');
     return `
@@ -312,7 +315,7 @@ function othersRenderCoursework() {
   const data = readJSON('others.json');
   return (data.coursework || []).map(g => `
           <div class="coursework-group">
-            <h3 class="coursework-group__title">${esc(g.school)}</h3>
+            <h4 class="coursework-group__title">${esc(g.school)}</h4>
             <ul class="coursework-list">${(g.courses || []).map(c => {
               if (typeof c === 'string') return `<li>${esc(c)}</li>`;
               const note = c.note ? ` <em class="coursework-note">(${esc(c.note)})</em>` : '';
@@ -349,7 +352,7 @@ function othersRenderProgramming() {
       inner = cat.subgroups.map(sg => {
         if (sg.skills && sg.skills.length) {
           return `<div class="skill-subgroup">
-                  <h4 class="skill-subgroup__title">${esc(sg.label)}</h4>
+                  <h5 class="skill-subgroup__title">${esc(sg.label)}</h5>
                   ${othersRenderSkills(sg.skills)}
                 </div>`;
         }
@@ -361,23 +364,85 @@ function othersRenderProgramming() {
       inner = `<ul class="prog-list">${cat.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
     }
     return `<div class="prog-group">
-            <h3 class="prog-group__title">${esc(cat.category)}</h3>
+            <h4 class="prog-group__title">${esc(cat.category)}</h4>
             ${inner}
           </div>`;
   }).join('');
 }
 
 // -- Publications (static-first) -----------------------------------------
-// Ported verbatim from js/publications.js so the rendered markup is identical
-// to what the browser used to produce. Differences are intentional and minimal:
+// Ported from js/publications.js so the rendered markup is identical to what
+// the browser used to produce. Differences are intentional and minimal:
 //   • author highlight uses <span class="me"> (the browser's highlightAuthor),
 //     NOT the <strong> used by the AI fallback above;
-//   • each .pub-item / .award-item carries data-first ("1" when it has the
-//     "1st Author" tag) so the enhance script can drive the sort filter;
+//   • each .pub-item carries data-first ("1" when it has the "1st Author" tag)
+//     — CSS gives those an accent edge;
 //   • every tab is rendered as a .tab-panel (all visible to no-JS crawlers;
 //     CSS shows only the active one once JS is present).
 function pubHasFirstAuthorTag(item) {
   return Array.isArray(item.tags) && item.tags.indexOf('1st Author') !== -1;
+}
+
+// Venue highlighter colors — one pastel "marker" per journal / conference
+// SERIES, so every TMTT paper shares a color, every WPTCE paper another, etc.
+// Keys are the acronym in the venue's parentheses ("(TMTT)", "(WPTCE 2025)")
+// or, failing that, the venue text with years/seasons stripped. Venues not
+// listed here get the next unused palette color (stable across builds because
+// assignment follows the order of first appearance in publications.json).
+const VENUE_COLORS = {
+  'TMTT': '#FFE66D',       // yellow
+  'TAP': '#B5F0B0',        // mint
+  'AWPL': '#FFB8DE',       // pink
+  'OJAP': '#BFC8FF',       // periwinkle
+  'JEES': '#FFC48C',       // orange
+  'WPTCE': '#A9E2FF',      // sky
+  'IMS': '#DDB8FF',        // lavender
+  'ISAP': '#DDF59A',       // lime
+  'APMC': '#A5F0E6',       // aqua
+  'URSI GASS': '#FFB3B3',  // coral
+  'KIEES CONF.': '#E4E4E4' // neutral gray for the domestic series
+};
+const VENUE_PALETTE = ['#FFE66D', '#B5F0B0', '#FFB8DE', '#BFC8FF', '#FFC48C', '#A9E2FF',
+  '#DDB8FF', '#DDF59A', '#A5F0E6', '#FFB3B3', '#E4E4E4', '#F5D0A9', '#C8E7D8', '#EAD1FF'];
+
+function venueKey(venue) {
+  const s = String(venue || '');
+  const m = s.match(/\(([A-Za-z][A-Za-z/&.\- ]*?)\s*(?:19|20)?\d{0,4}\)/);
+  if (m && m[1].trim()) return m[1].trim().toUpperCase();
+  return s.replace(/\b(19|20)\d{2}\b/g, '')
+    .replace(/\b(Winter|Summer|Autumn|Spring|Fall)\b/gi, '')
+    .replace(/\s+/g, ' ').trim().toUpperCase();
+}
+
+let venueColorMap = null;
+function venueColorFor(venue) {
+  if (!venueColorMap) {
+    venueColorMap = new Map();
+    const pubs = readJSON('publications.json');
+    const all = [
+      ...(pubs.international_journals?.under_review || []),
+      ...(pubs.international_journals?.published || []),
+      ...(pubs.international_conferences || []),
+      ...(pubs.domestic_conferences || []),
+    ];
+    const used = new Set(Object.values(VENUE_COLORS));
+    for (const p of all) {
+      const key = venueKey(p.venue);
+      if (!key || venueColorMap.has(key)) continue;
+      let color = VENUE_COLORS[key];
+      if (!color) {
+        color = VENUE_PALETTE.find(c => !used.has(c)) || VENUE_PALETTE[venueColorMap.size % VENUE_PALETTE.length];
+        used.add(color);
+      }
+      venueColorMap.set(key, color);
+    }
+  }
+  return venueColorMap.get(venueKey(venue)) || VENUE_PALETTE[0];
+}
+
+function venueMarkHTML(venue) {
+  if (!venue) return '';
+  return `<span class="pub-item__venue venue-mark" data-venue="${esc(venueKey(venue))}" style="--marker-color:${venueColorFor(venue)}">${esc(venue)}</span>`;
 }
 
 // Mirror of main.js highlightAuthor: wrap the owner's name in <span class="me">.
@@ -436,7 +501,7 @@ function pubItemHTML(p, opts) {
   const authors = highlightAuthorMe(p.authors, p.highlight_author);
   const tagsHTML = (p.tags || []).map(t => `<span class="badge--tag badge">${esc(t)}</span>`).join('');
   const details = p.details ? `<span class="pub-item__details">${esc(p.details)}</span>` : '';
-  const venue = p.venue ? `<span class="pub-item__venue">${esc(p.venue)}</span>` : '';
+  const venue = venueMarkHTML(p.venue);
   const titleSuffix = opts.bareTitle ? '' : ',';
   const titleQuote = opts.bareTitle ? '' : '"';
   const venuePrefix = opts.bareTitle ? '' : 'in ';
@@ -480,19 +545,15 @@ function pubJournalsHTML(DATA) {
   if (pub.length) {
     html += `<div class="pub-group"><div class="pub-group__title">Published Journals</div><ul class="pub-list">${pub.map(p => pubItemHTML(p, opts)).join('')}</ul></div>`;
   }
-  if (!html) return `<p class="loading">No entries match this filter.</p>`;
-  // Hidden until the 1st-author filter yields nothing (toggled by the enhance JS).
-  return html + `<p class="loading pub-empty" hidden>No entries match this filter.</p>`;
+  return html || `<p class="loading">No entries yet.</p>`;
 }
 
-function pubListHTML(items, title, opts, sortable) {
+function pubListHTML(items, title, opts) {
   const arr = items || [];
-  if (!arr.length) return `<p class="loading">No entries match this filter.</p>`;
+  if (!arr.length) return `<p class="loading">No entries yet.</p>`;
   // NB: title is a trusted literal — left un-escaped to match the browser
   // (e.g. the apostrophe in "Int'l Conferences" must stay literal).
-  const group = `<div class="pub-group"><div class="pub-group__title">${title}</div><ul class="pub-list">${arr.map(p => pubItemHTML(p, opts)).join('')}</ul></div>`;
-  const empty = sortable ? `<p class="loading pub-empty" hidden>No entries match this filter.</p>` : '';
-  return group + empty;
+  return `<div class="pub-group"><div class="pub-group__title">${title}</div><ul class="pub-list">${arr.map(p => pubItemHTML(p, opts)).join('')}</ul></div>`;
 }
 
 function pubPatentItemHTML(p) {
@@ -525,7 +586,7 @@ function pubAwardItemHTML(a) {
   // as the home-page press cards.
   const title = a.title ? `<strong class="award-name">${esc(a.title)}</strong>` : '';
   const hl = a.highlight ? ` <em class="award-highlight">(${esc(a.highlight)})</em>` : '';
-  // "Co-author" is a filter-only marker (not shown as a badge). Every other
+  // "Co-author" is a data-only marker (not shown as a badge). Every other
   // tag (e.g. "1st Author") still renders as a visible badge.
   const tags = (a.tags || []).filter(t => t !== 'Co-author')
     .map(t => `<span class="badge--tag badge">${esc(t)}</span>`).join('');
@@ -534,19 +595,14 @@ function pubAwardItemHTML(a) {
   const date = a.date ? `<span class="award-date">${esc(a.date)}</span>` : '';
   const sub = (venue || date) ? `
           <div class="award-item__sub">${venue}${date}</div>` : '';
-  // Awards are personal honors, so an item is "mine" (survives the 1st-Author
-  // filter) UNLESS it is explicitly tagged "Co-author" — that only excludes
-  // co-authored papers (e.g. a best-paper award led by a collaborator), while
-  // scholarships/fellowships/grants without any tag always stay visible.
-  const first = (a.tags || []).includes('Co-author') ? '0' : '1';
-  return `<li class="award-item" data-first="${first}">
+  return `<li class="award-item">
           <div class="award-item__main">${title}${hl}${tagsHTML}</div>${sub}
         </li>`;
 }
 
 // Render the four publication tabs as panels. Journals is active; the rest are
 // visible to no-JS clients and hidden by CSS (html[data-js] .tab-panel:not(.is-active))
-// once JavaScript loads. (Awards moved to their own page — see renderAwardsPage.)
+// once JavaScript loads.
 function renderPublicationsTabs() {
   const DATA = readJSON('publications.json');
   const panel = (tab, active, inner) =>
@@ -554,24 +610,23 @@ function renderPublicationsTabs() {
   return [
     panel('international_journals', true, pubJournalsHTML(DATA)),
     panel('international_conferences', false,
-      pubListHTML(DATA.international_conferences, "Int'l Conferences", { bareTitle: true, splitMeta: true, withDividers: true }, true)),
+      pubListHTML(DATA.international_conferences, "Int'l Conferences", { bareTitle: true, splitMeta: true, withDividers: true })),
     panel('domestic_conferences', false,
-      pubListHTML(DATA.domestic_conferences, 'Domestic Conferences (KIEES)', { bareTitle: true, withDividers: true }, false)),
+      pubListHTML(DATA.domestic_conferences, 'Domestic Conferences (KIEES)', { bareTitle: true, withDividers: true })),
     panel('patents', false, pubPatentsHTML(DATA.patents)),
   ].join('\n      ');
 }
 
-// Awards & Honors — its own top-level page (data/awards.json). One card per
-// category; no tabs or sort filter, just a flat set of grouped award cards.
-// Reuses pubAwardItemHTML so the item markup matches the old awards tab.
-function renderAwardsPage() {
+// Awards & Honors (data/awards.json): one card per category, headed by an
+// <h3> because the whole block sits under the page's "03 Awards & Honors" <h2>.
+function renderAwards() {
   const groups = readJSON('awards.json').awards || [];
   if (!groups.length) return `<p class="loading">No entries yet.</p>`;
   return groups.map(group => {
     const items = group.items || [];
     if (!items.length) return '';
     return `<div class="award-group">
-        <h2 class="award-group__title">${esc(group.category || '')}</h2>
+        <h3 class="award-group__title">${esc(group.category || '')}</h3>
         <ul class="award-list">${items.map(pubAwardItemHTML).join('')}</ul>
       </div>`;
   }).filter(Boolean).join('\n      ');
@@ -589,7 +644,36 @@ function injectRegion(html, key, content) {
 // Defined once and injected into every page's left column (between the
 // PROFILE markers) so all pages stay in sync. It is static HTML, so AI /
 // non-JS crawlers read the name, affiliation, and links on every page.
-function buildProfile() {
+
+// The five sections of academics.html, in page order. Also the source of the
+// numbering ("01" …) used by the section headings, so keep it in sync with
+// the <section id> order in academics.html and with NAV_SECTIONS in js/main.js.
+const ACADEMIC_SECTIONS = [
+  ['education', 'Education'],
+  ['publications', 'Publications'],
+  ['awards', 'Awards &amp; Honors'],
+  ['research', 'Research'],
+  ['others', 'Others'],
+];
+
+// "On this page" index (academics.html only): links to every section with its
+// number. Lives inside the sticky aside so it stays in view on desktop; the
+// mobile CSS turns the same list into a pill bar under the top nav.
+function buildSideIndex() {
+  const items = ACADEMIC_SECTIONS.map(([id, label], i) =>
+    `<li><a href="#${id}" data-section-link="${id}"><span class="side-index__num">${String(i + 1).padStart(2, '0')}</span><span>${label}</span></a></li>`
+  ).join('\n          ');
+  return `
+      <nav class="side-index" aria-label="On this page">
+        <p class="side-index__title">On this page</p>
+        <ol>
+          ${items}
+        </ol>
+      </nav>`;
+}
+
+function buildProfile(opts) {
+  opts = opts || {};
   // The <details> MUST stay `open`. The profile is never collapsed anymore (its
   // <summary> toggle is CSS-hidden at every breakpoint), and a *closed* <details>
   // collapses to ~0 height even when .profile__body is forced display:block —
@@ -610,7 +694,7 @@ function buildProfile() {
             <li><a href="http://wfl.snu.ac.kr/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5L12 3l9 6.5"/><path d="M5 9v11h14V9"/><path d="M10 20v-6h4v6"/></svg>Lab Homepage</a></li>
           </ul>
         </div>
-      </details>
+      </details>${opts.withIndex ? buildSideIndex() : ''}
     </aside>`;
 }
 
@@ -619,11 +703,11 @@ function buildProfile() {
 // Each entry maps a file to the regions it fills.
 const STATIC_PAGES = {
   'index.html': [['news', renderNews], ['press', renderPress]],
-  'education.html': [['education', renderEducationTimeline]],
-  'publications.html': [['publications', renderPublicationsTabs]],
-  'awards.html': [['awards', renderAwardsPage]],
-  'research.html': [['research', renderResearch]],
-  'others.html': [
+  'academics.html': [
+    ['education', renderEducationTimeline],
+    ['publications', renderPublicationsTabs],
+    ['awards', renderAwards],
+    ['research', renderResearch],
     ['reviewer', othersRenderReviewer],
     ['ta', othersRenderTA],
     ['coursework', othersRenderCoursework],
@@ -653,9 +737,9 @@ function main() {
     console.log(`Rendered static content into ${file} (${regions.map(r => r[0]).join(', ')})`);
   }
 
-  // 2) ScholarlyArticle JSON-LD in <head> of the publications page.
+  // 2) ScholarlyArticle JSON-LD in <head> of the page that lists the papers.
   {
-    const filePath = path.join(ROOT, 'publications.html');
+    const filePath = path.join(ROOT, 'academics.html');
     let html = fs.readFileSync(filePath, 'utf8');
     const ld = buildPublicationsJsonLd();
     const block = `${JSONLD_START}\n  `
@@ -663,21 +747,21 @@ function main() {
       + `  ${JSONLD_END}`;
     html = replaceMarked(html, JSONLD_START, JSONLD_END, block, '</head>');
     fs.writeFileSync(filePath, html, 'utf8');
-    console.log(`Injected publications JSON-LD into publications.html (${block.length} bytes)`);
+    console.log(`Injected publications JSON-LD into academics.html (${block.length} bytes)`);
   }
 
-  // 3) Shared profile sidebar in the left column of every page.
+  // 3) Shared profile sidebar in the left column of every page (academics.html
+  //    additionally gets the "On this page" section index).
   {
-    const profile = buildProfile();
-    const block = `${PROFILE_START}\n    ${profile}\n    ${PROFILE_END}`;
-    const pages = ['index.html', 'education.html', 'publications.html', 'awards.html', 'research.html', 'others.html', 'cv.html', 'contact.html'];
-    for (const file of pages) {
+    const pages = [['index.html', {}], ['academics.html', { withIndex: true }], ['contact.html', {}]];
+    for (const [file, opts] of pages) {
       const filePath = path.join(ROOT, file);
       let html = fs.readFileSync(filePath, 'utf8');
       if (!new RegExp(escRe(PROFILE_START)).test(html)) {
         console.warn(`  ${file}: no PROFILE markers — skipped`);
         continue;
       }
+      const block = `${PROFILE_START}\n    ${buildProfile(opts)}\n    ${PROFILE_END}`;
       html = replaceMarked(html, PROFILE_START, PROFILE_END, block, '</main>');
       fs.writeFileSync(filePath, html, 'utf8');
       console.log(`Injected profile into ${file}`);

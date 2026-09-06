@@ -13,18 +13,22 @@ html[data-js] [data-mount-nav] { display: none !important; }
 
 /* ---------- CSS Variables ---------- */
 :root {
-  /* Light theme: white paper + near-black ink, with a single deep-maroon
-     accent for hover/active states (palette borrowed from the reference
-     site) — replaces the old beige + navy/sky scheme. */
+  /* Light theme (the default) — the reference palette of sehyunryu.github.io:
+     white paper, near-black ink, a deep-maroon accent for hover/emphasis, warm
+     grays for meta text and hairlines, and a pale sky line between sections. */
   --bg-primary: #FFFFFF;
   --bg-surface: #F7F7F7;
   --color-primary: #111111;
   --color-secondary: #7A7A7A;
   --color-accent: #5A2D26;
+  --color-accent-hover: #3F1F1A;
   --color-warm: #B45309;
   --text-primary: #111111;
-  --text-secondary: #555555;
+  --text-secondary: #7A7A7A;
   --border-color: #D8D8D8;
+  --line-soft: #DCEEF6;
+  --sky: #87CBE8;
+  --sky-soft: #F0F9FD;
 
   --nav-height: 60px;
   --content-max: 720px;
@@ -34,17 +38,24 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
   /* Display serif for the name and page/section titles only — body stays Inter. */
   --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  /* Small numerals (section numbers, menu numbers) — system mono, no webfont. */
+  --font-mono: 'IBM Plex Mono', 'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
 }
 
+/* Dark theme is kept working behind the toggle but is not the design target. */
 [data-theme="dark"] {
   --bg-primary: #0F172A;
   --bg-surface: #1E293B;
   --color-primary: #93C5FD;
   --color-secondary: #94A3B8;
   --color-accent: #38BDF8;
+  --color-accent-hover: #7DD3FC;
   --text-primary: #F1F5F9;
   --text-secondary: #94A3B8;
   --border-color: #334155;
+  --line-soft: #334155;
+  --sky: #38BDF8;
+  --sky-soft: #1E293B;
   --color-warm: #FB923C;
 }
 
@@ -71,9 +82,8 @@ html[data-js] [data-mount-nav] { display: none !important; }
 }
 
 /* The `hidden` attribute must always hide — even on elements with an explicit
-   display (.pub-item is display:grid, .sort-bar is display:flex), which would
-   otherwise override the UA [hidden] rule. The publications 1st-author filter
-   and the sort-bar tab toggle both rely on this. */
+   display (e.g. .show-more-btn, grid/flex items), which would otherwise
+   override the UA [hidden] rule. */
 [hidden] { display: none !important; }
 
 html {
@@ -110,7 +120,7 @@ a {
 }
 
 a:hover {
-  color: var(--color-accent);
+  color: var(--color-accent-hover);
 }
 
 ul {
@@ -180,7 +190,8 @@ button {
     /* Slight separator from the theme toggle button on the far right */
     margin-right: 0.5rem;
   }
-  .topnav__links a {
+  .topnav__links > a,
+  .topnav__item > a {
     font-size: 0.9375rem;
     font-weight: 500;
     color: var(--text-secondary);
@@ -189,13 +200,103 @@ button {
     transition: color 0.2s ease, border-color 0.2s ease;
     white-space: nowrap;
   }
-  .topnav__links a:hover {
+  .topnav__links > a:hover,
+  .topnav__item > a:hover {
     color: var(--text-primary);
   }
-  .topnav__links a.is-active {
+  .topnav__links > a.is-active,
+  .topnav__item > a.is-active {
     color: var(--color-accent);
     border-bottom-color: var(--color-accent);
   }
+
+  /* "Academics" is a group: its link opens the long page, the caret (or a
+     hover) reveals the five sections inside it as direct anchor links. */
+  .topnav__item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+  }
+  .topnav__caret {
+    width: 22px;
+    height: 22px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-secondary);
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+  }
+  .topnav__caret svg { width: 14px; height: 14px; }
+  .topnav__caret:hover,
+  .topnav__item:hover .topnav__caret,
+  .topnav__item.is-open .topnav__caret { color: var(--text-primary); }
+  .topnav__item:hover .topnav__caret svg,
+  .topnav__item.is-open .topnav__caret svg { transform: rotate(180deg); }
+  .topnav__caret svg { transition: transform 0.2s ease; }
+
+  .topnav__dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: -0.75rem;
+    min-width: 230px;
+    padding: 0.4rem;
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: 0 12px 32px color-mix(in srgb, var(--color-primary) 12%, transparent);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-4px);
+    transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0.15s;
+    z-index: 1001;
+  }
+  /* Invisible bridge so the pointer can travel from the link down to the panel. */
+  .topnav__dropdown::before {
+    content: "";
+    position: absolute;
+    left: 0; right: 0;
+    top: -12px;
+    height: 12px;
+  }
+  .topnav__item:hover .topnav__dropdown,
+  .topnav__item:focus-within .topnav__dropdown,
+  .topnav__item.is-open .topnav__dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition-delay: 0s;
+  }
+  .topnav__dropdown a {
+    display: grid;
+    grid-template-columns: 1.6rem 1fr;
+    align-items: baseline;
+    padding: 0.5rem 0.75rem;
+    border-radius: 7px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    white-space: nowrap;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+  .topnav__dropdown a:hover {
+    background: var(--bg-surface);
+    color: var(--color-accent);
+  }
+  .topnav__dropdown a.is-active {
+    color: var(--color-accent);
+  }
+  .topnav__dropdown .dd-num {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    color: var(--text-secondary);
+  }
+  .topnav__dropdown a.is-active .dd-num { color: var(--color-accent); }
   /* Hide mobile-only hamburger button on desktop.
      !important defends against the .icon-btn { display: inline-flex } base rule
      which has the same specificity. */
@@ -305,7 +406,9 @@ button {
   flex: 1;
 }
 
-.menu-list a {
+.menu-list > li { margin: 0; }
+
+.menu-list > li > a {
   display: grid;
   grid-template-columns: 2.25rem 1fr auto;
   align-items: center;
@@ -320,7 +423,7 @@ button {
 }
 
 .menu-list .menu-num {
-  font-family: 'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   letter-spacing: 0.04em;
   color: var(--text-secondary);
@@ -338,30 +441,51 @@ button {
   flex-shrink: 0;
 }
 
-.menu-list a:hover {
+.menu-list > li > a:hover {
   background: var(--bg-surface);
   color: var(--color-accent);
   padding-left: 1.75rem;
 }
 
-.menu-list a:hover .menu-num {
+.menu-list > li > a:hover .menu-num {
   color: var(--color-accent);
 }
 
-.menu-list a:hover .menu-arrow {
+.menu-list > li > a:hover .menu-arrow {
   opacity: 1;
   transform: translateX(0);
 }
 
-.menu-list a.is-active {
+.menu-list > li > a.is-active {
   color: var(--color-primary);
   border-left-color: var(--color-primary);
   background: var(--bg-surface);
 }
 
-.menu-list a.is-active .menu-num {
+.menu-list > li > a.is-active .menu-num {
   color: var(--color-primary);
 }
+
+/* Sections of the Academics page, nested under its menu entry. */
+.menu-sublist {
+  list-style: none;
+  margin: 0;
+  padding: 0.15rem 0 0.6rem calc(1.5rem + 3px + 2.25rem + 0.5rem);
+}
+
+.menu-sublist li { margin: 0; }
+
+.menu-sublist a {
+  display: block;
+  padding: 0.4rem 0;
+  font-size: 0.9375rem;
+  color: var(--text-secondary);
+  transition: color 0.2s ease;
+}
+
+.menu-sublist a:hover { color: var(--text-primary); }
+
+.menu-sublist a.is-active { color: var(--color-accent); font-weight: 500; }
 
 .menu-panel__footer {
   padding: 1rem 1.5rem 1.25rem;
@@ -480,6 +604,10 @@ main {
   /* Thin vertical divider between the sidebar and the content, with breathing room each side */
   .layout { grid-template-columns: 210px minmax(0, 1fr); gap: 3.25rem; }
   .layout > .page-content { border-left: 1px solid var(--border-color); padding-left: 3.25rem; }
+  /* On short viewports the sticky column (profile + section index) scrolls
+     within itself instead of being cut off; the scrollbar stays hidden. */
+  .profile { max-height: calc(100vh - var(--nav-height) - 2rem); overflow-y: auto; scrollbar-width: none; }
+  .profile::-webkit-scrollbar { display: none; }
 }
 
 @media (min-width: 768px) {
@@ -1050,6 +1178,33 @@ html[data-js] .tab-panel.is-active { display: block; }
   color: var(--color-primary);
 }
 
+/* Highlighter stroke behind the venue name. The build assigns one
+   --marker-color per journal / conference series (same venue → same color),
+   so a reader can spot every TMTT or WPTCE entry at a glance. The slightly
+   skewed gradient and the side "bleed" make it read as a real marker line;
+   box-decoration-break keeps the stroke continuous when the name wraps. */
+.venue-mark {
+  --marker-color: var(--sky-soft);
+  padding: 0.04em 0.12em;
+  box-shadow: 0.07em 0 0 var(--marker-color), -0.07em 0 0 var(--marker-color);
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+  background-image: linear-gradient(177deg, transparent 0 2%, var(--marker-color) 2.5% 97%, transparent 97.5% 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: 50%;
+  color: var(--color-primary);
+}
+
+/* Pastel markers vanish on a navy page — tint the stroke instead. */
+[data-theme="dark"] .venue-mark {
+  background-image: linear-gradient(177deg, transparent 0 2%,
+    color-mix(in srgb, var(--marker-color) 32%, transparent) 2.5% 97%, transparent 97.5% 100%);
+  box-shadow: 0.07em 0 0 color-mix(in srgb, var(--marker-color) 32%, transparent),
+    -0.07em 0 0 color-mix(in srgb, var(--marker-color) 32%, transparent);
+  color: var(--text-primary);
+}
+
 .pub-item__details {
   color: var(--text-secondary);
 }
@@ -1136,43 +1291,6 @@ html[data-js] .tab-panel.is-active { display: block; }
 
 .pub-btn:hover { transform: translateY(-1px); }
 
-/* Sort bar (filter chips above tab content) */
-.sort-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin: 0 0 1.25rem;
-  font-size: 0.875rem;
-}
-
-.sort-bar__label {
-  color: var(--text-secondary);
-  margin-right: 0.25rem;
-}
-
-.sort-btn {
-  border: 1px solid var(--border-color);
-  background: transparent;
-  color: var(--text-secondary);
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
-  cursor: pointer;
-  font: inherit;
-  transition: background-color 160ms ease, color 160ms ease, border-color 160ms ease;
-}
-
-.sort-btn:hover {
-  color: var(--text-primary);
-  border-color: var(--text-primary);
-}
-
-.sort-btn.is-active {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-  border-color: var(--text-primary);
-  box-shadow: 0 2px 8px color-mix(in srgb, var(--text-primary) 25%, transparent);
-}
-
 /* DOI = warm amber */
 .pub-btn--doi {
   color: var(--color-warm);
@@ -1214,8 +1332,6 @@ html[data-js] .tab-panel.is-active { display: block; }
   color: var(--bg-primary);
   border-color: #F87171;
 }
-
-/* Sort-by filter row */
 
 /* Toast for BibTeX copy feedback */
 .pub-toast {
@@ -1411,15 +1527,7 @@ html[data-js] .tab-panel.is-active { display: block; }
   gap: 1rem;
 }
 
-.research-section__title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--color-primary);
-  margin: 0;
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid var(--border-color);
-  letter-spacing: -0.005em;
-}
+/* .research-section__title is styled with .others-heading (Academics block). */
 
 .research-section__projects {
   display: flex;
@@ -1897,16 +2005,15 @@ html[data-js] .tab-panel.is-active { display: block; }
   #tab-content .patent-item__title { font-size: calc(0.9375rem - 1pt); }
   #tab-content .patent-item__meta li { font-size: calc(0.875rem - 1pt); }  /* .patent-label inherits */
   #tab-content .pub-item__title { font-size: calc(1rem - 1pt); }
-  #tab-content .award-item { font-size: calc(0.9375rem - 1pt); }       /* name/highlight inherit */
-  #tab-content .award-item__sub { font-size: calc(0.8125rem - 1pt); }
-  #tab-content .award-group__title { font-size: calc(0.9375rem - 1pt); }
+  #awards-content .award-item { font-size: calc(0.9375rem - 1pt); }       /* name/highlight inherit */
+  #awards-content .award-item__sub { font-size: calc(0.8125rem - 1pt); }
+  #awards-content .award-group__title { font-size: calc(0.9375rem - 1pt); }
+  #awards-content .badge--tag { font-size: calc(0.75rem - 1pt); }
 }
 
-/* ---------- Mobile: trim Others page text −1pt ----------
-   Others-only classes are targeted directly; the generic section <h2> is scoped
-   to body[data-page="others"] so Research section titles aren't affected. */
+/* ---------- Mobile: trim Others section text −1pt ---------- */
 @media (max-width: 640px) {
-  body[data-page="others"] section h2 { font-size: calc(1.5rem - 1pt); }  /* Reviewer Activities, etc. */
+  .others-heading { font-size: calc(1.25rem - 1pt); }  /* Reviewer Activities, etc. */
   .others-list li { font-size: calc(0.95rem - 1pt); }                     /* em inherits */
   .coursework-group__title { font-size: calc(1rem - 1pt); }
   .coursework-list li { font-size: calc(0.9375rem - 1pt); }
@@ -1996,7 +2103,6 @@ a.press-item__title:hover,
 
 /* Pill buttons press down when clicked. */
 .tab-btn:active,
-.sort-btn:active,
 .pub-btn:active,
 .show-more-btn:active {
   transform: translateY(1px);
@@ -2013,66 +2119,180 @@ html {
   scrollbar-color: color-mix(in srgb, var(--text-secondary) 55%, transparent) transparent;
 }
 
-/* Dates and numbering align in columns (edu-period carries its own). */
+/* ============================================================
+   Academics — one long page (Education → Publications → Awards →
+   Research → Others) with numbered sections, a sticky sidebar index on
+   desktop and a sticky pill bar on mobile.
+   ============================================================ */
 
-/* ---------- CV page ---------- */
-.cv-actions {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  margin-bottom: 1.25rem;
-  flex-wrap: wrap;
+/* Hidden-but-readable page title (one <h1> per page for AI / a11y). */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
 
-.cv-download {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.55rem 1.2rem;
-  border-radius: var(--radius-pill);
-  background: var(--color-primary);
-  color: #fff;
+.section {
+  margin: 0;
+  /* Anchor jumps land below the fixed top bar. */
+  scroll-margin-top: calc(var(--nav-height) + 1.25rem);
+}
+
+.section + .section {
+  margin-top: 3.25rem;
+  padding-top: 3.25rem;
+  border-top: 1px solid var(--line-soft);
+}
+
+/* "01" numeral in a narrow gutter, then the section title. */
+.section-heading {
+  display: grid;
+  grid-template-columns: 2.75rem minmax(0, 1fr);
+  align-items: baseline;
+  margin-bottom: 1.5rem;
+}
+
+.section-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.section-heading h2 {
+  font-size: 1.75rem;
+  margin: 0;
+}
+
+/* Sub-headings inside a section (Research groups, Others blocks) share one
+   look: sans, 1.25rem, with a hairline underneath. */
+.research-section__title,
+.others-heading {
+  font-family: var(--font-sans);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0 0 1rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border-color);
+  letter-spacing: -0.005em;
+}
+
+.others-block { margin-bottom: 2.25rem; }
+.others-block:last-child { margin-bottom: 0; }
+
+/* Sidebar index — sits under the profile card, inside the sticky aside. */
+.side-index {
+  margin-top: 1.5rem;
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.side-index__title {
+  margin: 0 0 0.5rem;
+  font-size: 0.6875rem;
   font-weight: 500;
-  font-size: 0.9375rem;
-  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
-  box-shadow: 0 2px 10px color-mix(in srgb, var(--color-primary) 30%, transparent);
-}
-
-.cv-download:hover {
-  color: #fff;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--color-primary) 40%, transparent);
-}
-
-.cv-download:active { transform: translateY(1px); }
-
-.cv-download svg { width: 18px; height: 18px; }
-
-[data-theme="dark"] .cv-download,
-[data-theme="dark"] .cv-download:hover { color: var(--bg-primary); }
-
-.cv-open {
-  font-size: 0.9375rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   color: var(--text-secondary);
 }
 
-.cv-open:hover { color: var(--color-accent); }
-
-.cv-frame {
-  display: block;
-  width: 100%;
-  height: min(78vh, 1050px);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-card);
+.side-index ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
 }
 
-.cv-fallback {
-  padding: 2rem 1.5rem;
+.side-index li { margin: 0; }
+
+.side-index a {
+  display: grid;
+  grid-template-columns: 1.6rem minmax(0, 1fr);
+  align-items: baseline;
+  padding: 0.3rem 0.5rem 0.3rem 0.6rem;
+  margin-left: -0.6rem;
+  border-left: 2px solid transparent;
+  font-size: 0.8125rem;
   color: var(--text-secondary);
-  font-size: 0.9375rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
 }
 
-@media (max-width: 640px) {
-  .cv-frame { height: 70vh; }
+.side-index__num {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.06em;
+}
+
+.side-index a:hover { color: var(--text-primary); }
+
+.side-index a.is-active {
+  color: var(--color-primary);
+  font-weight: 500;
+  border-left-color: var(--color-accent);
+}
+
+.side-index a.is-active .side-index__num { color: var(--color-accent); }
+
+/* Mobile: the aside carries only the index, as a sticky row of pills right
+   under the top bar (the profile card stays home-only on phones). */
+@media (max-width: 768px) {
+  body[data-page="academics"] .profile {
+    display: block;
+    position: sticky;
+    top: var(--nav-height);
+    z-index: 900;
+    margin: 0 -1.5rem;
+    padding: 0 1.5rem;
+    background: color-mix(in srgb, var(--bg-primary) 92%, transparent);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-color);
+  }
+  body[data-page="academics"] .profile__card { display: none; }
+  body[data-page="academics"] .side-index {
+    margin: 0;
+    padding: 0.55rem 0;
+    border-top: 0;
+  }
+  body[data-page="academics"] .side-index__title { display: none; }
+  body[data-page="academics"] .side-index ol {
+    flex-direction: row;
+    gap: 0.4rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+  body[data-page="academics"] .side-index ol::-webkit-scrollbar { display: none; }
+  body[data-page="academics"] .side-index a {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.35rem;
+    flex-shrink: 0;
+    margin: 0;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-pill);
+    font-size: calc(0.8125rem - 1pt);
+    white-space: nowrap;
+  }
+  body[data-page="academics"] .side-index a.is-active {
+    background: var(--color-primary);
+    border-color: var(--color-primary);
+    color: #fff;
+  }
+  body[data-page="academics"] .side-index a.is-active .side-index__num { color: #fff; opacity: 0.8; }
+  [data-theme="dark"] body[data-page="academics"] .side-index a.is-active { color: var(--bg-primary); }
+
+  .section { scroll-margin-top: calc(var(--nav-height) + 52px + 0.75rem); }
+  .section + .section { margin-top: 2.5rem; padding-top: 2.5rem; }
+  .section-heading { grid-template-columns: 2.25rem minmax(0, 1fr); }
+  .section-heading h2 { font-size: calc(1.5rem - 1pt); }
 }

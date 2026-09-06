@@ -8,20 +8,20 @@ The full machine-readable content (all publications with BibTeX, education, rese
 
 - https://korbean-0311.github.io/llms-full.txt
 
-A CV / resume PDF is also available:
-
-- https://korbean-0311.github.io/pdfs/cv.pdf
-
 ## Pages
 
-- [Home](https://korbean-0311.github.io/): Brief biography, recent news, and press coverage ("In the News")
-- [Publications](https://korbean-0311.github.io/publications.html): International journals (under review + published), international conferences, domestic conferences, patents
-- [Awards & Honors](https://korbean-0311.github.io/awards.html): Awards, honors, grants, scholarships, and paper competition prizes
-- [Education](https://korbean-0311.github.io/education.html): Academic timeline
-- [Research](https://korbean-0311.github.io/research.html): Graduate and undergraduate research projects
-- [Others](https://korbean-0311.github.io/others.html): Reviewer activities, teaching assistantships, coursework, programming skills
-- [CV](https://korbean-0311.github.io/cv.html): Curriculum vitae (viewer + PDF download)
+The site has three pages. "Academics" is ONE long page that holds the whole academic record in five sections; each section has its own anchor, so one fetch of academics.html returns everything below.
+
+- [Home](https://korbean-0311.github.io/): Brief biography, research interests, recent news, and press coverage ("In the News")
+- [Academics](https://korbean-0311.github.io/academics.html): One long page with five sections —
+  - [Education](https://korbean-0311.github.io/academics.html#education): Academic timeline with advisors
+  - [Publications](https://korbean-0311.github.io/academics.html#publications): International journals (under review + published, with abstracts, keywords, BibTeX), international conferences, domestic conferences, patents
+  - [Awards & Honors](https://korbean-0311.github.io/academics.html#awards): Awards, honors, grants, scholarships, and paper competition prizes
+  - [Research](https://korbean-0311.github.io/academics.html#research): Graduate and undergraduate research projects
+  - [Others](https://korbean-0311.github.io/academics.html#others): Reviewer activities, teaching assistantships, coursework, programming skills
 - [Contact](https://korbean-0311.github.io/contact.html): Lab, location, LinkedIn
+
+(The former per-section URLs — education.html, publications.html, awards.html, research.html, others.html — redirect to the matching anchor on academics.html.)
 
 ## Data sources (JSON)
 

@@ -143,7 +143,7 @@ function buildHeader() {
   parts.push(`# ${SITE_META.name}\n`);
   parts.push(`> ${SITE_META.subtitle}\n`);
   parts.push(`Site: https://korbean-0311.github.io/\n`);
-  parts.push(`CV (PDF): https://korbean-0311.github.io/pdfs/cv.pdf\n`);
+  parts.push(`Pages: Home (https://korbean-0311.github.io/) · Academics — one long page with Education, Publications, Awards & Honors, Research, Others (https://korbean-0311.github.io/academics.html) · Contact (https://korbean-0311.github.io/contact.html)\n`);
   parts.push('## About\n');
   for (const line of SITE_META.bio) parts.push(line);
   parts.push('');

@@ -1,9 +1,24 @@
 /* ============================================================
-   main.js — shared navigation, theme toggle, JSON loader
+   main.js — shared navigation, theme toggle, "show more", scroll-spy
    ============================================================ */
 
 (function () {
   'use strict';
+
+  /* ---------- Site map ----------
+     Three top-level pages. "Academics" is one long page whose five sections
+     are exposed as anchor links in the desktop dropdown, the mobile panel and
+     the sidebar index. Keep NAV_SECTIONS in sync with ACADEMIC_SECTIONS in
+     scripts/build-prerender.mjs (same ids, same order). */
+  const ACADEMICS_PAGE = 'academics.html';
+  const ACADEMICS_LABEL = 'Academics';
+  const NAV_SECTIONS = [
+    ['education', 'Education'],
+    ['publications', 'Publications'],
+    ['awards', 'Awards &amp; Honors'],
+    ['research', 'Research'],
+    ['others', 'Others'],
+  ];
 
   /* ---------- Theme toggle ---------- */
   const THEME_KEY = 'theme';
@@ -17,16 +32,18 @@
   }
 
   function initTheme() {
-    const saved = localStorage.getItem(THEME_KEY);
-    // Default to dark mode for first-time visitors; respect user choice once toggled.
-    const theme = saved || 'dark';
-    applyTheme(theme);
+    let saved = null;
+    try { saved = localStorage.getItem(THEME_KEY); } catch (e) { /* storage blocked */ }
+    // Light is the design target and the default for everyone (the OS dark
+    // preference is deliberately ignored); an explicit toggle is remembered.
+    applyTheme(saved || 'light');
 
     const btn = document.querySelector('[data-theme-toggle]');
     if (!btn) return;
-    btn.addEventListener('click', (ev) => {
+    btn.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
       const next = current === 'dark' ? 'light' : 'dark';
+      const persist = () => { try { localStorage.setItem(THEME_KEY, next); } catch (e) { /* ignore */ } };
 
       // View Transitions API: smooth circular reveal centered on the click.
       // Falls back to the existing 0.3s color transition when unsupported.
@@ -35,7 +52,7 @@
 
       if (!supportsVT) {
         applyTheme(next);
-        localStorage.setItem(THEME_KEY, next);
+        persist();
         return;
       }
 
@@ -47,13 +64,9 @@
         Math.max(y, window.innerHeight - y)
       );
 
-      document.documentElement.style.setProperty('--vt-x', x + 'px');
-      document.documentElement.style.setProperty('--vt-y', y + 'px');
-      document.documentElement.style.setProperty('--vt-r', endRadius + 'px');
-
       const transition = document.startViewTransition(() => {
         applyTheme(next);
-        localStorage.setItem(THEME_KEY, next);
+        persist();
       });
 
       transition.ready.then(() => {
@@ -74,16 +87,41 @@
     });
   }
 
-  /* ---------- Nav: mobile hamburger panel + desktop horizontal links ---------- */
+  /* ---------- Nav: desktop links + dropdown, mobile hamburger panel ---------- */
+  function currentPage() {
+    return location.pathname.split('/').pop() || 'index.html';
+  }
+
   function initMenu() {
-    // Mark the active link in BOTH navs (side panel for mobile, .topnav__links for desktop).
-    // Only one is visible at any given viewport, but marking both keeps state
-    // consistent across CSS-driven layout changes (e.g., resize during session).
-    const path = location.pathname.split('/').pop() || 'index.html';
-    document.querySelectorAll('.menu-panel a, .topnav__links a').forEach((a) => {
-      const href = a.getAttribute('href');
-      if (href === path) a.classList.add('is-active');
+    // Mark the active top-level link in BOTH navs (side panel for mobile,
+    // .topnav__links for desktop). Only one is visible at a time, but marking
+    // both keeps state consistent if the viewport is resized mid-session.
+    const page = currentPage();
+    document.querySelectorAll('.topnav__links > a, .topnav__item > a, .menu-list > li > a').forEach((a) => {
+      if (a.getAttribute('href') === page) a.classList.add('is-active');
     });
+
+    // Desktop dropdown: hover opens it via CSS; the caret button toggles it for
+    // touch and keyboard users. Click-outside / Escape close it.
+    const item = document.querySelector('[data-dropdown]');
+    const caret = item && item.querySelector('[data-dropdown-toggle]');
+    if (item && caret) {
+      const setOpen = (open) => {
+        item.classList.toggle('is-open', open);
+        caret.setAttribute('aria-expanded', open ? 'true' : 'false');
+      };
+      caret.addEventListener('click', (e) => {
+        e.preventDefault();
+        setOpen(!item.classList.contains('is-open'));
+      });
+      document.addEventListener('click', (e) => {
+        if (!item.contains(e.target)) setOpen(false);
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') setOpen(false);
+      });
+      item.querySelectorAll('.topnav__dropdown a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    }
 
     // Side-panel wiring (mobile / tablet portrait). On desktop the elements
     // still exist in the DOM but are CSS-hidden, so listeners are harmless.
@@ -109,6 +147,8 @@
     toggle.addEventListener('click', open);
     overlay.addEventListener('click', close);
     closeBtn && closeBtn.addEventListener('click', close);
+    // Same-page anchor links don't reload, so close the panel explicitly.
+    panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && panel.classList.contains('is-open')) close();
     });
@@ -127,6 +167,16 @@
     }
   }
 
+  const sectionNum = (i) => String(i + 1).padStart(2, '0');
+
+  const DROPDOWN_LINKS = NAV_SECTIONS.map(([id, label], i) =>
+    `<a href="${ACADEMICS_PAGE}#${id}" data-section-link="${id}"><span class="dd-num">${sectionNum(i)}</span><span>${label}</span></a>`
+  ).join('\n            ');
+
+  const PANEL_SUBLINKS = NAV_SECTIONS.map(([id, label]) =>
+    `<li><a href="${ACADEMICS_PAGE}#${id}" data-section-link="${id}">${label}</a></li>`
+  ).join('\n              ');
+
   const NAV_HTML = `
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
       <symbol id="ico-menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -138,12 +188,15 @@
       <div class="topnav__actions">
         <div class="topnav__links">
           <a href="index.html">Home</a>
-          <a href="education.html">Education</a>
-          <a href="publications.html">Publications</a>
-          <a href="awards.html">Awards &amp; Honors</a>
-          <a href="research.html">Research</a>
-          <a href="others.html">Others</a>
-          <a href="cv.html">CV</a>
+          <div class="topnav__item" data-dropdown>
+            <a href="${ACADEMICS_PAGE}">${ACADEMICS_LABEL}</a>
+            <button class="topnav__caret" type="button" data-dropdown-toggle aria-label="Show ${ACADEMICS_LABEL} sections" aria-expanded="false" aria-controls="academics-menu">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <div class="topnav__dropdown" id="academics-menu">
+            ${DROPDOWN_LINKS}
+            </div>
+          </div>
           <a href="contact.html">Contact</a>
         </div>
         <button class="icon-btn" data-theme-toggle type="button" aria-label="Toggle theme">
@@ -178,13 +231,13 @@
       </div>
       <ul class="menu-list">
         <li><a href="index.html"><span class="menu-num">01</span><span>Home</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
-        <li><a href="education.html"><span class="menu-num">02</span><span>Education</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
-        <li><a href="publications.html"><span class="menu-num">03</span><span>Publications</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
-        <li><a href="awards.html"><span class="menu-num">04</span><span>Awards &amp; Honors</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
-        <li><a href="research.html"><span class="menu-num">05</span><span>Research</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
-        <li><a href="others.html"><span class="menu-num">06</span><span>Others</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
-        <li><a href="cv.html"><span class="menu-num">07</span><span>CV</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
-        <li><a href="contact.html"><span class="menu-num">08</span><span>Contact</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
+        <li>
+          <a href="${ACADEMICS_PAGE}"><span class="menu-num">02</span><span>${ACADEMICS_LABEL}</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a>
+          <ul class="menu-sublist" aria-label="${ACADEMICS_LABEL} sections">
+              ${PANEL_SUBLINKS}
+          </ul>
+        </li>
+        <li><a href="contact.html"><span class="menu-num">03</span><span>Contact</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
       </ul>
       <div class="menu-panel__footer">© 2020–${new Date().getFullYear()} Young-Seok Lee</div>
     </aside>
@@ -211,11 +264,76 @@
     });
   }
 
+  /* ---------- Scroll-spy (academics page) ----------
+     Highlights the section currently under the top bar in every place that
+     links to sections: the sidebar index / mobile pill bar, the desktop
+     dropdown and the mobile panel. Pure enhancement — the links work without it. */
+  function initScrollSpy() {
+    const sections = Array.from(document.querySelectorAll('main .section[id]'));
+    const links = Array.from(document.querySelectorAll('[data-section-link]'));
+    if (!sections.length || !links.length) return;
+
+    const mobile = window.matchMedia('(max-width: 768px)');
+    let current = null;
+
+    function revealPill(link) {
+      // Scroll the mobile pill row horizontally (never the page) so the active
+      // pill stays visible.
+      const row = link.closest('.side-index ol');
+      if (!row || !mobile.matches) return;
+      const left = link.offsetLeft - (row.clientWidth - link.offsetWidth) / 2;
+      row.scrollTo({ left: Math.max(0, left), behavior: 'smooth' });
+    }
+
+    function setActive(id) {
+      if (id === current) return;
+      current = id;
+      links.forEach((l) => {
+        const on = l.dataset.sectionLink === id;
+        l.classList.toggle('is-active', on);
+        if (on) l.setAttribute('aria-current', 'location'); else l.removeAttribute('aria-current');
+        if (on && l.closest('.side-index')) revealPill(l);
+      });
+    }
+
+    function update() {
+      const nav = document.querySelector('.topnav');
+      const bar = mobile.matches ? document.querySelector('.side-index') : null;
+      const offset = (nav ? nav.offsetHeight : 60) + (bar ? bar.offsetHeight : 0) + 48;
+      const probe = window.scrollY + offset;
+      let id = sections[0].id;
+      for (const s of sections) {
+        const top = s.getBoundingClientRect().top + window.scrollY;
+        if (top <= probe) id = s.id;
+      }
+      // At the very bottom the last section wins even when it is short.
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) {
+        id = sections[sections.length - 1].id;
+      }
+      setActive(id);
+    }
+
+    // Throttled with a short timer rather than requestAnimationFrame: rAF is
+    // paused in occluded/embedded views, which would freeze the highlight.
+    let pending = false;
+    const schedule = () => {
+      if (pending) return;
+      pending = true;
+      setTimeout(() => { pending = false; update(); }, 40);
+    };
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    window.addEventListener('hashchange', schedule);
+    window.addEventListener('load', schedule);
+    update();
+  }
+
   /* ---------- Boot ---------- */
   document.addEventListener('DOMContentLoaded', () => {
     injectChrome();
     initTheme();
     initMenu();
     initNews();
+    initScrollSpy();
   });
 })();
