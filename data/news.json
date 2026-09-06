@@ -3,19 +3,19 @@
     {
       "date": "09 Jul 2026",
       "kind": "award",
-      "body": "<strong>Best Student Paper Award</strong> (1st place, sole recipient, $800) at {{WPTCE 2026}}",
+      "body": "<strong>Best Student Paper Award</strong> (1st place, sole recipient, $800) at IEEE {{WPTCE 2026}}",
       "tag": "1st Author"
     },
     {
       "date": "03 Jul 2026",
       "kind": "grant",
-      "body": "<strong>IEEE MTT-S Student Travel Grant</strong> ($1,000) for {{WPTCE 2026}}",
+      "body": "<strong>IEEE MTT-S Student Travel Grant</strong> ($1,000) for IEEE {{WPTCE 2026}}",
       "tag": "1st Author"
     },
     {
       "date": "18 Jun 2026",
       "kind": "paper",
-      "body": "Paper accepted in {{TMTT}}",
+      "body": "Paper accepted in IEEE {{TMTT}}",
       "tag": "1st Author"
     },
     {
@@ -32,19 +32,19 @@
     {
       "date": "22 Jul 2025",
       "kind": "paper",
-      "body": "Paper accepted in {{OJAP}}",
+      "body": "Paper accepted in IEEE {{OJAP}}",
       "tag": "Co-author"
     },
     {
       "date": "20 Jul 2025",
       "kind": "paper",
-      "body": "Paper accepted in {{TAP}}",
+      "body": "Paper accepted in IEEE {{TAP}}",
       "tag": "Co-author"
     },
     {
       "date": "06 Jun 2025",
       "kind": "paper",
-      "body": "Paper accepted in {{AWPL}}",
+      "body": "Paper accepted in IEEE {{AWPL}}",
       "tag": "1st Author"
     }
   ]

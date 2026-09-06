@@ -27,14 +27,14 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 ## Recent News
 
-- **09 Jul 2026** — [Award] Best Student Paper Award (1st place, sole recipient, $800) at WPTCE 2026 _(1st Author)_
-- **03 Jul 2026** — [Grant] IEEE MTT-S Student Travel Grant ($1,000) for WPTCE 2026 _(1st Author)_
-- **18 Jun 2026** — [Paper] Paper accepted in TMTT _(1st Author)_
+- **09 Jul 2026** — [Award] Best Student Paper Award (1st place, sole recipient, $800) at IEEE WPTCE 2026 _(1st Author)_
+- **03 Jul 2026** — [Grant] IEEE MTT-S Student Travel Grant ($1,000) for IEEE WPTCE 2026 _(1st Author)_
+- **18 Jun 2026** — [Paper] Paper accepted in IEEE TMTT _(1st Author)_
 - **11 Feb 2026** — [Project] Joined an LIG D&A project on calibrating ultra-large-scale digital array antennas for space surveillance radar _(Project Lead)_
 - **31 Oct 2025** — [Scholarship] Samsung Electronics DS (Foundry) scholarship recipient
-- **22 Jul 2025** — [Paper] Paper accepted in OJAP _(Co-author)_
-- **20 Jul 2025** — [Paper] Paper accepted in TAP _(Co-author)_
-- **06 Jun 2025** — [Paper] Paper accepted in AWPL _(1st Author)_
+- **22 Jul 2025** — [Paper] Paper accepted in IEEE OJAP _(Co-author)_
+- **20 Jul 2025** — [Paper] Paper accepted in IEEE TAP _(Co-author)_
+- **06 Jun 2025** — [Paper] Paper accepted in IEEE AWPL _(1st Author)_
 
 ## In the News
 
@@ -502,14 +502,14 @@ I have collaborated with industry partners — including Samsung Electronics on 
 ## Academic Service
 
 ### Journal Reviewer
-- IEEE Transactions on Microwave Theory and Techniques (TMTT), 2026
-- IEEE Transactions on Power Electronics (TPEL), 2025, 2026
-- IEEE Journal of Emerging and Selected Topics in Industrial Electronics (JESTIE), 2026
+- IEEE TMTT (IEEE Transactions on Microwave Theory and Techniques), 2026
+- IEEE TPEL (IEEE Transactions on Power Electronics), 2025, 2026
+- IEEE JESTIE (IEEE Journal of Emerging and Selected Topics in Industrial Electronics), 2026
 
-### Teaching Assistant
-- Introduction to Electromagnetism with Practice (430.202B 003), Seoul National University, Fall 2025
-- Introduction to Electromagnetism with Practice (430.202B 002), Seoul National University, Fall 2024
-- Electromagnetic Wave Engineering (430.464A 001), Seoul National University, Spring 2023
+### Teaching Assistant (Seoul National University)
+- Introduction to Electromagnetism with Practice (430.202B 003), Fall 2025
+- Introduction to Electromagnetism with Practice (430.202B 002), Fall 2024
+- Electromagnetic Wave Engineering (430.464A 001), Spring 2023
 
 ## Coursework
 

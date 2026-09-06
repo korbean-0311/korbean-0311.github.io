@@ -326,11 +326,12 @@ function buildAcademicService(others) {
 
   out.push('### Journal Reviewer');
   for (const it of others.reviewer || []) {
-    out.push(`- ${it.name}${it.year ? `, ${it.year}` : ''}`);
+    const full = it.full ? ` (${it.full})` : '';
+    out.push(`- ${it.name}${full}${it.year ? `, ${it.year}` : ''}`);
   }
   out.push('');
 
-  out.push('### Teaching Assistant');
+  out.push('### Teaching Assistant (Seoul National University)');
   for (const it of others.ta || []) {
     const code = it.code ? ` (${it.code})` : '';
     const inst = it.institution ? `, ${it.institution}` : '';

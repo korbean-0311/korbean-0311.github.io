@@ -1,15 +1,18 @@
 {
   "reviewer": [
     {
-      "name": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
+      "name": "IEEE TMTT",
+      "full": "IEEE Transactions on Microwave Theory and Techniques",
       "year": "2026"
     },
     {
-      "name": "IEEE Transactions on Power Electronics (TPEL)",
+      "name": "IEEE TPEL",
+      "full": "IEEE Transactions on Power Electronics",
       "year": "2025, 2026"
     },
     {
-      "name": "IEEE Journal of Emerging and Selected Topics in Industrial Electronics (JESTIE)",
+      "name": "IEEE JESTIE",
+      "full": "IEEE Journal of Emerging and Selected Topics in Industrial Electronics",
       "year": "2026"
     }
   ],
@@ -17,19 +20,16 @@
     {
       "course": "Introduction to Electromagnetism with Practice",
       "code": "430.202B 003",
-      "institution": "Seoul National University",
       "term": "Fall 2025"
     },
     {
       "course": "Introduction to Electromagnetism with Practice",
       "code": "430.202B 002",
-      "institution": "Seoul National University",
       "term": "Fall 2024"
     },
     {
       "course": "Electromagnetic Wave Engineering",
       "code": "430.464A 001",
-      "institution": "Seoul National University",
       "term": "Spring 2023"
     }
   ],

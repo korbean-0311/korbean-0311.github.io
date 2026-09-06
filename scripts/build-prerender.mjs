@@ -294,6 +294,15 @@ function newsBodyHTML(body) {
     return `<span class="venue-mark" style="--marker-color:${venueColorFor(token)}"${title}>${esc(token.trim())}</span>`;
   });
 }
+// One emoji per category, shown inside the label pill (decorative only —
+// the label text carries the meaning for screen readers and crawlers).
+const NEWS_KIND_EMOJI = {
+  award: '🏆',
+  grant: '💰',
+  paper: '📄',
+  project: '🔬',
+  scholarship: '🎓',
+};
 function renderNews() {
   const data = readJSON('news.json');
   const news = Array.isArray(data) ? data : (data?.news || []);
@@ -302,10 +311,11 @@ function renderNews() {
     const tagClass = (n.tag === '1st Author' || n.tag === 'Project Lead') ? 'badge--tag' : 'badge--coauthor';
     const tag = n.tag ? ` <span class="badge ${tagClass}">${esc(n.tag)}</span>` : '';
     const kind = newsKind(n);
+    const emoji = NEWS_KIND_EMOJI[kind] ? `<span class="news-item__emoji" aria-hidden="true">${NEWS_KIND_EMOJI[kind]}</span>` : '';
     const extra = i >= INITIAL ? ' news-item--extra' : '';
     return `        <li class="news-item${extra}" data-kind="${esc(kind)}">
           <span class="news-item__date">${esc(n.date)}</span>
-          <span class="news-item__kind">${esc(kind)}</span>
+          <span class="news-item__kind">${emoji}${esc(kind)}</span>
           <span class="news-item__body">${newsBodyHTML(n.body)}${tag}</span>
         </li>`;
   }).join('\n');
@@ -347,9 +357,12 @@ ${rows}
 // global section margin).
 function renderAcademicService() {
   const data = readJSON('others.json');
-  const reviewer = (data.reviewer || []).map(it =>
-    `<li><em>${esc(it.name)}</em>${it.year ? `, ${esc(it.year)}` : ''}.</li>`
-  ).join('') || '<li class="loading">No entries yet.</li>';
+  // Journals show their short name ("IEEE TMTT"); the full title is a tooltip.
+  const reviewer = (data.reviewer || []).map(it => {
+    const title = it.full ? ` title="${esc(it.full)}"` : '';
+    return `<li><em${title}>${esc(it.name)}</em>${it.year ? `, ${esc(it.year)}` : ''}.</li>`;
+  }).join('') || '<li class="loading">No entries yet.</li>';
+  // All TA posts are at SNU — said once in the column title, not per line.
   const ta = (data.ta || []).map(it => {
     const code = it.code ? ` (${esc(it.code)})` : '';
     const inst = it.institution ? `, ${esc(it.institution)}` : '';
@@ -362,7 +375,7 @@ function renderAcademicService() {
           <ul class="others-list" id="list-reviewer">${reviewer}</ul>
         </div>
         <div class="service-col">
-          <h3 class="service-col__title" id="ta-heading">Teaching Assistant</h3>
+          <h3 class="service-col__title" id="ta-heading">Teaching Assistant (SNU)</h3>
           <ul class="others-list" id="list-ta">${ta}</ul>
         </div>
       </div>`;
