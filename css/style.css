@@ -1251,12 +1251,9 @@ html[data-js] .tab-panel.is-active { display: block; }
   margin-top: 0.1rem;
 }
 
-.pub-item__sep {
-  border: 0;
-  border-top: 1px solid var(--border-color);
-  margin: 0.5rem 0;
-  opacity: 0.45;
-}
+/* Lines inside a card are separated by spacing only (no hairlines). */
+.pub-item__authors { margin-bottom: 0.4rem; }
+.pub-item__title { margin-bottom: 0.4rem; }
 
 .pub-item__actions {
   display: flex;
@@ -1319,65 +1316,18 @@ html[data-js] .tab-panel.is-active { display: block; }
 
 .pub-btn:hover { transform: translateY(-1px); }
 
-/* Abstract / Keywords = accent blue; filled while their panel is open */
-.pub-btn--abs,
-.pub-btn--kw {
-  color: var(--color-accent);
-  border-color: var(--color-accent);
+/* All five buttons (Abstract, Keywords, BibTeX, DOI, PDF) share one quiet
+   monochrome outline; hover — and an open Abstract/Keywords panel — fill it
+   with ink. */
+.pub-btn {
+  color: var(--text-secondary);
+  border-color: var(--border-color);
 }
-.pub-btn--abs:hover,
-.pub-btn--kw:hover,
-.pub-btn--abs.is-active,
-.pub-btn--kw.is-active {
-  background: var(--color-accent);
-  color: #fff;
-  border-color: var(--color-accent);
-}
-[data-theme="dark"] .pub-btn--abs:hover,
-[data-theme="dark"] .pub-btn--kw:hover,
-[data-theme="dark"] .pub-btn--abs.is-active,
-[data-theme="dark"] .pub-btn--kw.is-active { color: var(--bg-primary); }
-
-/* DOI = warm amber */
-.pub-btn--doi {
-  color: var(--color-warm);
-  border-color: var(--color-warm);
-}
-.pub-btn--doi:hover {
-  background: var(--color-warm);
-  color: #fff;
-}
-[data-theme="dark"] .pub-btn--doi:hover { color: var(--bg-primary); }
-
-/* BibTeX = darker text color (matches vol./no./pp.) */
-.pub-btn--bib {
-  color: var(--text-primary);
-  border-color: var(--text-primary);
-}
-.pub-btn--bib:hover {
+.pub-btn:hover,
+.pub-btn.is-active {
   background: var(--text-primary);
   color: var(--bg-primary);
   border-color: var(--text-primary);
-}
-
-/* PDF = red */
-.pub-btn--pdf {
-  color: #DC2626;
-  border-color: #DC2626;
-}
-.pub-btn--pdf:hover {
-  background: #DC2626;
-  color: #fff;
-  border-color: #DC2626;
-}
-[data-theme="dark"] .pub-btn--pdf {
-  color: #F87171;
-  border-color: #F87171;
-}
-[data-theme="dark"] .pub-btn--pdf:hover {
-  background: #F87171;
-  color: var(--bg-primary);
-  border-color: #F87171;
 }
 
 /* Toast for BibTeX copy feedback */

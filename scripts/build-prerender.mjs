@@ -573,16 +573,13 @@ function pubItemHTML(p, opts) {
     metaHTML = `<div class="pub-item__meta">${venuePrefix}${venue}${details ? ', ' + details : ''}</div>`;
   }
 
-  const sep = opts.withDividers ? '<hr class="pub-item__sep" aria-hidden="true" />' : '';
   const first = pubHasFirstAuthorTag(p) ? '1' : '0';
   return `
       <li class="pub-item" data-first="${first}">
         ${num}
         <div class="pub-item__body">
           <div class="pub-item__authors">${authors}${tagsHTML}</div>
-          ${sep}
           <div class="pub-item__title">${titleQuote}${esc(p.title)}${titleSuffix}${titleQuote}</div>
-          ${sep}
           ${metaHTML}
           ${pubActionsHTML(p)}
         </div>
@@ -594,7 +591,7 @@ function pubJournalsHTML(DATA) {
   const j = DATA.international_journals || {};
   const ur = j.under_review || [];
   const pub = j.published || [];
-  const opts = { bareTitle: true, withDividers: true };
+  const opts = { bareTitle: true };
   let html = '';
   if (ur.length) {
     html += `<div class="pub-group"><div class="pub-group__title">Under Review</div><ul class="pub-list">${ur.map(p => pubItemHTML(p, opts)).join('')}</ul></div>`;
@@ -667,9 +664,9 @@ function renderPublicationsTabs() {
   return [
     panel('international_journals', true, pubJournalsHTML(DATA)),
     panel('international_conferences', false,
-      pubListHTML(DATA.international_conferences, "Int'l Conferences", { bareTitle: true, splitMeta: true, withDividers: true })),
+      pubListHTML(DATA.international_conferences, "Int'l Conferences", { bareTitle: true, splitMeta: true })),
     panel('domestic_conferences', false,
-      pubListHTML(DATA.domestic_conferences, 'Domestic Conferences (KIEES)', { bareTitle: true, withDividers: true })),
+      pubListHTML(DATA.domestic_conferences, 'Domestic Conferences (KIEES)', { bareTitle: true })),
     panel('patents', false, pubPatentsHTML(DATA.patents)),
   ].join('\n      ');
 }
