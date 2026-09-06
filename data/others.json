@@ -1,12 +1,12 @@
 {
   "reviewer": [
     {
-      "name": "IEEE Transactions on Power Electronics (TPEL)",
-      "year": "2025, 2026"
-    },
-    {
       "name": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
       "year": "2026"
+    },
+    {
+      "name": "IEEE Transactions on Power Electronics (TPEL)",
+      "year": "2025, 2026"
     },
     {
       "name": "IEEE Journal of Emerging and Selected Topics in Industrial Electronics (JESTIE)",
@@ -35,7 +35,7 @@
   ],
   "coursework": [
     {
-      "school": "Seoul National University (M.S. – Ph.D.)",
+      "school": "Graduate",
       "courses": [
         {
           "name": "Electromagnetic Wave Engineering"
@@ -65,7 +65,7 @@
       ]
     },
     {
-      "school": "Korea University (B.S.)",
+      "school": "Undergraduate",
       "courses": [
         {
           "name": "Probability & Random Process"

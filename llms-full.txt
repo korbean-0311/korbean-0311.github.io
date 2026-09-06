@@ -445,7 +445,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 *Affiliation:* AEL (PI: Sangwook Nam) & WFL (PI: Jungsuek Oh) at Seoul National University (jointly advised)
 
-#### [P5] Calibration Verification and Accuracy Improvement of Ultra-Large-Scale Digital Array Antennas
+#### Calibration Verification and Accuracy Improvement of Ultra-Large-Scale Digital Array Antennas
 - Organization: LIG D&A
 - Period: 2026.04 — 2028.12
 - Keywords: Space Surveillance Radar, Ultra-Large-Scale Digital Array Antenna, Fixed Probe Calibration, Phase Center Compensation, Beam Pattern Modeling
@@ -453,7 +453,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - Developed calibration and verification algorithms for ultra-large-scale digital array antennas (86,400+ elements) used in space surveillance radar, addressing major error sources (probe phase center offset, polarization misalignment, position-dependent element beam patterns, 3D probe position uncertainty, and radome-induced channel distortion).
   - Designed an AI-integrated calibration verification simulator enabling independent and combined sensitivity analysis of error sources, providing quantitative performance evaluation and optimal calibration strategies for field-deployed large-aperture phased array systems.
 
-#### [P4] Large-Area Wireless Power Transfer System for Power Gateway Application
+#### Large-Area Wireless Power Transfer System for Power Gateway Application
 - Organization: Samsung Electronics A-Lab
 - Period: 2023.09 — 2024.02
 - Keywords: RF-Wireless Power Transfer, Large Array Calibration, Beam Collection Efficiency, Near-Field Focusing, High-Power Scalable Array
@@ -461,7 +461,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - Scaled up the LUT-based calibration and LCSPD architecture to a 1024-element (32×32) transmitter and 256-element (16×16) receiver array operating at 5.64 GHz for power gateway applications.
   - Designed and validated high-power WPT system operation exceeding 100 W transmitted power, demonstrating the scalability of the proposed calibration and series power divider methodology.
 
-#### [P3] High-Efficiency BCE 2D Array RF System Based on Time Reversal
+#### High-Efficiency BCE 2D Array RF System Based on Time Reversal
 - Organization: Samsung Electronics A-Lab
 - Period: 2023.03 — 2023.08
 - Keywords: RF-Wireless Power Transfer, Array Calibration, Beam Collection Efficiency, Near-Field Focusing, Scalable Array Design
@@ -469,7 +469,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - Proposed an LUT-based calibration and complexity reduction method for a scalable 256-element transmitter array in RF wireless power transfer systems, enabling accurate beam collection efficiency (BCE) estimation using only a single input connection and a fixed reference antenna.
   - Designed a loss compensated series power divider (LCSPD) for scalable RF signal distribution and demonstrated 71.9% BCE at 0.5 m with 6.08 W transmitted and 4.37 W received power at 5.64 GHz, validated through convex-optimized near-field focusing experiments.
 
-#### [P2] Wireless Power Transfer Using Massive MIMO Microwave with Hybrid Beamforming
+#### Wireless Power Transfer Using Massive MIMO Microwave with Hybrid Beamforming
 - Organization: Samsung DS
 - Period: 2023.03 — 2023.09
 - Keywords: RF-Wireless Power Transfer, Power Transfer Efficiency (PTE) Bound, Convex Optimization, Active Element Pattern, mmWave
@@ -477,7 +477,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
   - Derived power transfer efficiency (PTE) bounds for practical microwave and mmWave WPT systems via convex optimization, estimating the Tx–Rx channel from the Friis equation and active element patterns instead of full-wave EM simulation.
   - Validated the method on 10 GHz and 24 GHz array systems across varying distance and tilt angle, providing a faster and more accurate efficiency guideline for practical WPT system design.
 
-#### [P1] Wireless Power Transfer System Design
+#### Wireless Power Transfer System Design
 - Organization: Samsung Research (SR)
 - Period: 2021.08 — 2022.07
 - Keywords: RF-Wireless Power Transfer, Feedback-Based Phase Optimization, Array antenna, mmWave antenna, RF System, Link-budget
@@ -487,23 +487,23 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 ### Undergraduate Student Intern
 
-#### AEL (Advisor: Sangwook Nam) , Seoul National University (2021.01 — 2021.08)
-- RADAR system used DC to DC SMPS (36 W) PCB design & artwork
-- Trained circuit design tools (OrCAD)
+#### AEL (Advisor: Sangwook Nam) , Seoul National University (Seoul, Republic of Korea) (2021.01 — 2021.08)
+- PCB design and artwork of a 36 W DC–DC SMPS for a radar system
+- Trained in circuit design tools (Cadence OrCAD)
 
-#### AISL (Advisor: Chulwoo Kim) , Korea University (2020.03 — 2020.06)
-- Bachelor's Thesis: "High-speed 2-Stage Cascode Op-amp Design"
-- Simple VCO, PLL design
-- Trained circuit design tools (Cadence Virtuoso)
+#### AISL (Advisor: Chulwoo Kim) , Korea University (Seoul, Republic of Korea) (2020.03 — 2020.06)
+- Bachelor's thesis: “High-Speed Two-Stage Cascode Op-Amp Design”
+- Designed a basic VCO and PLL
+- Trained in circuit design tools (Cadence Virtuoso)
 
-#### BASIC Lab. (Advisor: Hyungmin Lee) , Korea University (2019.12 — 2020.02)
-- 2-Stage amp design & trained circuit design tools (Cadence Virtuoso)
+#### BASIC Lab. (Advisor: Hyungmin Lee) , Korea University (Seoul, Republic of Korea) (2019.12 — 2020.02)
+- Designed a two-stage amplifier; trained in circuit design tools (Cadence Virtuoso)
 
 ## Academic Service
 
 ### Journal Reviewer
-- IEEE Transactions on Power Electronics (TPEL), 2025, 2026
 - IEEE Transactions on Microwave Theory and Techniques (TMTT), 2026
+- IEEE Transactions on Power Electronics (TPEL), 2025, 2026
 - IEEE Journal of Emerging and Selected Topics in Industrial Electronics (JESTIE), 2026
 
 ### Teaching Assistant
@@ -513,7 +513,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 ## Coursework
 
-**Seoul National University (M.S. – Ph.D.):**
+**Graduate:**
 - Electromagnetic Wave Engineering
 - RF System Design
 - Advanced Electromagnetics I
@@ -523,7 +523,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 - Electro-optics
 - Estimation Theory
 
-**Korea University (B.S.):**
+**Undergraduate:**
 - Probability & Random Process
 - Electromagnetics
 - Electromagnetic Field

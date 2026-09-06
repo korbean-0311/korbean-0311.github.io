@@ -121,10 +121,11 @@
           "institution": "Seoul National University",
           "period": "2021.01 — 2021.08",
           "items": [
-            "RADAR system used DC to DC SMPS (36 W) PCB design & artwork",
-            "Trained circuit design tools (OrCAD)"
+            "PCB design and artwork of a 36 W DC–DC SMPS for a radar system",
+            "Trained in circuit design tools (Cadence OrCAD)"
           ],
-          "logo": "assets/logos/snu.png"
+          "logo": "assets/logos/snu.png",
+          "location": "Seoul, Republic of Korea"
         },
         {
           "lab": "AISL",
@@ -132,11 +133,12 @@
           "institution": "Korea University",
           "period": "2020.03 — 2020.06",
           "items": [
-            "Bachelor's Thesis: \"High-speed 2-Stage Cascode Op-amp Design\"",
-            "Simple VCO, PLL design",
-            "Trained circuit design tools (Cadence Virtuoso)"
+            "Bachelor's thesis: “High-Speed Two-Stage Cascode Op-Amp Design”",
+            "Designed a basic VCO and PLL",
+            "Trained in circuit design tools (Cadence Virtuoso)"
           ],
-          "logo": "assets/logos/korea-university.png"
+          "logo": "assets/logos/korea-university.png",
+          "location": "Seoul, Republic of Korea"
         },
         {
           "lab": "BASIC Lab.",
@@ -144,9 +146,10 @@
           "institution": "Korea University",
           "period": "2019.12 — 2020.02",
           "items": [
-            "2-Stage amp design & trained circuit design tools (Cadence Virtuoso)"
+            "Designed a two-stage amplifier; trained in circuit design tools (Cadence Virtuoso)"
           ],
-          "logo": "assets/logos/korea-university.png"
+          "logo": "assets/logos/korea-university.png",
+          "location": "Seoul, Republic of Korea"
         }
       ]
     }

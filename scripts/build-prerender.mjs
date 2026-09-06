@@ -215,12 +215,11 @@ function researchRow({ period, logo, logoAlt, headline, place, detail }) {
           </div>
         </article>`;
 }
-// Graduate project: title is the headline, organization (+ code) is the place
-// line, keyword badges and the summary bullets sit in the detail block.
+// Graduate project: title is the headline, organization is the place line,
+// the summary bullets sit in the detail block. Project codes and keyword tags
+// stay in research.json (llms-full.txt still lists the keywords) but are not
+// shown on the page.
 function researchProjectRow(p) {
-  const keywords = (p.keywords || []).length
-    ? `<div class="research-keywords">${p.keywords.map(k => `<span class="badge badge--keyword">${esc(k)}</span>`).join('')}</div>`
-    : '';
   const summary = (p.summary || []).length
     ? `<ul class="research-summary">${p.summary.map(s => `<li>${researchRichText(s)}</li>`).join('')}</ul>`
     : '';
@@ -229,23 +228,25 @@ function researchProjectRow(p) {
     logo: p.logo,
     logoAlt: p.org,
     headline: esc(p.title),
-    place: `<strong>${esc(p.org)}</strong>${p.code ? `<span class="research-code">[${esc(p.code)}]</span>` : ''}`,
-    detail: keywords + summary,
+    place: `<strong>${esc(p.org)}</strong>`,
+    detail: summary,
   });
 }
-// Undergraduate internship: lab is the headline, school is the place line,
-// advisor + what was done go in the detail block (like advisors in Education).
+// Undergraduate internship: lab is the headline, school + location make the
+// place line, advisor + what was done go in the detail block (like advisors
+// in Education).
 function researchUndergradRow(g) {
   const advisor = g.advisor ? `<div><span class="adv-label">Advisor:</span> ${esc(g.advisor)}</div>` : '';
   const items = (g.items || []).length
     ? `<ul class="research-summary">${g.items.map(it => `<li>${researchRichText(it)}</li>`).join('')}</ul>`
     : '';
+  const loc = g.location ? `<span class="edu-loc">${PIN_SVG}${esc(g.location)}</span>` : '';
   return researchRow({
     period: g.period,
     logo: g.logo,
     logoAlt: g.institution || g.lab,
     headline: esc(g.lab),
-    place: g.institution ? `<strong>${esc(g.institution)}</strong>` : '',
+    place: `${g.institution ? `<strong>${esc(g.institution)}</strong>` : ''}${loc}`,
     detail: advisor + items,
   });
 }
@@ -430,9 +431,25 @@ function venueColorFor(venue) {
   return venueColorMap.get(venueKey(venue)) || VENUE_PALETTE[0];
 }
 
+// Only the short name gets the marker stroke: the trailing parenthetical
+// ("(TMTT)", "(WPTCE 2026)", "(URSI GASS 2023)") or, for venues written
+// without one ("2026 KIEES Winter Conf."), the society acronym.
 function venueMarkHTML(venue) {
   if (!venue) return '';
-  return `<span class="pub-item__venue venue-mark" data-venue="${esc(venueKey(venue))}" style="--marker-color:${venueColorFor(venue)}">${esc(venue)}</span>`;
+  const s = String(venue);
+  const color = venueColorFor(venue);
+  const mark = t => `<span class="venue-mark" style="--marker-color:${color}">${esc(t)}</span>`;
+  let inner;
+  const paren = s.match(/\(([^()]+)\)\s*$/);
+  if (paren) {
+    inner = `${esc(s.slice(0, paren.index))}(${mark(paren[1])})${esc(s.slice(paren.index + paren[0].length))}`;
+  } else {
+    const acro = s.match(/\b[A-Z]{3,}\b/);
+    inner = acro
+      ? `${esc(s.slice(0, acro.index))}${mark(acro[0])}${esc(s.slice(acro.index + acro[0].length))}`
+      : mark(s);
+  }
+  return `<span class="pub-item__venue" data-venue="${esc(venueKey(venue))}">${inner}</span>`;
 }
 
 // Mirror of main.js highlightAuthor: wrap the owner's name in <span class="me">.

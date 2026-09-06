@@ -279,7 +279,7 @@ function buildResearch(res) {
     }
     if (sec.type === 'graduate') {
       for (const p of sec.projects || []) {
-        out.push(`#### [${p.code}] ${p.title}`);
+        out.push(`#### ${p.title}`);
         if (p.org)    out.push(`- Organization: ${p.org}`);
         if (p.period) out.push(`- Period: ${p.period}`);
         if (Array.isArray(p.keywords) && p.keywords.length) {
@@ -295,7 +295,7 @@ function buildResearch(res) {
       for (const g of sec.groups || []) {
         const parts = [`#### ${g.lab}`];
         if (g.advisor)     parts.push(`(Advisor: ${g.advisor})`);
-        if (g.institution) parts.push(`, ${g.institution}`);
+        if (g.institution) parts.push(`, ${g.institution}${g.location ? ` (${g.location})` : ''}`);
         if (g.period)      parts.push(`(${g.period})`);
         out.push(parts.join(' '));
         for (const it of g.items || []) out.push(`- ${stripHTML(it)}`);

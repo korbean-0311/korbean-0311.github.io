@@ -984,10 +984,13 @@ html[data-js] .pub-panel:not(.is-open) { display: none; }
   color: var(--color-accent);
 }
 
+/* Location sits at the right end of the place line (Education and the
+   internship rows alike); when the line wraps it keeps to the right. */
 .edu-loc {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
+  margin-left: auto;
   color: var(--text-secondary);
   font-size: 0.875rem;
   font-weight: 400;
@@ -1538,20 +1541,6 @@ html[data-js] .tab-panel.is-active { display: block; }
   margin: 0;
 }
 
-.research-code {
-  margin-left: 0.5rem;
-  font-size: 0.8125rem;
-  color: var(--text-secondary);
-  font-variant-numeric: tabular-nums;
-}
-
-.research-keywords {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin: 0.15rem 0 0.75rem;
-}
-
 .research-summary {
   margin: 0;
   padding-left: 1.1rem;
@@ -1832,8 +1821,6 @@ html[data-js] .tab-panel.is-active { display: block; }
    The rows reuse the Education classes (already trimmed above); only the
    research-specific pieces need their own reduction. */
 @media (max-width: 640px) {
-  .research-code { font-size: calc(0.8125rem - 1pt); }
-  .research-keywords .badge--keyword { font-size: calc(0.8125rem - 1pt); }
   .research-summary { font-size: calc(0.9375rem - 1pt); }
 }
 
