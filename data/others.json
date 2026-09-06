@@ -1,8 +1,16 @@
 {
   "reviewer": [
     {
-      "name": "IEEE TPEL",
+      "name": "IEEE Transactions on Power Electronics (TPEL)",
       "year": "2025, 2026"
+    },
+    {
+      "name": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
+      "year": "2026"
+    },
+    {
+      "name": "IEEE Journal of Emerging and Selected Topics in Industrial Electronics (JESTIE)",
+      "year": "2026"
     }
   ],
   "ta": [
@@ -27,7 +35,7 @@
   ],
   "coursework": [
     {
-      "school": "Coursework in SNU (M.S. - Ph.D)",
+      "school": "Seoul National University (M.S. – Ph.D.)",
       "courses": [
         {
           "name": "Electromagnetic Wave Engineering"
@@ -57,7 +65,7 @@
       ]
     },
     {
-      "school": "Coursework in KU (B.S.)",
+      "school": "Korea University (B.S.)",
       "courses": [
         {
           "name": "Probability & Random Process"
@@ -76,68 +84,6 @@
         },
         {
           "name": "Wireless Networks"
-        }
-      ]
-    }
-  ],
-  "programming": [
-    {
-      "category": "Programming Languages",
-      "skills": [
-        {
-          "name": "C",
-          "level": 3.5
-        },
-        {
-          "name": "Python",
-          "level": 3
-        },
-        {
-          "name": "MATLAB",
-          "level": 4.5
-        }
-      ]
-    },
-    {
-      "category": "Hardware Tools",
-      "subgroups": [
-        {
-          "label": "EM Simulators",
-          "skills": [
-            {
-              "name": "Dassault System CST",
-              "level": 4
-            },
-            {
-              "name": "Ansys HFSS",
-              "level": 2.5
-            },
-            {
-              "name": "Keysight ADS",
-              "level": 3
-            },
-            {
-              "name": "Altair FEKO Suite",
-              "level": 3
-            }
-          ]
-        },
-        {
-          "label": "Circuit Tools",
-          "skills": [
-            {
-              "name": "Cadence OrCAD Capture",
-              "level": 4
-            },
-            {
-              "name": "Cadence Allegro",
-              "level": 3.5
-            },
-            {
-              "name": "Cadence Virtuoso",
-              "level": 3
-            }
-          ]
         }
       ]
     }

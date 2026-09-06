@@ -8,6 +8,9 @@
  *
  * Email is intentionally OMITTED (user preference). BibTeX is INCLUDED. PDF
  * links are skipped (they are binary asset URLs, not textual content).
+ * The site's sections map 1:1 onto the "##" headings below; Academic Service
+ * and Coursework replaced the former "Others" page (programming skills were
+ * dropped from the site).
  *
  * If you change the static prose in index.html or contact.html (the parts that
  * are NOT JSON-driven), update the SITE_META block below so llms-full.txt
@@ -143,7 +146,7 @@ function buildHeader() {
   parts.push(`# ${SITE_META.name}\n`);
   parts.push(`> ${SITE_META.subtitle}\n`);
   parts.push(`Site: https://korbean-0311.github.io/\n`);
-  parts.push(`Pages: Home (https://korbean-0311.github.io/) · Academics — one long page with Education, Publications, Awards & Honors, Research, Others (https://korbean-0311.github.io/academics.html) · Contact (https://korbean-0311.github.io/contact.html)\n`);
+  parts.push(`Pages: Home (https://korbean-0311.github.io/) · Academics — one long page with Education, Publications, Awards & Honors, Research, Academic Service, Coursework (https://korbean-0311.github.io/academics.html) · Contact (https://korbean-0311.github.io/contact.html)\n`);
   parts.push('## About\n');
   for (const line of SITE_META.bio) parts.push(line);
   parts.push('');
@@ -303,10 +306,10 @@ function buildResearch(res) {
   return out.join('\n');
 }
 
-function buildOthers(others) {
-  const out = ['## Others\n'];
+function buildAcademicService(others) {
+  const out = ['## Academic Service\n'];
 
-  out.push('### Reviewer Activities');
+  out.push('### Journal Reviewer');
   for (const it of others.reviewer || []) {
     out.push(`- ${it.name}${it.year ? `, ${it.year}` : ''}`);
   }
@@ -321,7 +324,11 @@ function buildOthers(others) {
   }
   out.push('');
 
-  out.push('### Selected Coursework');
+  return out.join('\n');
+}
+
+function buildCoursework(others) {
+  const out = ['## Coursework\n'];
   for (const g of others.coursework || []) {
     out.push(`**${g.school}:**`);
     for (const c of g.courses || []) {
@@ -334,27 +341,6 @@ function buildOthers(others) {
     }
     out.push('');
   }
-
-  out.push('### Programming Skills');
-  for (const cat of others.programming || []) {
-    out.push(`**${cat.category}:**`);
-    if (Array.isArray(cat.skills) && cat.skills.length) {
-      for (const s of cat.skills) out.push(`- ${s.name} (${s.level}/5)`);
-    } else if (Array.isArray(cat.subgroups) && cat.subgroups.length) {
-      for (const sg of cat.subgroups) {
-        if (Array.isArray(sg.skills) && sg.skills.length) {
-          const list = sg.skills.map(s => `${s.name} (${s.level}/5)`).join(', ');
-          out.push(`- *${sg.label}*: ${list}`);
-        } else if (Array.isArray(sg.items) && sg.items.length) {
-          out.push(`- *${sg.label}*: ${sg.items.join(', ')}`);
-        }
-      }
-    } else if (Array.isArray(cat.items) && cat.items.length) {
-      for (const i of cat.items) out.push(`- ${i}`);
-    }
-    out.push('');
-  }
-
   return out.join('\n');
 }
 
@@ -393,7 +379,8 @@ function main() {
     buildAwards(awards),
     buildEducation(edu),
     buildResearch(res),
-    buildOthers(others),
+    buildAcademicService(others),
+    buildCoursework(others),
     buildContact(),
     `\n---\n_Generated automatically from data/*.json on ${new Date().toISOString().slice(0, 10)}._\n`
   ];

@@ -17,7 +17,8 @@
     ['publications', 'Publications'],
     ['awards', 'Awards &amp; Honors'],
     ['research', 'Research'],
-    ['others', 'Others'],
+    ['academic-service', 'Academic Service'],
+    ['coursework', 'Coursework'],
   ];
 
   /* ---------- Theme toggle ---------- */
@@ -167,10 +168,8 @@
     }
   }
 
-  const sectionNum = (i) => String(i + 1).padStart(2, '0');
-
-  const DROPDOWN_LINKS = NAV_SECTIONS.map(([id, label], i) =>
-    `<a href="${ACADEMICS_PAGE}#${id}" data-section-link="${id}"><span class="dd-num">${sectionNum(i)}</span><span>${label}</span></a>`
+  const DROPDOWN_LINKS = NAV_SECTIONS.map(([id, label]) =>
+    `<a href="${ACADEMICS_PAGE}#${id}" data-section-link="${id}">${label}</a>`
   ).join('\n            ');
 
   const PANEL_SUBLINKS = NAV_SECTIONS.map(([id, label]) =>

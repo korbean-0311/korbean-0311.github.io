@@ -8,7 +8,8 @@
  *   1. STATIC_PAGES: replaces the content between `<!-- R:key:START -->` /
  *      `<!-- R:key:END -->` markers in each page with freshly rendered HTML.
  *      index.html gets news + press; academics.html gets every other section
- *      (education, publications, awards, research, others) on one long page.
+ *      (education, publications, awards, research, academic service,
+ *      coursework) on one long page.
  *   2. Injects the publications JSON-LD (<head>) between the AI-JSONLD markers.
  *   3. Injects the shared profile sidebar between the PROFILE markers (with the
  *      "On this page" section index on academics.html).
@@ -156,7 +157,8 @@ function renderEducationTimeline() {
       const nameLink = a.link
         ? `<a href="${esc(a.link)}" target="_blank" rel="noopener">${esc(a.name)}${ARROW_SVG}</a>`
         : esc(a.name);
-      const noteHTML = a.note ? ` (${eduRenderNote(a.note, a.note_link)})` : '';
+      // The advisor's own pedigree goes on its own line (CSS: display:block).
+      const noteHTML = a.note ? `<span class="adv-note">(${eduRenderNote(a.note, a.note_link)})</span>` : '';
       return `<div><span class="adv-label">${esc(a.label)}:</span> ${nameLink}${noteHTML}</div>`;
     }).join('\n              ');
     const schoolLink = item.school_link
@@ -191,9 +193,18 @@ function renderEducationTimeline() {
 function researchRichText(s) {
   return esc(s).replace(/&lt;u&gt;/g, '<u>').replace(/&lt;\/u&gt;/g, '</u>');
 }
+// Organization / school logo box shared by project cards and internships.
+// `logo` is a path in research.json (assets/logos/…).
+function orgLogoHTML(src, alt) {
+  if (!src) return '';
+  return `<div class="org-logo"><img src="${esc(src)}" alt="${esc(alt)} logo" width="50" height="50" loading="lazy" decoding="async" /></div>`;
+}
 function researchProjectCard(p) {
+  const logo = orgLogoHTML(p.logo, p.org);
   return `
-        <article class="research-card">
+        <article class="research-card${logo ? '' : ' research-card--nologo'}">
+          ${logo}
+          <div class="research-card__body">
           <div class="research-card__header">
             <span class="research-card__code">[${esc(p.code)}]</span>
             <span class="research-card__org">${esc(p.org)}</span>
@@ -208,11 +219,15 @@ function researchProjectCard(p) {
             <ul class="research-card__summary">
               ${p.summary.map(s => `<li>${researchRichText(s)}</li>`).join('')}
             </ul>` : ''}
+          </div>
         </article>`;
 }
 function researchUndergradGroup(g) {
+  const logo = orgLogoHTML(g.logo, g.institution || g.lab);
   return `
-        <article class="research-intern">
+        <article class="research-intern${logo ? '' : ' research-intern--nologo'}">
+          ${logo}
+          <div class="research-intern__body">
           <div class="research-intern__header">
             <strong>${esc(g.lab)}</strong>${g.advisor ? ` <em>(Advisor: ${esc(g.advisor)})</em>` : ''}${g.institution ? `, at ${esc(g.institution)}` : ''}${g.period ? ` <span class="research-intern__period">(${esc(g.period)})</span>` : ''}
           </div>
@@ -220,6 +235,7 @@ function researchUndergradGroup(g) {
             <ul class="research-intern__items">
               ${g.items.map(it => `<li>${researchRichText(it)}</li>`).join('')}
             </ul>` : ''}
+          </div>
         </article>`;
 }
 function researchSectionHTML(section) {
@@ -295,79 +311,46 @@ ${rows}
     </section>`;
 }
 
-// Others — ported verbatim from the others.html inline renderer.
-function othersRenderReviewer() {
+// Academic Service — two columns (Journal Reviewer | Teaching Assistant) from
+// data/others.json. Plain <div>s inside (a nested <section> would pick up the
+// global section margin).
+function renderAcademicService() {
   const data = readJSON('others.json');
-  return (data.reviewer || []).map(it =>
-    `<li><em>${esc(it.name)}</em>, ${esc(it.year || '')}.</li>`
+  const reviewer = (data.reviewer || []).map(it =>
+    `<li><em>${esc(it.name)}</em>${it.year ? `, ${esc(it.year)}` : ''}.</li>`
   ).join('') || '<li class="loading">No entries yet.</li>';
-}
-function othersRenderTA() {
-  const data = readJSON('others.json');
-  return (data.ta || []).map(it => {
+  const ta = (data.ta || []).map(it => {
     const code = it.code ? ` (${esc(it.code)})` : '';
     const inst = it.institution ? `, ${esc(it.institution)}` : '';
     const term = it.term ? `, ${esc(it.term)}` : '';
     return `<li>${esc(it.course)}${code}${inst}${term}</li>`;
   }).join('') || '<li class="loading">No entries yet.</li>';
+  return `<div class="service-grid">
+        <div class="service-col">
+          <h3 class="service-col__title" id="reviewer-heading">Journal Reviewer</h3>
+          <ul class="others-list" id="list-reviewer">${reviewer}</ul>
+        </div>
+        <div class="service-col">
+          <h3 class="service-col__title" id="ta-heading">Teaching Assistant</h3>
+          <ul class="others-list" id="list-ta">${ta}</ul>
+        </div>
+      </div>`;
 }
-function othersRenderCoursework() {
+
+// Coursework — one column per school, side by side.
+function renderCoursework() {
   const data = readJSON('others.json');
-  return (data.coursework || []).map(g => `
-          <div class="coursework-group">
-            <h4 class="coursework-group__title">${esc(g.school)}</h4>
-            <ul class="coursework-list">${(g.courses || []).map(c => {
-              if (typeof c === 'string') return `<li>${esc(c)}</li>`;
-              const note = c.note ? ` <em class="coursework-note">(${esc(c.note)})</em>` : '';
-              return `<li>${esc(c.name)}${note}</li>`;
-            }).join('')}</ul>
-          </div>
-        `).join('');
-}
-function othersSkillDots(level) {
-  const lvl = Math.max(0, Math.min(5, level || 0));
-  let html = '';
-  for (let i = 1; i <= 5; i++) {
-    let cls = 'skill-dot';
-    if (i <= Math.floor(lvl)) cls += ' is-filled';
-    else if (i - 0.5 <= lvl) cls += ' is-half';
-    html += `<span class="${cls}"></span>`;
-  }
-  return `<span class="skill-rating" aria-label="${lvl} out of 5">${html}</span>`;
-}
-function othersRenderSkills(skills) {
-  return `<ul class="skill-list">${skills.map(s => `
-            <li class="skill-row">
-              <span class="skill-name">${esc(s.name)}</span>
-              ${othersSkillDots(s.level)}
-            </li>`).join('')}</ul>`;
-}
-function othersRenderProgramming() {
-  const data = readJSON('others.json');
-  return (data.programming || []).map(cat => {
-    let inner = '';
-    if (cat.skills && cat.skills.length) {
-      inner = othersRenderSkills(cat.skills);
-    } else if (cat.subgroups && cat.subgroups.length) {
-      inner = cat.subgroups.map(sg => {
-        if (sg.skills && sg.skills.length) {
-          return `<div class="skill-subgroup">
-                  <h5 class="skill-subgroup__title">${esc(sg.label)}</h5>
-                  ${othersRenderSkills(sg.skills)}
-                </div>`;
-        }
-        return `<ul class="prog-list"><li><strong>${esc(sg.label)}</strong>
-                <ul class="prog-list prog-list--inner">${(sg.items || []).map(i => `<li>${esc(i)}</li>`).join('')}</ul>
-              </li></ul>`;
-      }).join('');
-    } else if (cat.items && cat.items.length) {
-      inner = `<ul class="prog-list">${cat.items.map(i => `<li>${esc(i)}</li>`).join('')}</ul>`;
-    }
-    return `<div class="prog-group">
-            <h4 class="prog-group__title">${esc(cat.category)}</h4>
-            ${inner}
-          </div>`;
-  }).join('');
+  const groups = (data.coursework || []).map(g => `
+        <div class="coursework-group">
+          <h3 class="coursework-group__title">${esc(g.school)}</h3>
+          <ul class="coursework-list">${(g.courses || []).map(c => {
+            if (typeof c === 'string') return `<li>${esc(c)}</li>`;
+            const note = c.note ? ` <em class="coursework-note">(${esc(c.note)})</em>` : '';
+            return `<li>${esc(c.name)}${note}</li>`;
+          }).join('')}</ul>
+        </div>`).join('');
+  return `<div class="coursework-grid">${groups}
+      </div>`;
 }
 
 // -- Publications (static-first) -----------------------------------------
@@ -455,9 +438,15 @@ function highlightAuthorMe(authors, me) {
   return safe.replace(re, () => `<span class="me">${safeMe}</span>`);
 }
 
-function pubActionButtons(p) {
+// Button row in a fixed order — Abstract, Keywords, BibTeX, DOI, PDF — plus the
+// Abstract / Keywords panels that the first two buttons toggle. The panel text
+// is in the static HTML regardless (hidden by CSS only once JS is present), so
+// crawlers and no-JS readers see it; llms-full.txt and the JSON-LD carry it too.
+let pubPanelSeq = 0;
+function pubActionsHTML(p) {
   const notes = [];
   const buttons = [];
+  const panels = [];
   (p.notes || []).forEach(n => {
     const kind = n && n.kind ? n.kind : 'info';
     const label = typeof n === 'string' ? n : (n && n.label) || '';
@@ -466,6 +455,16 @@ function pubActionButtons(p) {
     const iconHTML = icon ? `<span class="pub-note__icon">${esc(icon)}</span>` : '';
     notes.push(`<span class="pub-note pub-note--${esc(kind)}">${iconHTML}${esc(label)}</span>`);
   });
+  if (p.abstract && p.abstract.trim()) {
+    const id = `pub-abstract-${++pubPanelSeq}`;
+    buttons.push(`<button type="button" class="pub-btn pub-btn--abs" data-panel-toggle="${id}" aria-expanded="false" aria-controls="${id}">Abstract</button>`);
+    panels.push(`<div class="pub-panel" id="${id}"><span class="pub-panel__label">Abstract</span><p>${esc(p.abstract)}</p></div>`);
+  }
+  if (Array.isArray(p.keywords) && p.keywords.length) {
+    const id = `pub-keywords-${++pubPanelSeq}`;
+    buttons.push(`<button type="button" class="pub-btn pub-btn--kw" data-panel-toggle="${id}" aria-expanded="false" aria-controls="${id}">Keywords</button>`);
+    panels.push(`<div class="pub-panel" id="${id}"><span class="pub-panel__label">Keywords</span><p>${esc(p.keywords.join(', '))}</p></div>`);
+  }
   if (p.bibtex && p.bibtex.length) {
     buttons.push(`<button type="button" class="pub-btn pub-btn--bib" data-bibtex="${esc(p.bibtex)}" aria-label="Copy BibTeX">BibTeX</button>`);
   }
@@ -475,24 +474,15 @@ function pubActionButtons(p) {
   if (p.pdf) {
     buttons.push(`<a class="pub-btn pub-btn--pdf" href="${esc(p.pdf)}" target="_blank" rel="noopener" aria-label="Open PDF">PDF</a>`);
   }
-  if (!notes.length && !buttons.length) return '';
+  let rows = '';
   if (notes.length && buttons.length) {
-    return `
+    rows = `
         <div class="pub-item__actions pub-item__actions--notes">${notes.join('')}</div>
         <div class="pub-item__actions pub-item__actions--buttons">${buttons.join('')}</div>`;
+  } else if (notes.length || buttons.length) {
+    rows = `<div class="pub-item__actions">${notes.concat(buttons).join('')}</div>`;
   }
-  return `<div class="pub-item__actions">${notes.concat(buttons).join('')}</div>`;
-}
-
-function pubExtraInfo(p) {
-  let html = '';
-  if (p.abstract && p.abstract.trim()) {
-    html += `<details class="pub-extra"><summary>Abstract</summary><p>${esc(p.abstract)}</p></details>`;
-  }
-  if (Array.isArray(p.keywords) && p.keywords.length) {
-    html += `<details class="pub-extra"><summary>Keywords</summary><p>${esc(p.keywords.join(', '))}</p></details>`;
-  }
-  return html;
+  return rows + panels.join('');
 }
 
 function pubItemHTML(p, opts) {
@@ -526,8 +516,7 @@ function pubItemHTML(p, opts) {
           <div class="pub-item__title">${titleQuote}${esc(p.title)}${titleSuffix}${titleQuote}</div>
           ${sep}
           ${metaHTML}
-          ${pubActionButtons(p)}
-          ${pubExtraInfo(p)}
+          ${pubActionsHTML(p)}
         </div>
       </li>
     `;
@@ -645,23 +634,23 @@ function injectRegion(html, key, content) {
 // PROFILE markers) so all pages stay in sync. It is static HTML, so AI /
 // non-JS crawlers read the name, affiliation, and links on every page.
 
-// The five sections of academics.html, in page order. Also the source of the
-// numbering ("01" …) used by the section headings, so keep it in sync with
-// the <section id> order in academics.html and with NAV_SECTIONS in js/main.js.
+// The sections of academics.html, in page order. Keep in sync with the
+// <section id> order in academics.html and with NAV_SECTIONS in js/main.js.
 const ACADEMIC_SECTIONS = [
   ['education', 'Education'],
   ['publications', 'Publications'],
   ['awards', 'Awards &amp; Honors'],
   ['research', 'Research'],
-  ['others', 'Others'],
+  ['academic-service', 'Academic Service'],
+  ['coursework', 'Coursework'],
 ];
 
-// "On this page" index (academics.html only): links to every section with its
-// number. Lives inside the sticky aside so it stays in view on desktop; the
-// mobile CSS turns the same list into a pill bar under the top nav.
+// "On this page" index (academics.html only): links to every section. Lives
+// inside the sticky aside so it stays in view on desktop; the mobile CSS turns
+// the same list into a pill bar under the top nav.
 function buildSideIndex() {
-  const items = ACADEMIC_SECTIONS.map(([id, label], i) =>
-    `<li><a href="#${id}" data-section-link="${id}"><span class="side-index__num">${String(i + 1).padStart(2, '0')}</span><span>${label}</span></a></li>`
+  const items = ACADEMIC_SECTIONS.map(([id, label]) =>
+    `<li><a href="#${id}" data-section-link="${id}">${label}</a></li>`
   ).join('\n          ');
   return `
       <nav class="side-index" aria-label="On this page">
@@ -708,10 +697,8 @@ const STATIC_PAGES = {
     ['publications', renderPublicationsTabs],
     ['awards', renderAwards],
     ['research', renderResearch],
-    ['reviewer', othersRenderReviewer],
-    ['ta', othersRenderTA],
-    ['coursework', othersRenderCoursework],
-    ['programming', othersRenderProgramming],
+    ['service', renderAcademicService],
+    ['coursework', renderCoursework],
   ],
 };
 

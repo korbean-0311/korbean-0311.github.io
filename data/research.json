@@ -5,8 +5,14 @@
       "title": "Graduate Student",
       "affiliation": {
         "labs": [
-          { "name": "AEL", "pi": "Sangwook Nam" },
-          { "name": "WFL", "pi": "Jungsuek Oh" }
+          {
+            "name": "AEL",
+            "pi": "Sangwook Nam"
+          },
+          {
+            "name": "WFL",
+            "pi": "Jungsuek Oh"
+          }
         ],
         "institution": "Seoul National University",
         "note": "jointly advised"
@@ -27,7 +33,8 @@
           "summary": [
             "<u>Developed calibration and verification algorithms for ultra-large-scale digital array antennas (86,400+ elements) used in space surveillance radar,</u> addressing major error sources (probe phase center offset, polarization misalignment, position-dependent element beam patterns, 3D probe position uncertainty, and radome-induced channel distortion).",
             "Designed an AI-integrated calibration verification simulator enabling independent and combined sensitivity analysis of error sources, providing quantitative performance evaluation and optimal calibration strategies for field-deployed large-aperture phased array systems."
-          ]
+          ],
+          "logo": "assets/logos/lig-dna.svg"
         },
         {
           "code": "P4",
@@ -44,7 +51,8 @@
           "summary": [
             "Scaled up the LUT-based calibration and LCSPD architecture to a <u>1024-element (32×32) transmitter and 256-element (16×16) receiver array operating at 5.64 GHz for power gateway applications.</u>",
             "Designed and validated high-power <u>WPT system operation exceeding 100 W transmitted power</u>, demonstrating the scalability of the proposed calibration and series power divider methodology."
-          ]
+          ],
+          "logo": "assets/logos/samsung.png"
         },
         {
           "code": "P3",
@@ -61,7 +69,8 @@
           "summary": [
             "Proposed an LUT-based calibration and complexity reduction method for <u>a scalable 256-element transmitter array</u> in RF wireless power transfer systems, enabling accurate beam collection efficiency (BCE) estimation using only a single input connection and a fixed reference antenna.",
             "Designed a loss compensated series power divider (LCSPD) for scalable RF signal distribution and <u>demonstrated 71.9% BCE at 0.5 m with 6.08 W transmitted and 4.37 W received power at 5.64 GHz</u>, validated through convex-optimized near-field focusing experiments."
-          ]
+          ],
+          "logo": "assets/logos/samsung.png"
         },
         {
           "code": "P2",
@@ -78,7 +87,8 @@
           "summary": [
             "<u>Derived power transfer efficiency (PTE) bounds for practical microwave and mmWave WPT systems via convex optimization,</u> estimating the Tx–Rx channel from the Friis equation and active element patterns instead of full-wave EM simulation.",
             "Validated the method on 10 GHz and 24 GHz array systems across varying distance and tilt angle, providing a faster and more accurate efficiency guideline for practical WPT system design."
-          ]
+          ],
+          "logo": "assets/logos/samsung.png"
         },
         {
           "code": "P1",
@@ -96,7 +106,8 @@
           "summary": [
             "Design and fabrication of mmWave large array transmitter antenna (@24 GHz, 32×32).",
             "<u>Developed an adaptive beamforming algorithm that finds the optimized transmit phase pattern from received-power feedback alone,</u> using the orthogonal Hadamard basis for low-complexity sequential phase optimization with minimal hardware requirements, validated through simulation and experiment."
-          ]
+          ],
+          "logo": "assets/logos/samsung.png"
         }
       ]
     },
@@ -112,7 +123,8 @@
           "items": [
             "RADAR system used DC to DC SMPS (36 W) PCB design & artwork",
             "Trained circuit design tools (OrCAD)"
-          ]
+          ],
+          "logo": "assets/logos/snu.png"
         },
         {
           "lab": "AISL",
@@ -123,7 +135,8 @@
             "Bachelor's Thesis: \"High-speed 2-Stage Cascode Op-amp Design\"",
             "Simple VCO, PLL design",
             "Trained circuit design tools (Cadence Virtuoso)"
-          ]
+          ],
+          "logo": "assets/logos/korea-university.png"
         },
         {
           "lab": "BASIC Lab.",
@@ -132,7 +145,8 @@
           "period": "2019.12 — 2020.02",
           "items": [
             "2-Stage amp design & trained circuit design tools (Cadence Virtuoso)"
-          ]
+          ],
+          "logo": "assets/logos/korea-university.png"
         }
       ]
     }

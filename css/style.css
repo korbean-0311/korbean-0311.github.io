@@ -13,15 +13,15 @@ html[data-js] [data-mount-nav] { display: none !important; }
 
 /* ---------- CSS Variables ---------- */
 :root {
-  /* Light theme (the default) — the reference palette of sehyunryu.github.io:
-     white paper, near-black ink, a deep-maroon accent for hover/emphasis, warm
-     grays for meta text and hairlines, and a pale sky line between sections. */
+  /* Light theme (the default): white paper, near-black ink, grays for meta
+     text and hairlines (after sehyunryu.github.io), with SNU's deep blue —
+     sampled from the university crest — as the accent for hover/emphasis. */
   --bg-primary: #FFFFFF;
   --bg-surface: #F7F7F7;
   --color-primary: #111111;
   --color-secondary: #7A7A7A;
-  --color-accent: #5A2D26;
-  --color-accent-hover: #3F1F1A;
+  --color-accent: #182850;
+  --color-accent-hover: #2E4A86;
   --color-warm: #B45309;
   --text-primary: #111111;
   --text-secondary: #7A7A7A;
@@ -36,8 +36,8 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --radius-pill: 9999px;
 
   --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-  /* Display serif for the name and page/section titles only — body stays Inter. */
-  --font-serif: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  /* One typeface everywhere: the name and section titles use the body font. */
+  --font-serif: var(--font-sans);
   /* Small numerals (section numbers, menu numbers) — system mono, no webfont. */
   --font-mono: 'IBM Plex Mono', 'JetBrains Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
 }
@@ -272,10 +272,8 @@ button {
     transition-delay: 0s;
   }
   .topnav__dropdown a {
-    display: grid;
-    grid-template-columns: 1.6rem 1fr;
-    align-items: baseline;
-    padding: 0.5rem 0.75rem;
+    display: block;
+    padding: 0.5rem 0.85rem;
     border-radius: 7px;
     font-size: 0.9rem;
     font-weight: 500;
@@ -290,13 +288,6 @@ button {
   .topnav__dropdown a.is-active {
     color: var(--color-accent);
   }
-  .topnav__dropdown .dd-num {
-    font-family: var(--font-mono);
-    font-size: 0.6875rem;
-    letter-spacing: 0.06em;
-    color: var(--text-secondary);
-  }
-  .topnav__dropdown a.is-active .dd-num { color: var(--color-accent); }
   /* Hide mobile-only hamburger button on desktop.
      !important defends against the .icon-btn { display: inline-flex } base rule
      which has the same specificity. */
@@ -645,24 +636,11 @@ section {
 }
 
 section h2 {
-  font-family: var(--font-serif);
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--text-primary);
   margin-bottom: 1.25rem;
   letter-spacing: -0.01em;
-  /* Signature motif: short vertical accent bar before every section title. */
-  display: flex;
-  align-items: baseline;
-  gap: 0.6rem;
-}
-
-section h2::before {
-  content: "";
-  align-self: stretch;
-  width: 4px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, var(--color-accent), var(--color-primary));
 }
 
 section h3 {
@@ -868,33 +846,33 @@ a.press-item__title:hover {
   }
 }
 
-/* ---------- Publication collapsible Abstract / Keywords ---------- */
-.pub-extra {
-  margin-top: 0.5rem;
+/* ---------- Publication Abstract / Keywords panels ----------
+   Opened by the Abstract / Keywords buttons in the card's button row. The
+   text is always in the HTML; with JS present a panel is shown only while its
+   button is active, without JS every panel is simply visible. */
+.pub-panel {
+  margin-top: 0.6rem;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-primary);
 }
-.pub-extra summary {
-  cursor: pointer;
-  font-size: 0.8125rem;
+html[data-js] .pub-panel:not(.is-open) { display: none; }
+.pub-panel__label {
+  display: block;
+  margin-bottom: 0.25rem;
+  font-size: 0.6875rem;
   font-weight: 600;
-  color: var(--color-accent);
-  list-style: none;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.35rem;
-  user-select: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
 }
-.pub-extra summary::-webkit-details-marker { display: none; }
-.pub-extra summary::before {
-  content: "\25B8";
-  font-size: 0.7rem;
-  transition: transform 0.15s ease;
-}
-.pub-extra[open] summary::before { transform: rotate(90deg); }
-.pub-extra p {
-  margin: 0.5rem 0 0;
+.pub-panel p {
+  margin: 0;
   font-size: 0.875rem;
   line-height: 1.6;
-  color: var(--text-secondary);
+  color: var(--text-primary);
+  text-wrap: pretty;
 }
 
 /* ---------- Education (reference layout: period | logo | copy rows) ---------- */
@@ -934,27 +912,34 @@ a.press-item__title:hover {
   grid-template-columns: minmax(0, 1fr);
 }
 
-/* White chip keeps dark crests legible in dark mode.
-   NOTE: the img gets explicit pixel sizes (chip minus padding/border), NOT
-   width/height:100% — percentage heights collapse to auto inside the chip's
-   auto-sized track, which let portrait crests (KU) overflow the chip. */
+/* Borderless logo box (the white fill only shows in dark mode, where it keeps
+   dark crests legible).
+   NOTE: the img gets explicit pixel sizes, NOT width/height:100% — percentage
+   heights collapse to auto inside the box's auto-sized track, which let
+   portrait crests (KU) overflow it. */
 .edu-logo {
   width: 72px;
   height: 72px;
   background: #fff;
-  border: 1px solid var(--border-color);
   border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
+  padding: 4px;
 }
 
 .edu-logo img {
   display: block;
-  width: 60px;
-  height: 60px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
+}
+
+/* Advisor's own pedigree ("Ph.D. @… under …") sits on its own line. */
+.adv-note {
+  display: block;
+  padding-left: 1rem;
+  color: var(--text-secondary);
 }
 
 /* The degree is the headline of each row. */
@@ -1040,8 +1025,8 @@ a.press-item__title:hover {
   }
   .edu-period { padding-top: 0; }
   .edu-main { grid-template-columns: 56px minmax(0, 1fr); gap: 14px; }
-  .edu-logo { width: 56px; height: 56px; border-radius: 8px; padding: 4px; }
-  .edu-logo img { width: 46px; height: 46px; }
+  .edu-logo { width: 56px; height: 56px; border-radius: 8px; padding: 3px; }
+  .edu-logo img { width: 50px; height: 50px; }
 }
 
 /* ---------- Publications ---------- */
@@ -1136,11 +1121,6 @@ html[data-js] .tab-panel.is-active { display: block; }
 
 .pub-item:hover {
   border-color: color-mix(in srgb, var(--color-primary) 30%, var(--border-color));
-}
-
-/* First-author papers get a sky accent edge — instantly scannable. */
-.pub-item[data-first="1"] {
-  border-left: 3px solid color-mix(in srgb, var(--color-accent) 75%, transparent);
 }
 
 .pub-item__num {
@@ -1290,6 +1270,25 @@ html[data-js] .tab-panel.is-active { display: block; }
 }
 
 .pub-btn:hover { transform: translateY(-1px); }
+
+/* Abstract / Keywords = accent blue; filled while their panel is open */
+.pub-btn--abs,
+.pub-btn--kw {
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+.pub-btn--abs:hover,
+.pub-btn--kw:hover,
+.pub-btn--abs.is-active,
+.pub-btn--kw.is-active {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+[data-theme="dark"] .pub-btn--abs:hover,
+[data-theme="dark"] .pub-btn--kw:hover,
+[data-theme="dark"] .pub-btn--abs.is-active,
+[data-theme="dark"] .pub-btn--kw.is-active { color: var(--bg-primary); }
 
 /* DOI = warm amber */
 .pub-btn--doi {
@@ -1544,15 +1543,36 @@ html[data-js] .tab-panel.is-active { display: block; }
 .research-card {
   background: var(--bg-surface);
   border: 1px solid var(--border-color);
-  gap: 1.5rem;
-}
-
-.research-card {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
   border-radius: var(--radius-card);
   padding: 1.5rem;
   transition: border-color 0.2s ease, transform 0.2s ease;
+  /* Organization logo on the left, the card body on the right. */
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 1.1rem;
+  align-items: start;
+}
+
+.research-card--nologo { grid-template-columns: minmax(0, 1fr); }
+
+/* Shared logo box for research projects (company) and internships (school). */
+.org-logo {
+  width: 56px;
+  height: 56px;
+  background: #fff;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+  overflow: hidden;
+}
+
+.org-logo img {
+  display: block;
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
 }
 
 .research-card:hover {
@@ -1624,7 +1644,16 @@ html[data-js] .tab-panel.is-active { display: block; }
   border-radius: var(--radius-card);
   padding: 0.85rem 1.1rem;
   transition: border-color 0.2s ease;
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 0.9rem;
+  align-items: start;
 }
+
+.research-intern--nologo { grid-template-columns: minmax(0, 1fr); }
+
+.research-intern .org-logo { width: 48px; height: 48px; border-radius: 8px; }
+.research-intern .org-logo img { width: 42px; height: 42px; }
 
 .research-intern:hover {
   border-color: color-mix(in srgb, var(--color-primary) 30%, var(--border-color));
@@ -1669,7 +1698,38 @@ html[data-js] .tab-panel.is-active { display: block; }
   vertical-align: middle;
 }
 
-/* ---------- Others page ---------- */
+/* ---------- Academic Service (Journal Reviewer | Teaching Assistant) ----------
+   Two columns on desktop, one on phones. */
+.service-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem 2.5rem;
+  align-items: start;
+}
+
+.service-col__title,
+.coursework-group__title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.6rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Coursework: SNU | KU side by side. */
+.coursework-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem 2.5rem;
+  align-items: start;
+}
+
+@media (max-width: 640px) {
+  .service-grid,
+  .coursework-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+
 .others-list {
   list-style: none;
   margin: 0;
@@ -1702,35 +1762,9 @@ html[data-js] .tab-panel.is-active { display: block; }
   color: var(--text-primary);
 }
 
-/* legacy alias for any remaining references */
-
-.coursework-group {
-  margin-bottom: 1.25rem;
-}
-
-.coursework-group:last-child { margin-bottom: 0; }
-
-.coursework-group__title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 0.5rem 0;
-  position: relative;
-  padding-left: 1.1rem;
-}
-
-.coursework-group__title::before {
-  content: '\25AA';
-  position: absolute;
-  left: 0;
-  top: 0.15rem;
-  color: var(--color-primary);
-  font-size: 0.85rem;
-}
-
 .coursework-list {
   list-style: none;
-  margin: 0 0 0 1.1rem;
+  margin: 0;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -1758,137 +1792,6 @@ html[data-js] .tab-panel.is-active { display: block; }
   color: var(--text-secondary);
   font-style: italic;
   font-size: 0.875rem;
-}
-
-/* Programming Skills */
-.prog-group {
-  margin-bottom: 1.25rem;
-}
-
-.prog-group:last-child { margin-bottom: 0; }
-
-/* ---------- Skill rating dots ---------- */
-.skill-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.skill-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0.5rem 0.875rem;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-}
-
-.skill-name {
-  font-weight: 500;
-  color: var(--text-primary);
-  font-size: 0.9375rem;
-}
-
-.skill-rating {
-  display: inline-flex;
-  gap: 6px;
-}
-
-.skill-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: transparent;
-  border: 1.5px solid var(--color-accent);
-  display: inline-block;
-}
-
-.skill-dot.is-filled {
-  background: var(--color-accent);
-}
-
-.skill-dot.is-half {
-  background: linear-gradient(90deg, var(--color-accent) 50%, transparent 50%);
-}
-
-.skill-subgroup {
-  margin-top: 0.75rem;
-}
-
-.skill-subgroup__title {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  margin: 0 0 0.4rem 0;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.skill-subgroup + .skill-subgroup {
-  margin-top: 1rem;
-}
-
-.prog-group__title {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin: 0 0 0.5rem 0;
-  position: relative;
-  padding-left: 1.1rem;
-}
-
-.prog-group__title::before {
-  content: '\25AA';
-  position: absolute;
-  left: 0;
-  top: 0.15rem;
-  color: var(--color-primary);
-  font-size: 0.85rem;
-}
-
-.prog-list {
-  list-style: none;
-  margin: 0 0 0 1.1rem;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-}
-
-.prog-list li {
-  position: relative;
-  padding-left: 1.1rem;
-  font-size: 0.9375rem;
-  line-height: 1.5;
-  color: var(--text-primary);
-}
-
-.prog-list li::before {
-  content: '\25AA';
-  position: absolute;
-  left: 0;
-  top: 0;
-  color: var(--text-secondary);
-  font-size: 0.7rem;
-}
-
-.prog-list strong {
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.prog-list--inner {
-  margin-top: 0.3rem;
-  margin-left: 0.5rem;
-}
-
-.prog-list--inner li {
-  font-size: 0.9rem;
-  color: var(--text-secondary);
 }
 
 /* ---------- Contact ---------- */
@@ -2000,8 +1903,7 @@ html[data-js] .tab-panel.is-active { display: block; }
   #tab-content .pub-btn { font-size: calc(0.75rem - 1pt); }
   #tab-content .badge { font-size: calc(0.875rem - 1pt); }             /* incl. .badge--country */
   #tab-content .badge--tag { font-size: calc(0.75rem - 1pt); }
-  #tab-content .pub-extra summary { font-size: calc(0.8125rem - 1pt); }
-  #tab-content .pub-extra p { font-size: calc(0.875rem - 1pt); }
+  #tab-content .pub-panel p { font-size: calc(0.875rem - 1pt); }
   #tab-content .patent-item__title { font-size: calc(0.9375rem - 1pt); }
   #tab-content .patent-item__meta li { font-size: calc(0.875rem - 1pt); }  /* .patent-label inherits */
   #tab-content .pub-item__title { font-size: calc(1rem - 1pt); }
@@ -2011,18 +1913,13 @@ html[data-js] .tab-panel.is-active { display: block; }
   #awards-content .badge--tag { font-size: calc(0.75rem - 1pt); }
 }
 
-/* ---------- Mobile: trim Others section text −1pt ---------- */
+/* ---------- Mobile: trim Academic Service / Coursework text −1pt ---------- */
 @media (max-width: 640px) {
-  .others-heading { font-size: calc(1.25rem - 1pt); }  /* Reviewer Activities, etc. */
-  .others-list li { font-size: calc(0.95rem - 1pt); }                     /* em inherits */
+  .service-col__title,
   .coursework-group__title { font-size: calc(1rem - 1pt); }
+  .others-list li { font-size: calc(0.95rem - 1pt); }                     /* em inherits */
   .coursework-list li { font-size: calc(0.9375rem - 1pt); }
   .coursework-note { font-size: calc(0.875rem - 1pt); }
-  .prog-group__title { font-size: calc(1rem - 1pt); }
-  .skill-subgroup__title { font-size: calc(0.875rem - 1pt); }
-  .skill-name { font-size: calc(0.9375rem - 1pt); }
-  .prog-list li { font-size: calc(0.9375rem - 1pt); }                     /* strong inherits */
-  .prog-list--inner li { font-size: calc(0.9rem - 1pt); }
 }
 
 /* ---------- Mobile: trim Research page text −1pt ----------
@@ -2148,20 +2045,8 @@ html {
   border-top: 1px solid var(--line-soft);
 }
 
-/* "01" numeral in a narrow gutter, then the section title. */
 .section-heading {
-  display: grid;
-  grid-template-columns: 2.75rem minmax(0, 1fr);
-  align-items: baseline;
   margin-bottom: 1.5rem;
-}
-
-.section-num {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.1em;
-  color: var(--text-secondary);
-  font-variant-numeric: tabular-nums;
 }
 
 .section-heading h2 {
@@ -2169,11 +2054,8 @@ html {
   margin: 0;
 }
 
-/* Sub-headings inside a section (Research groups, Others blocks) share one
-   look: sans, 1.25rem, with a hairline underneath. */
-.research-section__title,
-.others-heading {
-  font-family: var(--font-sans);
+/* Sub-headings inside a section (Research groups): 1.25rem with a hairline. */
+.research-section__title {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--color-primary);
@@ -2182,9 +2064,6 @@ html {
   border-bottom: 1px solid var(--border-color);
   letter-spacing: -0.005em;
 }
-
-.others-block { margin-bottom: 2.25rem; }
-.others-block:last-child { margin-bottom: 0; }
 
 /* Sidebar index — sits under the profile card, inside the sticky aside. */
 .side-index {
@@ -2214,21 +2093,13 @@ html {
 .side-index li { margin: 0; }
 
 .side-index a {
-  display: grid;
-  grid-template-columns: 1.6rem minmax(0, 1fr);
-  align-items: baseline;
+  display: block;
   padding: 0.3rem 0.5rem 0.3rem 0.6rem;
   margin-left: -0.6rem;
   border-left: 2px solid transparent;
   font-size: 0.8125rem;
   color: var(--text-secondary);
   transition: color 0.2s ease, border-color 0.2s ease;
-}
-
-.side-index__num {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.06em;
 }
 
 .side-index a:hover { color: var(--text-primary); }
@@ -2238,8 +2109,6 @@ html {
   font-weight: 500;
   border-left-color: var(--color-accent);
 }
-
-.side-index a.is-active .side-index__num { color: var(--color-accent); }
 
 /* Mobile: the aside carries only the index, as a sticky row of pills right
    under the top bar (the profile card stays home-only on phones). */
@@ -2272,9 +2141,7 @@ html {
   }
   body[data-page="academics"] .side-index ol::-webkit-scrollbar { display: none; }
   body[data-page="academics"] .side-index a {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.35rem;
+    display: inline-block;
     flex-shrink: 0;
     margin: 0;
     padding: 0.3rem 0.8rem;
@@ -2288,11 +2155,9 @@ html {
     border-color: var(--color-primary);
     color: #fff;
   }
-  body[data-page="academics"] .side-index a.is-active .side-index__num { color: #fff; opacity: 0.8; }
   [data-theme="dark"] body[data-page="academics"] .side-index a.is-active { color: var(--bg-primary); }
 
   .section { scroll-margin-top: calc(var(--nav-height) + 52px + 0.75rem); }
   .section + .section { margin-top: 2.5rem; padding-top: 2.5rem; }
-  .section-heading { grid-template-columns: 2.25rem minmax(0, 1fr); }
   .section-heading h2 { font-size: calc(1.5rem - 1pt); }
 }

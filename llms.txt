@@ -4,21 +4,22 @@
 > Research areas: Wireless Power Transfer (WPT), RF Beamforming, Near-Field Beam Focusing, Target Detection, Indoor Localization, Space Solar Power.
 > Affiliation: Wave Fusion Lab, INMC, Seoul National University.
 
-The full machine-readable content (all publications with BibTeX, education, research projects, news, reviewer activities, scholarships, teaching, coursework, programming skills) is available as a single markdown file:
+The full machine-readable content (all publications with BibTeX, education, research projects, news, reviewer activities, scholarships, teaching, coursework) is available as a single markdown file:
 
 - https://korbean-0311.github.io/llms-full.txt
 
 ## Pages
 
-The site has three pages. "Academics" is ONE long page that holds the whole academic record in five sections; each section has its own anchor, so one fetch of academics.html returns everything below.
+The site has three pages. "Academics" is ONE long page that holds the whole academic record in six sections; each section has its own anchor, so one fetch of academics.html returns everything below.
 
 - [Home](https://korbean-0311.github.io/): Brief biography, research interests, recent news, and press coverage ("In the News")
-- [Academics](https://korbean-0311.github.io/academics.html): One long page with five sections —
+- [Academics](https://korbean-0311.github.io/academics.html): One long page with six sections —
   - [Education](https://korbean-0311.github.io/academics.html#education): Academic timeline with advisors
   - [Publications](https://korbean-0311.github.io/academics.html#publications): International journals (under review + published, with abstracts, keywords, BibTeX), international conferences, domestic conferences, patents
   - [Awards & Honors](https://korbean-0311.github.io/academics.html#awards): Awards, honors, grants, scholarships, and paper competition prizes
   - [Research](https://korbean-0311.github.io/academics.html#research): Graduate and undergraduate research projects
-  - [Others](https://korbean-0311.github.io/academics.html#others): Reviewer activities, teaching assistantships, coursework, programming skills
+  - [Academic Service](https://korbean-0311.github.io/academics.html#academic-service): Journal reviewer activities and teaching assistantships
+  - [Coursework](https://korbean-0311.github.io/academics.html#coursework): Selected graduate (SNU) and undergraduate (KU) coursework
 - [Contact](https://korbean-0311.github.io/contact.html): Lab, location, LinkedIn
 
 (The former per-section URLs — education.html, publications.html, awards.html, research.html, others.html — redirect to the matching anchor on academics.html.)

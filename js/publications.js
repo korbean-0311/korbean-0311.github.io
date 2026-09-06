@@ -1,8 +1,8 @@
 /* publications.js — enhance-only.
    All four tab panels are pre-rendered into the HTML at build time
    (scripts/build-prerender.mjs, static-first). This script only wires the
-   interactions: tab switching and BibTeX copy. No JSON fetch, no "Loading…"
-   flash, no client-side rendering. */
+   interactions: tab switching, the Abstract / Keywords panels and BibTeX copy.
+   No JSON fetch, no "Loading…" flash, no client-side rendering. */
 (function () {
   'use strict';
 
@@ -81,6 +81,20 @@
     }
     if (!copied) copied = fallbackCopy(text);
     toast(copied ? 'BibTeX copied' : 'Copy failed — please try again');
+  });
+
+  /* ---------- Abstract / Keywords panels (delegated) ----------
+     Each button names its panel in data-panel-toggle; the panel text is already
+     in the HTML, so this only flips visibility and the button's pressed state. */
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-panel-toggle]');
+    if (!btn) return;
+    const panel = document.getElementById(btn.dataset.panelToggle);
+    if (!panel) return;
+    const open = !panel.classList.contains('is-open');
+    panel.classList.toggle('is-open', open);
+    btn.classList.toggle('is-active', open);
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
   });
 
   /* ---------- Boot: wire tab buttons ---------- */

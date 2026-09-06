@@ -4,7 +4,7 @@
 
 Site: https://korbean-0311.github.io/
 
-Pages: Home (https://korbean-0311.github.io/) · Academics — one long page with Education, Publications, Awards & Honors, Research, Others (https://korbean-0311.github.io/academics.html) · Contact (https://korbean-0311.github.io/contact.html)
+Pages: Home (https://korbean-0311.github.io/) · Academics — one long page with Education, Publications, Awards & Honors, Research, Academic Service, Coursework (https://korbean-0311.github.io/academics.html) · Contact (https://korbean-0311.github.io/contact.html)
 
 ## About
 
@@ -497,18 +497,21 @@ I have collaborated with industry partners — including Samsung Electronics on 
 #### BASIC Lab. (Advisor: Hyungmin Lee) , Korea University (2019.12 — 2020.02)
 - 2-Stage amp design & trained circuit design tools (Cadence Virtuoso)
 
-## Others
+## Academic Service
 
-### Reviewer Activities
-- IEEE TPEL, 2025, 2026
+### Journal Reviewer
+- IEEE Transactions on Power Electronics (TPEL), 2025, 2026
+- IEEE Transactions on Microwave Theory and Techniques (TMTT), 2026
+- IEEE Journal of Emerging and Selected Topics in Industrial Electronics (JESTIE), 2026
 
 ### Teaching Assistant
 - Introduction to Electromagnetism with Practice (430.202B 003), Seoul National University, Fall 2025
 - Introduction to Electromagnetism with Practice (430.202B 002), Seoul National University, Fall 2024
 - Electromagnetic Wave Engineering (430.464A 001), Seoul National University, Spring 2023
 
-### Selected Coursework
-**Coursework in SNU (M.S. - Ph.D):**
+## Coursework
+
+**Seoul National University (M.S. – Ph.D.):**
 - Electromagnetic Wave Engineering
 - RF System Design
 - Advanced Electromagnetics I
@@ -518,23 +521,13 @@ I have collaborated with industry partners — including Samsung Electronics on 
 - Electro-optics
 - Estimation Theory
 
-**Coursework in KU (B.S.):**
+**Korea University (B.S.):**
 - Probability & Random Process
 - Electromagnetics
 - Electromagnetic Field
 - Analog / Digital Communication Theory
 - Digital Signal Processing
 - Wireless Networks
-
-### Programming Skills
-**Programming Languages:**
-- C (3.5/5)
-- Python (3/5)
-- MATLAB (4.5/5)
-
-**Hardware Tools:**
-- *EM Simulators*: Dassault System CST (4/5), Ansys HFSS (2.5/5), Keysight ADS (3/5), Altair FEKO Suite (3/5)
-- *Circuit Tools*: Cadence OrCAD Capture (4/5), Cadence Allegro (3.5/5), Cadence Virtuoso (3/5)
 
 ## Contact
 
