@@ -363,7 +363,10 @@ button {
   border-left: 1px solid var(--border-color);
   z-index: 1200;
   transform: translateX(100%);
-  transition: transform 0.3s ease;
+  /* Hidden while closed (after it has slid out) so the off-screen panel can
+     never widen the page on mobile browsers, and is not tab-focusable. */
+  visibility: hidden;
+  transition: transform 0.3s ease, visibility 0s linear 0.3s;
   display: flex;
   flex-direction: column;
   box-shadow: -8px 0 32px rgba(15, 23, 42, 0.08);
@@ -371,6 +374,8 @@ button {
 
 .menu-panel.is-open {
   transform: translateX(0);
+  visibility: visible;
+  transition: transform 0.3s ease, visibility 0s;
 }
 
 .menu-panel__header {
@@ -1996,10 +2001,17 @@ html {
     border-bottom: 1px solid var(--border-color);
   }
   body[data-page="academics"] .profile__card { display: none; }
+  /* Belt and braces against the pill row widening the page: the row's
+     intrinsic width is ignored (contain) and anything that still pokes out
+     of the sidebar is clipped without creating a scroll container (clip
+     keeps position: sticky working, hidden would not). */
+  body[data-page="academics"] .profile { overflow-x: clip; }
   body[data-page="academics"] .side-index {
     margin: 0;
     padding: 0.55rem 0;
     border-top: 0;
+    min-width: 0;
+    contain: inline-size;
   }
   body[data-page="academics"] .side-index__title { display: none; }
   body[data-page="academics"] .side-index ol {

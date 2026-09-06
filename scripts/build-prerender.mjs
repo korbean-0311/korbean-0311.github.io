@@ -24,6 +24,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -803,7 +804,8 @@ function main() {
   }
 
   // 3) Shared profile sidebar in the left column of every page (academics.html
-  //    additionally gets the "On this page" section index).
+  //    additionally gets the "On this page" section index), and cache-busting
+  //    stamps on the stylesheet / scripts.
   {
     const pages = [['index.html', {}], ['academics.html', { withIndex: true }], ['contact.html', {}]];
     for (const [file, opts] of pages) {
@@ -815,10 +817,32 @@ function main() {
       }
       const block = `${PROFILE_START}\n    ${buildProfile(opts)}\n    ${PROFILE_END}`;
       html = replaceMarked(html, PROFILE_START, PROFILE_END, block, '</main>');
+      html = stampAssets(html);
       fs.writeFileSync(filePath, html, 'utf8');
       console.log(`Injected profile into ${file}`);
     }
   }
+}
+
+// -- Cache busting --------------------------------------------------------
+// GitHub Pages serves assets with a 10-minute max-age, so a phone that just
+// loaded the site keeps the old stylesheet across a redeploy. Each page
+// references css/style.css and the scripts with ?v=<content hash>, which
+// changes exactly when the file does (idempotent otherwise).
+const STAMPED_ASSETS = ['css/style.css', 'js/main.js', 'js/publications.js'];
+function assetHash(rel) {
+  const file = path.join(ROOT, rel);
+  if (!fs.existsSync(file)) return null;
+  return crypto.createHash('sha1').update(fs.readFileSync(file)).digest('hex').slice(0, 8);
+}
+function stampAssets(html) {
+  for (const rel of STAMPED_ASSETS) {
+    const hash = assetHash(rel);
+    if (!hash) continue;
+    const re = new RegExp(`((?:href|src)=")${escRe(rel)}(?:\\?v=[0-9a-f]+)?(")`, 'g');
+    html = html.replace(re, `$1${rel}?v=${hash}$2`);
+  }
+  return html;
 }
 
 main();
