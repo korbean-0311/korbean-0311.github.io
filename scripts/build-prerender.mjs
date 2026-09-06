@@ -193,70 +193,77 @@ function renderEducationTimeline() {
 function researchRichText(s) {
   return esc(s).replace(/&lt;u&gt;/g, '<u>').replace(/&lt;\/u&gt;/g, '</u>');
 }
-// Organization / school logo box shared by project cards and internships.
-// `logo` is a path in research.json (assets/logos/…).
-function orgLogoHTML(src, alt) {
+// Research rows reuse the Education row markup (.edu-item: period | logo |
+// copy) so the two sections read identically. `logo` is a path in
+// research.json (assets/logos/…); the box is the same 72px .edu-logo.
+function researchLogoHTML(src, alt) {
   if (!src) return '';
-  return `<div class="org-logo"><img src="${esc(src)}" alt="${esc(alt)} logo" width="50" height="50" loading="lazy" decoding="async" /></div>`;
+  return `<div class="edu-logo"><img src="${esc(src)}" alt="${esc(alt)} logo" width="72" height="72" loading="lazy" decoding="async" /></div>`;
 }
-function researchProjectCard(p) {
-  const logo = orgLogoHTML(p.logo, p.org);
-  return `
-        <article class="research-card${logo ? '' : ' research-card--nologo'}">
-          ${logo}
-          <div class="research-card__body">
-          <div class="research-card__header">
-            <span class="research-card__code">[${esc(p.code)}]</span>
-            <span class="research-card__org">${esc(p.org)}</span>
-            <span class="research-card__period">${esc(p.period || '')}</span>
-          </div>
-          <div class="research-card__title">${esc(p.title)}</div>
-          ${(p.keywords || []).length ? `
-            <div class="research-card__keywords">
-              ${p.keywords.map(k => `<span class="badge badge--keyword">${esc(k)}</span>`).join('')}
-            </div>` : ''}
-          ${(p.summary || []).length ? `
-            <ul class="research-card__summary">
-              ${p.summary.map(s => `<li>${researchRichText(s)}</li>`).join('')}
-            </ul>` : ''}
+function researchRow({ period, logo, logoAlt, headline, place, detail }) {
+  return `        <article class="edu-item research-item">
+          <div class="edu-period">${esc(period || '')}</div>
+          <div class="edu-main${logo ? '' : ' edu-main--nologo'}">
+            ${researchLogoHTML(logo, logoAlt)}
+            <div class="edu-copy">
+              <h4 class="edu-degree">${headline}</h4>
+              ${place ? `<p class="edu-place">${place}</p>` : ''}${detail ? `
+              <div class="edu-detail">
+              ${detail}
+              </div>` : ''}
+            </div>
           </div>
         </article>`;
 }
-function researchUndergradGroup(g) {
-  const logo = orgLogoHTML(g.logo, g.institution || g.lab);
-  return `
-        <article class="research-intern${logo ? '' : ' research-intern--nologo'}">
-          ${logo}
-          <div class="research-intern__body">
-          <div class="research-intern__header">
-            <strong>${esc(g.lab)}</strong>${g.advisor ? ` <em>(Advisor: ${esc(g.advisor)})</em>` : ''}${g.institution ? `, at ${esc(g.institution)}` : ''}${g.period ? ` <span class="research-intern__period">(${esc(g.period)})</span>` : ''}
-          </div>
-          ${(g.items || []).length ? `
-            <ul class="research-intern__items">
-              ${g.items.map(it => `<li>${researchRichText(it)}</li>`).join('')}
-            </ul>` : ''}
-          </div>
-        </article>`;
+// Graduate project: title is the headline, organization (+ code) is the place
+// line, keyword badges and the summary bullets sit in the detail block.
+function researchProjectRow(p) {
+  const keywords = (p.keywords || []).length
+    ? `<div class="research-keywords">${p.keywords.map(k => `<span class="badge badge--keyword">${esc(k)}</span>`).join('')}</div>`
+    : '';
+  const summary = (p.summary || []).length
+    ? `<ul class="research-summary">${p.summary.map(s => `<li>${researchRichText(s)}</li>`).join('')}</ul>`
+    : '';
+  return researchRow({
+    period: p.period,
+    logo: p.logo,
+    logoAlt: p.org,
+    headline: esc(p.title),
+    place: `<strong>${esc(p.org)}</strong>${p.code ? `<span class="research-code">[${esc(p.code)}]</span>` : ''}`,
+    detail: keywords + summary,
+  });
+}
+// Undergraduate internship: lab is the headline, school is the place line,
+// advisor + what was done go in the detail block (like advisors in Education).
+function researchUndergradRow(g) {
+  const advisor = g.advisor ? `<div><span class="adv-label">Advisor:</span> ${esc(g.advisor)}</div>` : '';
+  const items = (g.items || []).length
+    ? `<ul class="research-summary">${g.items.map(it => `<li>${researchRichText(it)}</li>`).join('')}</ul>`
+    : '';
+  return researchRow({
+    period: g.period,
+    logo: g.logo,
+    logoAlt: g.institution || g.lab,
+    headline: esc(g.lab),
+    place: g.institution ? `<strong>${esc(g.institution)}</strong>` : '',
+    detail: advisor + items,
+  });
 }
 function researchSectionHTML(section) {
   const title = `<h3 class="research-section__title">${esc(section.title)}</h3>`;
-  if (section.type === 'graduate') {
-    const projects = (section.projects || []).map(researchProjectCard).join('');
-    return `
+  const rows = section.type === 'graduate'
+    ? (section.projects || []).map(researchProjectRow)
+    : section.type === 'undergraduate'
+      ? (section.groups || []).map(researchUndergradRow)
+      : [];
+  if (!rows.length) return '';
+  return `
           <section class="research-section">
             ${title}
-            <div class="research-section__projects">${projects}</div>
+            <div class="edu-list">
+${rows.join('\n')}
+            </div>
           </section>`;
-  }
-  if (section.type === 'undergraduate') {
-    const groups = (section.groups || []).map(researchUndergradGroup).join('');
-    return `
-          <section class="research-section">
-            ${title}
-            <div class="research-section__interns">${groups}</div>
-          </section>`;
-  }
-  return '';
 }
 function renderResearch() {
   const data = readJSON('research.json');
