@@ -121,7 +121,7 @@
           "institution": "Seoul National University",
           "period": "2021.01 — 2021.08",
           "items": [
-            "PCB design and artwork of a 36 W DC–DC SMPS for a radar system",
+            "36 W DC–DC SMPS PCB design and artwork",
             "Trained in circuit design tools (Cadence OrCAD)"
           ],
           "logo": "assets/logos/snu.png",
@@ -133,7 +133,6 @@
           "institution": "Korea University",
           "period": "2020.03 — 2020.06",
           "items": [
-            "Bachelor's thesis: “High-Speed Two-Stage Cascode Op-Amp Design”",
             "Designed a basic VCO and PLL",
             "Trained in circuit design tools (Cadence Virtuoso)"
           ],

@@ -497,11 +497,10 @@ Three degree tracks and the advisors behind them: a B.S. at Korea University und
 ### Undergraduate Student Intern
 
 #### AEL (Advisor: Sangwook Nam) , Seoul National University (Seoul, Republic of Korea) (2021.01 — 2021.08)
-- PCB design and artwork of a 36 W DC–DC SMPS for a radar system
+- 36 W DC–DC SMPS PCB design and artwork
 - Trained in circuit design tools (Cadence OrCAD)
 
 #### AISL (Advisor: Chulwoo Kim) , Korea University (Seoul, Republic of Korea) (2020.03 — 2020.06)
-- Bachelor's thesis: “High-Speed Two-Stage Cascode Op-Amp Design”
 - Designed a basic VCO and PLL
 - Trained in circuit design tools (Cadence Virtuoso)
 

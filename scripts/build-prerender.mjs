@@ -239,43 +239,6 @@ function genealogyNodeSVG(node, x, y) {
           </g>`;
 }
 
-// Walk up from an advisor: [nearest, then whoever advised them, ...].
-function genealogyAncestry(node, byId, edges) {
-  const chain = [];
-  let cur = node;
-  for (let guard = 0; guard < 8 && cur; guard++) {
-    chain.push(cur);
-    const up = edges.find(e => e.to === cur.id);
-    cur = up ? byId.get(up.from) : null;
-  }
-  return chain;
-}
-
-// Phone rendering (and the accessible text everywhere): one block per degree,
-// listing the advisor for that degree and whoever advised the advisor.
-function genealogyTracksHTML(data, byId, edges) {
-  const orgOf = n => [n.institution, n.year].filter(Boolean).join(' · ');
-  const person = n => `<span class="gen-track__name">${esc(n.name)}</span><span class="gen-track__org">${esc(orgOf(n))}</span>`;
-  const blocks = (data.nodes || []).filter(n => n.self).map(deg => {
-    const incoming = edges.filter(e => e.to === deg.id);
-    const tag = incoming.find(e => e.label);
-    const lines = incoming.map(e => {
-      const advisor = byId.get(e.from);
-      if (!advisor) return '';
-      const up = genealogyAncestry(advisor, byId, edges).slice(1);
-      const rest = up.map(a => `<li class="gen-track__up">${person(a)}</li>`).join('');
-      return `<li>${person(advisor)}${rest ? `<ul>${rest}</ul>` : ''}</li>`;
-    }).filter(Boolean).join('');
-    return `<li class="gen-track">
-              <p class="gen-track__degree"><strong>${esc(deg.name)}</strong><span class="gen-track__org">${esc(orgOf(deg))}</span>${tag ? `<span class="gen-track__tag">${esc(tag.label)}</span>` : ''}</p>
-              <ul class="gen-track__chain">${lines}</ul>
-            </li>`;
-  }).join('\n            ');
-  return `<ol class="genealogy__tracks" aria-label="${esc((data.title || 'Academic genealogy') + ' as a list')}">
-            ${blocks}
-          </ol>`;
-}
-
 function renderGenealogy() {
   const file = path.join(DATA_DIR, 'genealogy.json');
   if (!fs.existsSync(file)) {
@@ -349,7 +312,6 @@ function renderGenealogy() {
           <div class="genealogy__scroll">
         ${svg}
           </div>
-          ${genealogyTracksHTML(data, byId, edges)}
         </figure>
       </details>`;
 }
@@ -591,7 +553,8 @@ function highlightAuthorMe(authors, me) {
 let pubPanelSeq = 0;
 function pubActionsHTML(p) {
   const notes = [];
-  const buttons = [];
+  const contentButtons = [];
+  const citationButtons = [];
   const panels = [];
   (p.notes || []).forEach(n => {
     const kind = n && n.kind ? n.kind : 'info';
@@ -603,23 +566,26 @@ function pubActionsHTML(p) {
   });
   if (p.abstract && p.abstract.trim()) {
     const id = `pub-abstract-${++pubPanelSeq}`;
-    buttons.push(`<button type="button" class="pub-btn pub-btn--abs" data-panel-toggle="${id}" aria-expanded="false" aria-controls="${id}">Abstract</button>`);
+    contentButtons.push(`<button type="button" class="pub-btn pub-btn--abs" data-panel-toggle="${id}" aria-expanded="false" aria-controls="${id}">Abstract</button>`);
     panels.push(`<div class="pub-panel" id="${id}"><span class="pub-panel__label">Abstract</span><p>${esc(p.abstract)}</p></div>`);
   }
   if (Array.isArray(p.keywords) && p.keywords.length) {
     const id = `pub-keywords-${++pubPanelSeq}`;
-    buttons.push(`<button type="button" class="pub-btn pub-btn--kw" data-panel-toggle="${id}" aria-expanded="false" aria-controls="${id}">Keywords</button>`);
+    contentButtons.push(`<button type="button" class="pub-btn pub-btn--kw" data-panel-toggle="${id}" aria-expanded="false" aria-controls="${id}">Keywords</button>`);
     panels.push(`<div class="pub-panel" id="${id}"><span class="pub-panel__label">Keywords</span><p>${esc(p.keywords.join(', '))}</p></div>`);
   }
   if (p.bibtex && p.bibtex.length) {
-    buttons.push(`<button type="button" class="pub-btn pub-btn--bib" data-bibtex="${esc(p.bibtex)}" aria-label="Copy BibTeX">BibTeX</button>`);
+    citationButtons.push(`<button type="button" class="pub-btn pub-btn--bib" data-bibtex="${esc(p.bibtex)}" aria-label="Copy BibTeX">BibTeX</button>`);
   }
   if (p.doi) {
-    buttons.push(`<a class="pub-btn pub-btn--doi" href="${esc(p.doi)}" target="_blank" rel="noopener" aria-label="DOI link">DOI</a>`);
+    citationButtons.push(`<a class="pub-btn pub-btn--doi" href="${esc(p.doi)}" target="_blank" rel="noopener" aria-label="DOI link">DOI</a>`);
   }
   if (p.pdf) {
-    buttons.push(`<a class="pub-btn pub-btn--pdf" href="${esc(p.pdf)}" target="_blank" rel="noopener" aria-label="Open PDF">PDF</a>`);
+    citationButtons.push(`<a class="pub-btn pub-btn--pdf" href="${esc(p.pdf)}" target="_blank" rel="noopener" aria-label="Open PDF">PDF</a>`);
   }
+  const buttons = contentButtons.length && citationButtons.length
+    ? contentButtons.concat('<span class="pub-actions__mobile-break" aria-hidden="true"></span>', citationButtons)
+    : contentButtons.concat(citationButtons);
   let rows = '';
   if (notes.length && buttons.length) {
     rows = `
