@@ -287,23 +287,36 @@ function buildEducation(edu) {
 function buildGenealogy() {
   const file = path.join(DATA_DIR, 'genealogy.json');
   if (!fs.existsSync(file)) {
-    console.warn('  WARNING: data/genealogy.json is missing — llms-full.txt will omit the lineage that llms.txt advertises.');
+    console.warn('  WARNING: data/genealogy.json is missing - llms-full.txt will omit the lineage that llms.txt advertises.');
     return '';
   }
   const data = readJSON('genealogy.json');
-  const branches = (data.branches || []).filter(b => (b.chain || []).length);
-  if (!branches.length || !data.self) return '';
+  const nodes = data.nodes || [];
+  const edges = data.edges || [];
+  if (!nodes.length) return '';
+  const byId = new Map(nodes.map(n => [n.id, n]));
   const label = n => [n.name, [n.institution, n.year].filter(Boolean).join(', ')]
     .filter(Boolean).join(' — ');
-  const out = ['### Academic Genealogy (doctoral advisor lineage)', ''];
+  const out = ['### Academic Genealogy (advisor lineage)', ''];
   if (data.description) out.push(data.description, '');
-  for (const b of branches) {
-    // Oldest first, so each line reads as a descent ending at the site owner.
-    const chain = b.chain.slice().reverse().map(label);
-    chain.push(label(data.self));
-    out.push('- ' + chain.join(' → '));
+  // One line per degree, oldest advisor first, so each reads as a descent.
+  for (const e of edges) {
+    const student = byId.get(e.to);
+    if (!student || !student.self) continue;
+    const advisor = byId.get(e.from);
+    if (!advisor) continue;
+    const chain = [label(advisor)];
+    let cur = advisor;
+    for (let guard = 0; guard < 8; guard++) {
+      const up = edges.find(x => x.to === cur.id);
+      if (!up) break;
+      cur = byId.get(up.from);
+      if (!cur) break;
+      chain.unshift(label(cur));
+    }
+    chain.push((data.owner || 'the author') + ', ' + label(student));
+    out.push('- ' + chain.join(' → ') + (e.label ? ' (' + e.label + ')' : ''));
   }
-  if (data.caption) out.push('', data.caption);
   out.push('');
   return out.join('\n');
 }

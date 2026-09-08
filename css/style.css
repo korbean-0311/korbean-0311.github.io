@@ -1864,7 +1864,7 @@ html[data-js] .tab-panel.is-active { display: block; }
 .genealogy__svg {
   display: block;
   width: 100%;
-  min-width: 470px;   /* below this the node labels stop being legible */
+  min-width: 620px;   /* three columns; below this the labels stop being legible */
   height: auto;
 }
 
@@ -1872,6 +1872,19 @@ html[data-js] .tab-panel.is-active { display: block; }
   fill: none;
   stroke: var(--border-color);
   stroke-width: 1.5;
+}
+
+/* The "Co-advised" tag sits on the connector that reaches across to the Ph.D.;
+   the stroke knocks the line out from under the glyphs. */
+.gen-edge-label {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--text-secondary);
+  stroke: var(--bg-surface);
+  stroke-width: 6px;
+  paint-order: stroke fill;
 }
 
 .gen-node rect {
@@ -1882,32 +1895,26 @@ html[data-js] .tab-panel.is-active { display: block; }
 
 .gen-name {
   font-family: var(--font-sans);
-  font-size: 13.5px;
+  font-size: 13px;
   font-weight: 600;
   fill: var(--text-primary);
 }
 
 .gen-sub {
   font-family: var(--font-sans);
-  font-size: 11.5px;
-  /* Darker than the page's meta gray: at 11.5px that gray is under AA. */
+  font-size: 11px;
+  /* Darker than the page's meta gray: at this size that gray is under AA. */
   fill: color-mix(in srgb, var(--text-primary) 70%, transparent);
 }
 
-.gen-role {
-  font-family: var(--font-sans);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  fill: var(--text-secondary);
-  /* The connector passes behind this label — a stroke in the panel color
-     knocks the line out from under the glyphs. */
-  stroke: var(--bg-surface);
-  stroke-width: 6px;
-  paint-order: stroke fill;
+/* White chip behind a university crest, so it reads on a dark node too. */
+.gen-logo-chip {
+  fill: #fff;
+  stroke: color-mix(in srgb, var(--border-color) 70%, transparent);
+  stroke-width: 1;
 }
 
-/* Me: filled in the accent so the eye lands on the bottom of the tree. */
+/* My own three degrees: filled in the accent, so the eye lands on the tracks. */
 .gen-node--self rect {
   fill: var(--color-accent);
   stroke: var(--color-accent);
@@ -1915,24 +1922,12 @@ html[data-js] .tab-panel.is-active { display: block; }
 .gen-node--self .gen-name { fill: #fff; }
 .gen-node--self .gen-sub { fill: color-mix(in srgb, #fff 78%, var(--color-accent)); }
 
-/* My two co-advisors: same weight as the ancestors, but a tinted panel. */
-.gen-node--advisor rect { fill: color-mix(in srgb, var(--color-accent) 7%, var(--bg-primary)); }
-
 [data-theme="dark"] .gen-node--self .gen-name { fill: var(--bg-primary); }
 [data-theme="dark"] .gen-node--self .gen-sub { fill: color-mix(in srgb, var(--bg-primary) 78%, var(--color-accent)); }
-
-.genealogy__caption {
-  margin: 0.75rem 0 0;
-  font-size: 0.8125rem;
-  line-height: 1.5;
-  color: var(--text-secondary);
-  text-wrap: pretty;
-}
 
 @media (max-width: 640px) {
   .genealogy__toggle { font-size: calc(0.875rem - 1pt); }
   .genealogy__figure { padding: 0.9rem 0.75rem 0.85rem; }
-  .genealogy__caption { font-size: calc(0.8125rem - 1pt); }
 }
 
 /* ============================================================

@@ -190,103 +190,122 @@ function renderEducationTimeline() {
 }
 
 // -- Academic genealogy (Education section) -------------------------------
-// data/genealogy.json holds the doctoral lineage as one chain per co-advisor,
-// ordered nearest-first (my advisor, then his advisor, ...). The figure is a
-// plain <details>: collapsed by default, needs no JavaScript, and its SVG uses
-// real <text>, so crawlers and screen readers read the same names a human sees.
-function genealogyNodeSVG(x, y, w, h, node, cls) {
-  const cx = x + w / 2;
-  const sub = [node.institution, node.year].filter(Boolean).join(' · ');
-  // Long labels would silently overrun the fixed-width box: SVG text neither
-  // wraps nor clips, so warn at build time instead of shipping a broken figure.
-  if (node.name && node.name.length > 30) console.warn(`  WARNING: genealogy name "${node.name}" may overflow its box.`);
-  if (sub.length > 42) console.warn(`  WARNING: genealogy sub-label "${sub}" may overflow its box.`);
-  const nameY = sub ? y + 23 : y + h / 2 + 5;
-  const role = node.role
-    ? `<text class="gen-role" x="${cx}" y="${y - 8}" text-anchor="middle">${esc(node.role)}</text>`
-    : '';
-  return `${role}
-        <g class="gen-node ${cls}">
-          <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="9" />
-          <text class="gen-name" x="${cx}" y="${nameY}" text-anchor="middle">${esc(node.name)}</text>
-          ${sub ? `<text class="gen-sub" x="${cx}" y="${y + 41}" text-anchor="middle">${esc(sub)}</text>` : ''}
-        </g>`;
-}
+// data/genealogy.json is a small graph: nodes carry a row/col slot, edges say
+// who advised whom. That shape (rather than one chain per branch) is what lets
+// one advisor feed two degrees - Sangwook Nam supervises the M.S. alone and
+// the Ph.D. jointly with Jungsuek Oh.
+//
+// The figure is a plain <details>: collapsed by default, needs no JavaScript,
+// and its SVG uses real <text>, so crawlers and screen readers read the same
+// names a human sees. A visually hidden list beside it states the same lineage
+// in prose, because an SVG marked role="img" is one opaque object to a screen
+// reader.
+const GEN = {
+  NODE_W: 224, NODE_H: 60, COL_GAP: 28, ROW_H: 116,
+  PAD_X: 8, PAD_TOP: 10, PAD_BOTTOM: 10,
+  LOGO: 26,
+  MERGE_OFFSET: 52,
+};
 
 let genealogySeq = 0;
+
+function genealogyNodeSVG(node, x, y) {
+  const w = GEN.NODE_W, h = GEN.NODE_H, LOGO = GEN.LOGO;
+  const sub = [node.institution, node.year].filter(Boolean).join(' · ');
+  if (node.name && node.name.length > 26) console.warn(`  WARNING: genealogy name "${node.name}" may overflow its box.`);
+  if (sub.length > 38) console.warn(`  WARNING: genealogy sub-label "${sub}" may overflow its box.`);
+
+  const cls = node.self ? 'gen-node gen-node--self' : 'gen-node gen-node--person';
+  const hasLogo = Boolean(node.logo);
+  const textX = hasLogo ? x + 14 + LOGO + 12 : x + w / 2;
+  const anchor = hasLogo ? 'start' : 'middle';
+  const nameY = sub ? y + 25 : y + h / 2 + 5;
+  // The chip keeps dark crests legible when the node itself is dark.
+  const logoY = y + (h - LOGO) / 2;
+  const logo = hasLogo
+    ? `<rect class="gen-logo-chip" x="${x + 12}" y="${logoY - 2}" width="${LOGO + 4}" height="${LOGO + 4}" rx="6" />
+            <image class="gen-logo" href="${esc(node.logo)}" x="${x + 14}" y="${logoY}" width="${LOGO}" height="${LOGO}" preserveAspectRatio="xMidYMid meet" />`
+    : '';
+  return `<g class="${cls}">
+            <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" />
+            ${logo}
+            <text class="gen-name" x="${textX}" y="${nameY}" text-anchor="${anchor}">${esc(node.name)}</text>
+            ${sub ? `<text class="gen-sub" x="${textX}" y="${y + 43}" text-anchor="${anchor}">${esc(sub)}</text>` : ''}
+          </g>`;
+}
+
 function renderGenealogy() {
   const file = path.join(DATA_DIR, 'genealogy.json');
   if (!fs.existsSync(file)) {
-    console.warn('  WARNING: data/genealogy.json is missing — the Education section will ship without the lineage figure that academics.html and llms.txt both advertise.');
+    console.warn('  WARNING: data/genealogy.json is missing - the Education section will ship without the lineage figure that academics.html and llms.txt both advertise.');
     return '';
   }
   const data = readJSON('genealogy.json');
-  const branches = (data.branches || []).filter(b => (b.chain || []).length);
-  if (!branches.length || !data.self) return '';
+  const nodes = data.nodes || [];
+  const edges = data.edges || [];
+  if (!nodes.length) return '';
 
-  // Geometry: one column per branch, one row per generation, me on the bottom
-  // row. Chains of different depth are bottom-aligned, so the nearest advisor
-  // always sits in the row directly above me.
-  const NODE_W = 268, NODE_H = 56, COL_GAP = 46, ROW_H = 106;
-  const PAD_X = 8, PAD_TOP = 22, PAD_BOTTOM = 10;
-  const depth = Math.max(...branches.map(b => b.chain.length));
-  const cols = branches.length;
+  const NODE_W = GEN.NODE_W, NODE_H = GEN.NODE_H, COL_GAP = GEN.COL_GAP, ROW_H = GEN.ROW_H;
+  const PAD_X = GEN.PAD_X, PAD_TOP = GEN.PAD_TOP, PAD_BOTTOM = GEN.PAD_BOTTOM;
+  const cols = Math.max(...nodes.map(n => n.col)) + 1;
+  const rows = Math.max(...nodes.map(n => n.row)) + 1;
   const W = PAD_X * 2 + cols * NODE_W + (cols - 1) * COL_GAP;
-  const H = PAD_TOP + depth * ROW_H + NODE_H + PAD_BOTTOM;
-  const colX = i => PAD_X + i * (NODE_W + COL_GAP);
-  const rowY = r => PAD_TOP + r * ROW_H;                  // r counted from the top
-  const meX = (W - NODE_W) / 2;
-  const meY = rowY(depth);
+  const H = PAD_TOP + (rows - 1) * ROW_H + NODE_H + PAD_BOTTOM;
+  const xOf = c => PAD_X + c * (NODE_W + COL_GAP);
+  const yOf = r => PAD_TOP + r * ROW_H;
+  const byId = new Map(nodes.map(n => [n.id, n]));
 
-  const nodes = [];
-  const edges = [];
-  branches.forEach((b, i) => {
-    const x = colX(i);
-    b.chain.forEach((node, k) => {
-      const r = depth - 1 - k;                            // nearest advisor just above me
-      const y = rowY(r);
-      nodes.push(genealogyNodeSVG(x, y, NODE_W, NODE_H, node, k === 0 ? 'gen-node--advisor' : 'gen-node--ancestor'));
-      // Edge down to whoever this person advised: the next link, or me.
-      const toMe = k === 0;
-      const childY = toMe ? meY : rowY(r + 1);
-      const childCx = toMe ? meX + NODE_W / 2 : x + NODE_W / 2;
-      const fromCx = x + NODE_W / 2;
-      const y1 = y + NODE_H;
-      const mid = Math.round((y1 + childY) / 2);
-      edges.push(fromCx === childCx
-        ? `<path class="gen-edge" d="M ${fromCx} ${y1} V ${childY}" />`
-        : `<path class="gen-edge" d="M ${fromCx} ${y1} V ${mid} H ${childCx} V ${childY}" />`);
-    });
-  });
-  nodes.push(genealogyNodeSVG(meX, meY, NODE_W, NODE_H, data.self, 'gen-node--self'));
+  const nodeSVG = nodes.map(n => genealogyNodeSVG(n, xOf(n.col), yOf(n.row)));
+
+  const edgeSVG = [];
+  const edgeLabels = [];
+  for (const e of edges) {
+    const a = byId.get(e.from), b = byId.get(e.to);
+    if (!a || !b) { console.warn(`  WARNING: genealogy edge ${e.from} -> ${e.to} references a missing node.`); continue; }
+    const ax = xOf(a.col) + NODE_W / 2, ay = yOf(a.row) + NODE_H;
+    const across = a.col !== b.col;
+    const shift = across ? (a.col < b.col ? -GEN.MERGE_OFFSET : GEN.MERGE_OFFSET) : 0;
+    const bx = xOf(b.col) + NODE_W / 2 + shift;
+    const by = yOf(b.row);
+    const mid = Math.round(ay + (by - ay) / 2);
+    edgeSVG.push(across
+      ? `<path class="gen-edge" d="M ${ax} ${ay} V ${mid} H ${bx} V ${by}" />`
+      : `<path class="gen-edge" d="M ${ax} ${ay} V ${by}" />`);
+    if (e.label) {
+      const lx = across ? Math.round((ax + bx) / 2) : ax;
+      edgeLabels.push(`<text class="gen-edge-label" x="${lx}" y="${mid - 5}" text-anchor="middle">${esc(e.label)}</text>`);
+    }
+  }
 
   const title = data.title || 'Academic genealogy';
   const uid = 'gen-' + (++genealogySeq);
-  const label = n => [n.name, [n.institution, n.year].filter(Boolean).join(', ')]
-    .filter(Boolean).join(' — ');
-  // Same lineage in words. An SVG marked role="img" is one opaque object to a
-  // screen reader, and some crawlers only read the accessibility tree, so the
-  // names must also exist as ordinary text. Visually hidden, never stale: it is
-  // generated from the same data as the drawing.
-  const spoken = branches.map(b => {
-    const line = b.chain.slice().reverse().map(label);
-    line.push(label(data.self));
-    return `<li>${esc(line.join(' → '))}</li>`;
-  }).join('\n            ');
+  const label = n => [n.name, [n.institution, n.year].filter(Boolean).join(', ')].filter(Boolean).join(' — ');
+  const spoken = edges
+    .filter(e => byId.get(e.to) && byId.get(e.to).self)
+    .map(e => {
+      const student = byId.get(e.to), advisor = byId.get(e.from);
+      const chain = [label(advisor)];
+      let cur = advisor;
+      for (let guard = 0; guard < 8; guard++) {
+        const up = edges.find(x => x.to === cur.id);
+        if (!up) break;
+        cur = byId.get(up.from);
+        if (!cur) break;
+        chain.unshift(label(cur));
+      }
+      chain.push(`${data.owner || 'the author'}, ${label(student)}`);
+      const suffix = e.label ? ` (${e.label})` : '';
+      return `<li>${esc(chain.join(' → ') + suffix)}</li>`;
+    }).join('\n            ');
 
   const svg = `<svg class="genealogy__svg" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="${uid}-title ${uid}-desc" preserveAspectRatio="xMidYMin meet">
           <title id="${uid}-title">${esc(title)}</title>
           <desc id="${uid}-desc">${esc(data.description || 'Doctoral advisor lineage.')}</desc>
-          ${edges.join('\n          ')}
-          ${nodes.join('\n          ')}
+          ${edgeSVG.join('\n          ')}
+          ${edgeLabels.join('\n          ')}
+          ${nodeSVG.join('\n          ')}
         </svg>`;
 
-  const caption = data.caption
-    ? `<figcaption class="genealogy__caption">${esc(data.caption)}</figcaption>`
-    : '';
-  // The drawing scrolls sideways on a narrow screen; tabindex makes that
-  // scroller reachable from the keyboard. The caption sits outside it so it
-  // never scrolls out of view.
   return `<details class="genealogy">
         <summary class="genealogy__toggle">
           <svg class="genealogy__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
@@ -299,7 +318,6 @@ function renderGenealogy() {
           <ul class="genealogy__text visually-hidden">
             ${spoken}
           </ul>
-          ${caption}
         </figure>
       </details>`;
 }

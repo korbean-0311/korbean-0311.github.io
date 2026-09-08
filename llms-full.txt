@@ -439,14 +439,14 @@ I have collaborated with industry partners — including Samsung Electronics on 
 - Website: https://ddsciencehs.djsch.kr/
 - Period: 2014.03 — 2017.02
 
-### Academic Genealogy (doctoral advisor lineage)
+### Academic Genealogy (advisor lineage)
 
-Doctoral advising lineage: Young-Seok Lee is co-advised at Seoul National University by Sangwook Nam and Jungsuek Oh, whose own doctoral advisors were Tatsuo Itoh and Kamal Sarabandi.
+Three degree tracks and the advisors behind them: a B.S. at Korea University under Chulwoo Kim, an M.S. at Seoul National University under Sangwook Nam, and a Ph.D. at Seoul National University co-advised by Sangwook Nam and Jungsuek Oh. The top row gives each advisor's own doctoral advisor.
 
-- Tatsuo Itoh — Univ. of Texas at Austin → Sangwook Nam — Ph.D. Univ. of Texas at Austin, 1989 → Young-Seok Lee — Ph.D. candidate, SNU
-- Kamal Sarabandi — Univ. of Michigan → Jungsuek Oh — Ph.D. Univ. of Michigan, 2012 → Young-Seok Lee — Ph.D. candidate, SNU
-
-Each line runs from doctoral advisor down to student. A box notes where that person earned the doctorate; the top row gives the university where the advisor was based at the time.
+- Sung-Mo Kang — Univ. of Illinois Urbana-Champaign → Chulwoo Kim — Korea University → Young-Seok Lee, B.S. — Korea University, 2021
+- Tatsuo Itoh — Univ. of Texas at Austin → Sangwook Nam — Seoul National University → Young-Seok Lee, M.S. — Seoul National University, 2023
+- Tatsuo Itoh — Univ. of Texas at Austin → Sangwook Nam — Seoul National University → Young-Seok Lee, Ph.D. — Seoul National University, 2023 – (Co-advised)
+- Kamal Sarabandi — Univ. of Michigan → Jungsuek Oh — Seoul National University → Young-Seok Lee, Ph.D. — Seoul National University, 2023 –
 
 ## Research
 
