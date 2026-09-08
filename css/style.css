@@ -780,14 +780,20 @@ a:hover .ext-link-arrow {
   color: var(--text-primary);
 }
 
+/* Pale-blue half-highlight. Used on the key phrase of every news line and on
+   the advisor names in the About-me paragraph. */
+.mark-soft,
 .news-item__body strong {
-  font-weight: 500;
-  color: var(--text-primary);
   background: linear-gradient(to top,
     var(--news-mark) 0,
     var(--news-mark) 38%,
     transparent 38%);
   padding: 0 2px;
+}
+
+.news-item__body strong {
+  font-weight: 500;
+  color: var(--text-primary);
 }
 
 /* ---------- Press / media coverage (home) ----------
@@ -982,7 +988,7 @@ html[data-js] .pub-panel:not(.is-open) { display: none; }
 
 /* The degree is the headline of each row. */
 .edu-degree {
-  font-size: 1.125rem;
+  font-size: calc(1.125rem - 0.5pt);
   font-weight: 600;
   color: var(--text-primary);
   letter-spacing: -0.005em;
@@ -1171,7 +1177,7 @@ html[data-js] .tab-panel.is-active { display: block; }
 .pub-item__num {
   color: var(--text-secondary);
   font-variant-numeric: tabular-nums;
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
   padding-top: 0.05rem;
 }
 
@@ -1207,7 +1213,10 @@ html[data-js] .tab-panel.is-active { display: block; }
   font-size: calc(1rem - 1pt);
 }
 
+/* Sized explicitly: inheriting .pub-item__body's 0.9375rem made the venue
+   larger than the title it sits under. */
 .pub-item__venue {
+  font-size: 0.875rem;
   font-style: italic;
   color: var(--color-primary);
 }
@@ -1553,22 +1562,15 @@ html[data-js] .tab-panel.is-active { display: block; }
   padding: 0 2px;
 }
 
-/* Filled, but a step darker than --text-secondary: the plain token is 4.30:1
-   against white, just under AA at this size. */
+/* A pale grey fill, built like .badge--tag: tinted background, label mixed
+   toward --text-primary so it darkens on light and lightens on dark. */
 .badge--coauthor {
   font-size: 0.75rem;
-  background: color-mix(in srgb, var(--text-secondary) 86%, #000);
-  border-color: color-mix(in srgb, var(--text-secondary) 86%, #000);
-  color: #fff;
+  background: color-mix(in srgb, var(--text-secondary) 20%, transparent);
+  border-color: transparent;
+  color: color-mix(in srgb, var(--text-secondary) 65%, var(--text-primary));
   padding: 2px 8px;
   margin-left: 4px;
-}
-
-/* On dark the light-grey token is already the high-contrast side. */
-[data-theme="dark"] .badge--coauthor {
-  background: var(--text-secondary);
-  border-color: var(--text-secondary);
-  color: var(--bg-primary);
 }
 
 .badge--country {
@@ -1763,9 +1765,6 @@ html[data-js] .tab-panel.is-active { display: block; }
   .contact-info__value { font-size: 0.875rem; }
   .news-item__date,
   .news-item__body { font-size: 0.875rem; }
-  .pub-item__authors,
-  .pub-item__venue { font-size: 0.875rem; }
-
   /* Education page — shrink card body to 12px on mobile */
   
   
@@ -1777,7 +1776,7 @@ html[data-js] .tab-panel.is-active { display: block; }
    Children without their own font-size inherit the reduced parent. */
 @media (max-width: 640px) {
   /* Education — row text */
-  .edu-degree { font-size: calc(1.125rem - 1pt); }
+  .edu-degree { font-size: calc(1.125rem - 1.5pt); }
   .edu-period { font-size: calc(0.8125rem - 1pt); }
   .edu-place  { font-size: calc(0.9375rem - 1pt); }
   .edu-loc    { font-size: calc(0.875rem - 1pt); }
@@ -1789,7 +1788,7 @@ html[data-js] .tab-panel.is-active { display: block; }
   #tab-content .pub-item__body { font-size: calc(0.9375rem - 1pt); }   /* title & details inherit */
   #tab-content .pub-item__authors,
   #tab-content .pub-item__venue { font-size: calc(0.875rem - 1pt); }   /* overrides the 0.875rem rule above */
-  #tab-content .pub-item__num { font-size: calc(0.9375rem - 1pt); }
+  #tab-content .pub-item__num { font-size: calc(0.875rem - 1pt); }
   #tab-content .pub-item__meta { font-size: calc(0.9375rem - 1pt); }
   #tab-content .pub-item__meta--sub { font-size: calc(0.875rem - 1pt); }
   #tab-content .pub-note { font-size: calc(0.8125rem - 1pt); }

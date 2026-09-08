@@ -531,7 +531,10 @@ function renderCoursework() {
 // the browser used to produce. Differences are intentional and minimal:
 //   • author highlight uses <span class="me"> (the browser's highlightAuthor),
 //     NOT the <strong> used by the AI fallback above;
-//   • each .pub-item carries data-first ("1" when it has the "1st Author" tag)
+//   • each .pub-item carries data-first ("1" when it has the "1st Author"
+//     tag). Since the visible badge was dropped — the author list already
+//     says it — this attribute and llms-full.txt's "Tags:" line are what a
+//     machine reads first-authorship from.
 //     — CSS gives those an accent edge;
 //   • every tab is rendered as a .tab-panel (all visible to no-JS crawlers;
 //     CSS shows only the active one once JS is present).
@@ -604,7 +607,6 @@ function pubItemHTML(p, opts) {
   opts = opts || {};
   const num = p.number != null ? `<div class="pub-item__num">[${p.number}]</div>` : `<div class="pub-item__num"></div>`;
   const authors = highlightAuthorMe(p.authors, p.highlight_author);
-  const tagsHTML = (p.tags || []).map(t => `<span class="badge--tag badge">${esc(t)}</span>`).join('');
   const details = p.details ? `<span class="pub-item__details">${esc(p.details)}</span>` : '';
   const venue = p.venue ? `<span class="pub-item__venue">${esc(p.venue)}</span>` : '';
   const titleSuffix = opts.bareTitle ? '' : ',';
@@ -625,7 +627,7 @@ function pubItemHTML(p, opts) {
       <li class="pub-item" data-first="${first}">
         ${num}
         <div class="pub-item__body">
-          <div class="pub-item__authors">${authors}${tagsHTML}</div>
+          <div class="pub-item__authors">${authors}</div>
           <div class="pub-item__title">${titleQuote}${esc(p.title)}${titleSuffix}${titleQuote}</div>
           ${metaHTML}
           ${pubActionsHTML(p)}

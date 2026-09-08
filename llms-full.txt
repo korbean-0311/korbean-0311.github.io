@@ -428,7 +428,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 - Website: https://www.korea.edu/
 - Period: 2017.03 — 2021.08
 - Degree: B.S. in Electrical Engineering
-- Advisor: Chulwoo Kim
+- PI: Chulwoo Kim
 
 ### Daejeon Dongsin Science High School (DDSHS) (Daejeon, Republic of Korea)
 - Website: https://ddsciencehs.djsch.kr/
