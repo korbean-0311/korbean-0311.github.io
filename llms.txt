@@ -12,7 +12,7 @@ The full machine-readable content (all publications with BibTeX, education, rese
 
 The site has three pages. "Academics" is ONE long page that holds the whole academic record in six sections; each section has its own anchor, so one fetch of academics.html returns everything below.
 
-- [Home](https://korbean-0311.github.io/): Brief biography, research interests, recent news, and press coverage ("In the News")
+- [Home](https://korbean-0311.github.io/): Brief biography, research interests, recent news, and media coverage (the "Press" section)
 - [Academics](https://korbean-0311.github.io/academics.html): One long page with six sections —
   - [Education](https://korbean-0311.github.io/academics.html#education): Academic timeline with advisors, and the doctoral advisor lineage (academic genealogy)
   - [Publications](https://korbean-0311.github.io/academics.html#publications): International journals (under review + published, with abstracts, keywords, BibTeX), international conferences, domestic conferences, patents

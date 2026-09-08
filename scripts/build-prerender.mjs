@@ -289,7 +289,7 @@ function renderGenealogy() {
     const entries = entriesByTarget.get(d.e.to) || [d.bx];
     const cx = Math.round(entries.reduce((s, v) => s + v, 0) / entries.length);
     const label = esc(d.e.label);
-    const labelW = Math.ceil(String(d.e.label).length * 7.5 + 14);
+    const labelW = Math.ceil(String(d.e.label).length * 6.6 + 14);
     return `<g class="gen-edge-label">
               <rect x="${cx - labelW / 2}" y="${d.by - 22}" width="${labelW}" height="17" rx="4" />
               <text x="${cx}" y="${d.by - 9}" text-anchor="middle">${label}</text>
@@ -437,15 +437,13 @@ function renderNews() {
   const news = Array.isArray(data) ? data : (data?.news || []);
   const INITIAL = 5;
   return news.map((n, i) => {
-    const tagClass = (n.tag === '1st Author' || n.tag === 'Project Lead') ? 'badge--tag' : 'badge--coauthor';
-    const tag = n.tag ? ` <span class="badge ${tagClass}">${esc(n.tag)}</span>` : '';
     const kind = newsKind(n);
     const emoji = NEWS_KIND_EMOJI[kind] ? `<span class="news-item__emoji" aria-hidden="true">${NEWS_KIND_EMOJI[kind]}</span>` : '';
     const extra = i >= INITIAL ? ' news-item--extra' : '';
     return `        <li class="news-item${extra}" data-kind="${esc(kind)}">
           <span class="news-item__date">${esc(n.date)}</span>
           <span class="news-item__kind">${emoji}${esc(kind)}</span>
-          <span class="news-item__body">${newsBodyHTML(n.body)}${tag}</span>
+          <span class="news-item__body">${newsBodyHTML(n.body)}</span>
         </li>`;
   }).join('\n');
 }
@@ -474,7 +472,7 @@ function renderPress() {
         </li>`;
   }).join('\n');
   return `      <section aria-labelledby="press-heading">
-      <h2 id="press-heading">In the News</h2>
+      <h2 id="press-heading">Press</h2>
       <ul class="press-list">
 ${rows}
       </ul>
@@ -787,7 +785,7 @@ function buildProfile(opts) {
         <div class="profile__body">
           <div class="profile__photo"><img src="assets/profile.jpg" alt="Young-Seok Lee" width="340" height="340" decoding="async" /></div>
           <p class="profile__name">Young-Seok Lee</p>
-          <p class="profile__role">ECE Ph.D. Candidate<br />Seoul National University</p>
+          <p class="profile__role">Ph.D. Candidate<br />Dept. of ECE<br />Seoul National University</p>
           <p class="profile__loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Seoul, Republic of Korea</p>
           <ul class="profile__links">
             <li><a href="https://orcid.org/0000-0003-3342-3707" target="_blank" rel="noopener me"><svg class="icon-orcid" viewBox="0 0 256 256" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M256 128c0 70.7-57.3 128-128 128S0 198.7 0 128 57.3 0 128 0s128 57.3 128 128zM86.3 186.2H70.9V79.1h15.4v107.1zM108.9 79.1h41.6c39.6 0 57 28.3 57 53.6 0 27.5-21.5 53.6-56.8 53.6h-41.8V79.1zm15.4 93.3h24.5c34.9 0 42.9-26.5 42.9-39.7 0-21.5-13.7-39.7-43.7-39.7h-23.7v79.4zM88.7 56.8c0 5.5-4.5 10.1-10.1 10.1-5.6 0-10.1-4.6-10.1-10.1 0-5.6 4.5-10.1 10.1-10.1 5.5 0 10.1 4.6 10.1 10.1z"/></svg>ORCID</a></li>

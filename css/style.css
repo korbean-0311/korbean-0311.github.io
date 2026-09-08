@@ -32,6 +32,7 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --border-color: #D8D8D8;
   --line-soft: #DCEEF6;
   --news-mark: #DCEEF6;   /* pale blue highlighter behind the key phrase in each news line */
+  --venue-mark: #D9EDC6;  /* pale green highlighter behind every journal / conference name */
 
   --nav-height: 60px;
   --content-max: 720px;
@@ -60,6 +61,7 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --border-color: #334155;
   --line-soft: #334155;
   --news-mark: #1E3A5F;
+  --venue-mark: #2A4023;
   --color-award: #F2A8B8;
 }
 
@@ -660,20 +662,20 @@ section h3 {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-pill);
   padding: 4px 12px;
-  font-size: 0.875rem;
+  font-size: calc(0.875rem - 1pt);
   color: var(--text-primary);
   margin: 2px 0;
 }
 
 .badge--keyword {
-  font-size: 0.8125rem;
+  font-size: calc(0.8125rem - 1pt);
   color: var(--text-secondary);
 }
 
 /* "1st Author" / "Project Lead": filled soft green — the one status worth
    spotting while skimming a list of papers. */
 .badge--tag {
-  font-size: 0.75rem;
+  font-size: calc(0.75rem - 1pt);
   background: #E6F3DC;
   border-color: #CFE6BE;
   color: #3E6B29;
@@ -780,13 +782,15 @@ a:hover .ext-link-arrow {
   color: var(--text-primary);
 }
 
-/* Pale-blue half-highlight. Used on the key phrase of every news line and on
-   the advisor names in the About-me paragraph. */
+/* Half-highlight, drawn to 38% of the line box. --mark-color chooses the
+   tone: pale blue on the news lines and the About-me advisor names, pale
+   green behind every journal / conference name. */
 .mark-soft,
-.news-item__body strong {
+.news-item__body strong,
+.pub-item__venue {
   background: linear-gradient(to top,
-    var(--news-mark) 0,
-    var(--news-mark) 38%,
+    var(--mark-color, var(--news-mark)) 0,
+    var(--mark-color, var(--news-mark)) 38%,
     transparent 38%);
   padding: 0 2px;
 }
@@ -1216,6 +1220,7 @@ html[data-js] .tab-panel.is-active { display: block; }
 /* Sized explicitly: inheriting .pub-item__body's 0.9375rem made the venue
    larger than the title it sits under. */
 .pub-item__venue {
+  --mark-color: var(--venue-mark);
   font-size: 0.875rem;
   font-style: italic;
   color: var(--color-primary);
@@ -1254,7 +1259,7 @@ html[data-js] .tab-panel.is-active { display: block; }
 }
 
 .pub-note {
-  font-size: 0.8125rem;
+  font-size: calc(0.8125rem - 1pt);
   font-style: normal;
   letter-spacing: 0.02em;
   line-height: 1.4;
@@ -1562,19 +1567,8 @@ html[data-js] .tab-panel.is-active { display: block; }
   padding: 0 2px;
 }
 
-/* A pale grey fill, built like .badge--tag: tinted background, label mixed
-   toward --text-primary so it darkens on light and lightens on dark. */
-.badge--coauthor {
-  font-size: 0.75rem;
-  background: color-mix(in srgb, var(--text-secondary) 20%, transparent);
-  border-color: transparent;
-  color: color-mix(in srgb, var(--text-secondary) 65%, var(--text-primary));
-  padding: 2px 8px;
-  margin-left: 4px;
-}
-
 .badge--country {
-  font-size: 0.75rem;
+  font-size: calc(0.75rem - 1pt);
   background: transparent;
   border: 1px solid var(--color-accent);
   color: var(--color-accent);
@@ -1791,10 +1785,7 @@ html[data-js] .tab-panel.is-active { display: block; }
   #tab-content .pub-item__num { font-size: calc(0.875rem - 1pt); }
   #tab-content .pub-item__meta { font-size: calc(0.9375rem - 1pt); }
   #tab-content .pub-item__meta--sub { font-size: calc(0.875rem - 1pt); }
-  #tab-content .pub-note { font-size: calc(0.8125rem - 1pt); }
   #tab-content .pub-btn { font-size: calc(0.75rem - 1pt); }
-  #tab-content .badge { font-size: calc(0.875rem - 1pt); }             /* incl. .badge--country */
-  #tab-content .badge--tag { font-size: calc(0.75rem - 1pt); }
   #tab-content .pub-panel p { font-size: calc(0.875rem - 1pt); }
   #tab-content .patent-item__title { font-size: calc(0.9375rem - 1pt); }
   #tab-content .patent-item__meta li { font-size: calc(0.875rem - 1pt); }  /* .patent-label inherits */
@@ -1802,7 +1793,6 @@ html[data-js] .tab-panel.is-active { display: block; }
   #awards-content .award-item { font-size: calc(0.9375rem - 1pt); }       /* name/highlight inherit */
   #awards-content .award-item__sub { font-size: calc(0.8125rem - 1pt); }
   #awards-content .award-group__title { font-size: calc(0.9375rem - 1pt); }
-  #awards-content .badge--tag { font-size: calc(0.75rem - 1pt); }
 }
 
 /* ---------- Mobile: trim Academic Service / Coursework text −1pt ---------- */
@@ -1893,7 +1883,7 @@ html[data-js] .tab-panel.is-active { display: block; }
    glyph, which looked fractured when the mobile SVG was scaled down. */
 .gen-edge-label text {
   font-family: var(--font-sans);
-  font-size: 11px;
+  font-size: 9.67px;   /* 11px − 1pt, in SVG user units */
   font-weight: 600;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -2101,17 +2091,22 @@ html {
   padding: 0.3rem 0.5rem 0.3rem 0.6rem;
   margin-left: -0.6rem;
   border-left: 2px solid transparent;
+  border-radius: 0 6px 6px 0;
   font-size: 0.8125rem;
   color: var(--text-secondary);
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
-.side-index a:hover { color: var(--text-primary); }
+.side-index a:hover {
+  color: var(--text-primary);
+  background: color-mix(in srgb, var(--color-accent) 5%, transparent);
+}
 
 .side-index a.is-active {
   color: var(--color-primary);
   font-weight: 500;
   border-left-color: var(--color-accent);
+  background: color-mix(in srgb, var(--color-accent) 9%, transparent);
 }
 
 /* Mobile: the aside carries only the index, as a sticky row of pills right
@@ -2158,6 +2153,7 @@ html {
     padding: 0.3rem 0.8rem;
     border: 1px solid var(--border-color);
     border-radius: var(--radius-pill);
+    background: none;
     font-size: calc(0.8125rem - 1pt);
     white-space: nowrap;
   }

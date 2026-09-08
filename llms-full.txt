@@ -1,6 +1,6 @@
 # Young-Seok Lee
 
-> ECE Ph.D. Candidate at Seoul National University (Seoul, Republic of Korea)
+> Ph.D. Candidate, Dept. of ECE, Seoul National University (Seoul, Republic of Korea)
 
 Site: https://korbean-0311.github.io/
 
@@ -36,7 +36,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 - **20 Jul 2025** — [Paper] Paper accepted in IEEE TAP _(Co-author)_
 - **06 Jun 2025** — [Paper] Paper accepted in IEEE AWPL _(1st Author)_
 
-## In the News
+## Press
 
 - **EurekAlert! (AAAS)** — [SNU Engineering Ph.D. student Young-Seok Lee becomes first Korean to win Best Student Paper Award at world's largest wireless power transfer conference](https://www.eurekalert.org/news-releases/1140952) (20 Aug 2026)
 - **서울대학교 공과대학** — [서울공대 이영석 박사과정생, 세계 최대 무선전력전송 학회서 한국인 최초 최우수 학생논문상 수상](https://eng.snu.ac.kr/communication/promotion/news?md=v&bbsidx=8292) (19 Aug 2026)

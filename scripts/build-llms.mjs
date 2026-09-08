@@ -30,7 +30,7 @@ const OUT_PATH = path.join(ROOT, 'llms-full.txt');
 // pages change. (Email deliberately excluded.)
 const SITE_META = {
   name: 'Young-Seok Lee',
-  subtitle: 'ECE Ph.D. Candidate at Seoul National University (Seoul, Republic of Korea)',
+  subtitle: 'Ph.D. Candidate, Dept. of ECE, Seoul National University (Seoul, Republic of Korea)',
   bio: [
     'I am a Ph.D. candidate in the Department of Electrical and Computer Engineering (ECE) at Seoul National University, co-advised by Prof. Sangwook Nam and Prof. Jungsuek Oh.',
     'I have collaborated with industry partners — including Samsung Electronics on RF Wireless Power Transfer and LIG D&A on large-scale phased-array calibration. My broader research interests span RF and electromagnetic systems, with active topics including:',
@@ -189,7 +189,7 @@ function buildNews(newsData) {
 function buildPress(pressData) {
   const items = Array.isArray(pressData) ? pressData : (pressData?.press || []);
   if (!items.length) return '';
-  const out = ['## In the News\n'];
+  const out = ['## Press\n'];
   for (const p of items) {
     const outlet = p.outlet ? `**${p.outlet}** — ` : '';
     const date = p.date ? ` (${p.date})` : '';
