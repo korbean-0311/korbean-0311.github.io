@@ -3,25 +3,111 @@
   "owner": "Young-Seok Lee",
   "description": "Three degree tracks and the advisors behind them: a B.S. at Korea University under Chulwoo Kim, an M.S. at Seoul National University under Sangwook Nam, and a Ph.D. at Seoul National University co-advised by Sangwook Nam and Jungsuek Oh. The top row gives each advisor's own doctoral advisor, at the university where that supervision took place.",
   "nodes": [
-    { "id": "kang",      "row": 0, "col": 0, "name": "Sung-Mo Kang",    "institution": "UIUC",              "logo": "assets/logos/uiuc.svg" },
-    { "id": "itoh",      "row": 0, "col": 1, "name": "Tatsuo Itoh",     "institution": "UT Austin",         "logo": "assets/logos/utaustin.svg" },
-    { "id": "sarabandi", "row": 0, "col": 2, "name": "Kamal Sarabandi", "institution": "Univ. of Michigan", "logo": "assets/logos/michigan.svg" },
-
-    { "id": "kim", "row": 1, "col": 0, "name": "Chulwoo Kim",  "institution": "Korea University",          "logo": "assets/logos/korea-university.png" },
-    { "id": "nam", "row": 1, "col": 1, "name": "Sangwook Nam", "institution": "Seoul National Univ.",      "logo": "assets/logos/snu.png" },
-    { "id": "oh",  "row": 1, "col": 2, "name": "Jungsuek Oh",  "institution": "Seoul National Univ.",      "logo": "assets/logos/snu.png" },
-
-    { "id": "bs",  "row": 2, "col": 0, "self": true, "name": "B.S.",  "institution": "Korea University",          "year": "2021" },
-    { "id": "ms",  "row": 2, "col": 1, "self": true, "name": "M.S.",  "institution": "Seoul National University", "year": "2023" },
-    { "id": "phd", "row": 2, "col": 2, "self": true, "name": "Ph.D.", "institution": "Seoul National University", "year": "2023 –" }
+    {
+      "id": "kang",
+      "row": 0,
+      "col": 0,
+      "name": "Sung-Mo Kang",
+      "institution": "UIUC",
+      "logo": "assets/logos/uiuc.svg"
+    },
+    {
+      "id": "itoh",
+      "row": 0,
+      "col": 1,
+      "name": "Tatsuo Itoh",
+      "institution": "UT Austin",
+      "logo": "assets/logos/utaustin.svg"
+    },
+    {
+      "id": "sarabandi",
+      "row": 0,
+      "col": 2,
+      "name": "Kamal Sarabandi",
+      "institution": "Univ. of Michigan",
+      "logo": "assets/logos/michigan.svg"
+    },
+    {
+      "id": "kim",
+      "row": 1,
+      "col": 0,
+      "name": "Chulwoo Kim",
+      "institution": "Korea Univ.",
+      "logo": "assets/logos/korea-university.png"
+    },
+    {
+      "id": "nam",
+      "row": 1,
+      "col": 1,
+      "name": "Sangwook Nam",
+      "institution": "Seoul National Univ.",
+      "logo": "assets/logos/snu.png"
+    },
+    {
+      "id": "oh",
+      "row": 1,
+      "col": 2,
+      "name": "Jungsuek Oh",
+      "institution": "Seoul National Univ.",
+      "logo": "assets/logos/snu.png"
+    },
+    {
+      "id": "bs",
+      "row": 2,
+      "col": 0,
+      "self": true,
+      "name": "B.S.",
+      "institution": "Korea Univ.",
+      "year": "2021"
+    },
+    {
+      "id": "ms",
+      "row": 2,
+      "col": 1,
+      "self": true,
+      "name": "M.S.",
+      "institution": "Seoul National Univ.",
+      "year": "2023"
+    },
+    {
+      "id": "phd",
+      "row": 2,
+      "col": 2,
+      "self": true,
+      "name": "Ph.D.",
+      "institution": "Seoul National Univ.",
+      "year": "2023 –"
+    }
   ],
   "edges": [
-    { "from": "kang", "to": "kim" },
-    { "from": "itoh", "to": "nam" },
-    { "from": "sarabandi", "to": "oh" },
-    { "from": "kim", "to": "bs" },
-    { "from": "nam", "to": "ms" },
-    { "from": "nam", "to": "phd", "label": "Co-advised" },
-    { "from": "oh", "to": "phd" }
+    {
+      "from": "kang",
+      "to": "kim"
+    },
+    {
+      "from": "itoh",
+      "to": "nam"
+    },
+    {
+      "from": "sarabandi",
+      "to": "oh"
+    },
+    {
+      "from": "kim",
+      "to": "bs"
+    },
+    {
+      "from": "nam",
+      "to": "ms"
+    },
+    {
+      "from": "nam",
+      "to": "phd",
+      "label": "Co-advised"
+    },
+    {
+      "from": "oh",
+      "to": "phd"
+    }
   ]
 }

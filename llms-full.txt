@@ -443,10 +443,10 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 Three degree tracks and the advisors behind them: a B.S. at Korea University under Chulwoo Kim, an M.S. at Seoul National University under Sangwook Nam, and a Ph.D. at Seoul National University co-advised by Sangwook Nam and Jungsuek Oh. The top row gives each advisor's own doctoral advisor, at the university where that supervision took place.
 
-- Sung-Mo Kang — UIUC → Chulwoo Kim — Korea University → Young-Seok Lee, B.S. — Korea University, 2021
-- Tatsuo Itoh — UT Austin → Sangwook Nam — Seoul National Univ. → Young-Seok Lee, M.S. — Seoul National University, 2023
-- Tatsuo Itoh — UT Austin → Sangwook Nam — Seoul National Univ. → Young-Seok Lee, Ph.D. — Seoul National University, 2023 – (Co-advised)
-- Kamal Sarabandi — Univ. of Michigan → Jungsuek Oh — Seoul National Univ. → Young-Seok Lee, Ph.D. — Seoul National University, 2023 –
+- Sung-Mo Kang — UIUC → Chulwoo Kim — Korea Univ. → Young-Seok Lee, B.S. — Korea Univ., 2021
+- Tatsuo Itoh — UT Austin → Sangwook Nam — Seoul National Univ. → Young-Seok Lee, M.S. — Seoul National Univ., 2023
+- Tatsuo Itoh — UT Austin → Sangwook Nam — Seoul National Univ. → Young-Seok Lee, Ph.D. — Seoul National Univ., 2023 – (Co-advised)
+- Kamal Sarabandi — Univ. of Michigan → Jungsuek Oh — Seoul National Univ. → Young-Seok Lee, Ph.D. — Seoul National Univ., 2023 –
 
 ## Research
 
