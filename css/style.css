@@ -1618,7 +1618,7 @@ html[data-js] .tab-panel.is-active { display: block; }
 .others-list li {
   position: relative;
   padding-left: 1.1rem;
-  font-size: 0.95rem;
+  font-size: 0.9375rem;   /* same as .research-summary */
   line-height: 1.55;
   color: var(--text-primary);
 }
@@ -1793,7 +1793,7 @@ html[data-js] .tab-panel.is-active { display: block; }
 @media (max-width: 640px) {
   .service-col__title,
   .coursework-group__title { font-size: calc(1rem - 1pt); }
-  .others-list li { font-size: calc(0.95rem - 1pt); }                     /* em inherits */
+  .others-list li { font-size: calc(0.9375rem - 1pt); }                  /* em inherits */
   .coursework-list li { font-size: calc(0.9375rem - 1pt); }
   .coursework-note { font-size: calc(0.875rem - 1pt); }
 }
@@ -1848,17 +1848,106 @@ html[data-js] .tab-panel.is-active { display: block; }
   padding: 1.1rem 1rem 1rem;
 }
 
-/* Only the drawing scrolls sideways on a narrow phone — never the page, and
-   never the caption. tabindex in the markup makes it keyboard-scrollable. */
 .genealogy__scroll {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
 }
 
-.genealogy__scroll:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 3px;
-  border-radius: 6px;
+/* ---- The same tree, told as a list ----
+   Below 640px the three-column drawing could only be read by dragging it
+   sideways, so phones get this instead. On wider screens it stays in the DOM
+   but out of sight, which is what screen readers and SVG-blind crawlers read. */
+.genealogy__tracks {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 641px) {
+  .genealogy__tracks {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .genealogy__scroll { display: none; }
+
+  .genealogy__tracks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .gen-track {
+    margin: 0;
+    padding: 0.7rem 0.85rem 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    background: var(--bg-primary);
+  }
+
+  /* The degree leads, in the accent, the way the filled boxes do on desktop. */
+  .gen-track__degree {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.5rem;
+    margin: 0 0 0.5rem;
+    font-size: calc(0.9375rem - 1pt);
+    color: var(--color-accent);
+  }
+  .gen-track__degree strong { font-weight: 600; }
+
+  .gen-track__tag {
+    padding: 1px 7px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-pill);
+    font-size: 0.625rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+  }
+
+  .gen-track__chain,
+  .gen-track__chain ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Each step up the lineage is indented once, with a corner glyph. */
+  .gen-track__chain li {
+    position: relative;
+    margin: 0;
+    padding-left: 1.1rem;
+    font-size: calc(0.9375rem - 1pt);
+    line-height: 1.45;
+  }
+  .gen-track__chain li::before {
+    content: "\21B3";
+    position: absolute;
+    left: 0;
+    color: var(--text-secondary);
+  }
+  .gen-track__chain ul { margin-left: 1.1rem; }
+  .gen-track__chain li + li,
+  .gen-track__chain ul { margin-top: 0.3rem; }
+
+  .gen-track__name { color: var(--text-primary); }
+  .gen-track__name + .gen-track__org::before {
+    content: " · ";
+    color: var(--text-secondary);
+  }
+  .gen-track__org { color: var(--text-secondary); }
 }
 
 .genealogy__svg {
@@ -1907,11 +1996,11 @@ html[data-js] .tab-panel.is-active { display: block; }
   fill: color-mix(in srgb, var(--text-primary) 70%, transparent);
 }
 
-/* White chip behind a university crest, so it reads on a dark node too. */
-.gen-logo-chip {
+/* Backing behind a university seal: invisible on a light node, and the reason
+   a dark seal still reads on a dark one. No border of its own. */
+.gen-node rect.gen-logo-chip {
   fill: #fff;
-  stroke: color-mix(in srgb, var(--border-color) 70%, transparent);
-  stroke-width: 1;
+  stroke: none;
 }
 
 /* My own three degrees: filled in the accent, so the eye lands on the tracks. */
