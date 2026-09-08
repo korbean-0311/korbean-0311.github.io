@@ -177,7 +177,7 @@ function buildNews(newsData) {
     const tag = n.tag ? ` _(${n.tag})_` : '';
     const kind = newsKind(n);
     const label = kind.charAt(0).toUpperCase() + kind.slice(1);
-    // {{TMTT}} venue tokens render as highlighter marks on the site; plain text here.
+    // {{TMTT}} marks a venue acronym in the data; it renders as plain text.
     out.push(`- **${n.date}** — [${label}] ${stripHTML(unwrapTokens(n.body))}${tag}`);
   }
   out.push('');
@@ -277,6 +277,34 @@ function buildEducation(edu) {
     }
     out.push('');
   }
+  const lineage = buildGenealogy();
+  if (lineage) out.push(lineage);
+  return out.join('\n');
+}
+
+// Academic genealogy — the doctoral lineage figure shown (collapsed) under
+// Education. Optional file: a missing genealogy.json simply means no figure.
+function buildGenealogy() {
+  const file = path.join(DATA_DIR, 'genealogy.json');
+  if (!fs.existsSync(file)) {
+    console.warn('  WARNING: data/genealogy.json is missing — llms-full.txt will omit the lineage that llms.txt advertises.');
+    return '';
+  }
+  const data = readJSON('genealogy.json');
+  const branches = (data.branches || []).filter(b => (b.chain || []).length);
+  if (!branches.length || !data.self) return '';
+  const label = n => [n.name, [n.institution, n.year].filter(Boolean).join(', ')]
+    .filter(Boolean).join(' — ');
+  const out = ['### Academic Genealogy (doctoral advisor lineage)', ''];
+  if (data.description) out.push(data.description, '');
+  for (const b of branches) {
+    // Oldest first, so each line reads as a descent ending at the site owner.
+    const chain = b.chain.slice().reverse().map(label);
+    chain.push(label(data.self));
+    out.push('- ' + chain.join(' → '));
+  }
+  if (data.caption) out.push('', data.caption);
+  out.push('');
   return out.join('\n');
 }
 

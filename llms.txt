@@ -14,7 +14,7 @@ The site has three pages. "Academics" is ONE long page that holds the whole acad
 
 - [Home](https://korbean-0311.github.io/): Brief biography, research interests, recent news, and press coverage ("In the News")
 - [Academics](https://korbean-0311.github.io/academics.html): One long page with six sections —
-  - [Education](https://korbean-0311.github.io/academics.html#education): Academic timeline with advisors
+  - [Education](https://korbean-0311.github.io/academics.html#education): Academic timeline with advisors, and the doctoral advisor lineage (academic genealogy)
   - [Publications](https://korbean-0311.github.io/academics.html#publications): International journals (under review + published, with abstracts, keywords, BibTeX), international conferences, domestic conferences, patents
   - [Awards & Honors](https://korbean-0311.github.io/academics.html#awards): Awards, honors, grants, scholarships, and paper competition prizes
   - [Research](https://korbean-0311.github.io/academics.html#research): Graduate and undergraduate research projects
@@ -33,5 +33,6 @@ The site renders content from these structured JSON files (also useful for AI ag
 - https://korbean-0311.github.io/data/publications.json
 - https://korbean-0311.github.io/data/awards.json
 - https://korbean-0311.github.io/data/education.json
+- https://korbean-0311.github.io/data/genealogy.json
 - https://korbean-0311.github.io/data/research.json
 - https://korbean-0311.github.io/data/others.json

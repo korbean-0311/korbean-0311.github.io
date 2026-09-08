@@ -189,6 +189,121 @@ function renderEducationTimeline() {
   }).join('\n');
 }
 
+// -- Academic genealogy (Education section) -------------------------------
+// data/genealogy.json holds the doctoral lineage as one chain per co-advisor,
+// ordered nearest-first (my advisor, then his advisor, ...). The figure is a
+// plain <details>: collapsed by default, needs no JavaScript, and its SVG uses
+// real <text>, so crawlers and screen readers read the same names a human sees.
+function genealogyNodeSVG(x, y, w, h, node, cls) {
+  const cx = x + w / 2;
+  const sub = [node.institution, node.year].filter(Boolean).join(' · ');
+  // Long labels would silently overrun the fixed-width box: SVG text neither
+  // wraps nor clips, so warn at build time instead of shipping a broken figure.
+  if (node.name && node.name.length > 30) console.warn(`  WARNING: genealogy name "${node.name}" may overflow its box.`);
+  if (sub.length > 42) console.warn(`  WARNING: genealogy sub-label "${sub}" may overflow its box.`);
+  const nameY = sub ? y + 23 : y + h / 2 + 5;
+  const role = node.role
+    ? `<text class="gen-role" x="${cx}" y="${y - 8}" text-anchor="middle">${esc(node.role)}</text>`
+    : '';
+  return `${role}
+        <g class="gen-node ${cls}">
+          <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="9" />
+          <text class="gen-name" x="${cx}" y="${nameY}" text-anchor="middle">${esc(node.name)}</text>
+          ${sub ? `<text class="gen-sub" x="${cx}" y="${y + 41}" text-anchor="middle">${esc(sub)}</text>` : ''}
+        </g>`;
+}
+
+let genealogySeq = 0;
+function renderGenealogy() {
+  const file = path.join(DATA_DIR, 'genealogy.json');
+  if (!fs.existsSync(file)) {
+    console.warn('  WARNING: data/genealogy.json is missing — the Education section will ship without the lineage figure that academics.html and llms.txt both advertise.');
+    return '';
+  }
+  const data = readJSON('genealogy.json');
+  const branches = (data.branches || []).filter(b => (b.chain || []).length);
+  if (!branches.length || !data.self) return '';
+
+  // Geometry: one column per branch, one row per generation, me on the bottom
+  // row. Chains of different depth are bottom-aligned, so the nearest advisor
+  // always sits in the row directly above me.
+  const NODE_W = 268, NODE_H = 56, COL_GAP = 46, ROW_H = 106;
+  const PAD_X = 8, PAD_TOP = 22, PAD_BOTTOM = 10;
+  const depth = Math.max(...branches.map(b => b.chain.length));
+  const cols = branches.length;
+  const W = PAD_X * 2 + cols * NODE_W + (cols - 1) * COL_GAP;
+  const H = PAD_TOP + depth * ROW_H + NODE_H + PAD_BOTTOM;
+  const colX = i => PAD_X + i * (NODE_W + COL_GAP);
+  const rowY = r => PAD_TOP + r * ROW_H;                  // r counted from the top
+  const meX = (W - NODE_W) / 2;
+  const meY = rowY(depth);
+
+  const nodes = [];
+  const edges = [];
+  branches.forEach((b, i) => {
+    const x = colX(i);
+    b.chain.forEach((node, k) => {
+      const r = depth - 1 - k;                            // nearest advisor just above me
+      const y = rowY(r);
+      nodes.push(genealogyNodeSVG(x, y, NODE_W, NODE_H, node, k === 0 ? 'gen-node--advisor' : 'gen-node--ancestor'));
+      // Edge down to whoever this person advised: the next link, or me.
+      const toMe = k === 0;
+      const childY = toMe ? meY : rowY(r + 1);
+      const childCx = toMe ? meX + NODE_W / 2 : x + NODE_W / 2;
+      const fromCx = x + NODE_W / 2;
+      const y1 = y + NODE_H;
+      const mid = Math.round((y1 + childY) / 2);
+      edges.push(fromCx === childCx
+        ? `<path class="gen-edge" d="M ${fromCx} ${y1} V ${childY}" />`
+        : `<path class="gen-edge" d="M ${fromCx} ${y1} V ${mid} H ${childCx} V ${childY}" />`);
+    });
+  });
+  nodes.push(genealogyNodeSVG(meX, meY, NODE_W, NODE_H, data.self, 'gen-node--self'));
+
+  const title = data.title || 'Academic genealogy';
+  const uid = 'gen-' + (++genealogySeq);
+  const label = n => [n.name, [n.institution, n.year].filter(Boolean).join(', ')]
+    .filter(Boolean).join(' — ');
+  // Same lineage in words. An SVG marked role="img" is one opaque object to a
+  // screen reader, and some crawlers only read the accessibility tree, so the
+  // names must also exist as ordinary text. Visually hidden, never stale: it is
+  // generated from the same data as the drawing.
+  const spoken = branches.map(b => {
+    const line = b.chain.slice().reverse().map(label);
+    line.push(label(data.self));
+    return `<li>${esc(line.join(' → '))}</li>`;
+  }).join('\n            ');
+
+  const svg = `<svg class="genealogy__svg" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="${uid}-title ${uid}-desc" preserveAspectRatio="xMidYMin meet">
+          <title id="${uid}-title">${esc(title)}</title>
+          <desc id="${uid}-desc">${esc(data.description || 'Doctoral advisor lineage.')}</desc>
+          ${edges.join('\n          ')}
+          ${nodes.join('\n          ')}
+        </svg>`;
+
+  const caption = data.caption
+    ? `<figcaption class="genealogy__caption">${esc(data.caption)}</figcaption>`
+    : '';
+  // The drawing scrolls sideways on a narrow screen; tabindex makes that
+  // scroller reachable from the keyboard. The caption sits outside it so it
+  // never scrolls out of view.
+  return `<details class="genealogy">
+        <summary class="genealogy__toggle">
+          <svg class="genealogy__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>
+          <span>${esc(title)}</span>
+        </summary>
+        <figure class="genealogy__figure">
+          <div class="genealogy__scroll" tabindex="0" role="group" aria-label="${esc(title)} diagram, scrollable">
+        ${svg}
+          </div>
+          <ul class="genealogy__text visually-hidden">
+            ${spoken}
+          </ul>
+          ${caption}
+        </figure>
+      </details>`;
+}
+
 // Research — ported verbatim from js/research.js (affiliation is intentionally
 // unused there, so it is omitted here too to keep the output identical).
 function researchRichText(s) {
@@ -276,8 +391,7 @@ function renderResearch() {
 // --extra class so CSS hides them until the "Show more" toggle.
 //   • `kind` (award / grant / paper / project / scholarship) becomes the small
 //     uppercase label; when the CMS leaves it empty it is guessed from the text.
-//   • `{{TMTT}}` / `{{WPTCE 2026}}` in the body become the same highlighter
-//     marks (same color per venue) as on the Publications list.
+//   • `{{TMTT}}` / `{{WPTCE 2026}}` tokens in the body render as plain text.
 function newsKind(n) {
   if (n.kind) return String(n.kind);
   const t = String(n.body || '').toLowerCase();
@@ -289,11 +403,10 @@ function newsKind(n) {
   return 'news';
 }
 function newsBodyHTML(body) {
-  return String(body || '').replace(/\{\{(.+?)\}\}/g, (_, token) => {
-    const name = venueFullName(token);
-    const title = name ? ` title="${esc(name)}"` : '';
-    return `<span class="venue-mark" style="--marker-color:${venueColorFor(token)}"${title}>${esc(token.trim())}</span>`;
-  });
+  // {{TMTT}} marks a venue acronym. It used to paint a highlighter stroke;
+  // the tokens stay in the data (and in the CMS hint) but now render as plain
+  // text, so the acronym can get its emphasis back later without a re-edit.
+  return String(body || '').replace(/{{(.+?)}}/g, (_, token) => esc(token.trim()));
 }
 // One emoji per category, shown inside the label pill (decorative only —
 // the label text carries the meaning for screen readers and crawlers).
@@ -411,93 +524,7 @@ function pubHasFirstAuthorTag(item) {
   return Array.isArray(item.tags) && item.tags.indexOf('1st Author') !== -1;
 }
 
-// Venue highlighter colors — one pastel "marker" per journal / conference
-// SERIES, so every TMTT paper shares a color, every WPTCE paper another, etc.
-// Keys are the acronym in the venue's parentheses ("(TMTT)", "(WPTCE 2025)")
-// or, failing that, the venue text with years/seasons stripped. Venues not
-// listed here get the next unused palette color (stable across builds because
-// assignment follows the order of first appearance in publications.json).
-const VENUE_COLORS = {
-  'TMTT': '#FFE66D',       // yellow
-  'TAP': '#B5F0B0',        // mint
-  'AWPL': '#FFB8DE',       // pink
-  'OJAP': '#BFC8FF',       // periwinkle
-  'JEES': '#FFC48C',       // orange
-  'WPTCE': '#A9E2FF',      // sky
-  'IMS': '#DDB8FF',        // lavender
-  'ISAP': '#DDF59A',       // lime
-  'APMC': '#A5F0E6',       // aqua
-  'URSI GASS': '#FFB3B3',  // coral
-  'KIEES CONF.': '#E4E4E4' // neutral gray for the domestic series
-};
-const VENUE_PALETTE = ['#FFE66D', '#B5F0B0', '#FFB8DE', '#BFC8FF', '#FFC48C', '#A9E2FF',
-  '#DDB8FF', '#DDF59A', '#A5F0E6', '#FFB3B3', '#E4E4E4', '#F5D0A9', '#C8E7D8', '#EAD1FF'];
-
-function venueKey(venue) {
-  const s = String(venue || '');
-  const m = s.match(/\(([A-Za-z][A-Za-z/&.\- ]*?)\s*(?:19|20)?\d{0,4}\)/);
-  if (m && m[1].trim()) return m[1].trim().toUpperCase();
-  return s.replace(/\b(19|20)\d{2}\b/g, '')
-    .replace(/\b(Winter|Summer|Autumn|Spring|Fall)\b/gi, '')
-    .replace(/\s+/g, ' ').trim().toUpperCase();
-}
-
-let venueColorMap = null;
-let venueNameMap = null;   // key → first full venue string seen (tooltips on news marks)
-function buildVenueMaps() {
-  venueColorMap = new Map();
-  venueNameMap = new Map();
-  const pubs = readJSON('publications.json');
-  const all = [
-    ...(pubs.international_journals?.under_review || []),
-    ...(pubs.international_journals?.published || []),
-    ...(pubs.international_conferences || []),
-    ...(pubs.domestic_conferences || []),
-  ];
-  const used = new Set(Object.values(VENUE_COLORS));
-  for (const p of all) {
-    const key = venueKey(p.venue);
-    if (!key || venueColorMap.has(key)) continue;
-    let color = VENUE_COLORS[key];
-    if (!color) {
-      color = VENUE_PALETTE.find(c => !used.has(c)) || VENUE_PALETTE[venueColorMap.size % VENUE_PALETTE.length];
-      used.add(color);
-    }
-    venueColorMap.set(key, color);
-    venueNameMap.set(key, String(p.venue));
-  }
-}
-function venueColorFor(venue) {
-  if (!venueColorMap) buildVenueMaps();
-  return venueColorMap.get(venueKey(venue)) || VENUE_COLORS[venueKey(venue)] || VENUE_PALETTE[0];
-}
-function venueFullName(venue) {
-  if (!venueNameMap) buildVenueMaps();
-  return venueNameMap.get(venueKey(venue)) || '';
-}
-
-// Only the short name gets the marker stroke: the trailing parenthetical
-// ("(TMTT)", "(WPTCE 2026)", "(URSI GASS 2023)") or, for venues written
-// without one ("2026 KIEES Winter Conf."), the society acronym.
-function venueMarkHTML(venue) {
-  if (!venue) return '';
-  const s = String(venue);
-  const color = venueColorFor(venue);
-  const mark = t => `<span class="venue-mark" style="--marker-color:${color}">${esc(t)}</span>`;
-  let inner;
-  const paren = s.match(/\(([^()]+)\)\s*$/);
-  if (paren) {
-    inner = `${esc(s.slice(0, paren.index))}(${mark(paren[1])})${esc(s.slice(paren.index + paren[0].length))}`;
-  } else {
-    const acro = s.match(/\b[A-Z]{3,}\b/);
-    inner = acro
-      ? `${esc(s.slice(0, acro.index))}${mark(acro[0])}${esc(s.slice(acro.index + acro[0].length))}`
-      : mark(s);
-  }
-  return `<span class="pub-item__venue" data-venue="${esc(venueKey(venue))}">${inner}</span>`;
-}
-
-// Mirror of main.js highlightAuthor: wrap the owner's name in <span class="me">.
+// Wrap the owner's name in <span class="me"> so CSS can bold and underline it.
 function highlightAuthorMe(authors, me) {
   if (!authors) return '';
   const safe = esc(authors);
@@ -560,7 +587,7 @@ function pubItemHTML(p, opts) {
   const authors = highlightAuthorMe(p.authors, p.highlight_author);
   const tagsHTML = (p.tags || []).map(t => `<span class="badge--tag badge">${esc(t)}</span>`).join('');
   const details = p.details ? `<span class="pub-item__details">${esc(p.details)}</span>` : '';
-  const venue = venueMarkHTML(p.venue);
+  const venue = p.venue ? `<span class="pub-item__venue">${esc(p.venue)}</span>` : '';
   const titleSuffix = opts.bareTitle ? '' : ',';
   const titleQuote = opts.bareTitle ? '' : '"';
   const venuePrefix = opts.bareTitle ? '' : 'in ';
@@ -760,6 +787,7 @@ const STATIC_PAGES = {
   'index.html': [['news', renderNews], ['press', renderPress]],
   'academics.html': [
     ['education', renderEducationTimeline],
+    ['genealogy', renderGenealogy],
     ['publications', renderPublicationsTabs],
     ['awards', renderAwards],
     ['research', renderResearch],

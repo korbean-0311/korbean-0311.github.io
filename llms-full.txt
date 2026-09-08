@@ -421,13 +421,13 @@ I have collaborated with industry partners — including Samsung Electronics on 
 - Period: 2023.09 — Present
 - Degree: Ph.D. in Electrical and Computer Engineering
 - PI (Co-advised): Sangwook Nam
-- PI (Co-advised): Jungsuek Oh (Ph.D. @Univ. of Michigan under Kamal Sarabandi)
+- PI (Co-advised): Jungsuek Oh
 
 ### Seoul National University (SNU) (Seoul, Republic of Korea)
 - Website: https://en.snu.ac.kr/
 - Period: 2021.09 — 2023.08
 - Degree: M.S. in Electrical and Computer Engineering
-- PI: Sangwook Nam (Ph.D. @Univ. of Texas Austin under Tatsuo Itoh)
+- PI: Sangwook Nam
 
 ### Korea University (KU) (Seoul, Republic of Korea)
 - Website: https://www.korea.edu/
@@ -438,6 +438,15 @@ I have collaborated with industry partners — including Samsung Electronics on 
 ### Daejeon Dongsin Science High School (DDSHS) (Daejeon, Republic of Korea)
 - Website: https://ddsciencehs.djsch.kr/
 - Period: 2014.03 — 2017.02
+
+### Academic Genealogy (doctoral advisor lineage)
+
+Doctoral advising lineage: Young-Seok Lee is co-advised at Seoul National University by Sangwook Nam and Jungsuek Oh, whose own doctoral advisors were Tatsuo Itoh and Kamal Sarabandi.
+
+- Tatsuo Itoh — Univ. of Texas at Austin → Sangwook Nam — Ph.D. Univ. of Texas at Austin, 1989 → Young-Seok Lee — Ph.D. candidate, SNU
+- Kamal Sarabandi — Univ. of Michigan → Jungsuek Oh — Ph.D. Univ. of Michigan, 2012 → Young-Seok Lee — Ph.D. candidate, SNU
+
+Each line runs from doctoral advisor down to student. A box notes where that person earned the doctorate; the top row gives the university where the advisor was based at the time.
 
 ## Research
 
@@ -542,4 +551,4 @@ I have collaborated with industry partners — including Samsung Electronics on 
 _Email omitted; please reach out via LinkedIn or the lab homepage._
 
 ---
-_Generated automatically from data/*.json on 2026-09-06._
+_Generated automatically from data/*.json on 2026-09-08._

@@ -6,10 +6,11 @@
   'use strict';
 
   /* ---------- Site map ----------
-     Three top-level pages. "Academics" is one long page whose five sections
-     are exposed as anchor links in the desktop dropdown, the mobile panel and
-     the sidebar index. Keep NAV_SECTIONS in sync with ACADEMIC_SECTIONS in
-     scripts/build-prerender.mjs (same ids, same order). */
+     Three top-level pages. "Academics" is one long page whose six sections are
+     exposed as anchor links in the desktop dropdown and the sidebar index. The
+     mobile panel lists only the three pages — on phones the sticky pill row
+     under the top bar already carries the sections. Keep NAV_SECTIONS in sync
+     with ACADEMIC_SECTIONS in scripts/build-prerender.mjs (same ids, order). */
   const ACADEMICS_PAGE = 'academics.html';
   const ACADEMICS_LABEL = 'Academics';
   const NAV_SECTIONS = [
@@ -25,11 +26,16 @@
   const THEME_KEY = 'theme';
 
   function applyTheme(theme) {
-    if (theme === 'dark') {
+    const dark = theme === 'dark';
+    if (dark) {
       document.documentElement.setAttribute('data-theme', 'dark');
     } else {
       document.documentElement.removeAttribute('data-theme');
     }
+    // Keep the mobile browser chrome in step with the page (the static meta
+    // ships light, which is the default for a first-time visitor).
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', dark ? '#0F172A' : '#FFFFFF');
   }
 
   function initTheme() {
@@ -172,10 +178,6 @@
     `<a href="${ACADEMICS_PAGE}#${id}" data-section-link="${id}">${label}</a>`
   ).join('\n            ');
 
-  const PANEL_SUBLINKS = NAV_SECTIONS.map(([id, label]) =>
-    `<li><a href="${ACADEMICS_PAGE}#${id}" data-section-link="${id}">${label}</a></li>`
-  ).join('\n              ');
-
   const NAV_HTML = `
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
       <symbol id="ico-menu-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -230,12 +232,7 @@
       </div>
       <ul class="menu-list">
         <li><a href="index.html"><span class="menu-num">01</span><span>Home</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
-        <li>
-          <a href="${ACADEMICS_PAGE}"><span class="menu-num">02</span><span>${ACADEMICS_LABEL}</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a>
-          <ul class="menu-sublist" aria-label="${ACADEMICS_LABEL} sections">
-              ${PANEL_SUBLINKS}
-          </ul>
-        </li>
+        <li><a href="${ACADEMICS_PAGE}"><span class="menu-num">02</span><span>${ACADEMICS_LABEL}</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
         <li><a href="contact.html"><span class="menu-num">03</span><span>Contact</span><svg class="menu-arrow" viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-menu-arrow"/></svg></a></li>
       </ul>
       <div class="menu-panel__footer">© 2020–${new Date().getFullYear()} Young-Seok Lee</div>

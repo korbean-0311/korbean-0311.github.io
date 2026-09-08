@@ -1,0 +1,23 @@
+{
+  "title": "Academic genealogy",
+  "description": "Doctoral advising lineage: Young-Seok Lee is co-advised at Seoul National University by Sangwook Nam and Jungsuek Oh, whose own doctoral advisors were Tatsuo Itoh and Kamal Sarabandi.",
+  "caption": "Each line runs from doctoral advisor down to student. A box notes where that person earned the doctorate; the top row gives the university where the advisor was based at the time.",
+  "self": {
+    "name": "Young-Seok Lee",
+    "institution": "Ph.D. candidate, SNU"
+  },
+  "branches": [
+    {
+      "chain": [
+        { "name": "Sangwook Nam", "institution": "Ph.D. Univ. of Texas at Austin", "year": "1989", "role": "Co-advisor" },
+        { "name": "Tatsuo Itoh", "institution": "Univ. of Texas at Austin" }
+      ]
+    },
+    {
+      "chain": [
+        { "name": "Jungsuek Oh", "institution": "Ph.D. Univ. of Michigan", "year": "2012", "role": "Co-advisor" },
+        { "name": "Kamal Sarabandi", "institution": "Univ. of Michigan" }
+      ]
+    }
+  ]
+}

@@ -13,9 +13,12 @@ html[data-js] [data-mount-nav] { display: none !important; }
 
 /* ---------- CSS Variables ---------- */
 :root {
-  /* Light theme (the default): white paper, near-black ink, grays for meta
-     text and hairlines (after sehyunryu.github.io), with SNU's deep blue —
-     sampled from the university crest — as the accent for hover/emphasis. */
+  /* Light theme, and the default for every visitor: white paper, near-black
+     ink, grays for meta text and hairlines (after sehyunryu.github.io), with
+     SNU's deep blue — sampled from the university crest — as the accent.
+     color-scheme keeps the UA's own widgets (scrollbars, form controls, the
+     mobile URL bar) light too, even on a device whose OS is set to dark. */
+  color-scheme: light;
   --bg-primary: #FFFFFF;
   --bg-surface: #FFFFFF;   /* cards stay white; only their border sets them off */
   --bg-hover: #F3F3F3;     /* hover / active fill for menu items and icon buttons */
@@ -28,8 +31,6 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --text-secondary: #7A7A7A;
   --border-color: #D8D8D8;
   --line-soft: #DCEEF6;
-  --sky: #87CBE8;
-  --sky-soft: #F0F9FD;
 
   --nav-height: 60px;
   --content-max: 720px;
@@ -45,6 +46,7 @@ html[data-js] [data-mount-nav] { display: none !important; }
 
 /* Dark theme is kept working behind the toggle but is not the design target. */
 [data-theme="dark"] {
+  color-scheme: dark;
   --bg-primary: #0F172A;
   --bg-surface: #1E293B;
   --bg-hover: #1E293B;
@@ -56,8 +58,6 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --text-secondary: #94A3B8;
   --border-color: #334155;
   --line-soft: #334155;
-  --sky: #38BDF8;
-  --sky-soft: #1E293B;
   --color-warm: #FB923C;
 }
 
@@ -213,7 +213,7 @@ button {
   }
 
   /* "Academics" is a group: its link opens the long page, the caret (or a
-     hover) reveals the five sections inside it as direct anchor links. */
+     hover) reveals the sections inside it as direct anchor links. */
   .topnav__item {
     position: relative;
     display: flex;
@@ -464,27 +464,6 @@ button {
   color: var(--color-primary);
 }
 
-/* Sections of the Academics page, nested under its menu entry. */
-.menu-sublist {
-  list-style: none;
-  margin: 0;
-  padding: 0.15rem 0 0.6rem calc(1.5rem + 3px + 2.25rem + 0.5rem);
-}
-
-.menu-sublist li { margin: 0; }
-
-.menu-sublist a {
-  display: block;
-  padding: 0.4rem 0;
-  font-size: 0.9375rem;
-  color: var(--text-secondary);
-  transition: color 0.2s ease;
-}
-
-.menu-sublist a:hover { color: var(--text-primary); }
-
-.menu-sublist a.is-active { color: var(--color-accent); font-weight: 500; }
-
 .menu-panel__footer {
   padding: 1rem 1.5rem 1.25rem;
   border-top: 1px solid var(--border-color);
@@ -689,13 +668,21 @@ section h3 {
   color: var(--text-secondary);
 }
 
+/* "1st Author" / "Project Lead": filled soft green — the one status worth
+   spotting while skimming a list of papers. */
 .badge--tag {
   font-size: 0.75rem;
-  background: transparent;
-  border-color: var(--color-accent);
-  color: var(--color-accent);
+  background: #E6F3DC;
+  border-color: #CFE6BE;
+  color: #3E6B29;
   padding: 2px 8px;
   margin-left: 4px;
+}
+
+[data-theme="dark"] .badge--tag {
+  background: color-mix(in srgb, #3E6B29 34%, transparent);
+  border-color: color-mix(in srgb, #86C46A 55%, transparent);
+  color: #C7E7B4;
 }
 
 .badge-row {
@@ -796,11 +783,6 @@ a:hover .ext-link-arrow {
   color: var(--text-primary);
 }
 
-/* Venue acronyms in news carry the same marker color as on the Publications list. */
-.news-item__body .venue-mark {
-  font-weight: 500;
-}
-
 /* ---------- Press / media coverage (home) ----------
    Each article is a card: outlet and date share the top line (pushed to
    opposite edges), the headline sits on the line below with the full width. */
@@ -816,7 +798,7 @@ a:hover .ext-link-arrow {
 /* Card treatment matching .pub-item. */
 .press-item {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: auto minmax(0, 1fr);
   gap: 0.3rem 1rem;
   align-items: baseline;
   background: var(--bg-surface);
@@ -887,7 +869,7 @@ a.press-item__title:hover {
 /* Phones: date and label share the first line, the body takes the second. */
 @media (max-width: 640px) {
   .news-item {
-    grid-template-columns: auto 1fr;
+    grid-template-columns: auto minmax(0, 1fr);
     grid-template-areas: "date kind" "body body";
     gap: 0.3rem 0.75rem;
   }
@@ -1071,10 +1053,14 @@ html[data-js] .pub-panel:not(.is-open) { display: none; }
 
 @media (max-width: 640px) {
   .edu-item {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 10px;
     padding: 1.15rem 0;
   }
+  /* Not enough width for "School  ·  City, Country" on one line — give the
+     location its own line, left-aligned under the school. */
+  .edu-place { align-items: flex-start; row-gap: 0.15rem; }
+  .edu-loc { flex-basis: 100%; margin-left: 0; }
   .edu-period { padding-top: 0; }
   .edu-main { grid-template-columns: 56px minmax(0, 1fr); gap: 14px; }
   .edu-logo { width: 56px; height: 56px; border-radius: 8px; padding: 3px; }
@@ -1192,15 +1178,17 @@ html[data-js] .tab-panel.is-active { display: block; }
   font-size: 0.875rem;
 }
 
-/* Publication cards use one weight throughout (regular); hierarchy comes from
-   size, color and the underline on the owner's name, not from bold. */
+/* Publication cards are otherwise one weight (regular): hierarchy comes from
+   size and color. The owner's own name is the exception — bold + underlined in
+   every author and inventor list. */
 .pub-item__authors .me {
   color: var(--color-primary);
 }
 
-/* The owner's name is underlined wherever an author list appears
-   (papers and patent inventor lines). */
+/* The owner's name wherever an author list appears (papers and patent
+   inventor lines). */
 #tab-content .me {
+  font-weight: 600;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
@@ -1215,33 +1203,6 @@ html[data-js] .tab-panel.is-active { display: block; }
 .pub-item__venue {
   font-style: italic;
   color: var(--color-primary);
-}
-
-/* Highlighter stroke behind the venue name. The build assigns one
-   --marker-color per journal / conference series (same venue → same color),
-   so a reader can spot every TMTT or WPTCE entry at a glance. The slightly
-   skewed gradient and the side "bleed" make it read as a real marker line;
-   box-decoration-break keeps the stroke continuous when the name wraps. */
-.venue-mark {
-  --marker-color: var(--sky-soft);
-  padding: 0.04em 0.12em;
-  box-shadow: 0.07em 0 0 var(--marker-color), -0.07em 0 0 var(--marker-color);
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  background-image: linear-gradient(177deg, transparent 0 2%, var(--marker-color) 2.5% 97%, transparent 97.5% 100%);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  background-position: 50%;
-  color: var(--color-primary);
-}
-
-/* Pastel markers vanish on a navy page — tint the stroke instead. */
-[data-theme="dark"] .venue-mark {
-  background-image: linear-gradient(177deg, transparent 0 2%,
-    color-mix(in srgb, var(--marker-color) 32%, transparent) 2.5% 97%, transparent 97.5% 100%);
-  box-shadow: 0.07em 0 0 color-mix(in srgb, var(--marker-color) 32%, transparent),
-    -0.07em 0 0 color-mix(in srgb, var(--marker-color) 32%, transparent);
-  color: var(--text-primary);
 }
 
 .pub-item__details {
@@ -1316,27 +1277,56 @@ html[data-js] .tab-panel.is-active { display: block; }
   font-size: 0.75rem;
   letter-spacing: 0.04em;
   border: 1px solid;
-  background: transparent;
   font-family: inherit;
   cursor: pointer;
   transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
   line-height: 1.4;
 }
 
+.pub-btn {
+  /* Stays a 24px-tall touch target even after the mobile -1pt text trim. */
+  min-height: 24px;
+}
+
 .pub-btn:hover { transform: translateY(-1px); }
 
-/* All five buttons (Abstract, Keywords, BibTeX, DOI, PDF) share one quiet
-   monochrome outline; hover — and an open Abstract/Keywords panel — fill it
-   with ink. */
+/* Each of the five actions carries its own muted, filled color so the row is
+   scannable at a glance — PDF red, DOI amber, Abstract blue, Keywords violet,
+   BibTeX warm gray. Every pair clears WCAG AA (>= 5.2:1) on its own fill.
+   Hover and an open Abstract/Keywords panel deepen the same hue. */
 .pub-btn {
-  color: var(--text-secondary);
-  border-color: var(--border-color);
+  --btn-bg: #EDEAE5;
+  --btn-fg: #5F5145;
+  --btn-bd: #DCD4C9;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border-color: var(--btn-bd);
 }
 .pub-btn:hover,
 .pub-btn.is-active {
-  background: var(--text-primary);
-  color: var(--bg-primary);
-  border-color: var(--text-primary);
+  background: var(--btn-fg);
+  color: #fff;
+  border-color: var(--btn-fg);
+}
+
+.pub-btn--abs { --btn-bg: #E9EFF7; --btn-fg: #2F4E78; --btn-bd: #C9D8EA; }
+.pub-btn--kw  { --btn-bg: #EFEAF6; --btn-fg: #54407B; --btn-bd: #DBD1E9; }
+.pub-btn--bib { --btn-bg: #EDEAE5; --btn-fg: #5F5145; --btn-bd: #DCD4C9; }
+.pub-btn--doi { --btn-bg: #FBF1DE; --btn-fg: #8A5A16; --btn-bd: #EFDFC0; }
+.pub-btn--pdf { --btn-bg: #FAE8E5; --btn-fg: #A03A2E; --btn-bd: #F1D0CA; }
+
+/* On the navy page the pastel fills would glare: keep the hue, drop the
+   lightness, and let the light tint carry the text instead. */
+[data-theme="dark"] .pub-btn {
+  background: color-mix(in srgb, var(--btn-fg) 26%, transparent);
+  color: color-mix(in srgb, var(--btn-bg) 88%, #fff);
+  border-color: color-mix(in srgb, var(--btn-fg) 55%, transparent);
+}
+[data-theme="dark"] .pub-btn:hover,
+[data-theme="dark"] .pub-btn.is-active {
+  background: color-mix(in srgb, var(--btn-bg) 82%, #fff);
+  color: var(--btn-fg);
+  border-color: color-mix(in srgb, var(--btn-bg) 82%, #fff);
 }
 
 /* Toast for BibTeX copy feedback */
@@ -1611,7 +1601,7 @@ html[data-js] .tab-panel.is-active { display: block; }
 
 @media (max-width: 640px) {
   .service-grid,
-  .coursework-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .coursework-grid { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
   .service-col,
   .coursework-group { padding: 0.9rem 1rem 1rem; }
 }
@@ -1690,7 +1680,7 @@ html[data-js] .tab-panel.is-active { display: block; }
 
 @media (max-width: 768px) {
   .contact-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -1813,6 +1803,136 @@ html[data-js] .tab-panel.is-active { display: block; }
    research-specific pieces need their own reduction. */
 @media (max-width: 640px) {
   .research-summary { font-size: calc(0.9375rem - 1pt); }
+}
+
+
+/* ---------- Academic genealogy (collapsed figure under Education) ---------- */
+.genealogy {
+  margin-top: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: var(--bg-surface);
+}
+
+.genealogy__toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  border-radius: 10px;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.genealogy__toggle::-webkit-details-marker { display: none; }
+.genealogy__toggle:hover { background: var(--bg-hover); color: var(--color-accent); }
+
+.genealogy__chevron {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  color: var(--text-secondary);
+  transition: transform 0.2s ease;
+}
+
+.genealogy[open] > .genealogy__toggle { border-bottom: 1px solid var(--border-color); border-radius: 10px 10px 0 0; }
+.genealogy[open] .genealogy__chevron { transform: rotate(90deg); }
+
+.genealogy__figure {
+  margin: 0;
+  padding: 1.1rem 1rem 1rem;
+}
+
+/* Only the drawing scrolls sideways on a narrow phone — never the page, and
+   never the caption. tabindex in the markup makes it keyboard-scrollable. */
+.genealogy__scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.genealogy__scroll:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.genealogy__svg {
+  display: block;
+  width: 100%;
+  min-width: 470px;   /* below this the node labels stop being legible */
+  height: auto;
+}
+
+.gen-edge {
+  fill: none;
+  stroke: var(--border-color);
+  stroke-width: 1.5;
+}
+
+.gen-node rect {
+  fill: var(--bg-primary);
+  stroke: var(--border-color);
+  stroke-width: 1;
+}
+
+.gen-name {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  fill: var(--text-primary);
+}
+
+.gen-sub {
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  /* Darker than the page's meta gray: at 11.5px that gray is under AA. */
+  fill: color-mix(in srgb, var(--text-primary) 70%, transparent);
+}
+
+.gen-role {
+  font-family: var(--font-sans);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  fill: var(--text-secondary);
+  /* The connector passes behind this label — a stroke in the panel color
+     knocks the line out from under the glyphs. */
+  stroke: var(--bg-surface);
+  stroke-width: 6px;
+  paint-order: stroke fill;
+}
+
+/* Me: filled in the accent so the eye lands on the bottom of the tree. */
+.gen-node--self rect {
+  fill: var(--color-accent);
+  stroke: var(--color-accent);
+}
+.gen-node--self .gen-name { fill: #fff; }
+.gen-node--self .gen-sub { fill: color-mix(in srgb, #fff 78%, var(--color-accent)); }
+
+/* My two co-advisors: same weight as the ancestors, but a tinted panel. */
+.gen-node--advisor rect { fill: color-mix(in srgb, var(--color-accent) 7%, var(--bg-primary)); }
+
+[data-theme="dark"] .gen-node--self .gen-name { fill: var(--bg-primary); }
+[data-theme="dark"] .gen-node--self .gen-sub { fill: color-mix(in srgb, var(--bg-primary) 78%, var(--color-accent)); }
+
+.genealogy__caption {
+  margin: 0.75rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  text-wrap: pretty;
+}
+
+@media (max-width: 640px) {
+  .genealogy__toggle { font-size: calc(0.875rem - 1pt); }
+  .genealogy__figure { padding: 0.9rem 0.75rem 0.85rem; }
+  .genealogy__caption { font-size: calc(0.8125rem - 1pt); }
 }
 
 /* ============================================================
