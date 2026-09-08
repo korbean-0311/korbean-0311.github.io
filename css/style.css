@@ -26,11 +26,12 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --color-secondary: #7A7A7A;
   --color-accent: #182850;
   --color-accent-hover: #2E4A86;
-  --color-award: #2E4A86;
+  --color-award: #9A3D52;
   --text-primary: #111111;
   --text-secondary: #7A7A7A;
   --border-color: #D8D8D8;
   --line-soft: #DCEEF6;
+  --news-mark: #DCEEF6;   /* pale blue highlighter behind the key phrase in each news line */
 
   --nav-height: 60px;
   --content-max: 720px;
@@ -58,7 +59,8 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --text-secondary: #94A3B8;
   --border-color: #334155;
   --line-soft: #334155;
-  --color-award: #7DD3FC;
+  --news-mark: #1E3A5F;
+  --color-award: #F2A8B8;
 }
 
 /* ---------- View transition for theme toggle ---------- */
@@ -781,6 +783,11 @@ a:hover .ext-link-arrow {
 .news-item__body strong {
   font-weight: 500;
   color: var(--text-primary);
+  background: linear-gradient(to top,
+    var(--news-mark) 0,
+    var(--news-mark) 38%,
+    transparent 38%);
+  padding: 0 2px;
 }
 
 /* ---------- Press / media coverage (home) ----------
@@ -1546,13 +1553,22 @@ html[data-js] .tab-panel.is-active { display: block; }
   padding: 0 2px;
 }
 
+/* Filled, but a step darker than --text-secondary: the plain token is 4.30:1
+   against white, just under AA at this size. */
 .badge--coauthor {
   font-size: 0.75rem;
-  background: transparent;
-  border-color: var(--text-secondary);
-  color: var(--text-secondary);
+  background: color-mix(in srgb, var(--text-secondary) 86%, #000);
+  border-color: color-mix(in srgb, var(--text-secondary) 86%, #000);
+  color: #fff;
   padding: 2px 8px;
   margin-left: 4px;
+}
+
+/* On dark the light-grey token is already the high-contrast side. */
+[data-theme="dark"] .badge--coauthor {
+  background: var(--text-secondary);
+  border-color: var(--text-secondary);
+  color: var(--bg-primary);
 }
 
 .badge--country {
@@ -1874,18 +1890,17 @@ html[data-js] .tab-panel.is-active { display: block; }
   stroke-width: 1.5;
 }
 
-/* The "Co-advised" tag sits on the connector that reaches across to the Ph.D.;
-   the stroke knocks the line out from under the glyphs. */
-.gen-edge-label {
+/* A dedicated backing chip keeps the label crisp instead of outlining every
+   glyph, which looked fractured when the mobile SVG was scaled down. */
+.gen-edge-label text {
   font-family: var(--font-sans);
-  font-size: 10px;
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   fill: var(--text-secondary);
-  stroke: var(--bg-surface);
-  stroke-width: 6px;
-  paint-order: stroke fill;
 }
+.gen-edge-label rect { fill: var(--bg-surface); }
 
 .gen-node rect {
   fill: var(--bg-primary);

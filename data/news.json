@@ -15,7 +15,7 @@
     {
       "date": "18 Jun 2026",
       "kind": "paper",
-      "body": "Paper accepted in IEEE {{TMTT}}",
+      "body": "<strong>Paper accepted in IEEE {{TMTT}}</strong>",
       "tag": "1st Author"
     },
     {
@@ -32,19 +32,19 @@
     {
       "date": "22 Jul 2025",
       "kind": "paper",
-      "body": "Paper accepted in IEEE {{OJAP}}",
+      "body": "<strong>Paper accepted in IEEE {{OJAP}}</strong>",
       "tag": "Co-author"
     },
     {
       "date": "20 Jul 2025",
       "kind": "paper",
-      "body": "Paper accepted in IEEE {{TAP}}",
+      "body": "<strong>Paper accepted in IEEE {{TAP}}</strong>",
       "tag": "Co-author"
     },
     {
       "date": "06 Jun 2025",
       "kind": "paper",
-      "body": "Paper accepted in IEEE {{AWPL}}",
+      "body": "<strong>Paper accepted in IEEE {{AWPL}}</strong>",
       "tag": "1st Author"
     }
   ]

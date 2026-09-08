@@ -195,13 +195,11 @@ function renderEducationTimeline() {
 // one advisor feed two degrees — Sangwook Nam supervises the M.S. alone and
 // the Ph.D. jointly with Jungsuek Oh.
 //
-// Two renderings come out of the same graph. The SVG tree is the desktop one;
-// a stacked list of the same tracks is what phones get, because a three-column
-// tree can only be read there by scrolling sideways. That list also stays in
-// the DOM on desktop (visually hidden), so screen readers and crawlers that
-// ignore SVG still get every name.
+// One SVG tree serves every screen size. On phones its own wrapper scrolls
+// horizontally, preserving the complete three-column graph without widening
+// the page itself.
 const GEN = {
-  NODE_W: 224, NODE_H: 60, COL_GAP: 28, ROW_H: 116,
+  NODE_W: 202, NODE_H: 60, COL_GAP: 28, ROW_H: 105,
   PAD_X: 8, PAD_TOP: 10, PAD_BOTTOM: 10,
   LOGO: 31,
   MERGE_OFFSET: 52,
@@ -290,7 +288,12 @@ function renderGenealogy() {
   const edgeLabels = drawn.filter(d => d.e.label).map(d => {
     const entries = entriesByTarget.get(d.e.to) || [d.bx];
     const cx = Math.round(entries.reduce((s, v) => s + v, 0) / entries.length);
-    return `<text class="gen-edge-label" x="${cx}" y="${d.by - 9}" text-anchor="middle">${esc(d.e.label)}</text>`;
+    const label = esc(d.e.label);
+    const labelW = Math.ceil(String(d.e.label).length * 7.5 + 14);
+    return `<g class="gen-edge-label">
+              <rect x="${cx - labelW / 2}" y="${d.by - 22}" width="${labelW}" height="17" rx="4" />
+              <text x="${cx}" y="${d.by - 9}" text-anchor="middle">${label}</text>
+            </g>`;
   });
 
   const title = data.title || 'Academic genealogy';

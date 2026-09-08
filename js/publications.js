@@ -84,14 +84,22 @@
   });
 
   /* ---------- Abstract / Keywords panels (delegated) ----------
-     Each button names its panel in data-panel-toggle; the panel text is already
-     in the HTML, so this only flips visibility and the button's pressed state. */
+   Each button names its panel in data-panel-toggle; the panel text is already
+   in the HTML. Abstract and Keywords are mutually exclusive within each paper. */
   document.addEventListener('click', (e) => {
     const btn = e.target.closest('[data-panel-toggle]');
     if (!btn) return;
     const panel = document.getElementById(btn.dataset.panelToggle);
     if (!panel) return;
     const open = !panel.classList.contains('is-open');
+    const scope = btn.closest('.pub-item__body');
+    if (open && scope) {
+      scope.querySelectorAll('.pub-panel.is-open').forEach(other => other.classList.remove('is-open'));
+      scope.querySelectorAll('[data-panel-toggle].is-active').forEach(other => {
+        other.classList.remove('is-active');
+        other.setAttribute('aria-expanded', 'false');
+      });
+    }
     panel.classList.toggle('is-open', open);
     btn.classList.toggle('is-active', open);
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
