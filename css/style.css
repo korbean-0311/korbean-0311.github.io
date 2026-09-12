@@ -31,8 +31,7 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --text-secondary: #7A7A7A;
   --border-color: #D8D8D8;
   --line-soft: #DCEEF6;
-  --news-mark: #DCEEF6;   /* pale blue highlighter behind the key phrase in each news line */
-  --venue-mark: #D9EDC6;  /* pale green highlighter behind every journal / conference name */
+  --mark: #CBE6F4;        /* pale blue half-highlight: news key phrases, About-me advisors, venue names */
 
   --nav-height: 60px;
   --content-max: 720px;
@@ -60,8 +59,7 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --text-secondary: #94A3B8;
   --border-color: #334155;
   --line-soft: #334155;
-  --news-mark: #1E3A5F;
-  --venue-mark: #2A4023;
+  --mark: #1E3A5F;
   --color-award: #F2A8B8;
 }
 
@@ -793,15 +791,15 @@ a:hover .ext-link-arrow {
   color: var(--text-primary);
 }
 
-/* Half-highlight, drawn to 38% of the line box. --mark-color chooses the
-   tone: pale blue on the news lines and the About-me advisor names, pale
-   green behind every journal / conference name. */
+/* Half-highlight, drawn to 38% of the line box: the key phrase of every news
+   line, the advisor names in the About-me paragraph, and every journal or
+   conference name. */
 .mark-soft,
 .news-item__body strong,
 .pub-item__venue {
   background: linear-gradient(to top,
-    var(--mark-color, var(--news-mark)) 0,
-    var(--mark-color, var(--news-mark)) 38%,
+    var(--mark) 0,
+    var(--mark) 38%,
     transparent 38%);
   padding: 0 2px;
 }
@@ -1231,7 +1229,6 @@ html[data-js] .tab-panel.is-active { display: block; }
 /* Sized explicitly: inheriting .pub-item__body's 0.9375rem made the venue
    larger than the title it sits under. */
 .pub-item__venue {
-  --mark-color: var(--venue-mark);
   font-size: 0.875rem;
   font-style: italic;
   color: var(--color-primary);
@@ -2102,13 +2099,12 @@ html {
 
 .side-index a {
   display: block;
-  padding: 0.3rem 0.5rem 0.3rem 0.6rem;
+  padding: 0.3rem 0.6rem;
   margin-left: -0.6rem;
-  border-left: 2px solid transparent;
   border-radius: 6px;
   font-size: 0.8125rem;
   color: var(--text-secondary);
-  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
 
 .side-index a:hover {
@@ -2119,8 +2115,7 @@ html {
 .side-index a.is-active {
   color: var(--color-primary);
   font-weight: 500;
-  border-left-color: var(--color-accent);
-  background: color-mix(in srgb, var(--color-accent) 9%, transparent);
+  background: color-mix(in srgb, var(--color-accent) 12%, transparent);
 }
 
 /* Mobile: the aside carries only the index, as a sticky row of pills right
