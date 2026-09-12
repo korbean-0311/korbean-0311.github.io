@@ -4,7 +4,7 @@
 
 Site: https://korbean-0311.github.io/
 
-Pages: Home (https://korbean-0311.github.io/) · Academics — one long page with Education, Publications, Awards & Honors, Research, Academic Service, Coursework (https://korbean-0311.github.io/academics.html) · Contact (https://korbean-0311.github.io/contact.html)
+Pages: Home (https://korbean-0311.github.io/) · Academics — one long page with Education, Publications, Awards & Honors, Research, Academic Service, Selected Coursework (https://korbean-0311.github.io/academics.html) · Contact (https://korbean-0311.github.io/contact.html)
 
 ## About
 
@@ -514,7 +514,7 @@ Three degree tracks and the advisors behind them: a B.S. at Korea University und
 - Introduction to Electromagnetism with Practice (430.202B 002), Fall 2024
 - Electromagnetic Wave Engineering (430.464A 001), Spring 2023
 
-## Coursework
+## Selected Coursework
 
 **Graduate:**
 - Electromagnetic Wave Engineering

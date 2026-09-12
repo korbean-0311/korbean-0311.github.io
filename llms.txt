@@ -19,7 +19,7 @@ The site has three pages. "Academics" is ONE long page that holds the whole acad
   - [Awards & Honors](https://korbean-0311.github.io/academics.html#awards): Awards, honors, grants, scholarships, and paper competition prizes
   - [Research](https://korbean-0311.github.io/academics.html#research): Graduate and undergraduate research projects
   - [Academic Service](https://korbean-0311.github.io/academics.html#academic-service): Journal reviewer activities and teaching assistantships
-  - [Coursework](https://korbean-0311.github.io/academics.html#coursework): Selected graduate (SNU) and undergraduate (KU) coursework
+  - [Selected Coursework](https://korbean-0311.github.io/academics.html#coursework): Graduate (SNU) and undergraduate (KU) courses
 - [Contact](https://korbean-0311.github.io/contact.html): Lab, location, LinkedIn
 
 (The former per-section URLs — education.html, publications.html, awards.html, research.html, others.html — redirect to the matching anchor on academics.html.)

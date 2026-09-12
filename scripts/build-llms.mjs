@@ -146,7 +146,7 @@ function buildHeader() {
   parts.push(`# ${SITE_META.name}\n`);
   parts.push(`> ${SITE_META.subtitle}\n`);
   parts.push(`Site: https://korbean-0311.github.io/\n`);
-  parts.push(`Pages: Home (https://korbean-0311.github.io/) · Academics — one long page with Education, Publications, Awards & Honors, Research, Academic Service, Coursework (https://korbean-0311.github.io/academics.html) · Contact (https://korbean-0311.github.io/contact.html)\n`);
+  parts.push(`Pages: Home (https://korbean-0311.github.io/) · Academics — one long page with Education, Publications, Awards & Honors, Research, Academic Service, Selected Coursework (https://korbean-0311.github.io/academics.html) · Contact (https://korbean-0311.github.io/contact.html)\n`);
   parts.push('## About\n');
   for (const line of SITE_META.bio) parts.push(line);
   parts.push('');
@@ -385,7 +385,7 @@ function buildAcademicService(others) {
 }
 
 function buildCoursework(others) {
-  const out = ['## Coursework\n'];
+  const out = ['## Selected Coursework\n'];
   for (const g of others.coursework || []) {
     out.push(`**${g.school}:**`);
     for (const c of g.courses || []) {

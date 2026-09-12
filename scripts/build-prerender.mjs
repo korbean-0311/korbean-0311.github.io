@@ -785,7 +785,7 @@ const ACADEMIC_SECTIONS = [
   ['awards', 'Awards &amp; Honors'],
   ['research', 'Research'],
   ['academic-service', 'Academic Service'],
-  ['coursework', 'Coursework'],
+  ['coursework', 'Selected Coursework'],
 ];
 
 // "On this page" index (academics.html only): links to every section. Lives

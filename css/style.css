@@ -593,7 +593,18 @@ main {
      within itself instead of being cut off; the scrollbar stays hidden. The
      top padding keeps the photo's outline ring (2px + 3px offset) inside the
      scroll box, otherwise its top edge is clipped. */
-  .profile { max-height: calc(100vh - var(--nav-height) - 2rem); overflow-y: auto; scrollbar-width: none; padding-top: 6px; }
+  .profile {
+    max-height: calc(100vh - var(--nav-height) - 2rem);
+    overflow-y: auto;
+    scrollbar-width: none;
+    padding-top: 6px;
+    /* Room for the side-index active block, which bleeds 0.6rem to the left.
+       overflow-y: auto forces overflow-x: auto, and this scroll box cannot be
+       scrolled left of its origin, so without the padding that bleed is
+       clipped. The matching negative margin keeps every child where it was. */
+    padding-left: 0.6rem;
+    margin-left: -0.6rem;
+  }
   .profile::-webkit-scrollbar { display: none; }
 }
 
@@ -1864,6 +1875,9 @@ html[data-js] .tab-panel.is-active { display: block; }
      scrolls horizontally, so it cannot widen the page itself. */
   .genealogy__scroll { scrollbar-gutter: stable; }
   .pub-actions__mobile-break { display: block; flex-basis: 100%; height: 0; }
+  /* The break takes a flex line of its own, so the row-gap is applied on both
+     sides of it. Half the gap here is the full gap on screen. */
+  #tab-content .pub-item__actions { row-gap: 0.25rem; }
 }
 
 .genealogy__svg {
@@ -2091,7 +2105,7 @@ html {
   padding: 0.3rem 0.5rem 0.3rem 0.6rem;
   margin-left: -0.6rem;
   border-left: 2px solid transparent;
-  border-radius: 0 6px 6px 0;
+  border-radius: 6px;
   font-size: 0.8125rem;
   color: var(--text-secondary);
   transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;

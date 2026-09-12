@@ -19,7 +19,7 @@
     ['awards', 'Awards &amp; Honors'],
     ['research', 'Research'],
     ['academic-service', 'Academic Service'],
-    ['coursework', 'Coursework'],
+    ['coursework', 'Selected Coursework'],
   ];
 
   /* ---------- Theme toggle ---------- */
