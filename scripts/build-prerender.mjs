@@ -78,11 +78,42 @@ function extractYear(...fields) {
   return null;
 }
 
+// Journal `details` in publications.json are always
+// "vol. 74, no. 9, pp. 8545-8562, Sep. 2026". Conference details are a place
+// and a date range, so none of these patterns match there — which is what we
+// want, since a conference paper has no volume.
+function citationParts(details) {
+  const d = String(details || '');
+  const vol = d.match(/\bvol\.\s*(\d+)/i);
+  const no = d.match(/\bno\.\s*(\d+)/i);
+  const pp = d.match(/\bpp\.\s*(\d+)\s*[\u2013-]\s*(\d+)/i);
+  return {
+    volume: vol ? vol[1] : null,
+    issue: no ? no[1] : null,
+    pageStart: pp ? pp[1] : null,
+    pageEnd: pp ? pp[2] : null,
+  };
+}
+
 function scholarlyArticle(p) {
   const node = { '@type': 'ScholarlyArticle', name: p.title, headline: p.title };
   const authors = parseAuthors(p.authors);
   if (authors.length) node.author = authors;
-  if (p.venue) node.isPartOf = { '@type': 'Periodical', name: p.venue };
+  const { volume, issue, pageStart, pageEnd } = citationParts(p.details);
+  if (p.venue) {
+    // Once a paper has a formal citation, nest it the way schema.org expects:
+    // PublicationIssue → PublicationVolume → Periodical. Papers still in press
+    // (or conference papers) keep the plain Periodical.
+    let part = { '@type': 'Periodical', name: p.venue };
+    if (volume) part = { '@type': 'PublicationVolume', volumeNumber: volume, isPartOf: part };
+    if (issue) part = { '@type': 'PublicationIssue', issueNumber: issue, isPartOf: part };
+    node.isPartOf = part;
+  }
+  if (pageStart) {
+    node.pageStart = pageStart;
+    node.pageEnd = pageEnd;
+    node.pagination = `${pageStart}-${pageEnd}`;
+  }
   const year = extractYear(p.details);
   if (year) node.datePublished = year;
   if (p.abstract && p.abstract.trim()) node.abstract = p.abstract;

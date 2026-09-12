@@ -63,7 +63,7 @@ I have collaborated with industry partners — including Samsung Electronics on 
 - **[6] An End-to-End DC-to-DC Efficiency Optimization and Design Analysis for MIMO Wireless Power Transfer Systems**
   - Authors: Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*
   - Venue: IEEE Transactions on Microwave Theory and Techniques (TMTT)
-  - Details: Early Access, 2026
+  - Details: vol. 74, no. 9, pp. 8545–8562, Sep. 2026
   - DOI: https://doi.org/10.1109/TMTT.2026.3714844
   - Tags: 1st Author
   - Keywords: DC-to-DC efficiency, Wireless power transfer (WPT), Multiple-input–multiple-output (MIMO), Rectenna, Semidefinite programming (SDP), Successive convex approximation (SCA), Near-field focusing
@@ -75,9 +75,9 @@ I have collaborated with industry partners — including Samsung Electronics on 
       journal={IEEE Transactions on Microwave Theory and Techniques},
       title={An End-to-End DC-to-DC Efficiency Optimization and Design Analysis for MIMO Wireless Power Transfer Systems},
       year={2026},
-      volume={},
-      number={},
-      pages={1-18},
+      volume={74},
+      number={9},
+      pages={8545-8562},
       doi={10.1109/TMTT.2026.3714844}}
     ```
 
@@ -545,4 +545,4 @@ Three degree tracks and the advisors behind them: a B.S. at Korea University und
 _Email omitted; please reach out via LinkedIn or the lab homepage._
 
 ---
-_Generated automatically from data/*.json on 2026-09-08._
+_Generated automatically from data/*.json on 2026-09-12._
