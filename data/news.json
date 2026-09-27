@@ -1,6 +1,12 @@
 {
   "news": [
     {
+      "date": "05 Sep 2026",
+      "kind": "paper",
+      "body": "<strong>Paper accepted in IEEE {{TMTT}}</strong>",
+      "tag": "Co-author"
+    },
+    {
       "date": "09 Jul 2026",
       "kind": "award",
       "body": "<strong>Best Student Paper Award</strong> (1st place, sole recipient, $800) at IEEE {{WPTCE 2026}}",

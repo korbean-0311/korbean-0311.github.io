@@ -27,19 +27,21 @@
         "authors": "T. Yoon, Y.-S. Lee, U. Park, M. Kim, S. Lee, S. Nam, and J. Oh*",
         "title": "Hardware-Aware MILP for Optimal End-to-End Efficiency in MISO WPT: Joint Optimization of Power Modes and Fault Tolerance",
         "venue": "IEEE Transactions on Microwave Theory and Techniques (TMTT)",
-        "details": "",
+        "details": "Early Access, 2026",
         "highlight_author": "Y.-S. Lee",
         "tags": [],
-        "notes": [
-          {
-            "label": "Accepted",
-            "kind": "info",
-            "icon": ""
-          }
+        "notes": [],
+        "doi": "https://doi.org/10.1109/TMTT.2026.3732370",
+        "pdf": "pdfs/yoon2026-tmtt-hardware-aware-milp.pdf",
+        "bibtex": "@ARTICLE{11701393,\n  author={Yoon, Taeyeong and Lee, Young-Seok and Park, Uichan and Kim, Minje and Lee, Sanghun and Nam, Sangwook and Oh, Jungsuek},\n  journal={IEEE Transactions on Microwave Theory and Techniques},\n  title={Hardware-Aware MILP for Optimal End-to-End Efficiency in MISO WPT: Joint Optimization of Power Modes and Fault Tolerance},\n  year={2026},\n  volume={},\n  number={},\n  pages={1-18},\n  doi={10.1109/TMTT.2026.3732370}}",
+        "keywords": [
+          "Convex optimization",
+          "Hardware-aware efficiency optimization",
+          "Radio frequency (RF)",
+          "Supply voltage switching",
+          "Wireless power transfer (WPT)"
         ],
-        "doi": "",
-        "pdf": "",
-        "bibtex": ""
+        "abstract": "This article presents a hardware-aware convex optimization framework for a 5.64 GHz multiple-input single-output (MISO) wireless power transfer (WPT) system. In contrast to prior work that optimizes only free-space transmission efficiency by minimizing transmit radio frequency (RF) power, the proposed method directly incorporates transmitter-side hardware dissipation into the optimization objective. Using measured data from the beamforming boards under 5 and 3.3 V supply conditions, convex dissipation models are identified through constrained regression and expressed in convex piecewise linear (PL) form. Based on these models, supply voltage switching is embedded into the WPT design through mixed-integer linear programming (MILP) formulations for 2-state 5 and 3.3 V and 3-state 5 and 3.3 V OFF operation. The framework is further extended with slack-penalized feasibility relaxation, warm-start initialization via soft transition, and dead-index embedding to explicitly account for hardware faults in large-scale arrays. The proposed method is validated using a 256-element transmitting array and a single receiving antenna at a distance of 0.5 m. The implemented system achieves 1.9 W of received RF power and 780 mW of received DC power while significantly reducing transmitter-side consumed power. The results demonstrate that the proposed dissipated-power-based formulation reduces transmitter-side consumed power when supply-voltage switching and realistic hardware constraints are taken into account."
       },
       {
         "number": 6,
@@ -204,8 +206,8 @@
           "icon": "🎓"
         }
       ],
-      "doi": "",
-      "bibtex": "",
+      "doi": "https://doi.org/10.1109/WPTCE66920.2026.11691237",
+      "bibtex": "@INPROCEEDINGS{11691237,\n  author={Lee, Young-Seok and Yoon, Taeyeong and Nam, Sangwook and Oh, Jungsuek},\n  booktitle={2026 IEEE Wireless Power Technology Conference and Expo (WPTCE)},\n  title={DC-to-DC Efficiency Maximization in Wireless Power Transfer with PA and Rectifier Nonlinearities via Semidefinite Relaxation},\n  year={2026},\n  pages={1-6},\n  doi={10.1109/WPTCE66920.2026.11691237}}",
       "pdf": "pdfs/WPTCE_2026.pdf",
       "keywords": [
         "Wireless power transfer (WPT)",
@@ -216,7 +218,7 @@
         "Transmission-conversion efficiency (TCE)",
         "Beamforming"
       ],
-      "abstract": "We propose an end-to-end DC-to-DC efficiency maximization framework for array-antenna RF-based wireless power transfer (WPT) that jointly accounts for transmit power amplifier (PA) and receive rectifier nonlinearities. While prior studies have mainly addressed PA and rectifier nonlinearities through waveform design, this work optimizes the practical CW excitation vector under measured device operating constraints, providing a practical way to determine the optimal transmit excitation for maximum end-to-end DC power delivery. Using measurement-based piecewise-linear (PWL) models for both PA and rectifier characteristics, we maximize the sum of rectified DC power at the receiver array under a transmit-side DC power budget. By applying semidefinite lifting, the problem admits an efficient semidefinite relaxation (SDR) that provides a tight upper bound and a high-quality feasible solution via rank-one recovery and local refinement. Simulation results show 38.3% higher received DC power than conventional RF-to-RF efficiency optimization, with a relaxation-to-feasible gap of 1.69%, and experiments confirm the framework with less than 8% error."
+      "abstract": "We propose an end-to-end DC-to-DC efficiency maximization framework for array antenna RF-based wireless power transfer (WPT) that jointly accounts for transmit power amplifier (PA) and receive rectifier nonlinearities. While prior studies have mainly addressed PA and rectifier nonlinearities through waveform design, this work focuses on optimizing the practical CW excitation vector under measured device operating constraints, offering a practical framework for RF engineers to design WPT systems and determine the optimal transmit excitation for maximum end-to-end DC power delivery. Using measurement-based piecewise-linear (PWL) models for both PA and rectifier characteristics, we maximize the sum of rectified DC power at the receiver array under a transmit-side DC power budget. By applying semidefinite lifting, the resulting problem admits an efficient semidefinite relaxation (SDR) that provides a tight upper bound and a high-quality feasible solution via rank-one recovery and local refinement. Simulation results show that the proposed method outperforms conventional RF-to-RF efficiency by achieving 38.3% higher received DC power, with a relaxation-to-feasible gap of 1.69%. Experimental validation confirms the accuracy of the proposed framework with less than 8% error."
     },
     {
       "number": 7,
