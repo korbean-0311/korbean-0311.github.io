@@ -6,11 +6,12 @@
   'use strict';
 
   /* ---------- Site map ----------
-     Three top-level pages. "Academics" is one long page whose six sections are
+     Three top-level pages. "Academics" is one long page whose sections are
      exposed as anchor links in the desktop dropdown and the sidebar index. The
      mobile panel lists only the three pages — on phones the sticky pill row
-     under the top bar already carries the sections. Keep NAV_SECTIONS in sync
-     with ACADEMIC_SECTIONS in scripts/build-prerender.mjs (same ids, order). */
+     under the top bar already carries the sections. NAV_SECTIONS is rewritten
+     by scripts/build-prerender.mjs from the section headings in academics.html
+     — rename a section there, not here. */
   const ACADEMICS_PAGE = 'academics.html';
   const ACADEMICS_LABEL = 'Academics';
   const NAV_SECTIONS = [

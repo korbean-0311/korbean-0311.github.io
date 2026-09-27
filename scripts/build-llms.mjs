@@ -1,10 +1,15 @@
 #!/usr/bin/env node
 /**
- * build-llms.mjs — Generates llms-full.txt from data/*.json.
+ * build-llms.mjs — Generates llms-full.txt (everything) and llms.txt (the
+ * short index) from data/*.json and the rendered pages.
  *
- * Run locally:   node scripts/build-llms.mjs
+ * Run locally:   node scripts/build-prerender.mjs && node scripts/build-llms.mjs
  * Run in CI:     handled by .github/workflows/build-llms.yml on every push that
- *                modifies data/** or this script.
+ *                touches the data, the pages or these scripts.
+ *
+ * Neither file is edited by hand. The page and section names and their
+ * one-line descriptions come from scripts/lib/site-map.mjs, the same source
+ * as the Site guide on the pages.
  *
  * Email is intentionally OMITTED (user preference). BibTeX is INCLUDED. PDF
  * links are skipped (they are binary asset URLs, not textual content).
@@ -24,16 +29,18 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { computePubStats } from './lib/pub-stats.mjs';
+import { readSiteMap, PAGES, SITE, countWord, htmlText } from './lib/site-map.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(ROOT, 'data');
 const OUT_PATH = path.join(ROOT, 'llms-full.txt');
+const INDEX_PATH = path.join(ROOT, 'llms.txt');
 
 // -- Content that exists only for AI readers (it is not shown on any page).
 const AI_ONLY = {
   keywords: [
-    'Wireless Power Transfer',
+    'Wireless Power Transfer (WPT)',
     'RF Beamforming',
     'Near-Field Beam Focusing',
     'Target Detection',
@@ -49,26 +56,14 @@ function readPage(name) {
   return fs.readFileSync(path.join(ROOT, name), 'utf8');
 }
 
-function htmlText(html) {
-  return String(html)
-    .replace(/<svg[\s\S]*?<\/svg>/g, '')
-    .replace(/<br\s*\/?>/g, ' ')
-    .replace(/<[^>]+>/g, '')
-    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
 function need(html, re, what) {
   const m = html.match(re);
   if (!m) throw new Error(`build-llms: could not find ${what} in the page markup`);
   return m;
 }
 
-function pageProse() {
+function pageProse(map) {
   const home = readPage('index.html');
-  const acad = readPage('academics.html');
   const contact = readPage('contact.html');
 
   const name = htmlText(need(home, /<p class="profile__name">([\s\S]*?)<\/p>/, 'profile name')[1]);
@@ -88,9 +83,7 @@ function pageProse() {
     bioLines.push(m[1] != null ? htmlText(m[1]) : '- ' + htmlText(m[2]));
   }
 
-  const sections = [...acad.matchAll(/<div class="section-heading"><h2[^>]*>([\s\S]*?)<\/h2><\/div>/g)]
-    .map(m => htmlText(m[1]));
-  if (!sections.length) throw new Error('build-llms: no section headings found in academics.html');
+  const sections = map.sections.map(s => s.label);
 
   const rows = {};
   for (const m of contact.matchAll(/<span class="contact-info__label">([^<]+)<\/span>\s*<span class="contact-info__value">([\s\S]*?)<\/span>\s*<\/div>/g)) {
@@ -101,7 +94,57 @@ function pageProse() {
     if (!rows[k]) throw new Error(`build-llms: contact row "${k}" not found in contact.html`);
   }
 
-  return { name, subtitle: `${roleLines.join(', ')} (${place})`, links, aboutHeading, bioLines, sections, contact: rows };
+  return { name, roleLines, subtitle: `${roleLines.join(', ')} (${place})`, links, aboutHeading, bioLines, sections, contact: rows };
+}
+
+// -- llms.txt: the short index --------------------------------------------
+// Every name and description here comes from the pages, the data or the
+// site map, so it says what the pages say without anyone keeping it in step.
+function buildLlmsTxt(prose, map, edu) {
+  const [home, acad, contact] = PAGES;
+  const n = countWord(map.sections.length);
+  const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
+  // The current degree's advisors (education.json lists the newest first).
+  const adv = ((edu || []).find(e => (e.advisors || []).length) || {}).advisors || [];
+  const advised = adv.length
+    ? `, ${adv.length > 1 ? 'co-advised' : 'advised'} by ${adv.map(a => 'Prof. ' + a.name).join(' and ')}`
+    : '';
+  const lab = prose.contact.Lab;
+  const everything = [...map.home.headings, ...map.sections.map(s => s.label), contact.name];
+
+  const out = [
+    `# ${prose.name} — Portfolio`,
+    '',
+    `> ${prose.roleLines.join(', ')}${advised}.`,
+    `> Research areas: ${AI_ONLY.keywords.join(', ')}.`,
+    `> Lab: [${lab.text}](${lab.href})`,
+    '',
+    `The full machine-readable content — ${everything.join(', ')}, with BibTeX for every paper — is available as a single markdown file:`,
+    '',
+    `- ${SITE}llms-full.txt`,
+    '',
+    '## Pages',
+    '',
+    `The site has ${PAGES.length} pages. "${acad.name}" is ONE long page that holds the whole academic record in ${n} sections; each section has its own anchor, so one fetch of ${acad.file} returns everything below.`,
+    '',
+    `- [${home.name}](${home.url}): ${cap(map.home.blurb)}`,
+    `- [${acad.name}](${acad.url}): One long page with ${n} sections —`,
+    ...map.sections.map(s => `  - [${s.label}](${acad.url}#${s.id}): ${cap(s.blurb)}`),
+    `- [${contact.name}](${contact.url}): ${cap(map.contact.blurb)}`,
+    '',
+  ];
+  if (map.redirects.length) {
+    out.push(`(The former per-section URLs — ${map.redirects.map(r => r.file).join(', ')} — redirect to the matching anchor on ${acad.file}.)`, '');
+  }
+  out.push(
+    '## Data sources (JSON)',
+    '',
+    'The site renders content from these structured JSON files (also useful for AI agents that prefer structured data):',
+    '',
+    ...map.dataFiles.map(f => `- ${SITE}data/${f}`),
+    '',
+  );
+  return out.join('\n');
 }
 
 // -- Helpers --------------------------------------------------------------
@@ -209,10 +252,10 @@ function newsKind(n) {
   return 'news';
 }
 
-function buildNews(newsData) {
+function buildNews(newsData, T) {
   // Accept both legacy root-array and the wrapped { news: [...] } shape used by the CMS.
   const news = Array.isArray(newsData) ? newsData : (newsData?.news || []);
-  const out = ['## Recent News\n'];
+  const out = [`## ${T('news')}\n`];
   for (const n of news) {
     const tag = n.tag ? ` _(${n.tag})_` : '';
     const kind = newsKind(n);
@@ -226,10 +269,10 @@ function buildNews(newsData) {
 
 // Press coverage. Emits nothing when the list is empty so the file has no
 // dangling heading.
-function buildPress(pressData) {
+function buildPress(pressData, T) {
   const items = Array.isArray(pressData) ? pressData : (pressData?.press || []);
   if (!items.length) return '';
-  const out = ['## Press\n'];
+  const out = [`## ${T('press')}\n`];
   for (const p of items) {
     const outlet = p.outlet ? `**${p.outlet}** — ` : '';
     const date = p.date ? ` (${p.date})` : '';
@@ -240,8 +283,8 @@ function buildPress(pressData) {
   return out.join('\n');
 }
 
-function buildPublications(pubs) {
-  const out = ['## Publications\n'];
+function buildPublications(pubs, T) {
+  const out = [`## ${T('publications')}\n`];
 
   // Same numbers as the table above the Publications tabs.
   const stats = computePubStats(pubs);
@@ -288,10 +331,10 @@ function buildPublications(pubs) {
 
 // Awards & Honors — its own section, sourced from data/awards.json.
 // Accepts the wrapped { awards: [...] } shape (with legacy fallbacks).
-function buildAwards(awardsData) {
+function buildAwards(awardsData, T) {
   const awards = Array.isArray(awardsData) ? awardsData : (awardsData?.awards);
   if (!awards) return '';
-  const out = ['## Awards & Honors\n'];
+  const out = [`## ${T('awards')}\n`];
   // Preferred: array-of-groups [{ category, items }, ...]
   if (Array.isArray(awards) && awards.length && awards[0] && Array.isArray(awards[0].items)) {
     for (const group of awards) {
@@ -313,8 +356,8 @@ function buildAwards(awardsData) {
   return out.join('\n');
 }
 
-function buildEducation(edu) {
-  const out = ['## Education\n'];
+function buildEducation(edu, T) {
+  const out = [`## ${T('education')}\n`];
   for (const e of edu) {
     const loc = e.location ? ` (${e.location})` : '';
     out.push(`### ${e.school}${loc}`);
@@ -376,8 +419,8 @@ function buildGenealogy() {
   return out.join('\n');
 }
 
-function buildResearch(res) {
-  const out = ['## Research\n'];
+function buildResearch(res, T) {
+  const out = [`## ${T('research')}\n`];
   for (const sec of res.sections || []) {
     out.push(`### ${sec.title}\n`);
     if (sec.affiliation) {
@@ -417,17 +460,17 @@ function buildResearch(res) {
   return out.join('\n');
 }
 
-function buildAcademicService(others) {
-  const out = ['## Academic Service\n'];
+function buildAcademicService(others, T) {
+  const out = [`## ${T('academic-service')}\n`];
 
-  out.push('### Journal Reviewer');
+  out.push(`### ${T('reviewer')}`);
   for (const it of others.reviewer || []) {
     const full = it.full ? ` (${it.full})` : '';
     out.push(`- ${it.name}${full}${it.year ? `, ${it.year}` : ''}`);
   }
   out.push('');
 
-  out.push('### Teaching Assistant (Seoul National University)');
+  out.push(`### ${T('ta')}`);
   for (const it of others.ta || []) {
     const code = it.code ? ` (${it.code})` : '';
     const inst = it.institution ? `, ${it.institution}` : '';
@@ -439,8 +482,8 @@ function buildAcademicService(others) {
   return out.join('\n');
 }
 
-function buildCoursework(others) {
-  const out = ['## Selected Coursework\n'];
+function buildCoursework(others, T) {
+  const out = [`## ${T('coursework')}\n`];
   for (const g of others.coursework || []) {
     out.push(`**${g.school}:**`);
     for (const c of g.courses || []) {
@@ -460,7 +503,7 @@ function buildContact(prose) {
   const c = prose.contact;
   const link = label => (prose.links.find(l => l.label === label) || {}).url;
   return [
-    '## Contact',
+    `## ${PAGES[2].name}`,
     '',
     `- ORCID: ${link('ORCID')}`,
     `- Google Scholar: ${link('Google Scholar')}`,
@@ -484,18 +527,19 @@ function main() {
   // press.json is optional — treat a missing file as "no coverage yet".
   const press      = fs.existsSync(path.join(DATA_DIR, 'press.json')) ? readJSON('press.json') : null;
 
-  const prose      = pageProse();
+  const map        = readSiteMap(ROOT);
+  const prose      = pageProse(map);
 
   const sections = [
     buildHeader(prose),
-    buildNews(news),
-    buildPress(press),
-    buildPublications(pubs),
-    buildAwards(awards),
-    buildEducation(edu),
-    buildResearch(res),
-    buildAcademicService(others),
-    buildCoursework(others),
+    buildNews(news, map.title),
+    buildPress(press, map.title),
+    buildPublications(pubs, map.title),
+    buildAwards(awards, map.title),
+    buildEducation(edu, map.title),
+    buildResearch(res, map.title),
+    buildAcademicService(others, map.title),
+    buildCoursework(others, map.title),
     buildContact(prose),
     `\n---\n_Generated automatically from data/*.json and the site's pages on ${new Date().toISOString().slice(0, 10)}._\n`
   ];
@@ -506,6 +550,10 @@ function main() {
 
   fs.writeFileSync(OUT_PATH, out, 'utf8');
   console.log(`Wrote ${OUT_PATH} (${out.length} bytes)`);
+
+  const index = buildLlmsTxt(prose, map, edu);
+  fs.writeFileSync(INDEX_PATH, index, 'utf8');
+  console.log(`Wrote ${INDEX_PATH} (${index.length} bytes)`);
 }
 
 main();

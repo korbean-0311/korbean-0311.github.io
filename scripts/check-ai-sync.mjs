@@ -3,11 +3,12 @@
  * check-ai-sync.mjs — fails (exit 1) if the AI-facing files no longer say
  * what the pages say.
  *
- * llms-full.txt is generated, so most of it cannot drift. What this guards:
- *   - the generators themselves (a markup change that a parser no longer
- *     matches would otherwise go unnoticed),
- *   - the files still written by hand: llms.txt and the "Site guide" fallback
- *     <nav> at the top of index.html, academics.html and contact.html.
+ * Every file it looks at is generated — llms-full.txt, llms.txt, the Site
+ * guide <nav> / <noscript> notes and the hidden <h1> on the pages, and the
+ * Academics dropdown list in js/main.js — so what this guards is the
+ * generators themselves: a markup change that a parser no longer reads
+ * correctly would otherwise go unnoticed. It re-derives each fact with its
+ * own patterns rather than importing the generators' code.
  *
  * Run after both builds:
  *   node scripts/build-prerender.mjs && node scripts/build-llms.mjs && node scripts/check-ai-sync.mjs
@@ -25,7 +26,7 @@ const read = f => fs.readFileSync(path.join(ROOT, f), 'utf8');
 const json = f => JSON.parse(read(path.join('data', f)));
 
 const home = read('index.html'), acad = read('academics.html'), contact = read('contact.html');
-const full = read('llms-full.txt'), llms = read('llms.txt');
+const full = read('llms-full.txt'), llms = read('llms.txt'), mainJS = read('js/main.js');
 
 const text = html => String(html)
   .replace(/<svg[\s\S]*?<\/svg>/g, '')
@@ -120,6 +121,24 @@ for (const s of sections) {
     expect(guide.includes(`#${s.id}">${htmlLabel(s.label)}</a>`), `${file} (Site guide)`, `section "${s.label}" not listed under that name`);
   }
 }
+// The other places that list the sections, in the same order and wording.
+const expected = sections.map(s => `${s.id}=${s.label}`).join('|');
+const navRows = [...((mainJS.match(/const NAV_SECTIONS = \[([\s\S]*?)\];/) || [])[1] || '').matchAll(/\['([a-z-]+)', '([^']*)'\]/g)]
+  .map(m => `${m[1]}=${text(m[2])}`).join('|');
+expect(navRows === expected, 'js/main.js', `NAV_SECTIONS differs from the section headings: ${navRows}`);
+const sideIndex = [...((acad.match(/<nav class="side-index"[\s\S]*?<\/nav>/) || [''])[0]).matchAll(/data-section-link="([a-z-]+)">([^<]*)</g)]
+  .map(m => `${m[1]}=${text(m[2])}`).join('|');
+expect(sideIndex === expected, 'academics.html', `"On this page" index differs from the section headings: ${sideIndex}`);
+const hiddenH1 = text((acad.match(/<h1 class="visually-hidden">([\s\S]*?)<\/h1>/) || [])[1] || '');
+expect(hiddenH1.endsWith(sections.map(s => s.label).join(', ')), 'academics.html', `hidden <h1> lists other sections: "${hiddenH1}"`);
+for (const [file, html] of [['index.html', home], ['academics.html', acad]]) {
+  const ns = text((html.match(/<noscript>([\s\S]*?)<\/noscript>/) || [])[1] || '');
+  expect(ns.includes(sections.map(s => s.label).join(', ')), `${file} (<noscript>)`, 'does not list the current sections');
+}
+
+for (const m of acad.matchAll(/<h3[^>]*\bid="(reviewer|ta)-heading"[^>]*>([^<]+)<\/h3>/g)) {
+  expect(full.includes(`### ${text(m[2])}\n`), 'llms-full.txt', `no "### ${text(m[2])}" heading`);
+}
 for (const m of home.matchAll(/<h2 id="(news|press)-heading">([^<]+)<\/h2>/g)) {
   expect(full.includes(`## ${text(m[2])}`), 'llms-full.txt', `no "## ${text(m[2])}" heading`);
 }
@@ -128,7 +147,7 @@ for (const m of home.matchAll(/<h2 id="(news|press)-heading">([^<]+)<\/h2>/g)) {
 if (problems.length) {
   console.error(`AI docs out of sync with the pages — ${problems.length} of ${checks} checks failed:\n`);
   for (const p of problems) console.error('  ✗ ' + p);
-  console.error('\nThe generated parts fix themselves on the next build; llms.txt and the Site guide <nav> are edited by hand.');
+  console.error('\nAll of these files are generated. Rebuild first (build-prerender, then build-llms); a failure that survives a rebuild means a generator no longer reads the page markup correctly.');
   process.exit(1);
 }
 console.log(`AI docs in sync with the pages (${checks} checks).`);

@@ -17,7 +17,7 @@ I have collaborated with industry partners including Samsung Electronics on RF W
 - Indoor Localization
 - Space Solar Power and Power Transmission
 
-**Research keywords:** Wireless Power Transfer, RF Beamforming, Near-Field Beam Focusing, Target Detection, Indoor Localization, Space Solar Power
+**Research keywords:** Wireless Power Transfer (WPT), RF Beamforming, Near-Field Beam Focusing, Target Detection, Indoor Localization, Space Solar Power
 
 **External profiles:**
 - ORCID: https://orcid.org/0000-0003-3342-3707
@@ -549,7 +549,7 @@ Profiles linked from the figure:
 - IEEE TPEL (IEEE Transactions on Power Electronics), 2025, 2026
 - IEEE JESTIE (IEEE Journal of Emerging and Selected Topics in Industrial Electronics), 2026
 
-### Teaching Assistant (Seoul National University)
+### Teaching Assistant (SNU)
 - Introduction to Electromagnetism with Practice (430.202B 003), Fall 2025
 - Introduction to Electromagnetism with Practice (430.202B 002), Fall 2024
 - Electromagnetic Wave Engineering (430.464A 001), Spring 2023
