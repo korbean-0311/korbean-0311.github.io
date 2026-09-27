@@ -2025,6 +2025,26 @@ html[data-js] .tab-panel.is-active { display: block; }
 [data-theme="dark"] .gen-node--self .gen-name { fill: var(--bg-primary); }
 [data-theme="dark"] .gen-node--self .gen-sub { fill: color-mix(in srgb, var(--bg-primary) 78%, var(--color-accent)); }
 
+/* Advisors with a Google Scholar profile: the whole card is the link. The ↗
+   matches .ext-link-arrow; hover/focus underlines the name and rings the card. */
+.gen-link { cursor: pointer; }
+.gen-link:focus { outline: none; }
+.gen-link-arrow {
+  fill: none;
+  stroke: var(--text-secondary);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.7;
+}
+.gen-link:hover .gen-name,
+.gen-link:focus-visible .gen-name { text-decoration: underline; text-underline-offset: 2px; }
+.gen-link:hover .gen-node > rect:not(.gen-logo-chip),
+.gen-link:focus-visible .gen-node > rect:not(.gen-logo-chip) { stroke: var(--color-accent); }
+.gen-link:focus-visible .gen-node > rect:not(.gen-logo-chip) { stroke-width: 2; }
+.gen-link:hover .gen-link-arrow,
+.gen-link:focus-visible .gen-link-arrow { stroke: var(--color-accent); opacity: 1; }
+
 @media (max-width: 640px) {
   .genealogy__toggle { font-size: calc(0.875rem - 1pt); }
   .genealogy__figure { padding: 0.9rem 0.75rem 0.85rem; }

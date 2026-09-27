@@ -9,7 +9,8 @@
       "col": 0,
       "name": "Sung-Mo Kang",
       "institution": "UIUC",
-      "logo": "assets/logos/uiuc.svg"
+      "logo": "assets/logos/uiuc.svg",
+      "link": "https://scholar.google.com/citations?user=yJB9y2QAAAAJ&hl=en"
     },
     {
       "id": "itoh",
@@ -17,7 +18,8 @@
       "col": 1,
       "name": "Tatsuo Itoh",
       "institution": "UT Austin",
-      "logo": "assets/logos/utaustin.svg"
+      "logo": "assets/logos/utaustin.svg",
+      "link": "https://scholar.google.com/citations?user=ADSxFAQAAAAJ&hl=en"
     },
     {
       "id": "sarabandi",
@@ -25,7 +27,8 @@
       "col": 2,
       "name": "Kamal Sarabandi",
       "institution": "Univ. of Michigan",
-      "logo": "assets/logos/michigan.svg"
+      "logo": "assets/logos/michigan.svg",
+      "link": "https://scholar.google.com/citations?user=u0BOuAsAAAAJ&hl=en"
     },
     {
       "id": "kim",

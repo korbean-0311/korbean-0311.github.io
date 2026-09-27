@@ -92,6 +92,14 @@ for (const t of JSON.stringify(json('awards.json')).matchAll(/"title":"((?:[^"\\
 }
 for (const e of json('education.json')) expect(full.includes(e.school), 'llms-full.txt', `education missing: ${e.school}`);
 
+const lineage = fs.existsSync(path.join(ROOT, 'data', 'genealogy.json')) ? json('genealogy.json') : { nodes: [] };
+for (const n of lineage.nodes || []) {
+  if (!n.link) continue;
+  const href = n.link.replace(/&/g, '&amp;');
+  expect(acad.includes(`<a class="gen-link" href="${href}"`), 'academics.html', `genealogy card for ${n.name} is not linked`);
+  expect(full.includes(`- ${n.name}: ${n.link}`), 'llms-full.txt', `genealogy profile link missing for ${n.name}`);
+}
+
 const stats = computePubStats(pubs);
 if (stats.rows.length) {
   const shown = acad.match(/<tfoot>[\s\S]*?<td>(\d+)<\/td><td>(\d+)<\/td><td>(\d+)<\/td>/);

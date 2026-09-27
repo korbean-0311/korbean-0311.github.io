@@ -261,12 +261,27 @@ function genealogyNodeSVG(node, x, y) {
     ? `<rect class="gen-logo-chip" x="${x + 10}" y="${logoY - 2}" width="${LOGO + 4}" height="${LOGO + 4}" rx="6" />
             <image class="gen-logo" href="${esc(node.logo)}" x="${x + 12}" y="${logoY}" width="${LOGO}" height="${LOGO}" preserveAspectRatio="xMidYMid meet" />`
     : '';
-  return `<g class="${cls}">
+  // A node with a `link` (a Google Scholar profile) is one link as a whole
+  // card, so the tap target is the box and not just the name. SVG text cannot
+  // be measured here, so the ↗ that marks external links elsewhere on the site
+  // sits in the card's top-right corner instead of after the name.
+  const arrow = node.link
+    ? `<svg class="gen-link-arrow" x="${x + w - 21}" y="${y + 9}" width="11" height="11" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7"/><path d="M9 7h8v8"/></svg>`
+    : '';
+  const card = `<g class="${cls}">
             <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" />
             ${logo}
             <text class="gen-name" x="${textX}" y="${nameY}" text-anchor="${anchor}">${esc(node.name)}</text>
             ${sub ? `<text class="gen-sub" x="${textX}" y="${y + 43}" text-anchor="${anchor}">${esc(sub)}</text>` : ''}
+            ${arrow}
           </g>`;
+  // Chrome computes no name from an SVG link's text, so it is given one; the
+  // <title> is the hover tooltip that says where the link goes.
+  const where = /scholar\.google\./.test(node.link || '') ? 'Google Scholar profile' : 'profile';
+  const linkName = esc(`${node.name} — ${where}`);
+  return node.link
+    ? `<a class="gen-link" href="${esc(node.link)}" target="_blank" rel="noopener" aria-label="${linkName}"><title>${linkName}</title>${card}</a>`
+    : card;
 }
 
 function renderGenealogy() {
@@ -330,7 +345,7 @@ function renderGenealogy() {
 
   const title = data.title || 'Academic genealogy';
   const uid = 'gen-' + (++genealogySeq);
-  const svg = `<svg class="genealogy__svg" viewBox="0 0 ${W} ${H}" role="img" aria-labelledby="${uid}-title ${uid}-desc" preserveAspectRatio="xMidYMin meet">
+  const svg = `<svg class="genealogy__svg" viewBox="0 0 ${W} ${H}" role="group" aria-labelledby="${uid}-title" aria-describedby="${uid}-desc" preserveAspectRatio="xMidYMin meet">
           <title id="${uid}-title">${esc(title)}</title>
           <desc id="${uid}-desc">${esc(data.description || 'Doctoral advisor lineage.')}</desc>
           ${edgeSVG.join('\n          ')}

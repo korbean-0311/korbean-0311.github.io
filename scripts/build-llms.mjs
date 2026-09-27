@@ -367,6 +367,11 @@ function buildGenealogy() {
     chain.push((data.owner || 'the author') + ', ' + label(student));
     out.push('- ' + chain.join(' → ') + (e.label ? ' (' + e.label + ')' : ''));
   }
+  const linked = nodes.filter(n => n.link);
+  if (linked.length) {
+    out.push('', 'Profiles linked from the figure:');
+    for (const n of linked) out.push(`- ${n.name}: ${n.link}`);
+  }
   out.push('');
   return out.join('\n');
 }
