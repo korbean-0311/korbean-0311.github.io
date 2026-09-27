@@ -12,9 +12,12 @@
  * and Coursework replaced the former "Others" page (programming skills were
  * dropped from the site).
  *
- * If you change the static prose in index.html or contact.html (the parts that
- * are NOT JSON-driven), update the SITE_META block below so llms-full.txt
- * reflects it.
+ * The prose that is not JSON-driven — the About-me text, the profile card and
+ * the contact details — is read straight out of index.html, contact.html and
+ * academics.html, so there is no second copy to keep in sync. Run this AFTER
+ * build-prerender.mjs: the profile card is injected into the pages by that
+ * script, and this one reads the result. scripts/check-ai-sync.mjs verifies
+ * the output against the pages.
  */
 
 import fs from 'node:fs';
@@ -27,21 +30,8 @@ const ROOT = path.resolve(__dirname, '..');
 const DATA_DIR = path.join(ROOT, 'data');
 const OUT_PATH = path.join(ROOT, 'llms-full.txt');
 
-// -- Static prose mirrored from index.html / contact.html. Update if those
-// pages change. (Email deliberately excluded.)
-const SITE_META = {
-  name: 'Young-Seok Lee',
-  subtitle: 'Ph.D. Candidate, Dept. of ECE, Seoul National University (Seoul, Republic of Korea)',
-  bio: [
-    'I am a Ph.D. candidate in the Department of Electrical and Computer Engineering (ECE) at Seoul National University, co-advised by Prof. Sangwook Nam and Prof. Jungsuek Oh.',
-    'I have collaborated with industry partners — including Samsung Electronics on RF Wireless Power Transfer and LIG D&A on large-scale phased-array calibration. My broader research interests span RF and electromagnetic systems, with active topics including:',
-    '- RF Beamforming',
-    '- RF Near-Field Beam Focusing',
-    '- Wireless Power Transfer (WPT)',
-    '- Target Detection',
-    '- Indoor Localization',
-    '- Space Solar Power and Power Transmission'
-  ],
+// -- Content that exists only for AI readers (it is not shown on any page).
+const AI_ONLY = {
   keywords: [
     'Wireless Power Transfer',
     'RF Beamforming',
@@ -49,21 +39,70 @@ const SITE_META = {
     'Target Detection',
     'Indoor Localization',
     'Space Solar Power'
-  ],
-  externalLinks: [
-    { label: 'ORCID', url: 'https://orcid.org/0000-0003-3342-3707' },
-    { label: 'Google Scholar', url: 'https://scholar.google.com/citations?user=yCXRScIAAAAJ&hl=en' },
-    { label: 'IEEE Xplore', url: 'https://ieeexplore.ieee.org/author/519065710555122' },
-    { label: 'Lab Homepage (Wave Fusion Lab)', url: 'http://wfl.snu.ac.kr/' }
-  ],
-  contact: {
-    orcid: 'https://orcid.org/0000-0003-3342-3707',
-    scholar: 'https://scholar.google.com/citations?user=yCXRScIAAAAJ&hl=en',
-    lab: 'Wave Fusion Lab — http://wfl.snu.ac.kr',
-    linkedin: 'https://www.linkedin.com/in/korbean',
-    location: 'INMC, Bldg #132, Seoul National University, 1 Gwanak-ro, Gwanak-gu, Seoul 08826, Republic of Korea'
-  }
+  ]
 };
+
+// -- Prose read from the rendered pages -----------------------------------
+// Each pattern is required: if the markup changes so that one stops matching,
+// the build fails loudly instead of quietly writing an empty section.
+function readPage(name) {
+  return fs.readFileSync(path.join(ROOT, name), 'utf8');
+}
+
+function htmlText(html) {
+  return String(html)
+    .replace(/<svg[\s\S]*?<\/svg>/g, '')
+    .replace(/<br\s*\/?>/g, ' ')
+    .replace(/<[^>]+>/g, '')
+    .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function need(html, re, what) {
+  const m = html.match(re);
+  if (!m) throw new Error(`build-llms: could not find ${what} in the page markup`);
+  return m;
+}
+
+function pageProse() {
+  const home = readPage('index.html');
+  const acad = readPage('academics.html');
+  const contact = readPage('contact.html');
+
+  const name = htmlText(need(home, /<p class="profile__name">([\s\S]*?)<\/p>/, 'profile name')[1]);
+  const roleLines = need(home, /<p class="profile__role">([\s\S]*?)<\/p>/, 'profile role')[1]
+    .split(/<br\s*\/?>/).map(htmlText).filter(Boolean);
+  const place = htmlText(need(home, /<p class="profile__loc">([\s\S]*?)<\/p>/, 'profile location')[1]);
+
+  const linksHTML = need(home, /<ul class="profile__links">([\s\S]*?)<\/ul>/, 'profile links')[1];
+  const links = [...linksHTML.matchAll(/<a href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g)]
+    .map(m => ({ label: htmlText(m[2]), url: htmlText(m[1]) }));
+
+  const about = need(home, /<section class="about"[^>]*>([\s\S]*?)<\/section>/, 'About-me section')[1];
+  const aboutHeading = htmlText(need(about, /<h1[^>]*>([\s\S]*?)<\/h1>/, 'About-me heading')[1]);
+  const bio = need(about, /<div class="hero__bio">([\s\S]*?)<\/div>/, 'About-me text')[1];
+  const bioLines = [];
+  for (const m of bio.matchAll(/<p>([\s\S]*?)<\/p>|<li>([\s\S]*?)<\/li>/g)) {
+    bioLines.push(m[1] != null ? htmlText(m[1]) : '- ' + htmlText(m[2]));
+  }
+
+  const sections = [...acad.matchAll(/<div class="section-heading"><h2[^>]*>([\s\S]*?)<\/h2><\/div>/g)]
+    .map(m => htmlText(m[1]));
+  if (!sections.length) throw new Error('build-llms: no section headings found in academics.html');
+
+  const rows = {};
+  for (const m of contact.matchAll(/<span class="contact-info__label">([^<]+)<\/span>\s*<span class="contact-info__value">([\s\S]*?)<\/span>\s*<\/div>/g)) {
+    const href = (m[2].match(/<a href="([^"]+)"/) || [])[1];
+    rows[m[1].trim()] = { text: htmlText(m[2]), href: href ? htmlText(href) : null };
+  }
+  for (const k of ['Lab', 'LinkedIn', 'Location']) {
+    if (!rows[k]) throw new Error(`build-llms: contact row "${k}" not found in contact.html`);
+  }
+
+  return { name, subtitle: `${roleLines.join(', ')} (${place})`, links, aboutHeading, bioLines, sections, contact: rows };
+}
 
 // -- Helpers --------------------------------------------------------------
 function readJSON(name) {
@@ -142,18 +181,18 @@ function formatAward(a) {
 }
 
 // -- Section builders -----------------------------------------------------
-function buildHeader() {
+function buildHeader(prose) {
   const parts = [];
-  parts.push(`# ${SITE_META.name}\n`);
-  parts.push(`> ${SITE_META.subtitle}\n`);
+  parts.push(`# ${prose.name}\n`);
+  parts.push(`> ${prose.subtitle}\n`);
   parts.push(`Site: https://korbean-0311.github.io/\n`);
-  parts.push(`Pages: Home (https://korbean-0311.github.io/) · Academics — one long page with Education, Publications, Awards & Honors, Research, Academic Service, Selected Coursework (https://korbean-0311.github.io/academics.html) · Contact (https://korbean-0311.github.io/contact.html)\n`);
-  parts.push('## About\n');
-  for (const line of SITE_META.bio) parts.push(line);
+  parts.push(`Pages: Home (https://korbean-0311.github.io/) · Academics — one long page with ${prose.sections.join(', ')} (https://korbean-0311.github.io/academics.html) · Contact (https://korbean-0311.github.io/contact.html)\n`);
+  parts.push(`## ${prose.aboutHeading}\n`);
+  for (const line of prose.bioLines) parts.push(line);
   parts.push('');
-  parts.push('**Research keywords:** ' + SITE_META.keywords.join(', ') + '\n');
+  parts.push('**Research keywords:** ' + AI_ONLY.keywords.join(', ') + '\n');
   parts.push('**External profiles:**');
-  for (const l of SITE_META.externalLinks) parts.push(`- ${l.label}: ${l.url}`);
+  for (const l of prose.links) parts.push(`- ${l.label}: ${l.url}`);
   parts.push('');
   return parts.join('\n');
 }
@@ -412,16 +451,17 @@ function buildCoursework(others) {
   return out.join('\n');
 }
 
-function buildContact() {
-  const c = SITE_META.contact;
+function buildContact(prose) {
+  const c = prose.contact;
+  const link = label => (prose.links.find(l => l.label === label) || {}).url;
   return [
     '## Contact',
     '',
-    `- ORCID: ${c.orcid}`,
-    `- Google Scholar: ${c.scholar}`,
-    `- Lab: ${c.lab}`,
-    `- LinkedIn: ${c.linkedin}`,
-    `- Location: ${c.location}`,
+    `- ORCID: ${link('ORCID')}`,
+    `- Google Scholar: ${link('Google Scholar')}`,
+    `- Lab: ${c.Lab.text} — ${c.Lab.href}`,
+    `- LinkedIn: ${c.LinkedIn.href}`,
+    `- Location: ${c.Location.text}`,
     '',
     '_Email omitted; please reach out via LinkedIn or the lab homepage._',
     ''
@@ -439,8 +479,10 @@ function main() {
   // press.json is optional — treat a missing file as "no coverage yet".
   const press      = fs.existsSync(path.join(DATA_DIR, 'press.json')) ? readJSON('press.json') : null;
 
+  const prose      = pageProse();
+
   const sections = [
-    buildHeader(),
+    buildHeader(prose),
     buildNews(news),
     buildPress(press),
     buildPublications(pubs),
@@ -449,8 +491,8 @@ function main() {
     buildResearch(res),
     buildAcademicService(others),
     buildCoursework(others),
-    buildContact(),
-    `\n---\n_Generated automatically from data/*.json on ${new Date().toISOString().slice(0, 10)}._\n`
+    buildContact(prose),
+    `\n---\n_Generated automatically from data/*.json and the site's pages on ${new Date().toISOString().slice(0, 10)}._\n`
   ];
 
   // Single trailing newline; collapse triple-blank-lines to double.

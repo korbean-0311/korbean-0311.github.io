@@ -3,14 +3,21 @@ name: Build llms-full.txt & AI fallbacks
 on:
   push:
     branches: [main]
-    # Only re-run when JSON data, the generator scripts, or this workflow change.
-    # The bot's auto-commit touches only llms-full.txt and the *.html pages —
-    # none of which are in these paths — so it will NOT re-trigger this
-    # workflow, preventing an infinite loop.
+    # Re-run whenever anything llms-full.txt is built from changes: the JSON
+    # data, the hand-written prose in the three pages (About me, contact,
+    # section titles), the hand-written llms.txt, or the scripts themselves.
+    # The bot's own auto-commit cannot re-trigger this: pushes made with the
+    # workflow's GITHUB_TOKEN never start new workflow runs, and the job below
+    # also skips itself when the actor is the bot.
     paths:
       - 'data/**'
+      - 'index.html'
+      - 'academics.html'
+      - 'contact.html'
+      - 'llms.txt'
       - 'scripts/build-llms.mjs'
       - 'scripts/build-prerender.mjs'
+      - 'scripts/check-ai-sync.mjs'
       - 'scripts/lib/**'
       - '.github/workflows/build-llms.yml'
   workflow_dispatch:
@@ -24,6 +31,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -32,11 +40,13 @@ jobs:
           # Use the default GITHUB_TOKEN; we have contents:write permission.
           persist-credentials: true
 
+      # Pages first: build-llms.mjs reads the About-me text, the profile card
+      # and the contact details out of the rendered pages.
+      - name: Render static content into the HTML pages
+        run: node scripts/build-prerender.mjs
+
       - name: Generate llms-full.txt
         run: node scripts/build-llms.mjs
-
-      - name: Inject AI fallbacks into HTML pages
-        run: node scripts/build-prerender.mjs
 
       - name: Commit if changed
         run: |
@@ -49,3 +59,9 @@ jobs:
           else
             echo "Generated content is up to date — nothing to commit."
           fi
+
+      # Last, so the regenerated files are committed even when this fails. What
+      # it can still catch is drift in the hand-written llms.txt or Site guide
+      # <nav>; a failure turns the run red and GitHub emails the owner.
+      - name: Check AI docs against the pages
+        run: node scripts/check-ai-sync.mjs
