@@ -32,8 +32,6 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --border-color: #D8D8D8;
   --line-soft: #DCEEF6;
   --mark: #CBE6F4;        /* pale blue half-highlight: news key phrases, About-me advisors, venue names */
-  --band-bg: var(--color-accent);   /* section title band: SNU navy */
-  --band-fg: #FFFFFF;
 
   --nav-height: 60px;
   --content-max: 720px;
@@ -62,8 +60,6 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --border-color: #334155;
   --line-soft: #334155;
   --mark: #1E3A5F;
-  --band-bg: #1E3A5F;
-  --band-fg: #F1F5F9;
   --color-award: #F2A8B8;
 }
 
@@ -537,6 +533,12 @@ main {
 .profile__card .profile__body { display: block; }
 .profile__chevron { display: none; }
 
+/* Right column page heading (e.g. "About me") */
+.page-content > .about h1 {
+  font-family: var(--font-serif);
+  font-size: 2rem; font-weight: 700; color: var(--text-primary);
+  letter-spacing: -0.01em; margin: 0 0 1.25rem;
+}
 
 /* Mobile: single column. The profile is shown ONLY on the home page, pinned at
    the top and always expanded (not collapsible — the <summary> toggle stays
@@ -611,6 +613,28 @@ main {
   }
 }
 
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.page-header h1 {
+  font-family: var(--font-serif);
+  font-size: 2.125rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.015em;
+  margin-bottom: 0.75rem;
+}
+
+.page-header__rule {
+  width: 72px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  margin: 0 auto;
+  border: none;
+  border-radius: 2px;
+}
 
 section {
   margin-bottom: 4rem;
@@ -1730,6 +1754,7 @@ html[data-js] .tab-panel.is-active { display: block; }
 /* ---------- Responsive: hero ---------- */
 @media (max-width: 480px) {
   
+  .page-header h1 { font-size: 1.625rem; }
   main { padding-top: 5.5rem; }
 }
 
@@ -1776,23 +1801,6 @@ html[data-js] .tab-panel.is-active { display: block; }
   #awards-content .award-item { font-size: calc(0.9375rem - 1pt); }       /* name/highlight inherit */
   #awards-content .award-item__sub { font-size: calc(0.8125rem - 1pt); }
   #awards-content .award-group__title { font-size: calc(0.9375rem - 1pt); }
-}
-
-/* ---------- Mobile: section title band ---------- */
-@media (max-width: 640px) {
-  .section-heading,
-  #about-heading,
-  #news-heading,
-  #press-heading,
-  .page-header {
-    margin: 0 -1rem 1.25rem;
-    padding: 0.6rem 1rem;
-  }
-  .section-heading h2,
-  #about-heading,
-  #news-heading,
-  #press-heading,
-  .page-header h1 { font-size: calc(1.5rem - 1pt); }
 }
 
 /* ---------- Mobile: trim Academic Service / Coursework text −1pt ---------- */
@@ -2036,44 +2044,20 @@ html {
   scroll-margin-top: calc(var(--nav-height) + 1.25rem);
 }
 
-/* The band above each section already marks the boundary; no hairline. */
 .section + .section {
-  margin-top: 3.5rem;
+  margin-top: 3.25rem;
+  padding-top: 3.25rem;
+  border-top: 1px solid var(--line-soft);
 }
 
-/* ---------- Section title band ----------
-   Every section title on all three pages sits in one navy band. A band is a
-   discrete object, so it marks a boundary the same way whether the section
-   under it is 300px tall or, like Publications, 4,000px. It bleeds 1.25rem
-   past the text column on both sides so the title keeps its own left edge.
-   Three markups share it: the .section-heading wrapper on Academics, the bare
-   h1/h2 on Home, and the page header on Contact. */
-.section-heading,
-#about-heading,
-#news-heading,
-#press-heading,
-.page-header {
-  margin: 0 -1.25rem 1.5rem;
-  padding: 0.8rem 1.25rem;
-  background: var(--band-bg);
-  border-radius: 8px;
+.section-heading {
+  margin-bottom: 1.5rem;
 }
 
-.section-heading h2,
-#about-heading,
-#news-heading,
-#press-heading,
-.page-header h1 {
-  font-family: var(--font-sans);
-  font-size: 1.875rem;
-  font-weight: 700;
-  letter-spacing: -0.022em;
-  line-height: 1.25;
-  color: var(--band-fg);
+.section-heading h2 {
+  font-size: 1.75rem;
+  margin: 0;
 }
-
-.section-heading h2,
-.page-header h1 { margin: 0; }
 
 /* Sub-headings inside a section (Research groups): 1.25rem with a hairline. */
 .research-section__title {
@@ -2190,5 +2174,6 @@ html {
   [data-theme="dark"] body[data-page="academics"] .side-index a.is-active { color: var(--bg-primary); }
 
   .section { scroll-margin-top: calc(var(--nav-height) + 52px + 0.75rem); }
-  .section + .section { margin-top: 2.75rem; }
+  .section + .section { margin-top: 2.5rem; padding-top: 2.5rem; }
+  .section-heading h2 { font-size: calc(1.5rem - 1pt); }
 }
