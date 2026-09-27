@@ -26,6 +26,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { computePubStats } from './lib/pub-stats.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -572,6 +573,36 @@ function pubHasFirstAuthorTag(item) {
 }
 
 // Wrap the owner's name in <span class="me"> so CSS can bold and underline it.
+// Journal summary above the Publications tabs. The numbers come from
+// computePubStats (scripts/lib/pub-stats.mjs), which also feeds llms-full.txt.
+// A zero renders as an en dash, with the digit kept for screen readers.
+function renderPubStats() {
+  const { rows, total, unmatched } = computePubStats(readJSON('publications.json'));
+  for (const t of unmatched) {
+    console.warn(`  WARNING: pub stats — owner not found in the author list of "${t}"; not counted.`);
+  }
+  if (!rows.length) return '';
+  const cell = n => n
+    ? `<td>${n}</td>`
+    : '<td><span aria-hidden="true">\u2013</span><span class="visually-hidden">0</span></td>';
+  const body = rows.map(r => `
+            <tr><th scope="row"><abbr title="${esc(r.name)}">IEEE ${esc(r.abbr)}</abbr></th>${cell(r.first)}${cell(r.co)}${cell(r.total)}</tr>`).join('');
+  return `      <div class="pub-stats">
+        <table class="pub-stats__table">
+          <caption>Selected IEEE journals</caption>
+          <thead>
+            <tr><th scope="col">Journal</th><th scope="col">1st author</th><th scope="col">Co-author</th><th scope="col">Total</th></tr>
+          </thead>
+          <tbody>${body}
+          </tbody>
+          <tfoot>
+            <tr><th scope="row">Total</th>${cell(total.first)}${cell(total.co)}${cell(total.total)}</tr>
+          </tfoot>
+        </table>
+        <p class="pub-stats__note">Published papers, including Early Access.</p>
+      </div>`;
+}
+
 function highlightAuthorMe(authors, me) {
   if (!authors) return '';
   const safe = esc(authors);
@@ -838,6 +869,7 @@ const STATIC_PAGES = {
   'academics.html': [
     ['education', renderEducationTimeline],
     ['genealogy', renderGenealogy],
+    ['pubstats', renderPubStats],
     ['publications', renderPublicationsTabs],
     ['awards', renderAwards],
     ['research', renderResearch],

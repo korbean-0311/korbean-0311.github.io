@@ -46,6 +46,13 @@ I have collaborated with industry partners — including Samsung Electronics on 
 
 ## Publications
 
+### Summary — selected IEEE journals (published, including Early Access)
+
+- IEEE TMTT (IEEE Transactions on Microwave Theory and Techniques): 3 papers — 2 as first author, 1 as co-author
+- IEEE TAP (IEEE Transactions on Antennas and Propagation): 1 paper — 1 as co-author
+- IEEE AWPL (IEEE Antennas and Wireless Propagation Letters): 1 paper — 1 as first author
+- Total: 5 papers — 3 as first author, 2 as co-author
+
 ### International Journals — Under Review
 
 - **[1] Virtual-Beacon Depth Refocusing for Improved Received-Power Uniformity in Near-Field Time-Reversal Wireless Power Transfer**

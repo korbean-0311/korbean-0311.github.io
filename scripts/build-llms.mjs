@@ -20,6 +20,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { computePubStats } from './lib/pub-stats.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(__dirname, '..');
@@ -202,6 +203,16 @@ function buildPress(pressData) {
 
 function buildPublications(pubs) {
   const out = ['## Publications\n'];
+
+  // Same numbers as the table above the Publications tabs.
+  const stats = computePubStats(pubs);
+  if (stats.rows.length) {
+    const papers = n => `${n} paper${n === 1 ? '' : 's'}`;
+    const split = r => [r.first && `${r.first} as first author`, r.co && `${r.co} as co-author`].filter(Boolean).join(', ');
+    out.push('### Summary — selected IEEE journals (published, including Early Access)\n');
+    for (const r of stats.rows) out.push(`- IEEE ${r.abbr} (${r.name}): ${papers(r.total)} — ${split(r)}`);
+    out.push(`- Total: ${papers(stats.total.total)} — ${split(stats.total)}\n`);
+  }
 
   const ur = pubs.international_journals?.under_review || [];
   if (ur.length) {
