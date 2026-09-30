@@ -491,7 +491,7 @@ Profiles linked from the figure:
 
 #### Calibration Verification and Accuracy Improvement of Ultra-Large-Scale Digital Array Antennas
 - Organization: LIG D&A
-- Period: 2026.04 — 2028.12
+- Period: 2026.04 — 2028.03
 - Keywords: Space Surveillance Radar, Ultra-Large-Scale Digital Array Antenna, Fixed Probe Calibration, Phase Center Compensation, Beam Pattern Modeling
 - Summary:
   - Developed calibration and verification algorithms for ultra-large-scale digital array antennas (86,400+ elements) used in space surveillance radar, addressing major error sources (probe phase center offset, polarization misalignment, position-dependent element beam patterns, 3D probe position uncertainty, and radome-induced channel distortion).
@@ -585,4 +585,4 @@ Profiles linked from the figure:
 _Email omitted; please reach out via LinkedIn or the lab homepage._
 
 ---
-_Generated automatically from data/*.json and the site's pages on 2026-09-27._
+_Generated automatically from data/*.json and the site's pages on 2026-09-30._
