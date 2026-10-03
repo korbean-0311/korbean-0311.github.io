@@ -211,7 +211,7 @@ I have collaborated with industry partners including Samsung Electronics on RF W
 ### International Conferences
 
 - **[8] DC-to-DC Efficiency Maximization in Wireless Power Transfer with PA and Rectifier Nonlinearities via Semidefinite Relaxation**
-  - Authors: Y.-S. Lee, T. Yoon, S. Nam, and J. Oh*
+  - Authors: Y.-S. Lee, T. Yoon, S. Nam, and J. Oh
   - Venue: 2026 IEEE Wireless Power Technology Conference and EXPO (WPTCE 2026)
   - Details: Halifax, NS, Canada, Jul. 4–7, 2026
   - DOI: https://doi.org/10.1109/WPTCE66920.2026.11691237
@@ -231,7 +231,7 @@ I have collaborated with industry partners including Samsung Electronics on RF W
     ```
 
 - **[7] Design and Calibration of a CW Time Reversal Wireless Power Transfer Transmitter with Pilot Signal Detection**
-  - Authors: Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*
+  - Authors: Y.-S. Lee, T. Yoon, J. Oh, and S. Nam
   - Venue: 2025 Asia-Pacific Microwave Conference (APMC 2025)
   - Details: Jeju, Republic of Korea, Dec. 2–5, 2025
   - DOI: https://doi.org/10.1109/APMC65046.2025.11378159
@@ -251,7 +251,7 @@ I have collaborated with industry partners including Samsung Electronics on RF W
     ```
 
 - **[6] Effects of Magnitude Dynamic Range Constraints on MIMO Wireless Power Transfer Efficiency**
-  - Authors: Y.-S. Lee, J. Oh, and S. Nam*
+  - Authors: Y.-S. Lee, J. Oh, and S. Nam
   - Venue: 2025 International Symposium on Antennas and Propagation (ISAP 2025)
   - Details: Fukuoka, Japan, Oct. 27–31, 2025
   - DOI: https://doi.org/10.23919/ISAP63122.2025.11361879
@@ -270,7 +270,7 @@ I have collaborated with industry partners including Samsung Electronics on RF W
     ```
 
 - **[5] Overcoming Efficiency Degradation in Wireless Power Transfer Systems: A Supply Voltage Modulation Method Empowered by 5.64-GHz 256-Element Antenna Array Receiving 10.6-Watt**
-  - Authors: T. Yoon, Y.-S. Lee, M. Kim, S. Lee, J. Lee, S. Nam, and J. Oh*
+  - Authors: T. Yoon, Y.-S. Lee, M. Kim, S. Lee, J. Lee, S. Nam, and J. Oh
   - Venue: 2025 IEEE/MTT-S International Microwave Symposium (IMS 2025)
   - Details: San Francisco, CA, USA, Jun. 15–20, 2025
   - DOI: https://doi.org/10.1109/IMS40360.2025.11104047
@@ -288,7 +288,7 @@ I have collaborated with industry partners including Samsung Electronics on RF W
     ```
 
 - **[4] Sequential Feedback-Based Phase Optimization Using Hadamard Basis for Wireless Power Transfer**
-  - Authors: Y.-S. Lee, J. Oh, and S. Nam*
+  - Authors: Y.-S. Lee, J. Oh, and S. Nam
   - Venue: 2025 IEEE Wireless Power Technology Conference and EXPO (WPTCE 2025)
   - Details: Rome, Italy, Jun. 3–6, 2025
   - DOI: https://doi.org/10.1109/WPTCE62521.2025.11062191
@@ -308,7 +308,7 @@ I have collaborated with industry partners including Samsung Electronics on RF W
     ```
 
 - **[3] An Effect of Time Reversal Based Multiple Beacon Selection on Wireless Power Transfer Performance**
-  - Authors: Y.-S. Lee, J. Oh, and S. Nam*
+  - Authors: Y.-S. Lee, J. Oh, and S. Nam
   - Venue: 2024 International Symposium on Antennas and Propagation (ISAP 2024)
   - Details: Incheon, Republic of Korea, Nov. 5–8, 2024
   - DOI: https://doi.org/10.1109/ISAP62502.2024.10846697
@@ -328,7 +328,7 @@ I have collaborated with industry partners including Samsung Electronics on RF W
     ```
 
 - **[2] LUT-Based Transmit Mode Calibration Complexity Reduction Method for Wireless Power Transfer**
-  - Authors: Y.-S. Lee, T. Yoon, S. Lee, M. Kim, J. Lee, J. Oh, and S. Nam*
+  - Authors: Y.-S. Lee, T. Yoon, S. Lee, M. Kim, J. Lee, J. Oh, and S. Nam
   - Venue: 2024 IEEE Wireless Power Technology Conference and Expo (WPTCE 2024)
   - Details: Kyoto, Japan, May 8–11, 2024
   - DOI: https://doi.org/10.1109/WPTCE59894.2024.10557392
@@ -348,7 +348,7 @@ I have collaborated with industry partners including Samsung Electronics on RF W
     ```
 
 - **[1] Test Count Reduction Algorithm for Determining the Optimal Phase in Wireless Power Transfer using Bayesian Optimization**
-  - Authors: Y.-S. Lee and S. Nam*
+  - Authors: Y.-S. Lee and S. Nam
   - Venue: XXXVth URSI General Assembly and Scientific Symposium (URSI GASS 2023)
   - Details: Sapporo, Japan, Aug. 19–26, 2023
   - Tags: 1st Author
@@ -356,37 +356,37 @@ I have collaborated with industry partners including Samsung Electronics on RF W
 ### Domestic Conferences (KIEES)
 
 - **[6] End-to-End DC Power Optimization in Wireless Power Transfer Systems**
-  - Authors: Y.-S. Lee, T. Yoon, S. Nam, and J. Oh*
+  - Authors: Y.-S. Lee, T. Yoon, S. Nam, and J. Oh
   - Venue: 2026 KIEES Winter Conf.
   - Details: Feb. 2026
   - Tags: 1st Author
 
 - **[5] MILP-based Optimal Beamforming in MISO WPT System: Dealing with Nonlinear Power Consumption and Discrete Voltage Rails**
-  - Authors: T. Yoon, Y.-S. Lee, and J. Oh*
+  - Authors: T. Yoon, Y.-S. Lee, and J. Oh
   - Venue: 2026 KIEES Winter Conf.
   - Details: Feb. 2026
   - Notes: Best Paper Award, IEEE MTT-S Seoul Chapter Award
 
 - **[4] Received DC Power Maximization in a Practical Wireless Power Transfer Systems**
-  - Authors: Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*
+  - Authors: Y.-S. Lee, T. Yoon, J. Oh, and S. Nam
   - Venue: 2025 KIEES Winter Conf.
   - Details: Feb. 2025
   - Tags: 1st Author
   - Notes: Best Paper Award, 1st Place
 
 - **[3] Comprehensive Optimization of Beamforming Wireless Power Transfer: Achieving 500W Power Saving through Hardware-Aware Convex Method and Supply Voltage Modulation**
-  - Authors: T. Yoon, Y.-S. Lee, M. Kim, S. Lee, and J. Oh*
+  - Authors: T. Yoon, Y.-S. Lee, M. Kim, S. Lee, and J. Oh
   - Venue: 2025 KIEES Winter Conf.
   - Details: Feb. 2025
 
 - **[2] RF-to-DC Efficiency Enhancement in Wireless Power Transfer Systems via Convex Optimization**
-  - Authors: Y.-S. Lee, S. Nam, and J. Oh*
+  - Authors: Y.-S. Lee, S. Nam, and J. Oh
   - Venue: 2024 KIEES Summer Conf.
   - Details: Aug. 2024
   - Tags: 1st Author
 
 - **[1] Multi-Receiver Charging Algorithm in Microwave Wireless Power Transfer**
-  - Authors: H. Y. Kim, Y.-S. Lee, and S. Nam*
+  - Authors: H. Y. Kim, Y.-S. Lee, and S. Nam
   - Venue: 2021 KIEES Autumn Conf.
   - Details: Nov. 2021
 
@@ -585,4 +585,4 @@ Profiles linked from the figure:
 _Email omitted; please reach out via LinkedIn or the lab homepage._
 
 ---
-_Generated automatically from data/*.json and the site's pages on 2026-09-30._
+_Generated automatically from data/*.json and the site's pages on 2026-10-03._

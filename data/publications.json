@@ -186,7 +186,7 @@
   "international_conferences": [
     {
       "number": 8,
-      "authors": "Y.-S. Lee, T. Yoon, S. Nam, and J. Oh*",
+      "authors": "Y.-S. Lee, T. Yoon, S. Nam, and J. Oh",
       "title": "DC-to-DC Efficiency Maximization in Wireless Power Transfer with PA and Rectifier Nonlinearities via Semidefinite Relaxation",
       "venue": "2026 IEEE Wireless Power Technology Conference and EXPO (WPTCE 2026)",
       "details": "Halifax, NS, Canada, Jul. 4–7, 2026",
@@ -222,7 +222,7 @@
     },
     {
       "number": 7,
-      "authors": "Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*",
+      "authors": "Y.-S. Lee, T. Yoon, J. Oh, and S. Nam",
       "title": "Design and Calibration of a CW Time Reversal Wireless Power Transfer Transmitter with Pilot Signal Detection",
       "venue": "2025 Asia-Pacific Microwave Conference (APMC 2025)",
       "details": "Jeju, Republic of Korea, Dec. 2–5, 2025",
@@ -253,7 +253,7 @@
     },
     {
       "number": 6,
-      "authors": "Y.-S. Lee, J. Oh, and S. Nam*",
+      "authors": "Y.-S. Lee, J. Oh, and S. Nam",
       "title": "Effects of Magnitude Dynamic Range Constraints on MIMO Wireless Power Transfer Efficiency",
       "venue": "2025 International Symposium on Antennas and Propagation (ISAP 2025)",
       "details": "Fukuoka, Japan, Oct. 27–31, 2025",
@@ -278,7 +278,7 @@
     },
     {
       "number": 5,
-      "authors": "T. Yoon, Y.-S. Lee, M. Kim, S. Lee, J. Lee, S. Nam, and J. Oh*",
+      "authors": "T. Yoon, Y.-S. Lee, M. Kim, S. Lee, J. Lee, S. Nam, and J. Oh",
       "title": "Overcoming Efficiency Degradation in Wireless Power Transfer Systems: A Supply Voltage Modulation Method Empowered by 5.64-GHz 256-Element Antenna Array Receiving 10.6-Watt",
       "venue": "2025 IEEE/MTT-S International Microwave Symposium (IMS 2025)",
       "details": "San Francisco, CA, USA, Jun. 15–20, 2025",
@@ -301,7 +301,7 @@
     },
     {
       "number": 4,
-      "authors": "Y.-S. Lee, J. Oh, and S. Nam*",
+      "authors": "Y.-S. Lee, J. Oh, and S. Nam",
       "title": "Sequential Feedback-Based Phase Optimization Using Hadamard Basis for Wireless Power Transfer",
       "venue": "2025 IEEE Wireless Power Technology Conference and EXPO (WPTCE 2025)",
       "details": "Rome, Italy, Jun. 3–6, 2025",
@@ -332,7 +332,7 @@
     },
     {
       "number": 3,
-      "authors": "Y.-S. Lee, J. Oh, and S. Nam*",
+      "authors": "Y.-S. Lee, J. Oh, and S. Nam",
       "title": "An Effect of Time Reversal Based Multiple Beacon Selection on Wireless Power Transfer Performance",
       "venue": "2024 International Symposium on Antennas and Propagation (ISAP 2024)",
       "details": "Incheon, Republic of Korea, Nov. 5–8, 2024",
@@ -361,7 +361,7 @@
     },
     {
       "number": 2,
-      "authors": "Y.-S. Lee, T. Yoon, S. Lee, M. Kim, J. Lee, J. Oh, and S. Nam*",
+      "authors": "Y.-S. Lee, T. Yoon, S. Lee, M. Kim, J. Lee, J. Oh, and S. Nam",
       "title": "LUT-Based Transmit Mode Calibration Complexity Reduction Method for Wireless Power Transfer",
       "venue": "2024 IEEE Wireless Power Technology Conference and Expo (WPTCE 2024)",
       "details": "Kyoto, Japan, May 8–11, 2024",
@@ -391,7 +391,7 @@
     },
     {
       "number": 1,
-      "authors": "Y.-S. Lee and S. Nam*",
+      "authors": "Y.-S. Lee and S. Nam",
       "title": "Test Count Reduction Algorithm for Determining the Optimal Phase in Wireless Power Transfer using Bayesian Optimization",
       "venue": "XXXVth URSI General Assembly and Scientific Symposium (URSI GASS 2023)",
       "details": "Sapporo, Japan, Aug. 19–26, 2023",
@@ -407,7 +407,7 @@
   "domestic_conferences": [
     {
       "number": 6,
-      "authors": "Y.-S. Lee, T. Yoon, S. Nam, and J. Oh*",
+      "authors": "Y.-S. Lee, T. Yoon, S. Nam, and J. Oh",
       "title": "End-to-End DC Power Optimization in Wireless Power Transfer Systems",
       "venue": "2026 KIEES Winter Conf.",
       "details": "Feb. 2026",
@@ -421,7 +421,7 @@
     },
     {
       "number": 5,
-      "authors": "T. Yoon, Y.-S. Lee, and J. Oh*",
+      "authors": "T. Yoon, Y.-S. Lee, and J. Oh",
       "title": "MILP-based Optimal Beamforming in MISO WPT System: Dealing with Nonlinear Power Consumption and Discrete Voltage Rails",
       "venue": "2026 KIEES Winter Conf.",
       "details": "Feb. 2026",
@@ -438,7 +438,7 @@
     },
     {
       "number": 4,
-      "authors": "Y.-S. Lee, T. Yoon, J. Oh, and S. Nam*",
+      "authors": "Y.-S. Lee, T. Yoon, J. Oh, and S. Nam",
       "title": "Received DC Power Maximization in a Practical Wireless Power Transfer Systems",
       "venue": "2025 KIEES Winter Conf.",
       "details": "Feb. 2025",
@@ -457,7 +457,7 @@
     },
     {
       "number": 3,
-      "authors": "T. Yoon, Y.-S. Lee, M. Kim, S. Lee, and J. Oh*",
+      "authors": "T. Yoon, Y.-S. Lee, M. Kim, S. Lee, and J. Oh",
       "title": "Comprehensive Optimization of Beamforming Wireless Power Transfer: Achieving 500W Power Saving through Hardware-Aware Convex Method and Supply Voltage Modulation",
       "venue": "2025 KIEES Winter Conf.",
       "details": "Feb. 2025",
@@ -469,7 +469,7 @@
     },
     {
       "number": 2,
-      "authors": "Y.-S. Lee, S. Nam, and J. Oh*",
+      "authors": "Y.-S. Lee, S. Nam, and J. Oh",
       "title": "RF-to-DC Efficiency Enhancement in Wireless Power Transfer Systems via Convex Optimization",
       "venue": "2024 KIEES Summer Conf.",
       "details": "Aug. 2024",
@@ -483,7 +483,7 @@
     },
     {
       "number": 1,
-      "authors": "H. Y. Kim, Y.-S. Lee, and S. Nam*",
+      "authors": "H. Y. Kim, Y.-S. Lee, and S. Nam",
       "title": "Multi-Receiver Charging Algorithm in Microwave Wireless Power Transfer",
       "venue": "2021 KIEES Autumn Conf.",
       "details": "Nov. 2021",
