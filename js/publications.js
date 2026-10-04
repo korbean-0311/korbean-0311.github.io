@@ -25,6 +25,54 @@
     tabContent.classList.add('tab-content');
   }
 
+  /* ---------- Sliding selection pill ----------
+     One tinted pill sits behind the tab buttons and glides to the selected
+     one, rather than each button snapping a fill on and off. Until it is
+     placed (and without JS) the selected button wears the same tint itself. */
+  const tabBar = document.querySelector('.tab-bar');
+  let indicator = null;
+
+  function placeIndicator(animate) {
+    if (!indicator) return;
+    const btn = tabBar.querySelector('.tab-btn.is-active');
+    if (!btn) return;
+    if (!animate) indicator.classList.add('is-instant');
+    indicator.style.width = btn.offsetWidth + 'px';
+    indicator.style.height = btn.offsetHeight + 'px';
+    indicator.style.transform = `translate(${btn.offsetLeft}px, ${btn.offsetTop}px)`;
+    if (!animate) {
+      void indicator.offsetWidth;            // commit the jump before the glide comes back
+      indicator.classList.remove('is-instant');
+    }
+  }
+
+  // On a narrow screen the bar scrolls sideways: bring a half-hidden tab in.
+  function revealInBar(btn) {
+    const left = btn.offsetLeft, right = left + btn.offsetWidth;
+    if (left < tabBar.scrollLeft || right > tabBar.scrollLeft + tabBar.clientWidth) {
+      tabBar.scrollTo({ left: left - (tabBar.clientWidth - btn.offsetWidth) / 2, behavior: 'smooth' });
+    }
+  }
+
+  function initIndicator() {
+    if (!tabBar) return;
+    indicator = document.createElement('span');
+    indicator.className = 'tab-bar__indicator';
+    indicator.setAttribute('aria-hidden', 'true');
+    tabBar.prepend(indicator);
+    placeIndicator(false);
+    tabBar.classList.add('has-indicator');
+    // Web fonts and resizes change the buttons' widths: follow without a glide.
+    if ('ResizeObserver' in window) {
+      const ro = new ResizeObserver(() => placeIndicator(false));
+      tabBar.querySelectorAll('.tab-btn').forEach(b => ro.observe(b));
+    } else {
+      window.addEventListener('resize', () => placeIndicator(false));
+    }
+    // iOS Safari only shows :active (the press) when a touch listener exists.
+    tabBar.addEventListener('touchstart', () => {}, { passive: true });
+  }
+
   function selectTab(tab) {
     document.querySelectorAll('.tab-panel').forEach(p => {
       p.classList.toggle('is-active', p.dataset.tab === tab);
@@ -32,6 +80,9 @@
     setActiveTabButton(tab);
     if (tabContent) tabContent.setAttribute('data-current-tab', tab);
     refade();
+    placeIndicator(true);
+    const btn = tabBar && tabBar.querySelector('.tab-btn.is-active');
+    if (btn) revealInBar(btn);
   }
 
   /* ---------- BibTeX copy (delegated; works on the pre-rendered DOM) ---------- */
@@ -110,5 +161,6 @@
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => selectTab(btn.dataset.tab));
     });
+    initIndicator();
   });
 })();
