@@ -30,7 +30,7 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --text-primary: #111111;
   --text-secondary: #7A7A7A;
   --border-color: #D8D8D8;
-  --line-soft: #DCEEF6;
+  --section-rule: #222222;   /* the line between Academics sections: near-black ink */
   --mark: #CBE6F4;        /* pale blue half-highlight: news key phrases, About-me advisors, venue names */
 
   --nav-height: 60px;
@@ -58,7 +58,7 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --text-primary: #F1F5F9;
   --text-secondary: #94A3B8;
   --border-color: #334155;
-  --line-soft: #334155;
+  --section-rule: #334155;
   --mark: #1E3A5F;
   --color-award: #F2A8B8;
 }
@@ -2198,7 +2198,7 @@ html {
 .section + .section {
   margin-top: 3.25rem;
   padding-top: 3.25rem;
-  border-top: 1px solid var(--line-soft);
+  border-top: 1px solid var(--section-rule);
 }
 
 .section-heading {
