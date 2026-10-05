@@ -1294,6 +1294,101 @@ html[data-js] .tab-panel.is-active { display: block; }
   border-bottom: 1px solid var(--border-color);
 }
 
+/* Published Journals: the title and its "Selected · All" switch share one
+   row, and the rule under the title spans both. */
+.pub-group__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.pub-group__head .pub-group__title {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* The switch: a pill toggle — a soft grey track with a white pill that
+   carries the choice. The pill is one element (publications.js) that
+   stretches across to the other option and snaps into place. The switch
+   needs JS, so it only appears with it; without JS every paper is listed. */
+.pub-filter {
+  display: none;
+  position: relative;
+  flex-shrink: 0;
+  gap: 2px;
+  padding: 3px;
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--text-primary) 7%, var(--bg-primary));
+}
+html[data-js] .pub-filter { display: inline-flex; }
+
+.pub-filter__btn {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-pill);
+  padding: 0.25rem 0.9rem;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: color 0.25s ease, background-color 0.25s ease,
+              transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pub-filter__btn:not(.is-active):hover { color: var(--text-primary); }
+.pub-filter__btn:active {
+  transform: scale(0.95);
+  transition: color 0.25s ease, background-color 0.25s ease, transform 0.08s ease-out;
+}
+.pub-filter__btn:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--color-accent) 60%, transparent);
+  outline-offset: 1px;
+}
+
+/* The pill (and, until it is placed, the selected button itself). */
+.pub-filter__btn.is-active,
+.pub-filter__indicator {
+  background: var(--bg-surface);
+  box-shadow: 0 1px 2px rgba(17, 17, 17, 0.10), 0 2px 6px rgba(17, 17, 17, 0.08);
+}
+.pub-filter__btn.is-active { color: var(--color-accent); }
+.pub-filter__indicator {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  border-radius: var(--radius-pill);
+  pointer-events: none;
+}
+.pub-filter.has-indicator .pub-filter__btn.is-active { background: transparent; box-shadow: none; }
+
+[data-theme="dark"] .pub-filter { background: color-mix(in srgb, var(--text-primary) 8%, var(--bg-primary)); }
+[data-theme="dark"] .pub-filter__btn.is-active,
+[data-theme="dark"] .pub-filter__indicator {
+  background: color-mix(in srgb, var(--text-primary) 16%, var(--bg-primary));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.45);
+}
+/* Keeps title and switch on one row down to ~360px; narrower, it wraps. */
+@media (max-width: 480px) {
+  .pub-group__head { column-gap: 0.5rem; }
+  .pub-filter__btn { padding: 0.25rem 0.65rem; }
+}
+
+/* "Selected" hides the other journals (with JS only); "All" fades them back
+   in where they belong, numbers unchanged. */
+html[data-js] .pub-group--journals[data-show="selected"] .pub-item[data-selected="false"] { display: none; }
+.pub-group--journals[data-show="all"] .pub-item[data-selected="false"] { animation: fadeIn 0.3s ease; }
+
 .pub-list {
   list-style: none;
   margin: 0;

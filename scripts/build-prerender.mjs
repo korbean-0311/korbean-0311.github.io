@@ -26,7 +26,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
-import { computePubStats } from './lib/pub-stats.mjs';
+import { computePubStats, isSelectedJournal } from './lib/pub-stats.mjs';
 import { readSiteMap, PAGES, countWord, escHTML } from './lib/site-map.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -699,8 +699,9 @@ function pubItemHTML(p, opts) {
   }
 
   const first = pubHasFirstAuthorTag(p) ? '1' : '0';
+  const selected = opts.markSelected ? ` data-selected="${isSelectedJournal(p)}"` : '';
   return `
-      <li class="pub-item" data-first="${first}">
+      <li class="pub-item" data-first="${first}"${selected}>
         ${num}
         <div class="pub-item__body">
           <div class="pub-item__authors">${authors}</div>
@@ -722,7 +723,20 @@ function pubJournalsHTML(DATA) {
     html += `<div class="pub-group"><div class="pub-group__title">Under Review</div><ul class="pub-list">${ur.map(p => pubItemHTML(p, opts)).join('')}</ul></div>`;
   }
   if (pub.length) {
-    html += `<div class="pub-group"><div class="pub-group__title">Published Journals</div><ul class="pub-list">${pub.map(p => pubItemHTML(p, opts)).join('')}</ul></div>`;
+    // Opens on the selected journals (IEEE Transactions / Letters / Magazines,
+    // see isSelectedJournal); "All" brings the rest back in their places. The
+    // numbers never change. Every paper stays in the HTML, so crawlers and
+    // no-JS readers get the full list, and the switch only appears with JS.
+    const others = pub.filter(p => !isSelectedJournal(p)).length;
+    const filter = others ? `
+        <div class="pub-filter" role="group" aria-label="Journal papers shown">
+          <button type="button" class="pub-filter__btn is-active" aria-pressed="true" data-show="selected" title="IEEE Transactions, Letters and Magazines">Selected</button>
+          <button type="button" class="pub-filter__btn" aria-pressed="false" data-show="all" title="All ${pub.length} published journal papers">All</button>
+        </div>` : '';
+    html += `<div class="pub-group pub-group--journals" data-show="selected">
+        <div class="pub-group__head"><div class="pub-group__title">Published Journals</div>${filter}
+        </div>
+        <ul class="pub-list">${pub.map(p => pubItemHTML(p, { ...opts, markSelected: true })).join('')}</ul></div>`;
   }
   return html || `<p class="loading">No entries yet.</p>`;
 }

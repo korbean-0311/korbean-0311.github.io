@@ -1,7 +1,8 @@
 /* publications.js — enhance-only.
    All four tab panels are pre-rendered into the HTML at build time
    (scripts/build-prerender.mjs, static-first). This script only wires the
-   interactions: tab switching, the Abstract / Keywords panels and BibTeX copy.
+   interactions: tab switching, the Published Journals "Selected · All"
+   switch, the Abstract / Keywords panels and BibTeX copy.
    No JSON fetch, no "Loading…" flash, no client-side rendering. */
 (function () {
   'use strict';
@@ -26,25 +27,84 @@
   }
 
   /* ---------- Sliding selection pill ----------
-     One tinted pill sits behind the tab buttons and glides to the selected
-     one, rather than each button snapping a fill on and off. Until it is
-     placed (and without JS) the selected button wears the same tint itself. */
-  const tabBar = document.querySelector('.tab-bar');
-  let indicator = null;
+     One tinted pill sits behind a row of buttons and glides to the selected
+     one, rather than each button snapping a fill on and off. Used by the
+     category tabs and by the Published Journals "Selected · All" switch.
+     Until it is placed (and without JS) the selected button wears the same
+     tint itself; the row gets .has-indicator once the pill takes over. */
+  const reducedMotion = window.matchMedia
+    ? window.matchMedia('(prefers-reduced-motion: reduce)')
+    : { matches: false };
 
-  function placeIndicator(animate) {
-    if (!indicator) return;
-    const btn = tabBar.querySelector('.tab-btn.is-active');
-    if (!btn) return;
-    if (!animate) indicator.classList.add('is-instant');
-    indicator.style.width = btn.offsetWidth + 'px';
-    indicator.style.height = btn.offsetHeight + 'px';
-    indicator.style.transform = `translate(${btn.offsetLeft}px, ${btn.offsetTop}px)`;
-    if (!animate) {
-      void indicator.offsetWidth;            // commit the jump before the glide comes back
-      indicator.classList.remove('is-instant');
+  // opts.stretch: instead of a plain glide, the pill stretches over both
+  // options and then snaps onto the new one with a little squash — the
+  // "swoosh" of the Selected · All switch. Needs the Web Animations API;
+  // without it (or with reduced motion) the pill just moves.
+  function makeGlider(row, btnSelector, indicatorClass, opts) {
+    if (!row) return { place() {} };
+    opts = opts || {};
+    const pill = document.createElement('span');
+    pill.className = indicatorClass;
+    pill.setAttribute('aria-hidden', 'true');
+    row.prepend(pill);
+    let last = null;                         // where the pill rests: {x, y, w, h}
+
+    function swoosh(from, to) {
+      // Start from where the pill is on screen if a swoosh is still running.
+      const running = pill.getAnimations();
+      if (running.length) {
+        const r = pill.getBoundingClientRect(), rr = row.getBoundingClientRect();
+        from = { x: r.left - rr.left - row.clientLeft, y: from.y, w: r.width, h: from.h };
+        running.forEach(a => a.cancel());
+      }
+      const left = Math.min(from.x, to.x);
+      const span = Math.max(from.x + from.w, to.x + to.w) - left;
+      pill.animate([
+        // accelerate into the stretch…
+        { transform: `translate(${from.x}px, ${from.y}px)`, width: from.w + 'px',
+          easing: 'cubic-bezier(0.55, 0, 0.8, 0.4)' },
+        // …then let go: the far edge stays put, the near edge overshoots
+        // inward a little and springs back.
+        { transform: `translate(${left}px, ${to.y}px)`, width: span + 'px', offset: 0.4,
+          easing: 'cubic-bezier(0.2, 1.5, 0.4, 1)' },
+        { transform: `translate(${to.x}px, ${to.y}px)`, width: to.w + 'px' },
+      ], { duration: 440 });
     }
+
+    function place(animate) {
+      const btn = row.querySelector(btnSelector + '.is-active');
+      if (!btn) return;
+      const to = { x: btn.offsetLeft, y: btn.offsetTop, w: btn.offsetWidth, h: btn.offsetHeight };
+      const stretch = animate && opts.stretch && last && pill.animate && !reducedMotion.matches;
+      if (!animate) pill.classList.add('is-instant');
+      pill.style.width = to.w + 'px';
+      pill.style.height = to.h + 'px';
+      pill.style.transform = `translate(${to.x}px, ${to.y}px)`;
+      if (stretch) swoosh(last, to);
+      if (!animate) {
+        void pill.offsetWidth;               // commit the jump before the glide comes back
+        pill.classList.remove('is-instant');
+      }
+      last = to;
+    }
+
+    place(false);
+    row.classList.add('has-indicator');
+    // Web fonts, resizes and a hidden tab panel becoming visible all change
+    // the buttons' boxes: follow them without a glide.
+    if ('ResizeObserver' in window) {
+      const ro = new ResizeObserver(() => place(false));
+      row.querySelectorAll(btnSelector).forEach(b => ro.observe(b));
+    } else {
+      window.addEventListener('resize', () => place(false));
+    }
+    // iOS Safari only shows :active (the press) when a touch listener exists.
+    row.addEventListener('touchstart', () => {}, { passive: true });
+    return { place };
   }
+
+  const tabBar = document.querySelector('.tab-bar');
+  let tabGlider = { place() {} };
 
   // On a narrow screen the bar scrolls sideways: bring a half-hidden tab in.
   function revealInBar(btn) {
@@ -54,25 +114,6 @@
     }
   }
 
-  function initIndicator() {
-    if (!tabBar) return;
-    indicator = document.createElement('span');
-    indicator.className = 'tab-bar__indicator';
-    indicator.setAttribute('aria-hidden', 'true');
-    tabBar.prepend(indicator);
-    placeIndicator(false);
-    tabBar.classList.add('has-indicator');
-    // Web fonts and resizes change the buttons' widths: follow without a glide.
-    if ('ResizeObserver' in window) {
-      const ro = new ResizeObserver(() => placeIndicator(false));
-      tabBar.querySelectorAll('.tab-btn').forEach(b => ro.observe(b));
-    } else {
-      window.addEventListener('resize', () => placeIndicator(false));
-    }
-    // iOS Safari only shows :active (the press) when a touch listener exists.
-    tabBar.addEventListener('touchstart', () => {}, { passive: true });
-  }
-
   function selectTab(tab) {
     document.querySelectorAll('.tab-panel').forEach(p => {
       p.classList.toggle('is-active', p.dataset.tab === tab);
@@ -80,9 +121,31 @@
     setActiveTabButton(tab);
     if (tabContent) tabContent.setAttribute('data-current-tab', tab);
     refade();
-    placeIndicator(true);
+    tabGlider.place(true);
     const btn = tabBar && tabBar.querySelector('.tab-btn.is-active');
     if (btn) revealInBar(btn);
+  }
+
+  /* ---------- Published Journals: Selected · All ----------
+     The list opens on the selected journals; "All" shows the others in their
+     places (CSS keys off the group's data-show). Numbers never change. */
+  function initJournalFilter(group) {
+    const row = group.querySelector('.pub-filter');
+    if (!row) return;
+    const glider = makeGlider(row, '.pub-filter__btn', 'pub-filter__indicator', { stretch: true });
+    row.querySelectorAll('.pub-filter__btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const show = btn.dataset.show;
+        if (group.dataset.show === show) return;
+        group.dataset.show = show;
+        row.querySelectorAll('.pub-filter__btn').forEach(b => {
+          const on = b === btn;
+          b.classList.toggle('is-active', on);
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        glider.place(true);
+      });
+    });
   }
 
   /* ---------- BibTeX copy (delegated; works on the pre-rendered DOM) ---------- */
@@ -161,6 +224,7 @@
     document.querySelectorAll('.tab-btn').forEach(btn => {
       btn.addEventListener('click', () => selectTab(btn.dataset.tab));
     });
-    initIndicator();
+    tabGlider = makeGlider(tabBar, '.tab-btn', 'tab-bar__indicator');
+    document.querySelectorAll('.pub-group--journals').forEach(initJournalFilter);
   });
 })();

@@ -68,3 +68,15 @@ export function computePubStats(pubs) {
     { first: 0, co: 0, total: 0 });
   return { rows, total, unmatched };
 }
+
+/**
+ * Selected journals: the Published Journals list opens on these and keeps the
+ * rest behind its "Selected · All" switch (decided with the site owner,
+ * 2026-10-05). IEEE Transactions, Letters and Magazines are selected; any
+ * paper can override the rule with `"selected": true` or `false` in
+ * data/publications.json (for, say, an IEEE "Journal" that should count).
+ */
+export function isSelectedJournal(p) {
+  if (typeof p.selected === 'boolean') return p.selected;
+  return /^IEEE\b.*\b(Transactions|Letters|Magazine)\b/.test(String(p.venue || ''));
+}

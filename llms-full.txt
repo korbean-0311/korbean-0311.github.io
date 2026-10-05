@@ -585,4 +585,4 @@ Profiles linked from the figure:
 _Email omitted; please reach out via LinkedIn or the lab homepage._
 
 ---
-_Generated automatically from data/*.json and the site's pages on 2026-10-04._
+_Generated automatically from data/*.json and the site's pages on 2026-10-05._
