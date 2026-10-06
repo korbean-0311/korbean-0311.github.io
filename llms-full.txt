@@ -546,6 +546,7 @@ Profiles linked from the figure:
 
 ### Journal Reviewer
 - IEEE TMTT (IEEE Transactions on Microwave Theory and Techniques), 2026
+- IEEE TAP (IEEE Transactions on Antennas and Propagation), 2026
 - IEEE TPEL (IEEE Transactions on Power Electronics), 2025, 2026
 - IEEE JESTIE (IEEE Journal of Emerging and Selected Topics in Industrial Electronics), 2026
 
@@ -585,4 +586,4 @@ Profiles linked from the figure:
 _Email omitted; please reach out via LinkedIn or the lab homepage._
 
 ---
-_Generated automatically from data/*.json and the site's pages on 2026-10-05._
+_Generated automatically from data/*.json and the site's pages on 2026-10-06._
