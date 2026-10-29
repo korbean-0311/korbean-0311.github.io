@@ -15,7 +15,7 @@ The site has 3 pages. "Academics" is ONE long page that holds the whole academic
 - [Home](https://korbean-0311.github.io/): About me (biography and research interests), Recent News, and Press (media coverage)
 - [Academics](https://korbean-0311.github.io/academics.html): One long page with six sections —
   - [Education](https://korbean-0311.github.io/academics.html#education): Academic timeline (Ph.D. & M.S. at Seoul National University, B.S. at Korea University) with advisors, plus a collapsible academic-genealogy figure (doctoral advisor lineage)
-  - [Publications](https://korbean-0311.github.io/academics.html#publications): A paper-count summary of selected IEEE journals (first- vs. co-authored), international journals (published and under review, with abstracts, keywords, BibTeX), international conferences, domestic conferences, and patents
+  - [Publications](https://korbean-0311.github.io/academics.html#publications): A paper-count summary of selected IEEE journals (first- vs. co-authored), international journals (with abstracts, keywords, BibTeX), international conferences, domestic conferences, and patents
   - [Awards & Honors](https://korbean-0311.github.io/academics.html#awards): Conference Awards (International), Conference Awards (Domestic), Conference Grants & Travel, Scholarships & Fellowships, Invited Papers, and Student Paper Competitions
   - [Research](https://korbean-0311.github.io/academics.html#research): Research projects with organizations, periods, and summaries (Graduate Student; Undergraduate Student Intern)
   - [Academic Service](https://korbean-0311.github.io/academics.html#academic-service): Journal Reviewer and Teaching Assistant (SNU)

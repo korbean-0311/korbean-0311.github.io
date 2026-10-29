@@ -1,6 +1,12 @@
 {
   "news": [
     {
+      "date": "14 Oct 2026",
+      "kind": "paper",
+      "body": "<strong>Paper accepted in IEEE {{AWPL}}</strong>",
+      "tag": "1st Author"
+    },
+    {
       "date": "05 Sep 2026",
       "kind": "paper",
       "body": "<strong>Paper accepted in IEEE {{TMTT}}</strong>",

@@ -1,27 +1,28 @@
 {
   "international_journals": {
-    "under_review": [
+    "under_review": [],
+    "published": [
       {
-        "number": 1,
+        "number": 8,
         "authors": "Y.-S. Lee(=), S. Kim(=), T. Yoon, S. Nam*, and J. Oh*",
         "title": "Virtual-Beacon Depth Refocusing for Improved Received-Power Uniformity in Near-Field Time-Reversal Wireless Power Transfer",
         "venue": "IEEE Antennas and Wireless Propagation Letters (AWPL)",
+        "details": "Early Access, 2026",
         "highlight_author": "Y.-S. Lee",
         "tags": [
           "1st Author"
         ],
-        "notes": [
-          {
-            "label": "Under Review",
-            "kind": "info",
-            "icon": ""
-          }
+        "notes": [],
+        "doi": "https://doi.org/10.1109/LAWP.2026.3743501",
+        "pdf": "pdfs/lee2026-awpl-virtual-beacon-depth-refocusing.pdf",
+        "bibtex": "@ARTICLE{11737514,\n  author={Lee, Young-Seok and Kim, Sihyun and Yoon, Taeyeong and Nam, Sangwook and Oh, Jungsuek},\n  journal={IEEE Antennas and Wireless Propagation Letters},\n  title={Virtual-Beacon Depth Refocusing for Improved Received-Power Uniformity in Near-Field Time-Reversal Wireless Power Transfer},\n  year={2026},\n  volume={},\n  number={},\n  pages={1-5},\n  doi={10.1109/LAWP.2026.3743501}}",
+        "keywords": [
+          "Beam-focusing",
+          "Near field",
+          "Time reversal"
         ],
-        "doi": "",
-        "bibtex": ""
-      }
-    ],
-    "published": [
+        "abstract": "This letter proposes a virtual-beacon-based depth refocusing technique that improves the received-power uniformity of near-field time-reversal (TR) wireless power transfer (WPT). For an array receiver (RXA), conventional TR focuses the field back onto the beacon, and the resulting high non-uniformity, which especially worsens for larger arrays, keeps the array rectifiers from operating efficiently and limits the received DC power. Inspired by an optical lens, the proposed method adjusts a single coefficient β to refocus the beam toward a ‘virtual beacon’ in depth, spreading the incident power more uniformly over the RXA. Since the refocusing acts directly on the measured single-beacon phase surface, it requires no RXA localization and retains the real-time, low-complexity phase processing of TR. In a 5.64 GHz scenario, simulations and measurements confirm a substantial uniformity improvement, raising the received DC power by up to 158%. A feasible feedback-based closed-loop search for real-time implementation is further proposed."
+      },
       {
         "number": 7,
         "authors": "T. Yoon, Y.-S. Lee, U. Park, M. Kim, S. Lee, S. Nam, and J. Oh*",

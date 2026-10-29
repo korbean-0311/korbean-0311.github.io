@@ -28,6 +28,7 @@ I have collaborated with industry partners including Samsung Electronics on RF W
 
 ## Recent News
 
+- **14 Oct 2026** — [Paper] Paper accepted in IEEE AWPL _(1st Author)_
 - **05 Sep 2026** — [Paper] Paper accepted in IEEE TMTT _(Co-author)_
 - **09 Jul 2026** — [Award] Best Student Paper Award (1st place, sole recipient, $800) at IEEE WPTCE 2026 _(1st Author)_
 - **03 Jul 2026** — [Grant] IEEE MTT-S Student Travel Grant ($1,000) for IEEE WPTCE 2026 _(1st Author)_
@@ -51,18 +52,31 @@ I have collaborated with industry partners including Samsung Electronics on RF W
 
 - IEEE TMTT (IEEE Transactions on Microwave Theory and Techniques): 3 papers — 2 as first author, 1 as co-author
 - IEEE TAP (IEEE Transactions on Antennas and Propagation): 1 paper — 1 as co-author
-- IEEE AWPL (IEEE Antennas and Wireless Propagation Letters): 1 paper — 1 as first author
-- Total: 5 papers — 3 as first author, 2 as co-author
-
-### International Journals — Under Review
-
-- **[1] Virtual-Beacon Depth Refocusing for Improved Received-Power Uniformity in Near-Field Time-Reversal Wireless Power Transfer**
-  - Authors: Y.-S. Lee(=), S. Kim(=), T. Yoon, S. Nam*, and J. Oh*
-  - Venue: IEEE Antennas and Wireless Propagation Letters (AWPL)
-  - Tags: 1st Author
-  - Notes: Under Review
+- IEEE AWPL (IEEE Antennas and Wireless Propagation Letters): 2 papers — 2 as first author
+- Total: 6 papers — 4 as first author, 2 as co-author
 
 ### International Journals — Published
+
+- **[8] Virtual-Beacon Depth Refocusing for Improved Received-Power Uniformity in Near-Field Time-Reversal Wireless Power Transfer**
+  - Authors: Y.-S. Lee(=), S. Kim(=), T. Yoon, S. Nam*, and J. Oh*
+  - Venue: IEEE Antennas and Wireless Propagation Letters (AWPL)
+  - Details: Early Access, 2026
+  - DOI: https://doi.org/10.1109/LAWP.2026.3743501
+  - Tags: 1st Author
+  - Keywords: Beam-focusing, Near field, Time reversal
+  - Abstract: This letter proposes a virtual-beacon-based depth refocusing technique that improves the received-power uniformity of near-field time-reversal (TR) wireless power transfer (WPT). For an array receiver (RXA), conventional TR focuses the field back onto the beacon, and the resulting high non-uniformity, which especially worsens for larger arrays, keeps the array rectifiers from operating efficiently and limits the received DC power. Inspired by an optical lens, the proposed method adjusts a single coefficient β to refocus the beam toward a ‘virtual beacon’ in depth, spreading the incident power more uniformly over the RXA. Since the refocusing acts directly on the measured single-beacon phase surface, it requires no RXA localization and retains the real-time, low-complexity phase processing of TR. In a 5.64 GHz scenario, simulations and measurements confirm a substantial uniformity improvement, raising the received DC power by up to 158%. A feasible feedback-based closed-loop search for real-time implementation is further proposed.
+  - BibTeX:
+    ```bibtex
+    @ARTICLE{11737514,
+      author={Lee, Young-Seok and Kim, Sihyun and Yoon, Taeyeong and Nam, Sangwook and Oh, Jungsuek},
+      journal={IEEE Antennas and Wireless Propagation Letters},
+      title={Virtual-Beacon Depth Refocusing for Improved Received-Power Uniformity in Near-Field Time-Reversal Wireless Power Transfer},
+      year={2026},
+      volume={},
+      number={},
+      pages={1-5},
+      doi={10.1109/LAWP.2026.3743501}}
+    ```
 
 - **[7] Hardware-Aware MILP for Optimal End-to-End Efficiency in MISO WPT: Joint Optimization of Power Modes and Fault Tolerance**
   - Authors: T. Yoon, Y.-S. Lee, U. Park, M. Kim, S. Lee, S. Nam, and J. Oh*
@@ -586,4 +600,4 @@ Profiles linked from the figure:
 _Email omitted; please reach out via LinkedIn or the lab homepage._
 
 ---
-_Generated automatically from data/*.json and the site's pages on 2026-10-06._
+_Generated automatically from data/*.json and the site's pages on 2026-10-29._
