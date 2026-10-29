@@ -1166,7 +1166,9 @@ html[data-js] .pub-panel:not(.is-open) { display: none; }
   z-index: 0;
   border-radius: var(--radius-pill);
   pointer-events: none;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+  /* left + width, not transform + width: both run on the same thread, so a
+     busy phone cannot let the edges drift apart (publications.js). */
+  transition: left 0.35s cubic-bezier(0.22, 1, 0.36, 1),
               width 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .tab-bar__indicator.is-instant { transition: none; }

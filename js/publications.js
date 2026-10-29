@@ -47,27 +47,26 @@
     pill.className = indicatorClass;
     pill.setAttribute('aria-hidden', 'true');
     row.prepend(pill);
-    let last = null;                         // where the pill rests: {x, y, w, h}
+    let placed = false;
 
+    // The pill is positioned with left / top / width, not transform: a
+    // transform runs on the compositor and a width on the main thread, and
+    // on a phone busy laying out the papers that "All" reveals the two fell
+    // out of step — the pill's edge left the track for a moment. Moving both
+    // on the same thread keeps the far edge exactly still while the pill
+    // shrinks onto its option.
     function swoosh(from, to) {
-      // Start from where the pill is on screen if a swoosh is still running.
-      const running = pill.getAnimations();
-      if (running.length) {
-        const r = pill.getBoundingClientRect(), rr = row.getBoundingClientRect();
-        from = { x: r.left - rr.left - row.clientLeft, y: from.y, w: r.width, h: from.h };
-        running.forEach(a => a.cancel());
-      }
       const left = Math.min(from.x, to.x);
       const span = Math.max(from.x + from.w, to.x + to.w) - left;
       pill.animate([
         // accelerate into the stretch…
-        { transform: `translate(${from.x}px, ${from.y}px)`, width: from.w + 'px',
+        { left: from.x + 'px', top: from.y + 'px', width: from.w + 'px',
           easing: 'cubic-bezier(0.55, 0, 0.8, 0.4)' },
         // …then let go: the far edge stays put, the near edge overshoots
         // inward a little and springs back.
-        { transform: `translate(${left}px, ${to.y}px)`, width: span + 'px', offset: 0.4,
+        { left: left + 'px', top: to.y + 'px', width: span + 'px', offset: 0.4,
           easing: 'cubic-bezier(0.2, 1.5, 0.4, 1)' },
-        { transform: `translate(${to.x}px, ${to.y}px)`, width: to.w + 'px' },
+        { left: to.x + 'px', top: to.y + 'px', width: to.w + 'px' },
       ], { duration: 440 });
     }
 
@@ -75,26 +74,34 @@
       const btn = row.querySelector(btnSelector + '.is-active');
       if (!btn) return;
       const to = { x: btn.offsetLeft, y: btn.offsetTop, w: btn.offsetWidth, h: btn.offsetHeight };
-      const stretch = animate && opts.stretch && last && pill.animate && !reducedMotion.matches;
+      // Where the pill is now — mid-swoosh included (an animated left/width
+      // shows in offsetLeft/offsetWidth) — so a second tap carries on from
+      // there instead of jumping.
+      const from = { x: pill.offsetLeft, y: pill.offsetTop, w: pill.offsetWidth, h: pill.offsetHeight };
+      pill.getAnimations().forEach(a => a.cancel());
+      const stretch = animate && opts.stretch && placed && pill.animate && !reducedMotion.matches;
       if (!animate) pill.classList.add('is-instant');
+      pill.style.left = to.x + 'px';
+      pill.style.top = to.y + 'px';
       pill.style.width = to.w + 'px';
       pill.style.height = to.h + 'px';
-      pill.style.transform = `translate(${to.x}px, ${to.y}px)`;
-      if (stretch) swoosh(last, to);
+      if (stretch) swoosh(from, to);
       if (!animate) {
         void pill.offsetWidth;               // commit the jump before the glide comes back
         pill.classList.remove('is-instant');
       }
-      last = to;
+      placed = true;
     }
 
     place(false);
     row.classList.add('has-indicator');
-    // Web fonts, resizes and a hidden tab panel becoming visible all change
-    // the buttons' boxes: follow them without a glide.
+    // Web fonts, resizes, a padding change at a breakpoint and a hidden tab
+    // panel becoming visible all move the buttons: follow without a glide.
+    // (border-box, so a padding change counts; the row, so a move does.)
     if ('ResizeObserver' in window) {
       const ro = new ResizeObserver(() => place(false));
-      row.querySelectorAll(btnSelector).forEach(b => ro.observe(b));
+      row.querySelectorAll(btnSelector).forEach(b => ro.observe(b, { box: 'border-box' }));
+      ro.observe(row);
     } else {
       window.addEventListener('resize', () => place(false));
     }
