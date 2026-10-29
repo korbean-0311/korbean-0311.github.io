@@ -1,0 +1,95 @@
+name: Sync journal papers
+
+# Every Saturday at 09:00 KST, look up the owner's journal papers in Crossref
+# and OpenAlex (scripts/sync-papers.mjs) and bring the site up to date:
+#   - An Early Access paper that now has its volume / issue / pages gets its
+#     citation filled in. Safe, so it is committed to main and deployed.
+#   - A journal paper the site does not list yet is proposed as a pull
+#     request (GitHub emails the owner). It holds only the data change;
+#     merging it rebuilds and deploys the site (build-llms.yml).
+# If GitHub Actions may not open pull requests in this repository (Settings ->
+# Actions -> General -> "Allow GitHub Actions to create and approve pull
+# requests"), the branch is pushed anyway and an issue links to it.
+# Abstracts, author keywords, the (=) / * marks and the PDF are not in any
+# metadata: they are added by hand from the paper's PDF.
+
+on:
+  schedule:
+    - cron: '0 0 * * 6'   # Saturdays 00:00 UTC = 09:00 KST
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+  actions: write
+
+concurrency:
+  group: sync-papers
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Git identity
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Fill in the citations of Early Access papers
+        run: node scripts/sync-papers.mjs --mode=safe --summary "$RUNNER_TEMP/safe.md"
+
+      - name: Publish them
+        run: |
+          if [ ! -s "$RUNNER_TEMP/safe.md" ]; then echo "No citation to fill in."; exit 0; fi
+          node scripts/build-prerender.mjs
+          node scripts/build-llms.mjs
+          node scripts/check-ai-sync.mjs
+          git add data llms.txt llms-full.txt js/main.js *.html
+          { echo "content: citations for Early Access papers (Crossref)"; echo; cat "$RUNNER_TEMP/safe.md"; } > "$RUNNER_TEMP/safe-msg.txt"
+          git commit -F "$RUNNER_TEMP/safe-msg.txt"
+          git push origin HEAD:main
+          # A push made with this workflow's token starts no other workflow.
+          gh workflow run pages.yml --ref main
+
+      - name: Look for new papers
+        run: |
+          # A paper already waiting in an open pull request or issue is not
+          # proposed again.
+          gh label create paper-sync --color 1D76DB --description "Found by the weekly paper sync" 2>/dev/null || true
+          waiting=$( gh pr list --state open --label paper-sync --json body -q '.[].body'
+                     gh issue list --state open --label paper-sync --json body -q '.[].body' )
+          # (grep finds nothing most weeks; the runner's bash has pipefail on)
+          exclude=$( printf '%s\n' "$waiting" | { grep -oiE '10\.[0-9]{4,9}/[A-Za-z0-9._;/:-]+' || true; } | sort -u | paste -sd, - )
+          node scripts/sync-papers.mjs --mode=new --exclude-doi "$exclude" --summary "$RUNNER_TEMP/new.md"
+
+      - name: Propose them
+        run: |
+          if [ ! -s "$RUNNER_TEMP/new.md" ]; then echo "No new paper."; exit 0; fi
+          # Build and check the whole site with the change, so a proposal that
+          # would break a page fails here instead of after the merge.
+          node scripts/build-prerender.mjs
+          node scripts/build-llms.mjs
+          node scripts/check-ai-sync.mjs
+          branch="paper-sync/$(date -u +%Y%m%d-%H%M)"
+          git switch -c "$branch"
+          git add data
+          git commit -m "content: new journal papers (Crossref / OpenAlex)" -m "$(cat "$RUNNER_TEMP/new.md")"
+          git push origin "$branch"
+          title="New journal paper for the site"
+          if ! gh pr create --base main --head "$branch" --title "$title" --body-file "$RUNNER_TEMP/new.md" --label paper-sync; then
+            { cat "$RUNNER_TEMP/new.md"
+              echo
+              echo "---"
+              echo "GitHub Actions may not open pull requests in this repository, so the change waits on the branch \`$branch\`."
+              echo
+              echo "**Open the pull request:** https://github.com/$GITHUB_REPOSITORY/compare/main...$branch?expand=1"
+            } > "$RUNNER_TEMP/issue.md"
+            gh issue create --title "$title" --body-file "$RUNNER_TEMP/issue.md" --label paper-sync
+          fi

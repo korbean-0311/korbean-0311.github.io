@@ -26,6 +26,7 @@ on:
 
 permissions:
   contents: write
+  actions: write   # to start the deploy for the bot's own commit (see below)
 
 concurrency:
   group: build-llms-${{ github.ref }}
@@ -50,7 +51,14 @@ jobs:
       - name: Generate llms-full.txt and llms.txt
         run: node scripts/build-llms.mjs
 
+      # A push made with this workflow's token starts no other workflow, so the
+      # deploy that ran for the triggering push shipped the pages as they were
+      # before this rebuild. Start one more deploy for the regenerated commit
+      # (it queues behind the first; until 2026-10 these commits went live
+      # only with the next push).
       - name: Commit if changed
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           if [ -n "$(git status --porcelain llms-full.txt llms.txt js/main.js *.html)" ]; then
             git config user.name  "github-actions[bot]"
@@ -58,6 +66,7 @@ jobs:
             git add llms-full.txt llms.txt js/main.js *.html
             git commit -m "chore: regenerate llms-full.txt & AI fallbacks"
             git push
+            gh workflow run pages.yml --ref main
           else
             echo "Generated content is up to date — nothing to commit."
           fi
