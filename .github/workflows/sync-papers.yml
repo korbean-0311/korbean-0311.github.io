@@ -36,6 +36,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Full history: sitemap.xml dates each URL by its file's last commit.
+          fetch-depth: 0
 
       - name: Git identity
         run: |
@@ -51,7 +54,7 @@ jobs:
           node scripts/build-prerender.mjs
           node scripts/build-llms.mjs
           node scripts/check-ai-sync.mjs
-          git add data llms.txt llms-full.txt js/main.js *.html
+          git add data llms.txt llms-full.txt sitemap.xml js/main.js *.html
           { echo "content: citations for Early Access papers (Crossref)"; echo; cat "$RUNNER_TEMP/safe.md"; } > "$RUNNER_TEMP/safe-msg.txt"
           git commit -F "$RUNNER_TEMP/safe-msg.txt"
           git push origin HEAD:main

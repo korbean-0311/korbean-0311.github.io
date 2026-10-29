@@ -16,6 +16,7 @@ on:
       - 'academics.html'
       - 'contact.html'
       - 'llms.txt'
+      - 'sitemap.xml'
       - 'js/main.js'
       - 'scripts/build-llms.mjs'
       - 'scripts/build-prerender.mjs'
@@ -42,6 +43,8 @@ jobs:
         with:
           # Use the default GITHUB_TOKEN; we have contents:write permission.
           persist-credentials: true
+          # Full history: sitemap.xml dates each URL by its file's last commit.
+          fetch-depth: 0
 
       # Pages first: build-llms.mjs reads the About-me text, the profile card
       # and the contact details out of the rendered pages.
@@ -60,10 +63,10 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          if [ -n "$(git status --porcelain llms-full.txt llms.txt js/main.js *.html)" ]; then
+          if [ -n "$(git status --porcelain llms-full.txt llms.txt sitemap.xml js/main.js *.html)" ]; then
             git config user.name  "github-actions[bot]"
             git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git add llms-full.txt llms.txt js/main.js *.html
+            git add llms-full.txt llms.txt sitemap.xml js/main.js *.html
             git commit -m "chore: regenerate llms-full.txt & AI fallbacks"
             git push
             gh workflow run pages.yml --ref main

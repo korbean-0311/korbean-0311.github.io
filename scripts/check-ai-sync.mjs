@@ -4,8 +4,9 @@
  * what the pages say.
  *
  * Every file it looks at is generated — llms-full.txt, llms.txt, the Site
- * guide <nav> / <noscript> notes and the hidden <h1> on the pages, and the
- * Academics dropdown list in js/main.js — so what this guards is the
+ * guide <nav> / <noscript> notes and the hidden <h1> on the pages, the
+ * Academics dropdown list in js/main.js, the Person structured data of the
+ * home page and sitemap.xml — so what this guards is the
  * generators themselves: a markup change that a parser no longer reads
  * correctly would otherwise go unnoticed. It re-derives each fact with its
  * own patterns rather than importing the generators' code.
@@ -141,6 +142,33 @@ for (const m of acad.matchAll(/<h3[^>]*\bid="(reviewer|ta)-heading"[^>]*>([^<]+)
 }
 for (const m of home.matchAll(/<h2 id="(news|press)-heading">([^<]+)<\/h2>/g)) {
   expect(full.includes(`## ${text(m[2])}`), 'llms-full.txt', `no "## ${text(m[2])}" heading`);
+}
+
+// ---- 5. Person structured data on the home page ---------------------------------
+const person = [...home.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)]
+  .map(m => { try { return JSON.parse(m[1]); } catch { return null; } })
+  .find(j => j && j['@type'] === 'Person');
+expect(person, 'index.html', 'no Person JSON-LD');
+if (person) {
+  const cardName = text((home.match(/<p class="profile__name">([\s\S]*?)<\/p>/) || [])[1] || '');
+  expect(person.name === cardName, 'index.html (Person)', `name "${person.name}" differs from the profile card ("${cardName}")`);
+  const firstRole = text(((home.match(/<p class="profile__role">([\s\S]*?)<\/p>/) || [])[1] || '').split(/<br\s*\/?>/)[0]);
+  expect(String(person.jobTitle).startsWith(firstRole), 'index.html (Person)', `jobTitle "${person.jobTitle}" does not start with the card's "${firstRole}"`);
+  const cardLinks = [...links.matchAll(/<a href="([^"]+)"/g)].map(m => text(m[1]));
+  expect(JSON.stringify(person.sameAs) === JSON.stringify(cardLinks), 'index.html (Person)', 'sameAs differs from the profile card links');
+  const keywords = ((full.match(/\*\*Research keywords:\*\* ([^\n]*)/) || [])[1] || '').trim();
+  expect((person.knowsAbout || []).join(', ') === keywords, 'index.html (Person)', 'knowsAbout differs from the research keywords in llms-full.txt');
+  const schools = json('education.json').filter(e => e.degree).map(e => e.school.replace(/\s*\([^)]*\)\s*$/, ''));
+  for (const a of person.alumniOf || []) expect(schools.includes(a.name), 'index.html (Person)', `alumniOf "${a.name}" is not a school in education.json`);
+}
+
+// ---- 6. sitemap.xml: every URL with a last-modified date ------------------------
+const sitemap = read('sitemap.xml');
+const todayUTC = new Date().toISOString().slice(0, 10);
+for (const u of ['', 'academics.html', 'contact.html', 'llms.txt', 'llms-full.txt']) {
+  const m = sitemap.match(new RegExp(`<loc>https://korbean-0311\\.github\\.io/${u.replace(/\./g, '\\.')}</loc><lastmod>(\\d{4}-\\d{2}-\\d{2})</lastmod>`));
+  expect(m, 'sitemap.xml', `no <lastmod> for /${u}`);
+  if (m) expect(m[1] <= todayUTC, 'sitemap.xml', `lastmod ${m[1]} for /${u} is in the future`);
 }
 
 // ---- report --------------------------------------------------------------------

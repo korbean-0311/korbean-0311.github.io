@@ -21,6 +21,18 @@ import path from 'node:path';
 
 export const SITE = 'https://korbean-0311.github.io/';
 
+// Research keywords. Not shown on any page; written for AI readers and search
+// engines: llms.txt, llms-full.txt and the Person structured data of the home
+// page (knowsAbout). Edit them here only.
+export const RESEARCH_KEYWORDS = [
+  'Wireless Power Transfer (WPT)',
+  'RF Beamforming',
+  'Near-Field Beam Focusing',
+  'Target Detection',
+  'Indoor Localization',
+  'Space Solar Power',
+];
+
 // The three pages, in menu order. `file` is also the link target.
 export const PAGES = [
   { file: 'index.html', name: 'Home', url: SITE },
