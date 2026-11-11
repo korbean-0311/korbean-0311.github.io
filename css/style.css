@@ -30,7 +30,10 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --text-primary: #111111;
   --text-secondary: #7A7A7A;
   --border-color: #D8D8D8;
-  --section-rule: #222222;   /* the line between Academics sections: near-black ink */
+  /* The line between Academics sections: the card-border grey with 30% of the
+     text colour in it, so it reads as a step up from the card lines without
+     standing apart from them (#9C9C9C here; follows the dark theme by itself). */
+  --section-rule: color-mix(in srgb, var(--text-primary) 30%, var(--border-color));
   --mark: #CBE6F4;        /* pale blue half-highlight: news key phrases, About-me advisors, venue names */
 
   --nav-height: 60px;
@@ -58,7 +61,6 @@ html[data-js] [data-mount-nav] { display: none !important; }
   --text-primary: #F1F5F9;
   --text-secondary: #94A3B8;
   --border-color: #334155;
-  --section-rule: #334155;
   --mark: #1E3A5F;
   --color-award: #F2A8B8;
 }
