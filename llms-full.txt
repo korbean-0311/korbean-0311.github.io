@@ -546,6 +546,7 @@ Profiles linked from the figure:
 ### Undergraduate Student Intern
 
 #### AEL (Advisor: Sangwook Nam) , Seoul National University (Seoul, Republic of Korea) (2021.01 — 2021.08)
+- Studied radio-wave engineering, antennas, and radar systems
 - 36 W DC–DC SMPS PCB design and artwork
 - Trained in circuit design tools (Cadence OrCAD)
 
@@ -600,4 +601,4 @@ Profiles linked from the figure:
 _Email omitted; please reach out via LinkedIn or the lab homepage._
 
 ---
-_Generated automatically from data/*.json and the site's pages on 2026-11-21._
+_Generated automatically from data/*.json and the site's pages on 2026-11-25._

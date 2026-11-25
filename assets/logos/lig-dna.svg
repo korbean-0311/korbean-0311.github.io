@@ -1,66 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- LIG Defense & Aerospace wordmark (Wikimedia Commons, PD-textlogo; source: the company signature pack). viewBox cropped to the LIG letters so the mark stays legible in a 56px logo box. -->
-<svg width="212" height="103.27" version="1.1" viewBox="0 0 212 103.27" xmlns="http://www.w3.org/2000/svg">
-<defs>
-<clipPath id="clipPath4">
-<path transform="translate(-193.16,-86.478)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath6">
-<path transform="translate(-236.28,-105.76)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath8">
-<path transform="translate(-272.43,-97.04)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath10">
-<path transform="translate(-296.5,-98.295)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath12">
-<path transform="translate(-316.79,-97.04)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath14">
-<path transform="translate(-343.74,-82.623)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath16">
-<path transform="translate(-364.78,-82.069)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath18">
-<path transform="translate(-394.06,-97.04)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath20">
-<path transform="translate(-415.61,-102.43)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath22">
-<path transform="translate(-241.53,-57.076)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath24">
-<path transform="translate(-272.43,-60.071)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath26">
-<path transform="translate(-296.87,-62.066)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath28">
-<path transform="translate(-312.17,-62.62)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath30">
-<path transform="translate(-337.24,-45.101)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath32">
-<path transform="translate(-363.19,-62.62)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath34">
-<path transform="translate(-391.28,-62.62)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath36">
-<path transform="translate(-419.94,-45.101)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-<clipPath id="clipPath38">
-<path transform="translate(-451.17,-60.071)" d="M 0,152.451 H 497.048 V 0 H 0 Z"/>
-</clipPath>
-</defs>
-<g transform="translate(0,2)" fill="#1a3767">
+<!-- LIG Defense & Aerospace wordmark (Wikimedia Commons, PD-textlogo), its two text lines set under "LIG" so the mark fits a square logo box. Glyphs and proportions unchanged. -->
+<svg width="319" height="218" version="1.1" viewBox="0 0 319 218" xmlns="http://www.w3.org/2000/svg">
+<g fill="#1a3767">
+<g transform="translate(54.5,1)">
 <path d="m23.733 0.77973h-22.916v89.597h57.167l12.131-21.011h-46.381z"/>
 <path d="m80.676 90.376h22.916v-89.597h-22.916z"/>
 <path transform="matrix(1.3333,0,0,-1.3333,207.54,35.964)" d="m0 0h-32.426v-15.75h14.837c-2.783-6.287-8.783-10.638-15.741-10.638-9.606 0-17.389 8.29-17.389 18.516 0 10.213 7.778 18.496 17.377 18.503l20.815 7e-3 9.101 15.75h-29.904c-18.919 0-34.267-15.339-34.267-34.26 0-18.927 15.348-34.267 34.267-34.267 18.928 0 34.267 15.34 34.267 34.267 0 2.712-0.337 5.343-0.937 7.872" clip-path="url(#clipPath4)"/>
+</g>
+<g transform="translate(-245,116)">
 <path transform="matrix(1.3333,0,0,-1.3333,265.04,10.252)" d="m0 0h-3.586v-16.041h3.586c4.879 0 8.576 2.846 8.576 8.02 0 5.175-3.697 8.021-8.576 8.021m0.37-23.139h-11.718v30.237h11.718c9.425 0 16.005-6.396 16.005-15.119 0-8.724-6.58-15.118-16.005-15.118" clip-path="url(#clipPath6)"/>
 <path transform="matrix(1.3333,0,0,-1.3333,313.24,21.882)" d="m0 0c-0.592 1.847-2.514 2.92-4.621 2.92-2.033 0-3.807-1.073-4.694-2.92zm7.577-5.102h-14.97l-2.328 4.029c-0.148-0.554-0.223-1.145-0.223-1.773 0-3.512 2.403-5.766 5.323-5.766 1.774 0 3.29 0.664 4.029 1.847h7.763c-1.405-5.026-6.025-8.205-11.792-8.205-6.949 0-12.567 4.877-12.567 12.124 0 7.244 5.618 12.124 12.567 12.124 6.95 0 12.383-4.88 12.383-12.124 0-0.776-0.074-1.552-0.185-2.256" clip-path="url(#clipPath8)"/>
 <path transform="matrix(1.3333,0,0,-1.3333,345.33,20.208)" d="m0 0h-3.696v-15.672h-7.615v15.672h-3.327v6.729h3.327v1.44c0 4.511 2.735 7.874 8.28 7.874h6.875l-3.844-6.727h-2.477c-0.776 0-1.219-0.555-1.219-1.183v-1.404h7.54z" clip-path="url(#clipPath10)"/>
@@ -78,5 +25,6 @@
 <path transform="matrix(1.3333,0,0,-1.3333,471.71,67.775)" d="m0 0c-2.957 0-5.323-2.106-5.323-5.395 0-3.292 2.366-5.398 5.323-5.398s5.138 2.106 5.138 5.398c0 3.289-2.181 5.395-5.138 5.395m5.138-16.966v1.478c-1.737-1.293-3.955-2.032-6.432-2.032-6.431 0-11.643 4.878-11.643 12.125 0 7.244 5.212 12.124 11.643 12.124 2.477 0 4.695-0.74 6.432-2.034v1.478h7.615v-23.139z" clip-path="url(#clipPath34)"/>
 <path transform="matrix(1.3333,0,0,-1.3333,509.91,91.134)" d="m0 0c-6.949 0-12.568 4.878-12.568 12.124 0 7.245 5.619 12.125 12.568 12.125 6.173 0 11.2-3.845 12.013-9.796h-7.836c-0.555 1.921-2.144 3.067-4.177 3.067-2.735 0-4.953-2.106-4.953-5.396 0-3.291 2.218-5.397 4.953-5.397 2.07 0 3.696 1.219 4.251 3.215h7.799c-0.813-6.025-5.84-9.942-12.05-9.942" clip-path="url(#clipPath36)"/>
 <path transform="matrix(1.3333,0,0,-1.3333,551.56,71.173)" d="m0 0c-0.592 1.847-2.514 2.92-4.621 2.92-2.033 0-3.807-1.073-4.694-2.92zm7.577-5.102h-14.97l-2.328 4.029c-0.148-0.554-0.223-1.145-0.223-1.773 0-3.512 2.403-5.766 5.323-5.766 1.774 0 3.29 0.664 4.029 1.847h7.763c-1.405-5.026-6.025-8.205-11.792-8.205-6.949 0-12.567 4.877-12.567 12.124 0 7.244 5.618 12.124 12.567 12.124 6.95 0 12.383-4.88 12.383-12.124 0-0.776-0.074-1.552-0.185-2.256" clip-path="url(#clipPath38)"/>
+</g>
 </g>
 </svg>
