@@ -171,6 +171,12 @@ for (const u of ['', 'academics.html', 'contact.html', 'llms.txt', 'llms-full.tx
   if (m) expect(m[1] <= todayUTC, 'sitemap.xml', `lastmod ${m[1]} for /${u} is in the future`);
 }
 
+// ---- 7. Each page names its one address (canonical) ---------------------------------
+for (const [file, html, url] of [['index.html', home, 'https://korbean-0311.github.io/'], ['academics.html', acad, 'https://korbean-0311.github.io/academics.html'], ['contact.html', contact, 'https://korbean-0311.github.io/contact.html']]) {
+  expect(html.includes(`<link rel="canonical" href="${url}" />`), file, `no canonical link to ${url}`);
+  expect(sitemap.includes(`<loc>${url}</loc>`), 'sitemap.xml', `canonical ${url} is not in the sitemap`);
+}
+
 // ---- report --------------------------------------------------------------------
 if (problems.length) {
   console.error(`AI docs out of sync with the pages — ${problems.length} of ${checks} checks failed:\n`);
